@@ -1,4 +1,4 @@
-package pl.edu.pja.core;
+package pl.edu.pja.prz.core;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
