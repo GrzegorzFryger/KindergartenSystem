@@ -9,12 +9,12 @@ import java.util.UUID;
 public class UserAggregate extends BaseAggregateRoot {
 
 	private FullName fullName;
+	private Address address;
 	private Email email;
 	private Password password;
 	private PhoneNumber phoneNumber;
 	private UserRole userRole;
 	private List<UUID> kidsList;
-
 
 
 }
