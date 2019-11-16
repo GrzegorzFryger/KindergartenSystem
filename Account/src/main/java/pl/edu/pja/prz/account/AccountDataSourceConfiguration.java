@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.user;
+package pl.edu.pja.prz.account;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
@@ -12,43 +12,46 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import pl.edu.pja.prz.user.domain.UserAggregate;
+import pl.edu.pja.prz.account.domain.AccountAggregate;
 
 import javax.sql.DataSource;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "pl.edu.pja.prz.user.repository",
-		entityManagerFactoryRef = "userModuleEntityManagerFactory",
-		transactionManagerRef = "userModuleTransactionManager")
-public class UserConfiguration {
+@EnableJpaRepositories(basePackages = "pl.edu.pja.prz.account.domain.repository",
+		entityManagerFactoryRef = "accountModuleEntityManagerFactory",
+		transactionManagerRef = "accountModuleTransactionManager")
+public class AccountDataSourceConfiguration {
 
-	@Primary
+
 	@Bean
-	@ConfigurationProperties("app.datasource.user-module")
-	public DataSourceProperties userDataModuleSourceProperties() {
+	@Primary
+	@ConfigurationProperties("app.datasource.account-module")
+	public DataSourceProperties accountDataModuleSourceProperties() {
 		return new DataSourceProperties();
 	}
 
-	@Primary
+
 	@Bean
-	@ConfigurationProperties("app.datasource.user-module.configuration")
-	public DataSource userModuleDataSource() {
-		return userDataModuleSourceProperties().initializeDataSourceBuilder().build();
+	@Primary
+	@ConfigurationProperties("app.datasource.account-module.configuration")
+	public DataSource accountModuleDataSource() {
+		return accountDataModuleSourceProperties().initializeDataSourceBuilder().build();
 	}
 
+
+	@Bean("accountModuleEntityManagerFactory")
 	@Primary
-	@Bean("userModuleEntityManagerFactory")
-	public LocalContainerEntityManagerFactoryBean createUserModuleEntityManagerFactory(EntityManagerFactoryBuilder builder) {
-		return builder.dataSource(userModuleDataSource()).packages(UserAggregate.class).build();
+	public LocalContainerEntityManagerFactoryBean createAccountModuleEntityManagerFactory(EntityManagerFactoryBuilder builder) {
+		return builder.dataSource(accountModuleDataSource()).packages(AccountAggregate.class).build();
 	}
 
-	@Primary
+
 	@Bean
-	public PlatformTransactionManager userModuleTransactionManager(
-			final @Qualifier("userModuleEntityManagerFactory")
+	@Primary
+	public PlatformTransactionManager accountModuleTransactionManager(
+			final @Qualifier("accountModuleEntityManagerFactory")
 					LocalContainerEntityManagerFactoryBean containerEntityManagerFactoryBean) {
 		return new JpaTransactionManager(containerEntityManagerFactoryBean.getObject());
 	}
-
 }

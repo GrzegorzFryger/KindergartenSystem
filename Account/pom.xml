@@ -10,7 +10,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>User</artifactId>
+    <artifactId>Account</artifactId>
 
     <dependencies>
         <dependency>

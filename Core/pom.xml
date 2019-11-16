@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>pl.edu.pja.prz</groupId>
-            <artifactId>User</artifactId>
+            <artifactId>Account</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>

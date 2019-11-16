@@ -1,5 +1,8 @@
-package pl.edu.pja.prz.user.domain.entity;
+package pl.edu.pja.prz.account.domain.entity;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Address {
 
 	private String postalCode;
@@ -7,7 +10,6 @@ public class Address {
 	private String streetNumber;
 
 	public Address() {
-
 	}
 
 	public String getPostalCode() {
