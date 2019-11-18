@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
-import pl.edu.pja.prz.account.domain.PasswordMenager;
+import pl.edu.pja.prz.account.infrastructure.PasswordMenager;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 

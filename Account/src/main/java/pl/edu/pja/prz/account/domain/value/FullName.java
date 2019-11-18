@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.account.domain.entity;
+package pl.edu.pja.prz.account.domain.value;
 
 import javax.persistence.Embeddable;
 
@@ -21,5 +21,11 @@ public class FullName {
 		return Surname;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
 
+	public void setSurname(String surname) {
+		Surname = surname;
+	}
 }

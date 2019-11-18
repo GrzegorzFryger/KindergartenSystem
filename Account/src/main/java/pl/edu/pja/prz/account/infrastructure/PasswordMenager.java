@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.account.domain;
+package pl.edu.pja.prz.account.infrastructure;
 
 public interface PasswordMenager {
 	String encode(CharSequence rawPassword);

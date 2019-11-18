@@ -12,7 +12,7 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import pl.edu.pja.prz.account.domain.AccountAggregate;
+import pl.edu.pja.prz.account.domain.entity.Account;
 
 import javax.sql.DataSource;
 
@@ -43,7 +43,7 @@ public class AccountDataSourceConfiguration {
 	@Bean("accountModuleEntityManagerFactory")
 	@Primary
 	public LocalContainerEntityManagerFactoryBean createAccountModuleEntityManagerFactory(EntityManagerFactoryBuilder builder) {
-		return builder.dataSource(accountModuleDataSource()).packages(AccountAggregate.class).build();
+		return builder.dataSource(accountModuleDataSource()).packages(Account.class).build();
 	}
 
 

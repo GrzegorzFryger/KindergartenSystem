@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.account.domain.entity;
+package pl.edu.pja.prz.account.domain.value;
 
 import javax.persistence.Embeddable;
 import java.time.LocalDate;
@@ -26,5 +26,17 @@ public class Password {
 
 	public String getCurrentPassword() {
 		return currentPassword;
+	}
+
+	public void setCreateDate(LocalDate createDate) {
+		this.createDate = createDate;
+	}
+
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
+	}
+
+	public void setCurrentPassword(String currentPassword) {
+		this.currentPassword = currentPassword;
 	}
 }

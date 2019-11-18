@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.account.domain.entity;
+package pl.edu.pja.prz.account.domain.value;
 
 import javax.persistence.Embeddable;
 
