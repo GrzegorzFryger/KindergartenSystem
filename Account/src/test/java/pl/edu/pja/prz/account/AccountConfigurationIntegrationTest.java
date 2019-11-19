@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
-import pl.edu.pja.prz.account.infrastructure.PasswordMenager;
+import pl.edu.pja.prz.account.infrastructure.PasswordManager;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -13,11 +13,11 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class AccountConfigurationIntegrationTest {
 
 	@Autowired
-	PasswordMenager passwordMenager;
+	PasswordManager passwordManager;
 
 	@Test
 	public void ShouldLoadAnyBeanFromModuleContext() {
-		assertNotNull(passwordMenager);
+		assertNotNull(passwordManager);
 	}
 
 }

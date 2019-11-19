@@ -7,18 +7,9 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class UserRole {
+public class UserRole extends BaseEntity<Long> {
 
-	private Long id;
 	private List<Role> roles;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public List<Role> getRoles() {
 		return roles;

@@ -1,18 +1,34 @@
 package pl.edu.pja.prz.account.domain.entity;
 
-import pl.edu.pja.prz.account.domain.value.Address;
-import pl.edu.pja.prz.account.domain.value.FullName;
+import lombok.Getter;
+import lombok.Setter;
+import pl.edu.pja.prz.account.domain.value.*;
 
 import java.util.UUID;
 
+
 public class Children extends BaseEntity<UUID> {
 
-	private FullName fullName;
-	private Address address;
 	private Long peselNumber;
-	private StudyPeriod studyPeriod;
-	private Borough borough;
 	private Status status;
+	@Getter
+	@Setter
+	private Gender gender;
+	@Getter
+	@Setter
+	private FullName fullName;
+	@Getter
+	@Setter
+	private Age age;
+	@Getter
+	@Setter
+	private Address address;
+	@Getter
+	@Setter
+	private StudyPeriod studyPeriod;
+	@Getter
+	@Setter
+	private Borough borough;
 
 	public Children() {
 	}
