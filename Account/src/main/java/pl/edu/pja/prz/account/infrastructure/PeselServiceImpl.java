@@ -27,10 +27,10 @@ public class PeselServiceImpl implements PeselService {
 	@Override
 	public LocalDate generateDateFromPesel(Long pesel) {
 		try {
-			PeselServiceImpl.DateOfBirth dateOfBirth = new PeselServiceImpl.DateOfBirth();
+			DateOfBirth dateOfBirth = new PeselServiceImpl.DateOfBirth();
 
 			if (checkSum(pesel)) {
-				getDateOfBirthFromPesel(String.valueOf(pesel));
+				dateOfBirth = getDateOfBirthFromPesel(String.valueOf(pesel));
 			}
 
 			return LocalDate.of(dateOfBirth.year, dateOfBirth.month, dateOfBirth.day);
