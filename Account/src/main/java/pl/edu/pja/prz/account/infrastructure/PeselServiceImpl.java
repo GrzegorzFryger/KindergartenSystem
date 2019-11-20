@@ -25,12 +25,12 @@ public class PeselServiceImpl implements PeselService {
 			(arrayPesel, sumMultiplyByWeight) -> (10 - sumMultiplyByWeight % 10) == arrayPesel[10];
 
 	@Override
-	public LocalDate generateDateFromPesel(Long pesel) {
+	public LocalDate generateDateFromPesel(String pesel) {
 		try {
 			DateOfBirth dateOfBirth = new PeselServiceImpl.DateOfBirth();
 
 			if (checkSum(pesel)) {
-				dateOfBirth = getDateOfBirthFromPesel(String.valueOf(pesel));
+				dateOfBirth = getDateOfBirthFromPesel(pesel);
 			}
 
 			return LocalDate.of(dateOfBirth.year, dateOfBirth.month, dateOfBirth.day);
@@ -40,8 +40,8 @@ public class PeselServiceImpl implements PeselService {
 		}
 	}
 
-	private int[] toArrayOfNumbers(Long pesel) {
-		return String.valueOf(pesel).chars().map(Character::getNumericValue).toArray();
+	private int[] toArrayOfNumbers(String pesel) {
+		return pesel.chars().map(Character::getNumericValue).toArray();
 	}
 
 	private Integer getYearFromPesel(String pesel) {
@@ -72,7 +72,7 @@ public class PeselServiceImpl implements PeselService {
 		return dateOfBirth;
 	}
 
-	private boolean checkSum(Long pesel) {
+	private boolean checkSum(String pesel) {
 		var separatedPeselNumber = toArrayOfNumbers(pesel);
 
 		var sumMultiplyByWeight = 0;

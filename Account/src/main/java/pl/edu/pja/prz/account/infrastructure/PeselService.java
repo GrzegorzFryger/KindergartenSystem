@@ -3,5 +3,5 @@ package pl.edu.pja.prz.account.infrastructure;
 import java.time.LocalDate;
 
 public interface PeselService {
-	LocalDate generateDateFromPesel(Long pesel);
+	LocalDate generateDateFromPesel(String pesel);
 }
