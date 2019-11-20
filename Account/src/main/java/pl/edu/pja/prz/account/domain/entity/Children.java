@@ -2,18 +2,25 @@ package pl.edu.pja.prz.account.domain.entity;
 
 import pl.edu.pja.prz.account.domain.value.*;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.ManyToOne;
 import java.util.UUID;
 
-
+@Entity
 public class Children extends BaseEntity<UUID> {
 
 	private Long peselNumber;
+	@ManyToOne
 	private Status status;
+	@Enumerated(EnumType.STRING)
 	private Gender gender;
 	private FullName fullName;
 	private Age age;
 	private Address address;
 	private StudyPeriod studyPeriod;
+	@ManyToOne
 	private Borough borough;
 
 	public Children() {

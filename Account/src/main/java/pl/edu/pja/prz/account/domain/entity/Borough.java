@@ -3,6 +3,9 @@ package pl.edu.pja.prz.account.domain.entity;
 import pl.edu.pja.prz.account.domain.value.Address;
 import pl.edu.pja.prz.account.domain.value.Phone;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Borough extends BaseEntity<Long> {
 
 	private String name;

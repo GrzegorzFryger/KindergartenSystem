@@ -2,18 +2,22 @@ package pl.edu.pja.prz.account.domain.entity;
 
 import pl.edu.pja.prz.account.domain.value.ChildrenStatus;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Collection;
 
+@Entity
 public class Status extends BaseEntity<Long> {
 
-	private List<ChildrenStatus> childrenStatuses;
+	@ElementCollection
+	private Collection<ChildrenStatus> childrenStatuses;
 
-	public List<ChildrenStatus> getChildrenStatuses() {
+	public Collection<ChildrenStatus> getChildrenStatuses() {
 		return childrenStatuses;
 	}
 
-	public void setChildrenStatuses(List<ChildrenStatus> childrenStatuses) {
+	public void setChildrenStatuses(Collection<ChildrenStatus> childrenStatuses) {
 		this.childrenStatuses = childrenStatuses;
 	}
 

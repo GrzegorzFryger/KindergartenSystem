@@ -23,6 +23,4 @@ public class PasswordManagerImpl implements PasswordManager {
 	public boolean matches(CharSequence rawPassword, String encodePassword) {
 		return passwordEncoder.matches(rawPassword, encodePassword);
 	}
-
-
 }

@@ -6,16 +6,20 @@ import pl.edu.pja.prz.account.domain.value.FullName;
 import pl.edu.pja.prz.account.domain.value.Password;
 import pl.edu.pja.prz.account.domain.value.Phone;
 
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import java.util.UUID;
 
-
+@Entity
 public class Account extends BaseEntity<UUID> {
+
 
 	private Phone phoneNumber;
 	private String email;
 	private FullName fullName;
 	private Address address;
 	private Password password;
+	@ManyToOne
 	private UserRole userRole;
 
 	public Phone getPhoneNumber() {

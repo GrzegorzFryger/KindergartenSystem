@@ -3,19 +3,22 @@ package pl.edu.pja.prz.account.domain.entity;
 
 import pl.edu.pja.prz.account.domain.value.Role;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Collection;
 
-
+@Entity
 public class UserRole extends BaseEntity<Long> {
 
-	private List<Role> roles;
+	@ElementCollection
+	private Collection<Role> roles;
 
-	public List<Role> getRoles() {
+	public Collection<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(List<Role> roles) {
+	public void setRoles(Collection<Role> roles) {
 		this.roles = roles;
 	}
 
