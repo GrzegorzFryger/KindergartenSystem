@@ -1,7 +1,6 @@
 package pl.edu.pja.prz.account.domain.entity;
 
 public class BaseEntity<T> {
-
 	private T id;
 	private Integer version;
 

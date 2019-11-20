@@ -11,5 +11,11 @@ public class Guardian extends Account {
 	public Guardian() {
 	}
 
+	public List<ChildrenId> getChildrenList() {
+		return childrenList;
+	}
 
+	public void setChildrenList(List<ChildrenId> childrenList) {
+		this.childrenList = childrenList;
+	}
 }
