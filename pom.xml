@@ -16,6 +16,7 @@
     <modules>
         <module>Core</module>
         <module>Account</module>
+        <module>Meal</module>
     </modules>
 
     <parent>
