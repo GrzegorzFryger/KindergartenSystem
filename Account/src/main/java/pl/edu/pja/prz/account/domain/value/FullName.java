@@ -17,6 +17,6 @@ public class FullName {
 	private String Surname;
 
 	public String getFullName() {
-		return this.name + " " + this.getSurname();
+		return this.name + " " + this.name;
 	}
 }
