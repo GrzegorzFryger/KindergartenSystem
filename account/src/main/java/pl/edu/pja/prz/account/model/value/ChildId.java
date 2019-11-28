@@ -5,7 +5,7 @@ import java.util.UUID;
 
 
 @Embeddable
-public class ChildrenId {
+public class ChildId {
 
 	private UUID childrenId;
 

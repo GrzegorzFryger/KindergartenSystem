@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import java.util.UUID;
 
 @Entity
-public class Children extends BaseEntity<UUID> {
+public class Child extends BaseEntity<UUID> {
 
 	private Long peselNumber;
 	@ManyToOne
@@ -23,7 +23,7 @@ public class Children extends BaseEntity<UUID> {
 	@ManyToOne
 	private Borough borough;
 
-	public Children() {
+	public Child() {
 	}
 
 	public Long getPeselNumber() {

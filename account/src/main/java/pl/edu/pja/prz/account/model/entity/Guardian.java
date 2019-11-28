@@ -1,21 +1,21 @@
 package pl.edu.pja.prz.account.model.entity;
 
-import pl.edu.pja.prz.account.model.value.ChildrenId;
+import pl.edu.pja.prz.account.model.value.ChildId;
 
 import java.util.List;
 
 public class Guardian extends Account {
 
-	List<ChildrenId> childrenList;
+	List<ChildId> childrenList;
 
 	public Guardian() {
 	}
 
-	public List<ChildrenId> getChildrenList() {
+	public List<ChildId> getChildrenList() {
 		return childrenList;
 	}
 
-	public void setChildrenList(List<ChildrenId> childrenList) {
+	public void setChildrenList(List<ChildId> childrenList) {
 		this.childrenList = childrenList;
 	}
 }

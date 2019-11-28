@@ -6,10 +6,12 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class FullName {
 
-	private String name;
-	private String Surname;
+	private final String name;
+	private final String Surname;
 
-	public FullName() {
+	public FullName(String name, String surname) {
+		this.name = name;
+		Surname = surname;
 	}
 
 	public String getName() {
@@ -18,9 +20,5 @@ public class FullName {
 
 	public String getSurname() {
 		return Surname;
-	}
-
-	public String getFullName() {
-		return this.name + " " + this.name;
 	}
 }

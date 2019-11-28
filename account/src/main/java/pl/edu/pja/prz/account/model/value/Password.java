@@ -11,30 +11,43 @@ public class Password {
 	private String oldPassword;
 	private String currentPassword;
 
-	public Password() {
+	public Password(LocalDate createDate, String oldPassword, String currentPassword) {
+		this.createDate = createDate;
+		this.oldPassword = oldPassword;
+		this.currentPassword = currentPassword;
 	}
 
 	public LocalDate getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(LocalDate createDate) {
-		this.createDate = createDate;
-	}
-
 	public String getOldPassword() {
 		return oldPassword;
-	}
-
-	public void setOldPassword(String oldPassword) {
-		this.oldPassword = oldPassword;
 	}
 
 	public String getCurrentPassword() {
 		return currentPassword;
 	}
 
-	public void setCurrentPassword(String currentPassword) {
-		this.currentPassword = currentPassword;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Password)) return false;
+
+		Password password = (Password) o;
+
+		if (getCreateDate() != null ? !getCreateDate().equals(password.getCreateDate()) : password.getCreateDate() != null)
+			return false;
+		if (getOldPassword() != null ? !getOldPassword().equals(password.getOldPassword()) : password.getOldPassword() != null)
+			return false;
+		return getCurrentPassword() != null ? getCurrentPassword().equals(password.getCurrentPassword()) : password.getCurrentPassword() == null;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = getCreateDate() != null ? getCreateDate().hashCode() : 0;
+		result = 31 * result + (getOldPassword() != null ? getOldPassword().hashCode() : 0);
+		result = 31 * result + (getCurrentPassword() != null ? getCurrentPassword().hashCode() : 0);
+		return result;
 	}
 }
