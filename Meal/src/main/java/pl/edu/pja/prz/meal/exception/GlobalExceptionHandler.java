@@ -14,7 +14,7 @@ import java.util.List;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler({NotFound.class})
+    @ExceptionHandler({NotFound.class, MeaActivityStatusException.class})
     public final ResponseEntity<ApiError> handleException(Exception ex, WebRequest request) {
         HttpHeaders headers = new HttpHeaders();
 
@@ -23,6 +23,12 @@ public class GlobalExceptionHandler {
             NotFound notFound = (NotFound) ex;
 
             return handleNotFoundException(notFound, headers, status, request);
+        }
+        if (ex instanceof MeaActivityStatusException) {
+            HttpStatus status = HttpStatus.CONFLICT;
+            MeaActivityStatusException mealAlreadyActiveException = (MeaActivityStatusException) ex;
+
+            return handleMealAlreadyActiveException(mealAlreadyActiveException, headers, status, request);
         }
         else {
 
@@ -36,13 +42,19 @@ public class GlobalExceptionHandler {
 
 
 
-    protected ResponseEntity<ApiError> handleNotFoundException(NotFound ex,
+    private ResponseEntity<ApiError> handleNotFoundException(NotFound ex,
                                                                HttpHeaders headers, HttpStatus status, WebRequest request) {
         List<String> errors = Collections.singletonList(ex.getMessage());
         return handleExceptionOther(ex, new ApiError(errors), headers, status, request);
     }
 
-    protected ResponseEntity<ApiError> handleExceptionOther(Exception ex, ApiError body,
+    private ResponseEntity<ApiError> handleMealAlreadyActiveException(MeaActivityStatusException ex,
+                                                                      HttpHeaders headers, HttpStatus status, WebRequest request) {
+        List<String> errors = Collections.singletonList(ex.getMessage());
+        return handleExceptionOther(ex, new ApiError(errors), headers, status, request);
+    }
+
+    private ResponseEntity<ApiError> handleExceptionOther(Exception ex, ApiError body,
                                                             HttpHeaders headers, HttpStatus status, WebRequest request) {
         if (HttpStatus.INTERNAL_SERVER_ERROR.equals(status)) {
             request.setAttribute(WebUtils.ERROR_EXCEPTION_ATTRIBUTE, ex, WebRequest.SCOPE_REQUEST);

@@ -1,10 +1,10 @@
 package pl.edu.pja.prz.meal.exception;
 
-public class MealAlreadyActiveException extends Exception {
+public class MeaActivityStatusException extends Exception {
 
     private String message;
 
-    public MealAlreadyActiveException(String message) {
+    public MeaActivityStatusException(String message) {
         this.message = message;
     }
 
