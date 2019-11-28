@@ -2,8 +2,6 @@ package pl.edu.pja.prz.account.service;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pl.edu.pja.prz.account.infrastructure.PeselService;
-import pl.edu.pja.prz.account.infrastructure.PeselServiceImpl;
 
 import java.time.LocalDate;
 
