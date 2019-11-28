@@ -2,9 +2,9 @@ package pl.edu.pja.prz.account.infrastructure;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Controller;
 
-@Service
+@Controller
 public class PasswordManagerImpl implements PasswordManager {
 
 	private PasswordEncoder passwordEncoder;
