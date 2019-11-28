@@ -4,13 +4,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
-import pl.edu.pja.prz.account.domain.entity.Account;
 import pl.edu.pja.prz.account.infrastructure.PasswordManager;
+import pl.edu.pja.prz.account.infrastructure.PasswordManagerImpl;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
-@ContextConfiguration(classes = {AccountConfiguration.class})
+@ContextConfiguration(classes = {AccountConfiguration.class, PasswordManagerImpl.class})
 class AccountConfigurationIntegrationTest {
 
 	@Autowired
@@ -21,9 +21,5 @@ class AccountConfigurationIntegrationTest {
 		assertNotNull(passwordManager);
 	}
 
-	@Test
-	public void ShouldLoadAnyBoduleContext() {
-		Account account = new Account();
-	}
 
 }

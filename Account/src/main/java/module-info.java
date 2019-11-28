@@ -1,6 +1,5 @@
 open module pl.edu.pja.prz.account {
 
-	requires static lombok;
 	requires java.persistence;
 	requires java.sql;
 	requires java.xml.bind;
@@ -18,6 +17,7 @@ open module pl.edu.pja.prz.account {
 	requires org.slf4j;
 	requires java.annotation;
 	requires spring.security.core;
+	requires spring.data.commons;
 
 	exports pl.edu.pja.prz.account;
 
