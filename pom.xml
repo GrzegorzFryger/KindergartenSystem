@@ -17,8 +17,8 @@
     </properties>
 
     <modules>
-        <module>Core</module>
-        <module>Account</module>
+        <module>core</module>
+        <module>account</module>
     </modules>
 
     <parent>

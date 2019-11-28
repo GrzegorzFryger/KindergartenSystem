@@ -16,7 +16,7 @@
         <maven.compiler.release>11</maven.compiler.release>
     </properties>
 
-    <artifactId>Core</artifactId>
+    <artifactId>core</artifactId>
 
     <dependencies>
         <dependency>
