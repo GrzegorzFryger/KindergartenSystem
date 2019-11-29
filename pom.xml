@@ -19,6 +19,7 @@
     <modules>
         <module>core</module>
         <module>account</module>
+        <module>receivables</module>
     </modules>
 
     <parent>
