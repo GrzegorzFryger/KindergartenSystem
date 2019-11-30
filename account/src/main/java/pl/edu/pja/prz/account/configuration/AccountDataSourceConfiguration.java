@@ -18,7 +18,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "pl.edu.pja.prz.account.model.repository",
+@EnableJpaRepositories(basePackages = "pl.edu.pja.prz.account.repository",
 		entityManagerFactoryRef = "accountModuleEntityManagerFactory",
 		transactionManagerRef = "accountModuleTransactionManager")
 public class AccountDataSourceConfiguration {
