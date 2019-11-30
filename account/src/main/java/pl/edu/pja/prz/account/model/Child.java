@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.account.model.entity;
+package pl.edu.pja.prz.account.model;
 
 import pl.edu.pja.prz.account.model.value.*;
 

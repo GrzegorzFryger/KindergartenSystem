@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.account.model.entity;
+package pl.edu.pja.prz.account.model;
 
 import pl.edu.pja.prz.account.model.value.ChildId;
 
@@ -9,6 +9,7 @@ public class Guardian extends Account {
 	List<ChildId> childrenList;
 
 	public Guardian() {
+		super();
 	}
 
 	public List<ChildId> getChildrenList() {

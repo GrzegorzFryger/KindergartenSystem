@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.account.model.entity;
+package pl.edu.pja.prz.account.model;
 
 
 import pl.edu.pja.prz.account.model.value.Address;
@@ -7,20 +7,26 @@ import pl.edu.pja.prz.account.model.value.Password;
 import pl.edu.pja.prz.account.model.value.Phone;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
 public class Account extends BaseEntity<UUID> {
-
 
 	private Phone phoneNumber;
 	private String email;
 	private FullName fullName;
 	private Address address;
 	private Password password;
-	@ManyToOne
-	private UserRole userRole;
+
+	@ManyToMany(mappedBy = "accounts", fetch = FetchType.LAZY)
+	private Set<Role> roles;
+
+	protected Account() {
+	}
+
 
 	public Phone getPhoneNumber() {
 		return phoneNumber;
@@ -62,15 +68,23 @@ public class Account extends BaseEntity<UUID> {
 		this.password = password;
 	}
 
-	public UserRole getUserRole() {
-		return userRole;
+	public Set<Role> getRoles() {
+		return roles;
 	}
 
-	public void setUserRole(UserRole userRole) {
-		this.userRole = userRole;
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 
-	public Account() {
+	public boolean addRole(Role role) {
+		role.getAccounts().add(this);
+		return this.roles.add(role);
+
+	}
+
+	public boolean removeRole(Role role) {
+		role.getAccounts().add(this);
+		return this.roles.add(role);
 	}
 
 }
