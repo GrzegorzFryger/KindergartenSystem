@@ -1,6 +1,6 @@
 package pl.edu.pja.prz.account.model;
 
-import pl.edu.pja.prz.account.model.value.ChildrenStatus;
+import pl.edu.pja.prz.account.model.value.ChildStatus;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -11,17 +11,17 @@ import java.util.Collection;
 public class Status extends BaseEntity<Long> {
 
 	@ElementCollection
-	private Collection<ChildrenStatus> childrenStatuses;
+	private Collection<ChildStatus> childStatuses;
 
-	public Collection<ChildrenStatus> getChildrenStatuses() {
-		return childrenStatuses;
+	public Collection<ChildStatus> getChildStatuses() {
+		return childStatuses;
 	}
 
-	public void setChildrenStatuses(Collection<ChildrenStatus> childrenStatuses) {
-		this.childrenStatuses = childrenStatuses;
+	public void setChildStatuses(Collection<ChildStatus> childStatuses) {
+		this.childStatuses = childStatuses;
 	}
 
-	public boolean hasStatus(ChildrenStatus... status) {
-		return (status.length > 1) && childrenStatuses.containsAll(Arrays.asList(status));
+	public boolean hasStatus(ChildStatus... status) {
+		return (status.length > 1) && childStatuses.containsAll(Arrays.asList(status));
 	}
 }

@@ -65,5 +65,4 @@ public class Role extends BaseEntity<Long> {
 		return (privileges.length > 0) && this.privileges.containsAll(Arrays.asList(privileges));
 	}
 
-
 }

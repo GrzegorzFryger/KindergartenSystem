@@ -13,7 +13,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-public class Account extends BaseEntity<UUID> {
+public abstract class Account extends BaseEntity<UUID> {
 
 	private Phone phoneNumber;
 	private String email;

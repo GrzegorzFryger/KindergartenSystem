@@ -2,26 +2,34 @@ package pl.edu.pja.prz.account.model;
 
 import pl.edu.pja.prz.account.model.value.*;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.Arrays;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
 public class Child extends BaseEntity<UUID> {
 
 	private Long peselNumber;
-	@ManyToOne
-	private Status status;
-	@Enumerated(EnumType.STRING)
-	private Gender gender;
 	private FullName fullName;
 	private Age age;
 	private Address address;
 	private StudyPeriod studyPeriod;
+
+
+	@ElementCollection
+	@Enumerated(EnumType.STRING)
+	private Set<ChildStatus> childStatuses;
+
+	@Enumerated(EnumType.STRING)
+	private Gender gender;
+
 	@ManyToOne
+	@JoinColumn(name = "fk_borough")
 	private Borough borough;
+
+	@ManyToMany(mappedBy = "children")
+	private Set<Guardian> guardians;
 
 	public Child() {
 	}
@@ -34,12 +42,12 @@ public class Child extends BaseEntity<UUID> {
 		this.peselNumber = peselNumber;
 	}
 
-	public Status getStatus() {
-		return status;
+	public Set<ChildStatus> getChildStatuses() {
+		return childStatuses;
 	}
 
-	public void setStatus(Status status) {
-		this.status = status;
+	public void setChildStatuses(Set<ChildStatus> childStatuses) {
+		this.childStatuses = childStatuses;
 	}
 
 	public Gender getGender() {
@@ -89,4 +97,18 @@ public class Child extends BaseEntity<UUID> {
 	public void setBorough(Borough borough) {
 		this.borough = borough;
 	}
+
+	public Set<Guardian> getGuardians() {
+		return guardians;
+	}
+
+	public void setGuardians(Set<Guardian> guardians) {
+		this.guardians = guardians;
+	}
+
+	public boolean hasStatus(ChildStatus... status) {
+		return (status.length > 1) && childStatuses.containsAll(Arrays.asList(status));
+	}
+
+
 }

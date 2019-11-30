@@ -4,6 +4,8 @@ import pl.edu.pja.prz.account.model.value.Address;
 import pl.edu.pja.prz.account.model.value.Phone;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import java.util.Set;
 
 @Entity
 public class Borough extends BaseEntity<Long> {
@@ -13,6 +15,10 @@ public class Borough extends BaseEntity<Long> {
 	private Phone phone;
 	private String email;
 	private String nipNumber;
+
+	@OneToMany(mappedBy = "borough")
+	private Set<Child> children;
+
 
 	public String getName() {
 		return name;
@@ -52,5 +58,23 @@ public class Borough extends BaseEntity<Long> {
 
 	public void setNipNumber(String nipNumber) {
 		this.nipNumber = nipNumber;
+	}
+
+	public Set<Child> getChildren() {
+		return children;
+	}
+
+	public void setChildren(Set<Child> children) {
+		this.children = children;
+	}
+
+	public boolean addChil(Child child) {
+		child.setBorough(this);
+		return children.add(child);
+	}
+
+	public boolean removeChil(Child child) {
+		child.setBorough(null);
+		return children.remove(child);
 	}
 }

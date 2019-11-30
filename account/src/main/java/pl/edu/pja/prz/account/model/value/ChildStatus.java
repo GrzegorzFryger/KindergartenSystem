@@ -1,5 +1,5 @@
 package pl.edu.pja.prz.account.model.value;
 
-public enum ChildrenStatus {
+public enum ChildStatus {
 	ACTIVE, SAVED, ENDED, LEAVE, PERIODOFNOTICE
 }
