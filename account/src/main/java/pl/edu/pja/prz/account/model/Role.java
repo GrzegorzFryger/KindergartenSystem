@@ -3,7 +3,6 @@ package pl.edu.pja.prz.account.model;
 
 import javax.persistence.*;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Set;
 
 @Entity
@@ -16,7 +15,7 @@ public class Role extends BaseEntity<Long> {
 	@JoinTable(name = "role_author",
 			joinColumns = {@JoinColumn(name = "fk_role")},
 			inverseJoinColumns = {@JoinColumn(name = "fk_privilege")})
-	private Set<Privilege> privileges;
+	private Set<PrivilegeType> privileges;
 
 	@ManyToMany
 	@JoinTable(name = "role_account",
@@ -24,8 +23,7 @@ public class Role extends BaseEntity<Long> {
 			inverseJoinColumns = {@JoinColumn(name = "fk_account")})
 	private Set<Account> accounts;
 
-	public Role() {
-	}
+	Role() { }
 
 	public String getName() {
 		return name;
@@ -35,11 +33,11 @@ public class Role extends BaseEntity<Long> {
 		this.name = ROLEWORD + name.toUpperCase();
 	}
 
-	public Collection<Privilege> getPrivileges() {
+	public Set<PrivilegeType> getPrivileges() {
 		return privileges;
 	}
 
-	public void setPrivileges(Set<Privilege> privileges) {
+	public void setPrivileges(Set<PrivilegeType> privileges) {
 		this.privileges = privileges;
 	}
 
@@ -51,17 +49,16 @@ public class Role extends BaseEntity<Long> {
 		this.accounts = accounts;
 	}
 
-	public boolean addPrivilege(Privilege privilege) {
-		privilege.getRoles().add(this);
+	public boolean addPrivilege(PrivilegeType privilege) {
 		return this.privileges.add(privilege);
 	}
 
-	public boolean removePrivilege(Privilege privilege) {
-		privilege.getRoles().remove(this);
+	public boolean removePrivilege(PrivilegeType privilege) {
+
 		return getPrivileges().remove(privilege);
 	}
 
-	public boolean hasPrivileges(Privilege... privileges) {
+	public boolean hasPrivileges(PrivilegeType... privileges) {
 		return (privileges.length > 0) && this.privileges.containsAll(Arrays.asList(privileges));
 	}
 
