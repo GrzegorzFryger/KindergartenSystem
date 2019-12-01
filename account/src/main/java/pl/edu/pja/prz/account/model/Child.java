@@ -16,7 +16,6 @@ public class Child extends BaseEntity<UUID> {
 	private Address address;
 	private StudyPeriod studyPeriod;
 
-
 	@ElementCollection
 	@Enumerated(EnumType.STRING)
 	private Set<ChildStatus> childStatuses;

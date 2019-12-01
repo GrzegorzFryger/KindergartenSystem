@@ -24,8 +24,7 @@ public abstract class Account extends BaseEntity<UUID> {
 	@ManyToMany(mappedBy = "accounts", fetch = FetchType.LAZY)
 	private Set<Role> roles;
 
-	protected Account() {
-	}
+	protected Account() { }
 
 
 	public Phone getPhoneNumber() {
