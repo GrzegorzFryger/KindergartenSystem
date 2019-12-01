@@ -30,7 +30,20 @@ public class Child extends BaseEntity<UUID> {
 	@ManyToMany(mappedBy = "children")
 	private Set<Guardian> guardians;
 
-	public Child() {
+	Child() {
+	}
+
+	public Child(Long peselNumber, FullName fullName, Age age, Address address, StudyPeriod studyPeriod,
+	             Set<ChildStatus> childStatuses, Gender gender, Borough borough, Set<Guardian> guardians) {
+		this.peselNumber = peselNumber;
+		this.fullName = fullName;
+		this.age = age;
+		this.address = address;
+		this.studyPeriod = studyPeriod;
+		this.childStatuses = childStatuses;
+		this.gender = gender;
+		this.borough = borough;
+		this.guardians = guardians;
 	}
 
 	public Long getPeselNumber() {

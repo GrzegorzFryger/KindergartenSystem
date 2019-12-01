@@ -19,6 +19,17 @@ public class Borough extends BaseEntity<Long> {
 	@OneToMany(mappedBy = "borough")
 	private Set<Child> children;
 
+	Borough() {
+	}
+
+	public Borough(String name, Address address, Phone phone, String email, String nipNumber, Set<Child> children) {
+		this.name = name;
+		this.address = address;
+		this.phone = phone;
+		this.email = email;
+		this.nipNumber = nipNumber;
+		this.children = children;
+	}
 
 	public String getName() {
 		return name;

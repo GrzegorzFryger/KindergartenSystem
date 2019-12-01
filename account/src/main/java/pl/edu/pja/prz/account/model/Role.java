@@ -25,6 +25,11 @@ public class Role extends BaseEntity<Long> {
 
 	Role() { }
 
+	public Role(String name, Set<PrivilegeType> privileges) {
+		this.name = name;
+		this.privileges = privileges;
+	}
+
 	public String getName() {
 		return name;
 	}

@@ -26,7 +26,7 @@ public abstract class Account extends BaseEntity<UUID> {
 
 	Account() { }
 
-	Account(Phone phoneNumber, String email, FullName fullName, Address address, Password password, Set<Role> roles) {
+	public Account(Phone phoneNumber, String email, FullName fullName, Address address, Password password, Set<Role> roles) {
 		this.phoneNumber = phoneNumber;
 		this.email = email;
 		this.fullName = fullName;

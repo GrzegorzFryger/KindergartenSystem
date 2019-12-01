@@ -12,7 +12,7 @@ public class BaseEntity<T> {
 	@Version
 	private Integer version;
 
-	public BaseEntity() {
+	BaseEntity() {
 	}
 
 	public T getId() {
