@@ -1,7 +1,10 @@
 package pl.edu.pja.prz.account.service;
 
+import pl.edu.pja.prz.account.model.value.Gender;
+
 import java.time.LocalDate;
 
 public interface PeselService {
-	LocalDate generateDateFromPesel(String pesel);
+	LocalDate extractDateOfBirth(String pesel);
+	Gender extractGender(String pesel);
 }
