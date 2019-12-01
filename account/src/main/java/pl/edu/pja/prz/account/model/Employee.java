@@ -9,15 +9,15 @@ import javax.persistence.Entity;
 import java.util.Set;
 
 @Entity
-public class Administrator extends Employee {
+public abstract class Employee extends Account {
 
-	Administrator() {
+	Employee() {
 		super();
 	}
 
-	public Administrator(Phone phoneNumber, String email, FullName fullName, Address address, Password password, Set<Role> roles) {
+	public Employee(Phone phoneNumber, String email, FullName fullName, Address address, Password password, Set<Role> roles) {
 		super(phoneNumber, email, fullName, address, password, roles);
 	}
 
-	
+
 }

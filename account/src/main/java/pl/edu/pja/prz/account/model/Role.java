@@ -24,7 +24,7 @@ public class Role extends BaseEntity<Long> {
 			inverseJoinColumns = {@JoinColumn(name = "fk_account")})
 	private Set<Account> accounts;
 
-	protected Role() {
+	public Role() {
 	}
 
 	public String getName() {
