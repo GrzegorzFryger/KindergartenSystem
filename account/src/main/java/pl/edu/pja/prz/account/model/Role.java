@@ -11,10 +11,9 @@ public class Role extends BaseEntity<Long> {
 	@Transient
 	private final String ROLEWORD = "ROLE_";
 	private String name;
-	@ManyToMany
-	@JoinTable(name = "role_author",
-			joinColumns = {@JoinColumn(name = "fk_role")},
-			inverseJoinColumns = {@JoinColumn(name = "fk_privilege")})
+
+	@ElementCollection
+	@Enumerated(EnumType.STRING)
 	private Set<PrivilegeType> privileges;
 
 	@ManyToMany
