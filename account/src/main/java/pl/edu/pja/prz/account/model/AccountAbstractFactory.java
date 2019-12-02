@@ -1,20 +1,14 @@
 package pl.edu.pja.prz.account.model;
 
-public interface AccountAbstractFactory {
+import pl.edu.pja.prz.account.model.enums.EmployeeType;
+import pl.edu.pja.prz.account.model.value.Address;
+import pl.edu.pja.prz.account.model.value.FullName;
+import pl.edu.pja.prz.account.model.value.Password;
+import pl.edu.pja.prz.account.model.value.Phone;
 
-//
-//	Administrator createAdministrator(String email, Phone phone, Password password, FullName fullName,
-//	                                  Address address);
-//
-//	Employee createTeacher(String email, Phone phone, Password password, FullName fullName,
-//	                       Address address, IdentityObject<Long>... groups);
-//
-//	Employee createTeacher(String email, Phone phone, Password password, FullName fullName,
-//	                       Address address);
-//
-//	Guardian createGuardian(String email, Phone phone, Password password, FullName fullName,
-//	                        Address address, Child... children);
-//
-//	Guardian createGuardian(String email, Phone phone, Password password, FullName fullName,
-//	                        Address address);
+abstract class AccountAbstractFactory {
+	Employee creteEmployee(Address address, FullName fullName,
+	                       Phone phone, Password password, String email, EmployeeType employeeType) {
+		return new Employee(address,fullName,phone,password,email, employeeType);
+	}
 }

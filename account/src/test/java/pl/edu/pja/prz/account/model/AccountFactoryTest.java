@@ -2,6 +2,8 @@ package pl.edu.pja.prz.account.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pl.edu.pja.prz.account.model.enums.EmployeeType;
+import pl.edu.pja.prz.account.model.enums.PrivilegeType;
 import pl.edu.pja.prz.account.model.value.Address;
 import pl.edu.pja.prz.account.model.value.FullName;
 import pl.edu.pja.prz.account.model.value.Password;
@@ -14,8 +16,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class AccountBuilderTest {
-
+class AccountFactoryTest {
 	private Address address;
 	private Phone phone;
 	private FullName fullName;
@@ -25,29 +26,23 @@ class AccountBuilderTest {
 
 	@BeforeEach
 	void setUp() {
-
 		address = new Address("70-700","City","Street 256");
 		phone = new Phone("123132123");
 		fullName = new FullName("TestName","TestSurname");
 		password = new Password(LocalDate.now(),"oldPassword","newPassword");
 		email = "test@test.com";
-		roles = new HashSet<>(Collections.singletonList(new Role()));
 	}
 
 	@Test
-	public void Should_CreateAdministratorAccountType_When_BuilderCreatedInstance() {
+	public void Should_ReturnAdministratorAccountType_When_FactoryCreateAdministrator() {
+		//given
+		roles = new HashSet<>(Collections.singletonList(new Role(PrivilegeType.ADMINISTRATOR.toString(),
+				Set.of(PrivilegeType.ADMINISTRATOR))));
 		//when
-		var administrator = AdministratorBuilder
-				.anAdministrator()
-				.withFullName(fullName)
-				.withPassword(password)
-				.withRoles(roles)
-				.withAddress(address)
-				.withPhoneNumber(phone)
-				.withEmail(email).build();
+		var administrator = new AccountFactoryImpl().createAdministrator(address,fullName,phone,password,email);
 
 		//then
-		assertEquals(Administrator.class, administrator.getClass());
+		assertEquals(EmployeeType.ADMINISTRATOR, administrator.getEmployeeType());
 		assertEquals(address, administrator.getAddress());
 		assertEquals(phone, administrator.getPhoneNumber());
 		assertEquals(fullName, administrator.getFullName());
@@ -56,18 +51,16 @@ class AccountBuilderTest {
 	}
 
 	@Test
-	public void Should_CreateTeacherAccountType_When_BuilderCreatedInstance() {
+	public void Should_ReturnTeacherAccountType_When_FactoryCreateTeacher() {
+		//given
+		roles = new HashSet<>(Collections.singletonList(new Role(PrivilegeType.TEACHER.toString(),
+				Set.of(PrivilegeType.TEACHER))));
+
 		//when
-		var teacher = TeacherBuilder.aTeacher()
-				.withFullName(fullName)
-				.withPassword(password)
-				.withRoles(roles)
-				.withAddress(address)
-				.withPhoneNumber(phone)
-				.withEmail(email).build();
+		var teacher = new AccountFactoryImpl().createTeacher(address,fullName,phone,password,email);
 
 		//then
-		assertEquals(Teacher.class, teacher.getClass());
+		assertEquals(Employee.class, teacher.getClass());
 		assertEquals(address, teacher.getAddress());
 		assertEquals(phone, teacher.getPhoneNumber());
 		assertEquals(fullName, teacher.getFullName());
@@ -76,15 +69,13 @@ class AccountBuilderTest {
 	}
 
 	@Test
-	public void Should_CreateGuardianAccountType_When_BuilderCreatedInstance() {
+	public void Should_ReturnGuardianAccountType_When_FactoryCreateTeacher() {
+		//given
+		roles = new HashSet<>(Collections.singletonList(new Role(PrivilegeType.USER.toString(),
+				Set.of(PrivilegeType.USER))));
+
 		//when
-		var guardian = GuardianBuilder.aGuardian()
-				.withFullName(fullName)
-				.withPassword(password)
-				.withRoles(roles)
-				.withAddress(address)
-				.withPhoneNumber(phone)
-				.withEmail(email).build();
+		var guardian = new AccountFactoryImpl().createGuardian(address,fullName,phone,password,email);
 
 		//then
 		assertEquals(Guardian.class, guardian.getClass());

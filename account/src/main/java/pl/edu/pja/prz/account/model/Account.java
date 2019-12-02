@@ -2,24 +2,35 @@ package pl.edu.pja.prz.account.model;
 
 
 import pl.edu.pja.prz.account.model.enums.AccountStatus;
+import pl.edu.pja.prz.account.model.value.Address;
+import pl.edu.pja.prz.account.model.value.FullName;
 import pl.edu.pja.prz.account.model.value.Password;
+import pl.edu.pja.prz.account.model.value.Phone;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Account extends Person  {
 
-	private String email;
-	private Password password;
 	@Enumerated(EnumType.STRING)
 	private AccountStatus accountStatus;
+	private Password password;
 	@ManyToMany(mappedBy = "accounts", fetch = FetchType.LAZY)
 	private Set<Role> roles;
+	private String email;
 
-	Account() { }
+	 Account() { }
 
+	public Account(Address address, FullName fullName, Phone phoneNumber,
+	               Password password, String email) {
+		super(address, fullName, phoneNumber);
+		this.password = password;
+		this.email = email;
+		this.roles = new HashSet<>();
+	}
 
 	public String getEmail() {
 		return email;
@@ -62,6 +73,7 @@ public abstract class Account extends Person  {
 		role.getAccounts().add(this);
 		return this.roles.add(role);
 	}
+
 
 
 
