@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.account.model;
+package pl.edu.pja.prz.account.model.enums;
 
 public enum PrivilegeType {
 	ADMINISTRATOR,USER,TEACHER

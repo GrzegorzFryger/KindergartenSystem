@@ -1,6 +1,8 @@
 package pl.edu.pja.prz.account.model;
 
 
+import pl.edu.pja.prz.account.model.enums.PrivilegeType;
+
 import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Set;
@@ -8,33 +10,29 @@ import java.util.Set;
 @Entity
 public class Role extends BaseEntity<Long> {
 
-	@Transient
-	private final String ROLEWORD = "ROLE_";
-	private String name;
-
-	@ElementCollection
-	@Enumerated(EnumType.STRING)
+	private String description;
+	@ElementCollection @Enumerated(EnumType.STRING)
 	private Set<PrivilegeType> privileges;
-
-	@ManyToMany
-	@JoinTable(name = "role_account",
+	@ManyToMany @JoinTable(name = "role_account",
 			joinColumns = {@JoinColumn(name = "fk_role")},
 			inverseJoinColumns = {@JoinColumn(name = "fk_account")})
 	private Set<Account> accounts;
 
-	Role() { }
+	public Role() {
+	}
 
-	public Role(String name, Set<PrivilegeType> privileges) {
-		this.name = name;
+	public Role(String description, Set<PrivilegeType> privileges, Set<Account> accounts) {
+		this.description = description;
 		this.privileges = privileges;
+		this.accounts = accounts;
 	}
 
-	public String getName() {
-		return name;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setName(String name) {
-		this.name = ROLEWORD + name.toUpperCase();
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Set<PrivilegeType> getPrivileges() {
@@ -58,7 +56,6 @@ public class Role extends BaseEntity<Long> {
 	}
 
 	public boolean removePrivilege(PrivilegeType privilege) {
-
 		return getPrivileges().remove(privilege);
 	}
 

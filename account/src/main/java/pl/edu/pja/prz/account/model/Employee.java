@@ -1,22 +1,34 @@
 package pl.edu.pja.prz.account.model;
 
-import pl.edu.pja.prz.account.model.value.Address;
-import pl.edu.pja.prz.account.model.value.FullName;
-import pl.edu.pja.prz.account.model.value.Password;
-import pl.edu.pja.prz.account.model.value.Phone;
+import pl.edu.pja.prz.account.model.enums.EmployeeType;
+import pl.edu.pja.prz.account.model.value.IdentityObject;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import java.util.Set;
 
 @Entity
-public abstract class Employee extends Account {
+public class Employee extends Account {
 
-	Employee() {
-		super();
+
+	private EmployeeType employeeType;
+	@ElementCollection(targetClass=String.class)
+	private Set<IdentityObject<Long>> groups;
+
+	public Set<IdentityObject<Long>> getGroups() {
+		return groups;
 	}
 
-	public Employee(Phone phoneNumber, String email, FullName fullName, Address address, Password password, Set<Role> roles) {
-		super(phoneNumber, email, fullName, address, password, roles);
+	public void setGroups(Set<IdentityObject<Long>> groups) {
+		this.groups = groups;
+	}
+
+	public boolean addGrup(IdentityObject<Long> group) {
+		return groups.add(group);
+	}
+
+	public boolean removeGrup(IdentityObject<Long> group) {
+		return groups.remove(group);
 	}
 
 

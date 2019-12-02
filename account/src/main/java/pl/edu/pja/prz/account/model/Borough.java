@@ -15,7 +15,6 @@ public class Borough extends BaseEntity<Long> {
 	private Phone phone;
 	private String email;
 	private String nipNumber;
-
 	@OneToMany(mappedBy = "borough")
 	private Set<Child> children;
 

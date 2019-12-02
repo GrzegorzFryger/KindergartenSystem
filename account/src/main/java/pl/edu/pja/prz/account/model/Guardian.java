@@ -9,8 +9,7 @@ import java.util.Set;
 @Entity
 public class Guardian extends Account {
 
-	@ManyToMany
-	@JoinTable(name = "guardian_child",
+	@ManyToMany @JoinTable(name = "guardian_child",
 			joinColumns = {@JoinColumn(name = "fk_guardian")},
 			inverseJoinColumns = {@JoinColumn(name = "fk_child")})
 	private Set<Child> children;
