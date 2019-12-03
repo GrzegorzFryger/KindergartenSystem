@@ -1,35 +1,25 @@
 package pl.edu.pja.prz.account.model;
 
+import org.springframework.stereotype.Component;
 import pl.edu.pja.prz.account.model.enums.AccountStatus;
 import pl.edu.pja.prz.account.model.enums.EmployeeType;
 import pl.edu.pja.prz.account.model.enums.PrivilegeType;
 import pl.edu.pja.prz.account.model.value.*;
 
 import java.util.Arrays;
-import java.util.Set;
 
-public class AccountFactoryImpl extends AccountAbstractFactory implements AccountFactory {
+@Component
+public class StandardAccountFactory extends AccountAbstractFactory  {
 
-	private final PrivilegeType ADMIN_PRIVILEGE = PrivilegeType.ADMINISTRATOR;
+
 	private final PrivilegeType USER_PRIVILEGE = PrivilegeType.USER;
 	private final PrivilegeType TEACHER_PRIVILEGE = PrivilegeType.TEACHER;
 
-	@Override
-	public Employee createAdministrator(Address address, FullName fullName,
-	                                    Phone phone, Password password, String email) {
-		var roles = Set.of(new Role(ADMIN_PRIVILEGE.toString(),Set.of(ADMIN_PRIVILEGE)));
-		var administrator = creteEmployee(address,fullName,phone,password,email, EmployeeType.ADMINISTRATOR);
-
-		roles.forEach(administrator::addRole);
-
-		administrator.setAccountStatus(AccountStatus.ACCTIVE);
-		return administrator;
-	}
 
 	@Override
 	public Employee createTeacher(Address address, FullName fullName, Phone phone, Password password, String email,
 	                              IdentityObject<Long>... groups) {
-		var teacher = createTeacher(address,fullName,phone,password,email);
+		var teacher = createTeacher(address, fullName, phone, password, email);
 
 		Arrays.stream(groups).forEach(teacher::addGrup);
 		return teacher;
@@ -37,13 +27,16 @@ public class AccountFactoryImpl extends AccountAbstractFactory implements Accoun
 
 	@Override
 	public Employee createTeacher(Address address, FullName fullName, Phone phone, Password password, String email) {
-		var roles = Set.of(new Role(TEACHER_PRIVILEGE.toString(),Set.of(TEACHER_PRIVILEGE)));
-		Employee teacher = creteEmployee(address,fullName,phone,password,email, EmployeeType.TEACHER);
+		var role = new Role(TEACHER_PRIVILEGE.toString());
+		role.addPrivilege(TEACHER_PRIVILEGE);
 
-		teacher.setRoles(roles);
-		teacher.setAccountStatus(AccountStatus.ACCTIVE);
+		var teacher = new Employee(address,fullName,phone,password,email, EmployeeType.TEACHER);
+
+		role.addAccount(teacher);
+		teacher.setAccountStatus(AccountStatus.ACTIVE);
 		return teacher;
 	}
+
 
 	@Override
 	public Guardian createGuardian(Address address, FullName fullName, Phone phone, Password password, String email,
@@ -56,11 +49,16 @@ public class AccountFactoryImpl extends AccountAbstractFactory implements Accoun
 
 	@Override
 	public Guardian createGuardian(Address address, FullName fullName, Phone phone, Password password, String email) {
-		var role = Set.of(new Role(USER_PRIVILEGE.toString(),Set.of(USER_PRIVILEGE)));
-		var guardian =new Guardian(address,fullName,phone,password,email);
 
-		role.forEach(guardian::addRole);
+		var role = new Role(USER_PRIVILEGE.toString());
+		role.addPrivilege(USER_PRIVILEGE);
+		var guardian = new Guardian(address,fullName,phone,password,email);
+
+		role.addAccount(guardian);
+		guardian.setAccountStatus(AccountStatus.NOT_ACTIVE);
 		return guardian;
 	}
+
+
 
 }

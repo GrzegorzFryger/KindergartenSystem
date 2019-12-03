@@ -11,29 +11,29 @@ import java.util.Set;
 @Entity
 public class Role extends BaseEntity<Long> {
 
-	private String description;
+	private String name;
 	@ElementCollection @Enumerated(EnumType.STRING)
 	private Set<PrivilegeType> privileges;
-	@ManyToMany @JoinTable(name = "role_account",
+	@ManyToMany
+	@JoinTable(name = "role_account",
 			joinColumns = {@JoinColumn(name = "fk_role")},
 			inverseJoinColumns = {@JoinColumn(name = "fk_account")})
 	private Set<Account> accounts;
 
-	public Role() { }
+	Role() { }
 
-	public Role(String description, Set<PrivilegeType> privileges) {
-		this.description = description;
-		this.privileges = privileges;
+	public Role(String name) {
+		this.name = name;
 		this.accounts = new HashSet<>();
 		this.privileges = new HashSet<>();
 	}
 
-	public String getDescription() {
-		return description;
+	public String getName() {
+		return name;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Set<PrivilegeType> getPrivileges() {
@@ -50,6 +50,11 @@ public class Role extends BaseEntity<Long> {
 
 	public void setAccounts(Set<Account> accounts) {
 		this.accounts = accounts;
+	}
+
+	public void addAccount(Account account){
+		account.getRoles().add(this);
+		this.accounts.add(account);
 	}
 
 	public boolean addPrivilege(PrivilegeType privilege) {
@@ -70,20 +75,20 @@ public class Role extends BaseEntity<Long> {
 
 		Role role = (Role) o;
 
-		if (getDescription() != null ? !getDescription().equals(role.getDescription()) : role.getDescription() != null)
+		if (getName() != null ? !getName().equals(role.getName()) : role.getName() != null)
 			return false;
 		return getPrivileges() != null ? getPrivileges().equals(role.getPrivileges()) : role.getPrivileges() == null;
 	}
 
 	@Override public int hashCode() {
-		int result = getDescription() != null ? getDescription().hashCode() : 0;
+		int result = getName() != null ? getName().hashCode() : 0;
 		result = 31 * result + (getPrivileges() != null ? getPrivileges().hashCode() : 0);
 		return result;
 	}
 
 	@Override public String toString() {
 		return "Role{" +
-				"description='" + description + '\'' +
+				"name='" + name + '\'' +
 				", privileges=" + privileges +
 				'}';
 	}
