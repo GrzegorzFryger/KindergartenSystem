@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.account.service;
+package pl.edu.pja.prz.account.service.utilities;
 
 import pl.edu.pja.prz.account.model.value.Gender;
 
