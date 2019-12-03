@@ -2,8 +2,8 @@ package pl.edu.pja.prz.account.model.value;
 
 public class IdentityObject<T> {
 
-	private final T id;
-	private final String additionalInfo;
+	private  T id;
+	private  String additionalInfo;
 
 	public IdentityObject(T id, String additionalInfo) {
 		this.id = id;

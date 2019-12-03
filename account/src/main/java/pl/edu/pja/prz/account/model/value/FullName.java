@@ -6,8 +6,11 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class FullName {
 
-	private final String name;
-	private final String Surname;
+	private String name;
+	private String Surname;
+
+	public FullName() {
+	}
 
 	public FullName(String name, String surname) {
 		this.name = name;

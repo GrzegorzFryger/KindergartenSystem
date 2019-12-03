@@ -6,9 +6,12 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Address {
 
-	private final String postalCode;
-	private final String city;
-	private final String streetNumber;
+	private String postalCode;
+	private String city;
+	private String streetNumber;
+
+	public Address() {
+	}
 
 	public Address(String postalCode, String city, String streetNumber) {
 		this.postalCode = postalCode;
