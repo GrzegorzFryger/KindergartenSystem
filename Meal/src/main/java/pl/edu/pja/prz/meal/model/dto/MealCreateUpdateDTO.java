@@ -37,6 +37,10 @@ public class MealCreateUpdateDTO {
         return mealPrice;
     }
 
+    public void setMealPrice(double mealPrice) {
+        this.mealPrice = mealPrice;
+    }
+
     public LocalDate getMealFromDate() {
         return mealFromDate;
     }

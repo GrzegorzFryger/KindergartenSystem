@@ -17,15 +17,19 @@ import java.util.List;
 public class MealServiceImpl implements MealService {
 
     private MealRepository mealRepository;
+    private MealPriceListServiceImpl mealPriceListService;
+
 
     @Autowired
-    public MealServiceImpl(MealRepository mealRepository) {
+    public MealServiceImpl(MealRepository mealRepository, MealPriceListServiceImpl mealPriceListService) {
         this.mealRepository = mealRepository;
+        this.mealPriceListService = mealPriceListService;
     }
 
     @Override
     public Meal createMeal(MealCreateUpdateDTO meal) throws MeaActivityStatusException {
         if(mealRepository.findMealByChildIDAndMealStatus(meal.getChildID(), MealStatus.ACTIVE).isEmpty()) {
+            meal.setMealPrice(mealPriceListService.getPriceByMealType(meal.getMealType()));
             return mealRepository.save(MealCreateUpdateDTO.createMealFactory(meal));
         }
         else throw new MeaActivityStatusException("There is already meal with status ACTIVE for child with ID: " + meal.getChildID());

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.meal.exception.MealPriceListAlreadyExistException;
 import pl.edu.pja.prz.meal.exception.NotFound;
 import pl.edu.pja.prz.meal.model.MealPriceList;
+import pl.edu.pja.prz.meal.model.enums.MealType;
 import pl.edu.pja.prz.meal.repository.MealPriceListRepository;
 
 import java.util.List;
@@ -48,6 +49,10 @@ public class MealPriceListServiceImpl {
             throw new NotFound("Price list with ID:" + id +" not found");
         }
         mealPriceListRepository.deleteById(id);
+    }
+
+    public double getPriceByMealType(MealType mealType) {
+        return mealPriceListRepository.findMealPriceByMealType(mealType);
     }
 
 }
