@@ -14,7 +14,7 @@ import java.util.List;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler({NotFound.class, MeaActivityStatusException.class})
+    @ExceptionHandler({NotFound.class, MeaActivityStatusException.class, MealPriceListAlreadyExistException.class})
     public final ResponseEntity<ApiError> handleException(Exception ex, WebRequest request) {
         HttpHeaders headers = new HttpHeaders();
 
@@ -29,6 +29,12 @@ public class GlobalExceptionHandler {
             MeaActivityStatusException mealAlreadyActiveException = (MeaActivityStatusException) ex;
 
             return handleMealAlreadyActiveException(mealAlreadyActiveException, headers, status, request);
+        }
+        if (ex instanceof MealPriceListAlreadyExistException) {
+            HttpStatus status = HttpStatus.CONFLICT;
+            MealPriceListAlreadyExistException mealPriceListAlreadyExistException = (MealPriceListAlreadyExistException) ex;
+
+            return handleMealPriceListAlreadyExistException(mealPriceListAlreadyExistException, headers, status, request);
         }
         else {
 
@@ -49,6 +55,12 @@ public class GlobalExceptionHandler {
     }
 
     private ResponseEntity<ApiError> handleMealAlreadyActiveException(MeaActivityStatusException ex,
+                                                                      HttpHeaders headers, HttpStatus status, WebRequest request) {
+        List<String> errors = Collections.singletonList(ex.getMessage());
+        return handleExceptionOther(ex, new ApiError(errors), headers, status, request);
+    }
+
+    private ResponseEntity<ApiError> handleMealPriceListAlreadyExistException(MealPriceListAlreadyExistException ex,
                                                                       HttpHeaders headers, HttpStatus status, WebRequest request) {
         List<String> errors = Collections.singletonList(ex.getMessage());
         return handleExceptionOther(ex, new ApiError(errors), headers, status, request);
