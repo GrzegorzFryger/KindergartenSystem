@@ -1,6 +1,7 @@
-package pl.edu.pja.prz.account.service.utilities;
+package pl.edu.pja.prz.account.utilites;
 
-import pl.edu.pja.prz.account.model.value.Gender;
+import org.springframework.stereotype.Component;
+import pl.edu.pja.prz.account.model.enums.Gender;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -10,6 +11,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Component
 public class PeselServiceImpl implements PeselService {
 
 	private final int[] WEIGHT_FACTOR = {1, 3, 7, 9, 1, 3, 7, 9, 1, 3};

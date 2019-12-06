@@ -1,11 +1,11 @@
-package pl.edu.pja.prz.account.service.utilities;
+package pl.edu.pja.prz.account.utilites;
 
 import org.apache.commons.text.RandomStringGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 
-@Controller
+@Component
 public class PasswordManagerImpl implements PasswordManager {
 
 	private PasswordEncoder passwordEncoder;
