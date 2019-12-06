@@ -1,6 +1,11 @@
 package pl.edu.pja.prz.account.model;
 
-import pl.edu.pja.prz.account.model.value.*;
+import pl.edu.pja.prz.account.model.enums.ChildStatus;
+import pl.edu.pja.prz.account.model.enums.Gender;
+import pl.edu.pja.prz.account.model.value.Address;
+import pl.edu.pja.prz.account.model.value.Age;
+import pl.edu.pja.prz.account.model.value.FullName;
+import pl.edu.pja.prz.account.model.value.StudyPeriod;
 
 import javax.persistence.*;
 import java.util.Arrays;
@@ -10,80 +15,35 @@ import java.util.UUID;
 @Entity
 public class Child extends BaseEntity<UUID> {
 
-	private Long peselNumber;
-	private FullName fullName;
-	private Age age;
 	private Address address;
-	private StudyPeriod studyPeriod;
-
-	@ElementCollection
-	@Enumerated(EnumType.STRING)
-	private Set<ChildStatus> childStatuses;
-
-	@Enumerated(EnumType.STRING)
-	private Gender gender;
-
+	private Age age;
 	@ManyToOne
 	@JoinColumn(name = "fk_borough")
 	private Borough borough;
-
+	private FullName fullName;
+	@Enumerated(EnumType.STRING)
+	private Gender gender;
+	@ElementCollection
+	@Enumerated(EnumType.STRING)
+	private Set<ChildStatus> childStatuses;
 	@ManyToMany(mappedBy = "children")
 	private Set<Guardian> guardians;
+	private String peselNumber;
+	private StudyPeriod studyPeriod;
 
-	Child() {
-	}
+	Child() { }
 
-	public Child(Long peselNumber, FullName fullName, Age age, Address address, StudyPeriod studyPeriod,
-	             Set<ChildStatus> childStatuses, Gender gender, Borough borough, Set<Guardian> guardians) {
-		this.peselNumber = peselNumber;
-		this.fullName = fullName;
-		this.age = age;
+	public Child( Set<ChildStatus> childStatuses, Gender gender, Borough borough, Set<Guardian> guardians,
+					String peselNumber, FullName fullName, Age age, Address address, StudyPeriod studyPeriod ){
 		this.address = address;
-		this.studyPeriod = studyPeriod;
-		this.childStatuses = childStatuses;
-		this.gender = gender;
-		this.borough = borough;
-		this.guardians = guardians;
-	}
-
-	public Long getPeselNumber() {
-		return peselNumber;
-	}
-
-	public void setPeselNumber(Long peselNumber) {
-		this.peselNumber = peselNumber;
-	}
-
-	public Set<ChildStatus> getChildStatuses() {
-		return childStatuses;
-	}
-
-	public void setChildStatuses(Set<ChildStatus> childStatuses) {
-		this.childStatuses = childStatuses;
-	}
-
-	public Gender getGender() {
-		return gender;
-	}
-
-	public void setGender(Gender gender) {
-		this.gender = gender;
-	}
-
-	public FullName getFullName() {
-		return fullName;
-	}
-
-	public void setFullName(FullName fullName) {
-		this.fullName = fullName;
-	}
-
-	public Age getAge() {
-		return age;
-	}
-
-	public void setAge(Age age) {
 		this.age = age;
+		this.borough = borough;
+		this.childStatuses = childStatuses;
+		this.fullName = fullName;
+		this.gender = gender;
+		this.guardians = guardians;
+		this.peselNumber = peselNumber;
+		this.studyPeriod = studyPeriod;
 	}
 
 	public Address getAddress() {
@@ -94,12 +54,12 @@ public class Child extends BaseEntity<UUID> {
 		this.address = address;
 	}
 
-	public StudyPeriod getStudyPeriod() {
-		return studyPeriod;
+	public Age getAge() {
+		return age;
 	}
 
-	public void setStudyPeriod(StudyPeriod studyPeriod) {
-		this.studyPeriod = studyPeriod;
+	public void setAge(Age age) {
+		this.age = age;
 	}
 
 	public Borough getBorough() {
@@ -110,12 +70,52 @@ public class Child extends BaseEntity<UUID> {
 		this.borough = borough;
 	}
 
+	public FullName getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(FullName fullName) {
+		this.fullName = fullName;
+	}
+
+	public Gender getGender() {
+		return gender;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
+	public Set<ChildStatus> getChildStatuses() {
+		return childStatuses;
+	}
+
+	public void setChildStatuses(Set<ChildStatus> childStatuses) {
+		this.childStatuses = childStatuses;
+	}
+
 	public Set<Guardian> getGuardians() {
 		return guardians;
 	}
 
 	public void setGuardians(Set<Guardian> guardians) {
 		this.guardians = guardians;
+	}
+
+	public String getPeselNumber() {
+		return peselNumber;
+	}
+
+	public void setPeselNumber(String peselNumber) {
+		this.peselNumber = peselNumber;
+	}
+
+	public StudyPeriod getStudyPeriod() {
+		return studyPeriod;
+	}
+
+	public void setStudyPeriod(StudyPeriod studyPeriod) {
+		this.studyPeriod = studyPeriod;
 	}
 
 	public boolean hasStatus(ChildStatus... status) {

@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.account.model.value;
+package pl.edu.pja.prz.account.model.enums;
 
 public enum Gender {
 	MALE,

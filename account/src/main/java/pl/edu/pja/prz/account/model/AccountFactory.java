@@ -13,7 +13,6 @@ public interface AccountFactory {
 
 	Guardian createGuardian(Address address, FullName fullName, Phone phone, Password password, String email);
 
-
 	default public <T extends  Account> T createStandardAccount(Address address, FullName fullName,
 	                                                            Phone phone, Password password, String email, Class<T> tClass) {
 		if(tClass.getTypeName().equals(Employee.class.getName())) {
