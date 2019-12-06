@@ -4,5 +4,6 @@ import org.springframework.stereotype.Repository;
 import pl.edu.pja.prz.account.model.Employee;
 
 @Repository
-public interface EmployeeRepository extends AccountRepository<Employee> {
+public interface EmployeeRepository extends BasicAccountRepository<Employee> {
+
 }

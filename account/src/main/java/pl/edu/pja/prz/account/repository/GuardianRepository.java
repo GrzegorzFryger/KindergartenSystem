@@ -4,5 +4,6 @@ import org.springframework.stereotype.Repository;
 import pl.edu.pja.prz.account.model.Guardian;
 
 @Repository
-public interface GuardianRepository extends AccountRepository<Guardian> {
+public interface GuardianRepository extends BasicAccountRepository<Guardian> {
+
 }

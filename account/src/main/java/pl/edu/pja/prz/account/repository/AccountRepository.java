@@ -1,14 +1,12 @@
 package pl.edu.pja.prz.account.repository;
 
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.NoRepositoryBean;
+import org.springframework.stereotype.Repository;
 import pl.edu.pja.prz.account.model.Account;
-import pl.edu.pja.prz.account.model.value.FullName;
 
 import java.util.Optional;
-import java.util.UUID;
 
-@NoRepositoryBean
-public interface AccountRepository<T extends  Account> extends CrudRepository< T , UUID> {
-	Optional<T> findByEmailAndFullName(String email, FullName fullName);
+@Repository
+public interface AccountRepository extends BasicAccountRepository<Account> {
+	Optional<Account> findByEmail(String email);
+
 }
