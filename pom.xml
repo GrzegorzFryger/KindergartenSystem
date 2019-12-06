@@ -80,6 +80,8 @@
                         <exclude>**/pl/edu/pja/prz/core/*</exclude>
                         <!-- Account module exclusions -->
                         <exclude>**/pl/edu/pja/prz/account/*</exclude>
+                        <!-- Receivables module exclusions -->
+                        <exclude>**/pl/edu/pja/prz/receivables/*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
