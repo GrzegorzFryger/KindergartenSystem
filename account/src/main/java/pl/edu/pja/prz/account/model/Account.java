@@ -13,7 +13,7 @@ import java.util.Set;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Account extends Person  {
+public class Account extends Person  {
 
 	@Enumerated(EnumType.STRING)
 	private AccountStatus accountStatus;
@@ -64,17 +64,15 @@ public abstract class Account extends Person  {
 		this.roles = roles;
 	}
 
-//	public boolean addRole(Role role) {
-//		role.getAccounts().add(this);
-//		return this.roles.add(role);
-//	}
-//
-//	public boolean removeRole(Role role) {
-//		role.getAccounts().add(this);
-//		return this.roles.add(role);
-//	}
+	public boolean addRole(Role role) {
+		role.getAccounts().add(this);
+		return this.roles.add(role);
+	}
 
-
+	public boolean removeRole(Role role) {
+		role.getAccounts().add(this);
+		return this.roles.add(role);
+	}
 
 
 }

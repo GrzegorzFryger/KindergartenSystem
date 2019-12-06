@@ -17,7 +17,4 @@ public class BaseEntity<T> {
 		return id;
 	}
 
-	public Integer getVersion() {
-		return version;
-	}
 }

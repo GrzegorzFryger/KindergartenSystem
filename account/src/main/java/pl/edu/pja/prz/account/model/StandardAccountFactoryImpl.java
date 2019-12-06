@@ -9,12 +9,14 @@ import pl.edu.pja.prz.account.model.value.*;
 import java.util.Arrays;
 
 @Component
-public class StandardAccountFactory extends AccountAbstractFactory  {
+public class StandardAccountFactoryImpl implements AccountFactory  {
 
 
 	private final PrivilegeType USER_PRIVILEGE = PrivilegeType.USER;
 	private final PrivilegeType TEACHER_PRIVILEGE = PrivilegeType.TEACHER;
 
+	public StandardAccountFactoryImpl() {
+	}
 
 	@Override
 	public Employee createTeacher(Address address, FullName fullName, Phone phone, Password password, String email,
