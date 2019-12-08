@@ -5,6 +5,7 @@ import pl.edu.pja.prz.account.model.value.Phone;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -29,6 +30,16 @@ public class Borough extends BaseEntity<Long> {
 		this.nipNumber = nipNumber;
 		this.children = children;
 	}
+
+	public Borough(String name, Address address, Phone phone, String email, String nipNumber) {
+		this.name = name;
+		this.address = address;
+		this.phone = phone;
+		this.email = email;
+		this.nipNumber = nipNumber;
+		this.children = new HashSet<>();
+	}
+
 
 	public String getName() {
 		return name;

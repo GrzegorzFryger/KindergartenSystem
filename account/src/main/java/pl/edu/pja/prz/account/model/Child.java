@@ -9,6 +9,7 @@ import pl.edu.pja.prz.account.model.value.StudyPeriod;
 
 import javax.persistence.*;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -42,6 +43,19 @@ public class Child extends BaseEntity<UUID> {
 		this.fullName = fullName;
 		this.gender = gender;
 		this.guardians = guardians;
+		this.peselNumber = peselNumber;
+		this.studyPeriod = studyPeriod;
+	}
+
+	public Child (Gender gender, Borough borough, String peselNumber, FullName fullName, Age age, Address address,
+	              StudyPeriod studyPeriod ){
+		this.address = address;
+		this.age = age;
+		this.borough = borough;
+		this.childStatuses = new HashSet<>();
+		this.fullName = fullName;
+		this.gender = gender;
+		this.guardians = new HashSet<>();
 		this.peselNumber = peselNumber;
 		this.studyPeriod = studyPeriod;
 	}
