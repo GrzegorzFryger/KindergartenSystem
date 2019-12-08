@@ -23,14 +23,12 @@ import javax.sql.DataSource;
 		transactionManagerRef = "accountModuleTransactionManager")
 public class AccountDataSourceConfiguration {
 
-
 	@Bean
 	@Primary
 	@ConfigurationProperties("app.datasource.account-module")
 	public DataSourceProperties accountDataModuleSourceProperties() {
 		return new DataSourceProperties();
 	}
-
 
 	@Bean
 	@Primary
@@ -39,13 +37,11 @@ public class AccountDataSourceConfiguration {
 		return accountDataModuleSourceProperties().initializeDataSourceBuilder().build();
 	}
 
-
 	@Bean("accountModuleEntityManagerFactory")
 	@Primary
 	public LocalContainerEntityManagerFactoryBean createAccountModuleEntityManagerFactory(EntityManagerFactoryBuilder builder) {
 		return builder.dataSource(accountModuleDataSource()).packages(Account.class).build();
 	}
-
 
 	@Bean
 	@Primary

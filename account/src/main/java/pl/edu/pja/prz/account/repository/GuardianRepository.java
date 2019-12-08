@@ -5,5 +5,4 @@ import pl.edu.pja.prz.account.model.Guardian;
 
 @Repository
 public interface GuardianRepository extends BasicAccountRepository<Guardian> {
-
 }

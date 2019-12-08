@@ -6,7 +6,6 @@ import java.time.LocalDate;
 
 @Embeddable
 public class StudyPeriod {
-
 	private LocalDate additionDate;
 	private LocalDate endingDate;
 

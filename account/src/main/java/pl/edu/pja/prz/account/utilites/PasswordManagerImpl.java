@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class PasswordManagerImpl implements PasswordManager {
-
 	private PasswordEncoder passwordEncoder;
 
 	@Autowired

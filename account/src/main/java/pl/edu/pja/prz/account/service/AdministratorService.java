@@ -102,12 +102,12 @@ public class AdministratorService {
 	}
 
 	private void addChildToBorough(Child child, Borough borough) {
-		borough.addChil(child);
+		borough.addChild(child);
 		boroughRepository.save(borough);
 	}
 
 	private void addChildToGuardian(Child child, Borough borough) {
-		borough.addChil(child);
+		borough.addChild(child);
 		boroughRepository.save(borough);
 	}
 

@@ -5,5 +5,4 @@ import pl.edu.pja.prz.account.model.Employee;
 
 @Repository
 public interface EmployeeRepository extends BasicAccountRepository<Employee> {
-
 }

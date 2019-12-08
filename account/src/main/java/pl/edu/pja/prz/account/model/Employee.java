@@ -12,7 +12,6 @@ import java.util.Set;
 
 @Entity
 public class Employee extends Account {
-
 	@ElementCollection(targetClass=String.class)
 	private Set<IdentityObject<Long>> groups;
 	@Enumerated(EnumType.STRING)

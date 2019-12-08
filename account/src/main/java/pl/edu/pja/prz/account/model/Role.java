@@ -10,7 +10,6 @@ import java.util.Set;
 
 @Entity
 public class Role extends BaseEntity<Long> {
-
 	private String name;
 	@ElementCollection @Enumerated(EnumType.STRING)
 	private Set<PrivilegeType> privileges;

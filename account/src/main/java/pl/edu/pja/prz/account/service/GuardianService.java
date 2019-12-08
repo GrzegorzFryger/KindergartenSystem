@@ -14,7 +14,6 @@ import java.util.UUID;
 @Component
 public class GuardianService extends AccountServiceImpl<GuardianRepository, Guardian>
 		implements AccountService<GuardianRepository, Guardian> {
-
 	private final GuardianRepository guardianRepository;
 	private final ChildRepository childRepository;
 

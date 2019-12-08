@@ -20,7 +20,6 @@ import java.util.UUID;
 @Component
 class ChildService {
 	private final ChildStatus CHILDSTATUS = ChildStatus.NEW;
-
 	private final ChildRepository childRepository;
 	private final PeselService peselService;
 

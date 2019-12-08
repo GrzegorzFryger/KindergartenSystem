@@ -5,7 +5,6 @@ import java.time.LocalDate;
 
 @Embeddable
 public class Password {
-
 	private LocalDate createDate;
 	private String password;
 

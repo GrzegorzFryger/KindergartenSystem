@@ -11,7 +11,6 @@ import pl.edu.pja.prz.account.model.value.Phone;
 
 @Component
 public class AdministratorAccountFactoryImpl extends StandardAccountFactoryImpl implements AdministratorAccountFactory {
-
 	private final PrivilegeType ADMIN_PRIVILEGE = PrivilegeType.ADMINISTRATOR;
 
 	public AdministratorAccountFactoryImpl() {

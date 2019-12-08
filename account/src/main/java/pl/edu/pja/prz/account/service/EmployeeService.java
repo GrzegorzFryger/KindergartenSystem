@@ -20,7 +20,7 @@ public class EmployeeService extends AccountServiceImpl<EmployeeRepository, Empl
 		this.employeeRepository = employeeRepository;
 	}
 
-	public Set<IdentityObject<Long>> getIdGrups(UUID id) {
+	public Set<IdentityObject<Long>> getIdGroups(UUID id) {
 		return employeeRepository.findById(id)
 				.map(Employee::getGroups)
 				.orElseThrow(()-> {throw new IllegalArgumentException("Not found");});

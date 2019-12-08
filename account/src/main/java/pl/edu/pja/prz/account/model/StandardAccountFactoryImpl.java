@@ -10,8 +10,6 @@ import java.util.Arrays;
 
 @Component
 public class StandardAccountFactoryImpl implements AccountFactory  {
-
-
 	private final PrivilegeType USER_PRIVILEGE = PrivilegeType.USER;
 	private final PrivilegeType TEACHER_PRIVILEGE = PrivilegeType.TEACHER;
 
@@ -39,7 +37,6 @@ public class StandardAccountFactoryImpl implements AccountFactory  {
 		return teacher;
 	}
 
-
 	@Override
 	public Guardian createGuardian(Address address, FullName fullName, Phone phone, Password password, String email,
 	                               Child... children) {
@@ -60,7 +57,5 @@ public class StandardAccountFactoryImpl implements AccountFactory  {
 		guardian.setAccountStatus(AccountStatus.NOT_ACTIVE);
 		return guardian;
 	}
-
-
 
 }

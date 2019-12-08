@@ -15,7 +15,6 @@ import java.util.UUID;
 
 @Entity
 public class Child extends BaseEntity<UUID> {
-
 	private Address address;
 	private Age age;
 	@ManyToOne

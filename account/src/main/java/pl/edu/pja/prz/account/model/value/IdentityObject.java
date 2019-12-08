@@ -1,7 +1,6 @@
 package pl.edu.pja.prz.account.model.value;
 
 public class IdentityObject<T> {
-
 	private  T id;
 	private  String additionalInfo;
 

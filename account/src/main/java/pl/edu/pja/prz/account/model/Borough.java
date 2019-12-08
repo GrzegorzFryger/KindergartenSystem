@@ -10,14 +10,12 @@ import java.util.Set;
 
 @Entity
 public class Borough extends BaseEntity<Long> {
-
 	private String name;
 	private Address address;
 	private Phone phone;
 	private String email;
 	private String nipNumber;
-	@OneToMany(mappedBy = "borough")
-	private Set<Child> children;
+	@OneToMany(mappedBy = "borough") private Set<Child> children;
 
 	Borough() {
 	}
@@ -39,7 +37,6 @@ public class Borough extends BaseEntity<Long> {
 		this.nipNumber = nipNumber;
 		this.children = new HashSet<>();
 	}
-
 
 	public String getName() {
 		return name;
@@ -89,7 +86,7 @@ public class Borough extends BaseEntity<Long> {
 		this.children = children;
 	}
 
-	public boolean addChil(Child child) {
+	public boolean addChild(Child child) {
 		child.setBorough(this);
 		return children.add(child);
 	}

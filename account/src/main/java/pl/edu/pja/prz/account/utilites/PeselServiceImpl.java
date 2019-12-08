@@ -13,7 +13,6 @@ import java.util.stream.Stream;
 
 @Component
 public class PeselServiceImpl implements PeselService {
-
 	private final int[] WEIGHT_FACTOR = {1, 3, 7, 9, 1, 3, 7, 9, 1, 3};
 	private final Integer[][] NUMBERS_PESEL = {	{80, 1800}, {0, 1900}, {20, 2000}, {40, 2100}, {60, 2200}};
 	private class DateOfBirth { int day, month, year;}

@@ -5,7 +5,6 @@ import java.time.LocalDate;
 
 @Embeddable
 public class Age {
-
 	private LocalDate dateOfBirth;
 
 	public Age() {

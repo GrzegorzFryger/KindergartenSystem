@@ -156,7 +156,7 @@ class EmployeeServiceTest {
 				new IdentityObject<>(2L,"test gropu")));
 		//when
 		when(employeeRepository.findById(any())).thenReturn(Optional.of(employee));
-		var groups = employeeService.getIdGrups(new UUID(1,2));
+		var groups = employeeService.getIdGroups(new UUID(1,2));
 		//then
 
 		assertEquals(employee.getGroups(),groups);

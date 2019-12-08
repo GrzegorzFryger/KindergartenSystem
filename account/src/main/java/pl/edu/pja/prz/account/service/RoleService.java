@@ -7,7 +7,6 @@ import pl.edu.pja.prz.account.repository.RoleRepository;
 
 @Service
 public class RoleService {
-
 	private final RoleRepository roleRepository;
 
 	@Autowired
