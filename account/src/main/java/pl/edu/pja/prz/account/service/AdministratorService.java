@@ -81,13 +81,13 @@ public class AdministratorService {
 
 	public Child createChild(Long boroughtId, Address address, Age age, FullName fullName, Gender gender,
 	                         StudyPeriod studyPeriod) {
-		var borought = boroughRepository.findById(boroughtId).orElseThrow(() -> {
+		var borough = boroughRepository.findById(boroughtId).orElseThrow(() -> {
 			throw new IllegalArgumentException("Borough with id not exist: " + boroughtId);
 		});
 
 		//todo write condition for children without pesel number
-		var child = childService.createChild(address,age,borought,fullName ,gender,"NOT_SET",studyPeriod);
-		addChildToBorough(child,borought);
+		var child = childService.createChild(address,age,borough,fullName ,gender,"NOT_SET",studyPeriod);
+		addChildToBorough(child,borough);
 		return child;
 
 	}

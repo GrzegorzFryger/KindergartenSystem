@@ -8,14 +8,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pja.prz.account.model.AdministratorAccountFactoryImpl;
 import pl.edu.pja.prz.account.model.Employee;
 import pl.edu.pja.prz.account.model.Person;
-import pl.edu.pja.prz.account.model.value.Address;
-import pl.edu.pja.prz.account.model.value.FullName;
-import pl.edu.pja.prz.account.model.value.Password;
-import pl.edu.pja.prz.account.model.value.Phone;
+import pl.edu.pja.prz.account.model.value.*;
 import pl.edu.pja.prz.account.repository.EmployeeRepository;
 import pl.edu.pja.prz.account.utilites.PasswordManager;
 
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -55,13 +53,18 @@ class EmployeeServiceTest {
 	void should_ReturnTrue_When_EmailAndPasswordMatch() {
 		//given
 
-
 		//when
 		when(employeeRepository.findByEmail(anyString())).thenReturn(Optional.of( employee));
 		when(passwordManager.matches(anyString(),anyString())).thenReturn(true);
 
 		//then
 		assertTrue(employeeService.signIn("test@test.com", "newPassword"));
+	}
+	@Test
+	void shouldThrowException_When_UserNotFoundInSignIn() {
+		assertThrows(IllegalArgumentException.class,() ->
+				employeeService.signIn("test@test.com", "newPassword")
+		);
 	}
 
 	@Test
@@ -84,27 +87,78 @@ class EmployeeServiceTest {
 	}
 
 	@Test
-	void shouldUpdateEmailAddress() {
+	void shouldThrowException_When_UserNotFoundInUpdatePersonalData() {
+		//given
+		var dataToUpdate = new Person( new Address("80-700","UpdateCity","UpdateStreet 256"),
+				new FullName("UpdateTestName","UpdateTestSurname"),
+				new Phone("888888888")
+		);
 
+		assertThrows(IllegalArgumentException.class,() ->
+				employeeService.updatePersonalData(new UUID(2,6),dataToUpdate)
+		);
+	}
+
+	@Test
+	void shouldUpdateEmailAddress() {
+		//given
 		var dataToUpdate = "updatedemail@test.com";
 
 		//when
 		when(employeeRepository.findById(any())).thenReturn(Optional.of(employee));
 		when(employeeRepository.save(any())).thenReturn(employee);
-		var updatedEmployee = employeeService.updateEmail(new UUID(2,6),dataToUpdate);
+		var updatedEmployee = employeeService.updateEmail(new UUID(1,6),dataToUpdate);
 
 		//then
 		assertEquals(dataToUpdate,updatedEmployee.getEmail());
+	}
 
+	@Test
+	void shouldThrowException_When_UserNotFoundInUpdateEmail(){
+		var dataToUpdate = "updatedemail@test.com";
+
+		assertThrows(IllegalArgumentException.class,() ->
+				employeeService.updateEmail(new UUID(1,6),dataToUpdate)
+		);
 	}
 
 	@Test
 	void shouldUpdatePassword() {
+		var rawOldPassword = "rawOldPassword";
+		var rawNewPassword = "newPassword";
 
+		//when
+		when(employeeRepository.findById(any())).thenReturn(Optional.of(employee));
+		when(passwordManager.matches(any(),any())).thenReturn(true);
+		when(passwordManager.encode(any())).thenReturn(rawNewPassword);
 
+		var isSuccess = employeeService.updatePassword(new UUID(2,6),rawOldPassword,rawNewPassword);
+
+		//then
+		assertEquals(rawNewPassword,employee.getPassword().getPassword());
+		assertTrue(isSuccess);
 	}
 
 	@Test
-	void getIdGrups() {
+	void shouldThrowException_When_UserNotFoundInUpdatePassword(){
+		var rawOldPassword = "rawOldPassword";
+		var rawNewPassword = "newPassword";
+
+		assertThrows(IllegalArgumentException.class,() ->
+				employeeService.updatePassword(new UUID(2,6),rawOldPassword,rawNewPassword)
+		);
+	}
+
+	@Test
+	void shouldGetListGorps() {
+		//given
+		employee.setGroups(Set.of(new IdentityObject<>(1L,"test gropu"),
+				new IdentityObject<>(2L,"test gropu")));
+		//when
+		when(employeeRepository.findById(any())).thenReturn(Optional.of(employee));
+		var groups = employeeService.getIdGrups(new UUID(1,2));
+		//then
+
+		assertEquals(employee.getGroups(),groups);
 	}
 }
