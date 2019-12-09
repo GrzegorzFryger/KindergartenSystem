@@ -5,6 +5,7 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang3.StringUtils;
 import pl.edu.pja.prz.receivables.model.Transaction;
+import pl.edu.pja.prz.receivables.util.CharsetEncoding;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,9 +21,14 @@ public class CsvParsingServiceImpl implements CsvParsingService {
 
     @Override
     public List<Transaction> getTransactionListFromCsv(File file) throws IOException {
+        return getTransactionListFromCsv(file, "Cp1250");
+    }
+
+    @Override
+    public List<Transaction> getTransactionListFromCsv(File file, String charset) throws IOException {
         List<Transaction> transactions = new ArrayList<>();
 
-        CSVParser parser = CSVParser.parse(file, Charset.forName("Cp1250"), getCSVFormat());
+        CSVParser parser = CSVParser.parse(file, CharsetEncoding.charsetFromString(charset), getCSVFormat());
         for (CSVRecord csvRecord : parser) {
             if (isTransactionDateEmpty(csvRecord)) {
                 break; //Stop iteration when empty record is found

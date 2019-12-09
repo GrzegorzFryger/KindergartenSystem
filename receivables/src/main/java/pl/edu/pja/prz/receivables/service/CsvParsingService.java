@@ -10,4 +10,5 @@ import java.util.List;
 @Service
 public interface CsvParsingService {
     List<Transaction> getTransactionListFromCsv(File file) throws IOException;
+    List<Transaction> getTransactionListFromCsv(File file, String charset) throws IOException;
 }
