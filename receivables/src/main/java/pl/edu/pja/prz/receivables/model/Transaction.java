@@ -4,6 +4,7 @@ package pl.edu.pja.prz.receivables.model;
 import javax.persistence.Entity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 public class Transaction {
@@ -96,5 +97,28 @@ public class Transaction {
 
     public void setTransactionCurrency(String transactionCurrency) {
         this.transactionCurrency = transactionCurrency;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transaction that = (Transaction) o;
+        return transactionDate.equals(that.transactionDate) &&
+                Objects.equals(bookingDate, that.bookingDate) &&
+                contractorDetails.equals(that.contractorDetails) &&
+                title.equals(that.title) &&
+                accountNumber.equals(that.accountNumber) &&
+                bankName.equals(that.bankName) &&
+                details.equals(that.details) &&
+                transactionNumber.equals(that.transactionNumber) &&
+                transactionAmount.equals(that.transactionAmount) &&
+                transactionCurrency.equals(that.transactionCurrency);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(transactionDate, bookingDate, contractorDetails, title, accountNumber, bankName, details,
+                transactionNumber, transactionAmount, transactionCurrency);
     }
 }
