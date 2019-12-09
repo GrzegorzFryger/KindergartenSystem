@@ -11,7 +11,7 @@ import java.util.UUID;
 
 abstract class AccountServiceImpl<T extends BasicAccountRepository<E>, E extends Account>
 		implements AccountService<T, E> {
-	private final T  accountRepository;
+	private final T accountRepository;
 	private final PasswordManager passwordManager;
 
 	public AccountServiceImpl(T accountRepository, PasswordManager passwordManager) {
@@ -27,14 +27,14 @@ abstract class AccountServiceImpl<T extends BasicAccountRepository<E>, E extends
 				});
 	}
 
-	@Override public E updatePersonalData(UUID id, Person person){
-		return 	accountRepository.findById(id).map(
+	@Override public E updatePersonalData(UUID id, Person person) {
+		return accountRepository.findById(id).map(
 				account -> {
-					updateNotEmptyPersonField(account,person);
+					updateNotEmptyPersonField(account, person);
 					return accountRepository.save(account);
 				}).orElseThrow(() -> {
-					throw new IllegalArgumentException("Not found user with id : " );
-				});
+			throw new IllegalArgumentException("Not found user with id : ");
+		});
 	}
 
 	@Override public E updateEmail(UUID id, String email) {
@@ -45,7 +45,7 @@ abstract class AccountServiceImpl<T extends BasicAccountRepository<E>, E extends
 					return accountRepository.save(account);
 				}
 		).orElseThrow(() -> {
-			throw new IllegalArgumentException("Not found user with id : " );
+			throw new IllegalArgumentException("Not found user with id : ");
 		});
 	}
 
@@ -53,24 +53,24 @@ abstract class AccountServiceImpl<T extends BasicAccountRepository<E>, E extends
 		return accountRepository.findById(id).map(
 				account -> {
 					//todo send verification email
-					if(passwordManager.matches(rawOldPassword,account.getPassword().getPassword())) {
+					if (passwordManager.matches(rawOldPassword, account.getPassword().getPassword())) {
 						account.setPassword(new Password(passwordManager.encode(rawNewPassword)));
 						return true;
 					} else throw new IllegalArgumentException("password not match");
 				}
 		).orElseThrow(() -> {
-			throw new IllegalArgumentException("Not found user with id : " );
+			throw new IllegalArgumentException("Not found user with id : ");
 		});
 	}
 
 	private void updateNotEmptyPersonField(E account, Person person) {
-		if(person.getAddress()!= null){
+		if (person.getAddress() != null) {
 			account.setAddress(person.getAddress());
 		}
-		if(person.getFullName()!= null){
+		if (person.getFullName() != null) {
 			account.setFullName(person.getFullName());
 		}
-		if(person.getPhoneNumber()!= null){
+		if (person.getPhoneNumber() != null) {
 			account.setPhoneNumber(person.getPhoneNumber());
 		}
 	}

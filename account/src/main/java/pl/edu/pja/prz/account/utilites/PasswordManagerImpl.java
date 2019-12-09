@@ -10,7 +10,7 @@ public class PasswordManagerImpl implements PasswordManager {
 	private PasswordEncoder passwordEncoder;
 
 	@Autowired
-	public PasswordManagerImpl(PasswordEncoder passwordEncoder){
+	public PasswordManagerImpl(PasswordEncoder passwordEncoder) {
 		this.passwordEncoder = passwordEncoder;
 	}
 
@@ -41,16 +41,18 @@ public class PasswordManagerImpl implements PasswordManager {
 				.generate(length);
 
 	}
+
 	private String generateLiteralCharacter(int length) {
 		return new RandomStringGenerator.Builder().
-				withinRange('A' , 'Z')
+				withinRange('A', 'Z')
 				.build()
 				.generate(length);
 
 	}
+
 	private String generateSpecialCharacter(int length) {
 		return new RandomStringGenerator.Builder().
-				withinRange(34 , 46)
+				withinRange(34, 46)
 				.build()
 				.generate(length);
 

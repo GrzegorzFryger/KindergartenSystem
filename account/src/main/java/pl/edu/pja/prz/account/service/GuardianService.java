@@ -25,10 +25,12 @@ public class GuardianService extends AccountServiceImpl<GuardianRepository, Guar
 		this.childRepository = childRepository;
 	}
 
-	public Set<Child> getAllChildren(UUID id ) {
+	public Set<Child> getAllChildren(UUID id) {
 		return guardianRepository.findById(id)
 				.map(Guardian::getChildren)
-				.orElseThrow(()-> {throw new IllegalArgumentException("Not found");});
+				.orElseThrow(() -> {
+					throw new IllegalArgumentException("Not found");
+				});
 	}
 
 }

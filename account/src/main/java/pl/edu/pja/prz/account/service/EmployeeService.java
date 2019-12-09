@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @Component
 public class EmployeeService extends AccountServiceImpl<EmployeeRepository, Employee>
-		implements AccountService<EmployeeRepository,Employee> {
+		implements AccountService<EmployeeRepository, Employee> {
 
 	private final EmployeeRepository employeeRepository;
 
@@ -23,6 +23,8 @@ public class EmployeeService extends AccountServiceImpl<EmployeeRepository, Empl
 	public Set<Group> getIdGroups(UUID id) {
 		return employeeRepository.findById(id)
 				.map(Employee::getGroups)
-				.orElseThrow(()-> {throw new IllegalArgumentException("Not found");});
+				.orElseThrow(() -> {
+					throw new IllegalArgumentException("Not found");
+				});
 	}
 }

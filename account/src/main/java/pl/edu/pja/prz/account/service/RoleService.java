@@ -14,7 +14,7 @@ public class RoleService {
 		this.roleRepository = roleRepository;
 	}
 
-	public void persistRoleFromUser(Account account){
+	public void persistRoleFromUser(Account account) {
 		account.getRoles().forEach(x ->
 				roleRepository.findByName(x.getName())
 						.ifPresentOrElse(roleRepository::save, () -> roleRepository.save(x))

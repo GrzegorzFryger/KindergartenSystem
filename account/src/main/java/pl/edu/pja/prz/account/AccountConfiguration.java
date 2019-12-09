@@ -19,7 +19,7 @@ public class AccountConfiguration {
 	private static final Logger logger = LoggerFactory.getLogger(AccountConfiguration.class);
 
 	@PostConstruct
-	public void postConstruct(){
+	public void postConstruct() {
 		logger.info("Load ACCOUNT MODULE");
 	}
 

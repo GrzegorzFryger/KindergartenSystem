@@ -88,7 +88,7 @@ public class Borough extends BaseEntity<Long> {
 		return children.add(child);
 	}
 
-	public boolean removeChil(Child child) {
+	public boolean removeChild(Child child) {
 		child.setBorough(null);
 		return children.remove(child);
 	}

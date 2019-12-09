@@ -30,7 +30,7 @@ class ChildService {
 	}
 
 	Child createChild(Address address, Borough borough, FullName fullName, String pesel, StudyPeriod studyPeriod) {
-		return createChild( address,
+		return createChild(address,
 				new Age(peselService.extractDateOfBirth(pesel)),
 				borough,
 				fullName,
@@ -57,9 +57,10 @@ class ChildService {
 
 	public Child getChildById(UUID id) {
 		return childRepository.findById(id).orElseThrow(
-				() -> {throw new IllegalArgumentException("Not found child with id " + id);});
+				() -> {
+					throw new IllegalArgumentException("Not found child with id " + id);
+				});
 	}
-
 
 
 }
