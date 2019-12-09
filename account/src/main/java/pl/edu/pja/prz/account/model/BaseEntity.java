@@ -4,9 +4,11 @@ import javax.persistence.*;
 
 @MappedSuperclass
 public class BaseEntity<T> {
-	@Id @GeneratedValue(strategy = GenerationType.AUTO)
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private T id;
-	@Version private Integer version;
+	@Version
+	private Integer version;
 
 	BaseEntity() {
 	}

@@ -25,16 +25,17 @@ public class Child extends BaseEntity<UUID> {
 	private Gender gender;
 	@ElementCollection
 	@Enumerated(EnumType.STRING)
-	private Set<ChildStatus> childStatuses;
+	private Set<ChildStatus> childStatuses = new HashSet<>();
 	@ManyToMany(mappedBy = "children")
-	private Set<Guardian> guardians;
+	private Set<Guardian> guardians = new HashSet<>();
 	private String peselNumber;
 	private StudyPeriod studyPeriod;
 
-	Child() { }
+	Child() {
+	}
 
-	public Child( Set<ChildStatus> childStatuses, Gender gender, Borough borough, Set<Guardian> guardians,
-					String peselNumber, FullName fullName, Age age, Address address, StudyPeriod studyPeriod ){
+	public Child(Set<ChildStatus> childStatuses, Gender gender, Borough borough, Set<Guardian> guardians,
+	             String peselNumber, FullName fullName, Age age, Address address, StudyPeriod studyPeriod) {
 		this.address = address;
 		this.age = age;
 		this.borough = borough;
@@ -46,15 +47,13 @@ public class Child extends BaseEntity<UUID> {
 		this.studyPeriod = studyPeriod;
 	}
 
-	public Child (Gender gender, Borough borough, String peselNumber, FullName fullName, Age age, Address address,
-	              StudyPeriod studyPeriod ){
+	public Child(Gender gender, Borough borough, String peselNumber, FullName fullName, Age age, Address address,
+	             StudyPeriod studyPeriod) {
 		this.address = address;
 		this.age = age;
 		this.borough = borough;
-		this.childStatuses = new HashSet<>();
 		this.fullName = fullName;
 		this.gender = gender;
-		this.guardians = new HashSet<>();
 		this.peselNumber = peselNumber;
 		this.studyPeriod = studyPeriod;
 	}

@@ -13,22 +13,23 @@ import java.util.Set;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Account extends Person  {
+public class Account extends Person {
 	@Enumerated(EnumType.STRING)
 	private AccountStatus accountStatus;
 	private Password password;
 	@ManyToMany(mappedBy = "accounts", fetch = FetchType.LAZY)
-	private Set<Role> roles;
+	private Set<Role> roles = new HashSet<>();
 	private String email;
 
-	 Account() { }
+	Account() {
+	}
 
 	public Account(Address address, FullName fullName, Phone phoneNumber,
 	               Password password, String email) {
 		super(address, fullName, phoneNumber);
 		this.password = password;
 		this.email = email;
-		this.roles = new HashSet<>();
+
 	}
 
 	public String getEmail() {
@@ -56,7 +57,7 @@ public class Account extends Person  {
 	}
 
 	public Set<Role> getRoles() {
-		return roles;
+		return new HashSet<>(roles);
 	}
 
 	public void setRoles(Set<Role> roles) {

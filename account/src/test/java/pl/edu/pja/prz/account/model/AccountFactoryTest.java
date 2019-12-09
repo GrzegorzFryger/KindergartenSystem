@@ -39,8 +39,8 @@ class AccountFactoryTest {
 		role.setPrivileges(Set.of(PrivilegeType.ADMINISTRATOR));
 		roles = new HashSet<>(Collections.singletonList(role));
 		//when
-		var administrator = new AdministratorAccountFactoryImpl().createAdministrator(address,
-				fullName,phone,password,email);
+		var administrator = new AdministratorAccountFactoryImpl().createAdministrator(new Person(address,
+				fullName,phone),password,email);
 
 		//then
 		assertEquals(EmployeeType.ADMINISTRATOR, administrator.getEmployeeType());
@@ -59,7 +59,7 @@ class AccountFactoryTest {
 		roles = new HashSet<>(Collections.singletonList(role));
 
 		//when
-		var teacher =  new AdministratorAccountFactoryImpl().createTeacher(address,fullName,phone,password,email);
+		var teacher =  new AdministratorAccountFactoryImpl().createTeacher(new Person(address,fullName,phone),password,email);
 
 		//then
 		assertEquals(Employee.class, teacher.getClass());
@@ -78,7 +78,7 @@ class AccountFactoryTest {
 		roles = new HashSet<>(Collections.singletonList(role));
 
 		//when
-		var guardian = new AdministratorAccountFactoryImpl().createGuardian(address,fullName,phone,password,email);
+		var guardian = new AdministratorAccountFactoryImpl().createGuardian(new Person(address,fullName,phone),password,email);
 
 		//then
 		assertEquals(Guardian.class, guardian.getClass());

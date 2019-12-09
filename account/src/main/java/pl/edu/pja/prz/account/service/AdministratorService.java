@@ -41,24 +41,22 @@ public class AdministratorService {
 
 	public Guardian createGuardianAccount(Address address, FullName fullName, Phone phone,
 	                                      String email) {
-		return persistStandardAccount(address,fullName,phone,email, guardianRepository, Guardian.class);
+		return persistStandardAccount(address, fullName, phone, email, guardianRepository, Guardian.class);
 	}
 
 	public Employee createEmployeeAccount(Address address, FullName fullName, Phone phone,
-	                                       String email) {
-		return persistStandardAccount(address,fullName,phone,email, employeeRepository, Employee.class);
+	                                      String email) {
+		return persistStandardAccount(address, fullName, phone, email, employeeRepository, Employee.class);
 	}
 
 	public Employee createAdministratorAccount(Address address, FullName fullName, Phone phone,
-	                                            String email) {
+	                                           String email) {
 		employeeRepository.findByEmailAndFullName(email, fullName).ifPresent((account) -> {
 			throw new IllegalArgumentException("Person exist with email: " + account.getId());
 		});
 
 		var result = employeeRepository.save(
-				administratorAccountFactory.createAdministrator(address,
-						fullName,
-						phone,
+				administratorAccountFactory.createAdministrator(new Person(address, fullName, phone),
 						new Password(passwordManager.generateEncodeRandomPassword()),
 						email
 				)
@@ -67,14 +65,14 @@ public class AdministratorService {
 		return result;
 	}
 
-	public Child createChild(Long boroughId, Address address, FullName fullName,String pesel,
+	public Child createChild(Long boroughId, Address address, FullName fullName, String pesel,
 	                         StudyPeriod studyPeriod) {
 		var borought = boroughRepository.findById(boroughId).orElseThrow(() -> {
 			throw new IllegalArgumentException("Borough with id not exist: " + boroughId);
 		});
 
-		var child = childService.createChild(address,borought,fullName ,pesel,studyPeriod);
-		addChildToBorough(child,borought);
+		var child = childService.createChild(address, borought, fullName, pesel, studyPeriod);
+		addChildToBorough(child, borought);
 		return child;
 
 	}
@@ -86,8 +84,8 @@ public class AdministratorService {
 		});
 
 		//todo write condition for children without pesel number
-		var child = childService.createChild(address,age,borough,fullName ,gender,"NOT_SET",studyPeriod);
-		addChildToBorough(child,borough);
+		var child = childService.createChild(address, age, borough, fullName, gender, "NOT_SET", studyPeriod);
+		addChildToBorough(child, borough);
 		return child;
 
 	}
@@ -111,7 +109,7 @@ public class AdministratorService {
 		boroughRepository.save(borough);
 	}
 
-	private <T extends Account > T persistStandardAccount(Address address, FullName fullName, Phone phone,
+	private <T extends Account> T persistStandardAccount(Address address, FullName fullName, Phone phone,
 	                                                     String email, BasicAccountRepository<T> repository,
 	                                                     Class<T> tClass) {
 		repository.findByEmailAndFullName(email, fullName).ifPresent((account) -> {
@@ -119,9 +117,7 @@ public class AdministratorService {
 		});
 
 		var result = repository.save(
-				administratorAccountFactory.createStandardAccount(address,
-						fullName,
-						phone,
+				administratorAccountFactory.createStandardAccount(new Person(address, fullName, phone),
 						new Password(passwordManager.generateEncodeRandomPassword()),
 						email,
 						tClass

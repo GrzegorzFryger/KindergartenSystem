@@ -7,8 +7,12 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pja.prz.account.model.AdministratorAccountFactoryImpl;
 import pl.edu.pja.prz.account.model.Employee;
+import pl.edu.pja.prz.account.model.Group;
 import pl.edu.pja.prz.account.model.Person;
-import pl.edu.pja.prz.account.model.value.*;
+import pl.edu.pja.prz.account.model.value.Address;
+import pl.edu.pja.prz.account.model.value.FullName;
+import pl.edu.pja.prz.account.model.value.Password;
+import pl.edu.pja.prz.account.model.value.Phone;
 import pl.edu.pja.prz.account.repository.EmployeeRepository;
 import pl.edu.pja.prz.account.utilites.PasswordManager;
 
@@ -41,7 +45,7 @@ class EmployeeServiceTest {
 		var password = new Password("newPassword");
 		var email = "test@test.com";
 
-		this.employee =  new AdministratorAccountFactoryImpl().createTeacher(address,fullName,phone,password,email);
+		this.employee =  new AdministratorAccountFactoryImpl().createTeacher(new Person(address,fullName,phone),password,email);
 	}
 
 	@Test
@@ -152,8 +156,8 @@ class EmployeeServiceTest {
 	@Test
 	void shouldGetListGorps() {
 		//given
-		employee.setGroups(Set.of(new IdentityObject<>(1L,"test gropu"),
-				new IdentityObject<>(2L,"test gropu")));
+		employee.setGroups(Set.of(new Group(1L,"test gropu"),
+				new Group(2L,"test gropu")));
 		//when
 		when(employeeRepository.findById(any())).thenReturn(Optional.of(employee));
 		var groups = employeeService.getIdGroups(new UUID(1,2));

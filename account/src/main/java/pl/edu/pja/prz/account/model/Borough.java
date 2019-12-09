@@ -15,7 +15,8 @@ public class Borough extends BaseEntity<Long> {
 	private Phone phone;
 	private String email;
 	private String nipNumber;
-	@OneToMany(mappedBy = "borough") private Set<Child> children;
+	@OneToMany(mappedBy = "borough")
+	private Set<Child> children = new HashSet<>();
 
 	Borough() {
 	}
@@ -35,7 +36,7 @@ public class Borough extends BaseEntity<Long> {
 		this.phone = phone;
 		this.email = email;
 		this.nipNumber = nipNumber;
-		this.children = new HashSet<>();
+
 	}
 
 	public String getName() {
@@ -79,7 +80,7 @@ public class Borough extends BaseEntity<Long> {
 	}
 
 	public Set<Child> getChildren() {
-		return children;
+		return new HashSet<>(children);
 	}
 
 	public void setChildren(Set<Child> children) {

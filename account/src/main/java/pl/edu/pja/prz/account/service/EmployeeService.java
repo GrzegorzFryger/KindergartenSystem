@@ -2,7 +2,7 @@ package pl.edu.pja.prz.account.service;
 
 import org.springframework.stereotype.Component;
 import pl.edu.pja.prz.account.model.Employee;
-import pl.edu.pja.prz.account.model.value.IdentityObject;
+import pl.edu.pja.prz.account.model.Group;
 import pl.edu.pja.prz.account.repository.EmployeeRepository;
 import pl.edu.pja.prz.account.utilites.PasswordManager;
 
@@ -20,7 +20,7 @@ public class EmployeeService extends AccountServiceImpl<EmployeeRepository, Empl
 		this.employeeRepository = employeeRepository;
 	}
 
-	public Set<IdentityObject<Long>> getIdGroups(UUID id) {
+	public Set<Group> getIdGroups(UUID id) {
 		return employeeRepository.findById(id)
 				.map(Employee::getGroups)
 				.orElseThrow(()-> {throw new IllegalArgumentException("Not found");});
