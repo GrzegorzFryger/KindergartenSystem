@@ -6,28 +6,23 @@ import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang3.StringUtils;
 import pl.edu.pja.prz.receivables.model.Transaction;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.Charset;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO Resolve encoding issue
 public class CsvParsingServiceImpl implements CsvParsingService {
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-    private final Integer METADATA_ROWS = 19;
 
     @Override
     public List<Transaction> getTransactionListFromCsv(File file) throws IOException {
         List<Transaction> transactions = new ArrayList<>();
-        BufferedReader in = new BufferedReader(new InputStreamReader(
-                new FileInputStream(file), StandardCharsets.UTF_8));
 
-        skipMetadataRows(in);
-
-        CSVParser parser = CSVParser.parse(in, getCSVFormat());
+        CSVParser parser = CSVParser.parse(file, Charset.forName("Cp1250"), getCSVFormat());
         for (CSVRecord csvRecord : parser) {
             if (isTransactionDateEmpty(csvRecord)) {
                 break; //Stop iteration when empty record is found
@@ -36,14 +31,7 @@ public class CsvParsingServiceImpl implements CsvParsingService {
             System.out.println(csvRecord);
         }
         parser.close();
-        in.close();
         return transactions;
-    }
-
-    private void skipMetadataRows(BufferedReader in) throws IOException {
-        for (int i = 0; i < METADATA_ROWS; i++) {
-            in.readLine();
-        }
     }
 
     private CSVFormat getCSVFormat() {

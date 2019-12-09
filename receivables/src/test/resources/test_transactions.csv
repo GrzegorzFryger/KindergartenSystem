@@ -1,23 +1,4 @@
-Lista transakcji;;;;;ING;;;;;;;;;;
-Dokument nr 0011223344_081219;;;;;;;;;;;;;;;
-Wygenerowany dnia: 2019-12-08, 21:37;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;
-Dane U¿ytkownika:;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;
-Wybrane rachunki:;;;;;;;;;;;;;;;
-TEST_1 (PLN);;;;;;;;;;;;;;;
-TEST_2 (PLN);;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;
-Zastosowane kryteria wyboru;;;;;Podsumowanie;;;;;;;;;;
-;;;;;;;;;;;;;;;
-Zakres dat:;2019-12-08 - 2019-12-20;Typy transakcji:;wszystkie;;Liczba transakcji:;5;;;;;;;;;
-;;;;;;;;;;;;;;;
-;;;;;Suma uznañ (5):;;PLN;;;;;;;;
-;;;;;;;;;;;;;;;
-;;;;;Suma obci¹¿eñ (0):;;PLN;;;;;;;;
-;;;;;;;;;;;;;;;
-Data transakcji;Data ksiêgowania;Dane kontrahenta;Tytu³;Nr rachunku;Nazwa banku;Szczegó³y;Nr transakcji;Kwota transakcji (waluta rachunku);Waluta;Kwota blokady/zwolnienie blokady;Waluta;Kwota p³atnoœci w walucie;Waluta;Konto;Waluta
+ï»¿Data transakcji;Data ksiÄ™gowania;Dane kontrahenta;TytuÅ‚;Nr rachunku;Nazwa banku;SzczegÃ³Å‚y;Nr transakcji;Kwota transakcji (waluta rachunku);Waluta;Kwota blokady/zwolnienie blokady;Waluta;Kwota pÅ‚atnoÅ›ci w walucie;Waluta;Konto;Waluta
 10.12.2019;;Rodzic 1;Czesne #0023433;TEST_1;ING;;1;10;PLN;;;;;;
 11.12.2019;;Rodzic 2;Czesne #0025243;TEST_1;ING;;2;20;PLN;;;;;;
 12.12.2019;;Rodzic 3;Czesne #0035441;TEST_1;ING;;3;30;PLN;;;;;;
@@ -25,4 +6,4 @@ Data transakcji;Data ksiêgowania;Dane kontrahenta;Tytu³;Nr rachunku;Nazwa banku;
 14.12.2019;;Rodzic 5;Czesne #0063245;TEST_1;ING;;5;50;PLN;;;;;;
 ;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;
-Dokument ma charakter informacyjny, nie stanowi dowodu ksiêgowego;;;;;;;;;;;;;;;
+Dokument ma charakter informacyjny, nie stanowi dowodu ksiÄ™gowego;;;;;;;;;;;;;;;
