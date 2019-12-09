@@ -57,7 +57,7 @@ public class Account extends Person {
 	}
 
 	public Set<Role> getRoles() {
-		return new HashSet<>(roles);
+		return roles;
 	}
 
 	public void setRoles(Set<Role> roles) {

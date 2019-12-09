@@ -80,7 +80,7 @@ public class Borough extends BaseEntity<Long> {
 	}
 
 	public Set<Child> getChildren() {
-		return new HashSet<>(children);
+		return children;
 	}
 
 	public void setChildren(Set<Child> children) {
