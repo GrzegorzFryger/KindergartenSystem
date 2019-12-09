@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class CsvParsingServiceImplTest {
-    private static final String CSV_RELATIVE_PATH = "\\src\\test\\resources\\test_transactions.csv";
+    private static final String CSV_RELATIVE_PATH = "/src/test/resources/test_transactions.csv";
 
     private File csv;
     private CsvParsingService service;
