@@ -9,7 +9,8 @@ import pl.edu.pja.prz.account.utilites.PasswordManager;
 import java.util.UUID;
 
 
-abstract class AccountServiceImpl<T extends BasicAccountRepository<E>, E extends Account> implements AccountService<T, E> {
+abstract class AccountServiceImpl<T extends BasicAccountRepository<E>, E extends Account>
+		implements AccountService<T, E> {
 	private final T  accountRepository;
 	private final PasswordManager passwordManager;
 

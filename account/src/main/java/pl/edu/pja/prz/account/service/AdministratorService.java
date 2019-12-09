@@ -28,7 +28,8 @@ public class AdministratorService {
 
 	@Autowired
 	public AdministratorService(AdministratorAccountFactoryImpl administratorAccountFactory,
-	                            BoroughRepository boroughRepository, ChildService childService, EmployeeRepository employeeRepository, GuardianRepository guardianRepository,
+	                            BoroughRepository boroughRepository, ChildService childService,
+	                            EmployeeRepository employeeRepository, GuardianRepository guardianRepository,
 	                            PasswordManager passwordManager, RoleService roleService) {
 		this.administratorAccountFactory = administratorAccountFactory;
 		this.boroughRepository = boroughRepository;

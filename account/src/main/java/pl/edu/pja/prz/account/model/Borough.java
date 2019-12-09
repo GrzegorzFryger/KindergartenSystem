@@ -22,11 +22,7 @@ public class Borough extends BaseEntity<Long> {
 	}
 
 	public Borough(String name, Address address, Phone phone, String email, String nipNumber, Set<Child> children) {
-		this.name = name;
-		this.address = address;
-		this.phone = phone;
-		this.email = email;
-		this.nipNumber = nipNumber;
+		this(name, address, phone, email, nipNumber);
 		this.children = children;
 	}
 
