@@ -38,5 +38,7 @@ class CsvParsingServiceImplTest {
 
         assertNotNull(transactions.get(0).getTransactionDate());
         assertNotNull(transactions.get(0).getTransactionAmount());
+        assertNotNull(transactions.get(0).getTitle());
+        assertNotNull(transactions.get(0).getTransactionCurrency());
     }
 }

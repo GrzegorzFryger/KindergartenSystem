@@ -5,19 +5,15 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang3.StringUtils;
 import pl.edu.pja.prz.receivables.model.Transaction;
+import pl.edu.pja.prz.receivables.model.builder.TransactionBuilder;
 import pl.edu.pja.prz.receivables.util.CharsetEncoding;
 
 import java.io.File;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.nio.charset.Charset;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CsvParsingServiceImpl implements CsvParsingService {
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     @Override
     public List<Transaction> getTransactionListFromCsv(File file) throws IOException {
@@ -54,26 +50,7 @@ public class CsvParsingServiceImpl implements CsvParsingService {
     }
 
     private Transaction mapTransactionFromCsvRecord(CSVRecord csvRecord) {
-        Transaction transaction = new Transaction();
-        transaction.setTransactionDate(parseDate(csvRecord.get(0)));
-        transaction.setBookingDate(parseDate(csvRecord.get(1)));
-        transaction.setContractorDetails(csvRecord.get(2));
-        transaction.setTitle(csvRecord.get(3));
-        transaction.setAccountNumber(csvRecord.get(4));
-        transaction.setBankName(csvRecord.get(5));
-        transaction.setDetails(csvRecord.get(6));
-        if (StringUtils.isNotEmpty(csvRecord.get(8))) {
-            transaction.setTransactionAmount(new BigDecimal(csvRecord.get(8).replace(',', '.')));
-        }
-        transaction.setTransactionCurrency(csvRecord.get(9));
-        return transaction;
-    }
-
-    private LocalDate parseDate(String date) {
-        if (StringUtils.isEmpty(date)) {
-            return null;
-        } else {
-            return LocalDate.parse(date, formatter);
-        }
+        TransactionBuilder builder = new TransactionBuilder();
+        return builder.fromCSVRecord(csvRecord).build();
     }
 }
