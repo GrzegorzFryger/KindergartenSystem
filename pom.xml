@@ -70,7 +70,8 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
-            <!--<plugin>-->
+
+         <!--<plugin>-->
                 <!--<groupId>org.jacoco</groupId>-->
                 <!--<artifactId>jacoco-maven-plugin</artifactId>-->
                 <!--<version>${jacoco-mavenplugin-version}</version>-->
