@@ -1,7 +1,6 @@
 package pl.edu.pja.prz.groups.Model;
 
-
-import pl.edu.pja.prz.account.domain.entity.Children;
+import pl.edu.pja.prz.account.model.Child;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,7 +11,7 @@ public class Group {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String groupName;
-    private List<Children> childrenList;
+    private List<Child> childrenList;
     private String groupDescription;
 
 
@@ -20,7 +19,7 @@ public class Group {
 
     }
 
-    public Group(String groupName, List<Children> childrenList, String groupDescription) {
+    public Group(String groupName, List<Child> childrenList, String groupDescription) {
         this.groupName = groupName;
         this.childrenList = childrenList;
         this.groupDescription = groupDescription;
@@ -42,11 +41,11 @@ public class Group {
         this.groupName = groupName;
     }
 
-    public List<Children> getChildrenList() {
+    public List<Child> getChildrenList() {
         return childrenList;
     }
 
-    public void setChildrenList(List<Children> childrenList) {
+    public void setChildrenList(List<Child> childrenList) {
         this.childrenList = childrenList;
     }
 
