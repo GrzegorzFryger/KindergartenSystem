@@ -18,6 +18,7 @@ open module pl.edu.pja.prz.account {
 	requires java.annotation;
 	requires spring.security.core;
 	requires spring.data.commons;
+	requires org.apache.commons.text;
 
 	exports pl.edu.pja.prz.account;
 
