@@ -1,7 +1,7 @@
-package pl.edu.pja.prz.groups.Service;
+package pl.edu.pja.prz.groups.service;
 
 import org.springframework.stereotype.Service;
-import pl.edu.pja.prz.groups.Model.Group;
+import pl.edu.pja.prz.groups.model.Group;
 
 import java.util.List;
 

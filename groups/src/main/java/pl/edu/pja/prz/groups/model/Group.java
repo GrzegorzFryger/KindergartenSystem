@@ -1,6 +1,4 @@
-package pl.edu.pja.prz.groups.Model;
-
-import pl.edu.pja.prz.account.model.Child;
+package pl.edu.pja.prz.groups.model;
 
 import javax.persistence.*;
 import java.util.List;
