@@ -10,7 +10,8 @@ import java.util.Optional;
 
 @Repository
 public interface MealPriceListRepository extends JpaRepository<MealPriceList, Long> {
-    Optional<MealPriceList> findByMealType(MealType type);
-    @Query(value = "SELECT new MealPriceList(mealPrice) from MealPriceList m where m.mealType=?1")
-    Double findMealPriceByMealType(MealType mealType);
+	Optional<MealPriceList> findByMealType(MealType type);
+
+	@Query(value = "SELECT new MealPriceList(mealPrice) from MealPriceList m where m.mealType=?1")
+	Double findMealPriceByMealType(MealType mealType);
 }

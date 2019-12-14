@@ -15,44 +15,44 @@ import java.util.Optional;
 public class MealPriceListServiceImpl {
 
 
-    private MealPriceListRepository mealPriceListRepository;
+	private MealPriceListRepository mealPriceListRepository;
 
-    @Autowired
-    public MealPriceListServiceImpl(MealPriceListRepository mealPriceListRepository) {
-        this.mealPriceListRepository = mealPriceListRepository;
-    }
+	@Autowired
+	public MealPriceListServiceImpl(MealPriceListRepository mealPriceListRepository) {
+		this.mealPriceListRepository = mealPriceListRepository;
+	}
 
-    public MealPriceList creatMealPriceList(MealPriceList mealPriceList) throws MealPriceListAlreadyExistException {
-        if(mealPriceListRepository.findByMealType(mealPriceList.getMealType()).isPresent()) {
-            throw new MealPriceListAlreadyExistException("Price list to " + mealPriceList.getMealType() + " already exist");
-        }
-        return mealPriceListRepository.save(mealPriceList);
-    }
+	public MealPriceList creatMealPriceList(MealPriceList mealPriceList) throws MealPriceListAlreadyExistException {
+		if (mealPriceListRepository.findByMealType(mealPriceList.getMealType()).isPresent()) {
+			throw new MealPriceListAlreadyExistException("Price list to " + mealPriceList.getMealType() + " already exist");
+		}
+		return mealPriceListRepository.save(mealPriceList);
+	}
 
-    public MealPriceList updateMealPriceList(MealPriceList mealPriceList, long id) throws NotFound {
-        Optional<MealPriceList> mealPriceListOptional = mealPriceListRepository.findById(id);
-        if(mealPriceListOptional.isEmpty()){
-            throw new NotFound("Price list with ID:" + id +" not found");
-        }
+	public MealPriceList updateMealPriceList(MealPriceList mealPriceList, long id) throws NotFound {
+		Optional<MealPriceList> mealPriceListOptional = mealPriceListRepository.findById(id);
+		if (mealPriceListOptional.isEmpty()) {
+			throw new NotFound("Price list with ID:" + id + " not found");
+		}
 
-        MealPriceList priceListToUpdate = mealPriceListOptional.get();
-        priceListToUpdate.setMealPrice(mealPriceList.getMealPrice());
-        return mealPriceListRepository.save(priceListToUpdate);
-    }
+		MealPriceList priceListToUpdate = mealPriceListOptional.get();
+		priceListToUpdate.setMealPrice(mealPriceList.getMealPrice());
+		return mealPriceListRepository.save(priceListToUpdate);
+	}
 
-    public List<MealPriceList> getAllPriceList() {
-        return mealPriceListRepository.findAll();
-    }
+	public List<MealPriceList> getAllPriceList() {
+		return mealPriceListRepository.findAll();
+	}
 
-    public void deleteMealPriceList(long id) throws NotFound {
-        if(!mealPriceListRepository.existsById(id)) {
-            throw new NotFound("Price list with ID:" + id +" not found");
-        }
-        mealPriceListRepository.deleteById(id);
-    }
+	public void deleteMealPriceList(long id) throws NotFound {
+		if (!mealPriceListRepository.existsById(id)) {
+			throw new NotFound("Price list with ID:" + id + " not found");
+		}
+		mealPriceListRepository.deleteById(id);
+	}
 
-    public double getPriceByMealType(MealType mealType) {
-        return mealPriceListRepository.findMealPriceByMealType(mealType);
-    }
+	public double getPriceByMealType(MealType mealType) {
+		return mealPriceListRepository.findMealPriceByMealType(mealType);
+	}
 
 }
