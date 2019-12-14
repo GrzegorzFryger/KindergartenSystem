@@ -16,7 +16,10 @@
     <modules>
         <module>Core</module>
         <module>Account</module>
-        <module>Meal</module>
+
+
+
+        <module>meal</module>
     </modules>
 
     <parent>
