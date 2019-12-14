@@ -19,5 +19,5 @@ open module pl.edu.pja.prz.tuition {
 	requires spring.data.commons;
 
 
-	exports pl.edu.pja.tuition;
+	exports pl.edu.pja.prz.tuition;
 }

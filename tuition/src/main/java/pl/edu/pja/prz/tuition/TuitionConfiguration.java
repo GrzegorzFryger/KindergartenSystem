@@ -1,16 +1,12 @@
-package pl.edu.pja.tuition;
+package pl.edu.pja.prz.tuition;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.annotation.PostConstruct;
-
 
 @Configuration
 @ComponentScan
