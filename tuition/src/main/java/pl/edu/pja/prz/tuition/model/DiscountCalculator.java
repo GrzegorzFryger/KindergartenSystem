@@ -11,16 +11,19 @@ public interface DiscountCalculator {
 	Set<RebatePolicy> getRebatePolicy();
 
 	default BigDecimal calculateAmountWithDiscount() {
-		return getRebatePolicy().stream().map(x -> {
-			BigDecimal valueOfDiscount;
-
-			if (x.getTypeRebate() == TypeRebate.PERCENTAGE) {
-				valueOfDiscount = getAmount().multiply(x.getValue().divide(BigDecimal.valueOf(100)));
-			} else {
-				valueOfDiscount = x.getValue();
-			}
-
-			return valueOfDiscount;
-		}).reduce(getAmount(), BigDecimal::subtract);
+		return getRebatePolicy()
+				.stream()
+				.map(rebatePolicy -> {
+					BigDecimal valueOfDiscount;
+					if (rebatePolicy.getTypeRebate() == TypeRebate.PERCENTAGE) {
+						valueOfDiscount = getAmount().multiply(
+								rebatePolicy.getValue().divide(BigDecimal.valueOf(100))
+						);
+					} else {
+						valueOfDiscount = rebatePolicy.getValue();
+					}
+					return valueOfDiscount;
+				})
+				.reduce(getAmount(), BigDecimal::subtract);
 	}
 }

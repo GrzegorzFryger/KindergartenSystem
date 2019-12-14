@@ -7,14 +7,24 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Tuition implements DiscountCalculator {
-	private Long id;
+public class Tuition extends BaseEntity<Long> implements DiscountCalculator {
 	private Child child;
 	private BigDecimal amount;
 	private Status status;
 	private String description;
 	private PeriodValidity periodValidity;
 	private Set<RebatePolicy> rebatePolicy = new HashSet<>();
+
+	Tuition() {
+	}
+
+	public Tuition(Child child, BigDecimal amount, Status status, String description, PeriodValidity periodValidity) {
+		this.child = child;
+		this.amount = amount;
+		this.status = status;
+		this.description = description;
+		this.periodValidity = periodValidity;
+	}
 
 	public Child getChild() {
 		return child;
@@ -28,7 +38,7 @@ public class Tuition implements DiscountCalculator {
 		return amount;
 	}
 
-	public void setAmount(BigDecimal amount) {
+	void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
 
@@ -60,8 +70,16 @@ public class Tuition implements DiscountCalculator {
 		return rebatePolicy;
 	}
 
-	public void setRebatePolicy(Set<RebatePolicy> rebatePolicy) {
+	void setRebatePolicy(Set<RebatePolicy> rebatePolicy) {
 		this.rebatePolicy = rebatePolicy;
+	}
+
+	public void addRebatePolicy(RebatePolicy rebatePolicies) {
+		this.rebatePolicy.add(rebatePolicies);
+	}
+
+	public void removeRebatePolicy(RebatePolicy rebatePolicies) {
+		this.rebatePolicy.remove(rebatePolicies);
 	}
 
 
