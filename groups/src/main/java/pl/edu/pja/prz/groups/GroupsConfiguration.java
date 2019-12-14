@@ -17,7 +17,7 @@ public class GroupsConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(GroupsConfiguration.class);
 
     @PostConstruct
-    public void postConstruct(){
+    public void postConstruct() {
         logger.info("Loaded module: GROUPS");
     }
 }

@@ -2,6 +2,7 @@ package pl.edu.pja.prz.groups.model;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Group {
@@ -9,6 +10,7 @@ public class Group {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String groupName;
+    @ManyToMany(mappedBy = "group")
     private List<Child> childrenList;
     private String groupDescription;
 
@@ -63,5 +65,21 @@ public class Group {
                 ", childrenList=" + childrenList +
                 ", groupDescription='" + groupDescription + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Group group = (Group) o;
+        return id.equals(group.id) &&
+                Objects.equals(groupName, group.groupName) &&
+                Objects.equals(childrenList, group.childrenList) &&
+                Objects.equals(groupDescription, group.groupDescription);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, groupName, childrenList, groupDescription);
     }
 }

@@ -9,14 +9,8 @@ import java.util.List;
 public class GroupServiceImpl implements GroupService {
 
 
-
     @Override
     public Group createGroup(Group group) {
-        return null;
-    }
-
-    @Override
-    public Group editGroup(Group group) {
         return null;
     }
 

@@ -9,6 +9,4 @@ open module groups {
     requires org.apache.commons.lang3;
 
     exports pl.edu.pja.prz.groups;
-
-
 }
