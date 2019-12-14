@@ -1,6 +1,6 @@
-package pl.edu.pja.tuition.model;
+package pl.edu.pja.prz.tuition.model;
 
-import pl.edu.pja.tuition.model.value.FullName;
+import pl.edu.pja.prz.tuition.model.value.FullName;
 
 import java.util.UUID;
 

@@ -1,4 +1,4 @@
-package pl.edu.pja.tuition.model.value;
+package pl.edu.pja.prz.tuition.model.value;
 
 import javax.persistence.Embeddable;
 
