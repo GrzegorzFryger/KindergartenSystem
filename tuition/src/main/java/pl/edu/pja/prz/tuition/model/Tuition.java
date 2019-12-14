@@ -13,7 +13,7 @@ public class Tuition extends BaseEntity<Long> implements DiscountCalculator {
 	private Status status;
 	private String description;
 	private PeriodValidity periodValidity;
-	private Set<RebatePolicy> rebatePolicy = new HashSet<>();
+	private Set<Rebate> rebates = new HashSet<>();
 
 	Tuition() {
 	}
@@ -66,20 +66,20 @@ public class Tuition extends BaseEntity<Long> implements DiscountCalculator {
 		this.periodValidity = periodValidity;
 	}
 
-	public Set<RebatePolicy> getRebatePolicy() {
-		return rebatePolicy;
+	public Set<Rebate> getRebates() {
+		return rebates;
 	}
 
-	void setRebatePolicy(Set<RebatePolicy> rebatePolicy) {
-		this.rebatePolicy = rebatePolicy;
+	void setRebates(Set<Rebate> rebates) {
+		this.rebates = rebates;
 	}
 
-	public void addRebatePolicy(RebatePolicy rebatePolicies) {
-		this.rebatePolicy.add(rebatePolicies);
+	public void addRebatePolicy(Rebate rebatePolicies) {
+		this.rebates.add(rebatePolicies);
 	}
 
-	public void removeRebatePolicy(RebatePolicy rebatePolicies) {
-		this.rebatePolicy.remove(rebatePolicies);
+	public void removeRebatePolicy(Rebate rebatePolicies) {
+		this.rebates.remove(rebatePolicies);
 	}
 
 

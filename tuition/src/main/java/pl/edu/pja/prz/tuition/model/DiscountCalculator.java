@@ -8,19 +8,19 @@ import java.util.Set;
 public interface DiscountCalculator {
 	BigDecimal getAmount();
 
-	Set<RebatePolicy> getRebatePolicy();
+	Set<Rebate> getRebates();
 
 	default BigDecimal calculateAmountWithDiscount() {
-		return getRebatePolicy()
+		return getRebates()
 				.stream()
-				.map(rebatePolicy -> {
+				.map(rebate -> {
 					BigDecimal valueOfDiscount;
-					if (rebatePolicy.getTypeRebate() == TypeRebate.PERCENTAGE) {
+					if (rebate.getTypeRebate() == TypeRebate.PERCENTAGE) {
 						valueOfDiscount = getAmount().multiply(
-								rebatePolicy.getValue().divide(BigDecimal.valueOf(100))
+								rebate.getValue().divide(BigDecimal.valueOf(100))
 						);
 					} else {
-						valueOfDiscount = rebatePolicy.getValue();
+						valueOfDiscount = rebate.getValue();
 					}
 					return valueOfDiscount;
 				})
