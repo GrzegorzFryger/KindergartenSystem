@@ -11,7 +11,7 @@ import javax.annotation.PostConstruct;
 
 @Configuration
 @ComponentScan
-@PropertySource("classpath:application-receivables.properties")
+@PropertySource("classpath:application-groups.properties")
 public class GroupsConfiguration {
 
     private static final Logger logger = LoggerFactory.getLogger(GroupsConfiguration.class);
