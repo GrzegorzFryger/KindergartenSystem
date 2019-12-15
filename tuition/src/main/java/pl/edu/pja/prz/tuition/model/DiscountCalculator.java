@@ -1,26 +1,28 @@
 package pl.edu.pja.prz.tuition.model;
 
-import pl.edu.pja.prz.tuition.model.enums.TypeRebate;
+import pl.edu.pja.prz.tuition.model.enums.TypeDiscount;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Set;
 
 public interface DiscountCalculator {
 	BigDecimal getAmount();
 
-	Set<Rebate> getRebates();
+	Set<Discount> getDiscounts();
 
 	default BigDecimal calculateAmountWithDiscount() {
-		return getRebates()
+		return getDiscounts()
 				.stream()
-				.map(rebate -> {
+				.map(discount -> {
 					BigDecimal valueOfDiscount;
-					if (rebate.getTypeRebate() == TypeRebate.PERCENTAGE) {
+					if (discount.getTypeDiscount() == TypeDiscount.PERCENTAGE) {
 						valueOfDiscount = getAmount().multiply(
-								rebate.getValue().divide(BigDecimal.valueOf(100))
-						);
+								discount.getValue().divide(BigDecimal.valueOf(100))
+						).setScale(2, RoundingMode.CEILING);
 					} else {
-						valueOfDiscount = rebate.getValue();
+						valueOfDiscount = discount.getValue()
+								.setScale(2, RoundingMode.CEILING);
 					}
 					return valueOfDiscount;
 				})
