@@ -23,7 +23,7 @@
         <module>core</module>
         <module>account</module>
         <module>receivables</module>
-        <module>tuition</module>
+        <module>payments</module>
     </modules>
 
     <parent>
