@@ -16,7 +16,7 @@ public interface DiscountCalculator {
 				.stream()
 				.map(discount -> {
 					BigDecimal valueOfDiscount;
-					if (discount.getTypeDiscount() == TypeDiscount.PERCENTAGE) {
+					if (TypeDiscount.PERCENTAGE == discount.getTypeDiscount()) {
 						valueOfDiscount = getAmount().multiply(
 								discount.getValue().divide(BigDecimal.valueOf(100))
 						).setScale(2, RoundingMode.CEILING);
