@@ -13,4 +13,5 @@ open module pl.edu.pja.prz.core {
 	requires org.hibernate.orm.core;
 	requires pl.edu.pja.prz.account;
 	requires receivables;
+	requires payments;
 }
