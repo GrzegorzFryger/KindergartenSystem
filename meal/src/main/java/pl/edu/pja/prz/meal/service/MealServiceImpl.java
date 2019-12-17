@@ -57,17 +57,32 @@ public class MealServiceImpl implements MealService {
         }
 
         Meal mealToUpdate = getMealByID(mealToUpdateID);
-        if(meal.getMealPrice() != 0.0) {
+        if (meal.getMealPrice() != 0.0) {
             mealToUpdate.setMealPrice(meal.getMealPrice());
         }
-        if(meal.getMealType() != null) {
+        if (meal.getMealType() != null) {
             mealToUpdate.setMealType(meal.getMealType());
         }
-        if(meal.getMealToDate() != null) {
+        if (meal.getMealToDate() != null) {
             mealToUpdate.setMealToDate(LocalDateTime.of(meal.getMealToDate(), LocalTime.MIDNIGHT));
         }
 
         return mealRepository.save(mealToUpdate);
+    }
+
+    public Meal markMealAsInactiveOnDemand(Long mealToMarkAsInactiveId) throws NotFound, MeaActivityStatusException {
+        if (!isMealPresentByID(mealToMarkAsInactiveId)) {
+            throw new NotFound("Meal by ID " + mealToMarkAsInactiveId + "doest exist");
+        }
+
+        if (mealRepository.findMealByIdAndMealStatus(mealToMarkAsInactiveId, MealStatus.ACTIVE).isPresent()) {
+            throw new MeaActivityStatusException("Meal with ID: " + mealToMarkAsInactiveId + " is not ACTIVE");
+        }
+
+        Meal mealToMarkAsInactive = getMealByID(mealToMarkAsInactiveId);
+        mealToMarkAsInactive.setMealStatus(MealStatus.INACTIVE);
+        return mealRepository.save(mealToMarkAsInactive);
+
     }
 
     @Override
