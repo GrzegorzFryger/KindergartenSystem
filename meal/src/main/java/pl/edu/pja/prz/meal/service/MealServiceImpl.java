@@ -57,9 +57,15 @@ public class MealServiceImpl implements MealService {
         }
 
         Meal mealToUpdate = getMealByID(mealToUpdateID);
-        mealToUpdate.setMealPrice(meal.getMealPrice());
-        mealToUpdate.setMealType(meal.getMealType());
-        mealToUpdate.setMealToDate(LocalDateTime.of(meal.getMealToDate(), LocalTime.MIDNIGHT));
+        if(meal.getMealPrice() != 0.0) {
+            mealToUpdate.setMealPrice(meal.getMealPrice());
+        }
+        if(meal.getMealType() != null) {
+            mealToUpdate.setMealType(meal.getMealType());
+        }
+        if(meal.getMealToDate() != null) {
+            mealToUpdate.setMealToDate(LocalDateTime.of(meal.getMealToDate(), LocalTime.MIDNIGHT));
+        }
 
         return mealRepository.save(mealToUpdate);
     }
