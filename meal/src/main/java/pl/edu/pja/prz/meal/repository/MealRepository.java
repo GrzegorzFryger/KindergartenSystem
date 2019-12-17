@@ -11,8 +11,6 @@ import java.util.Optional;
 @Repository
 public interface MealRepository extends JpaRepository<Meal, Long> {
 	Optional<Meal> findMealByChildIDAndMealStatus(long id, MealStatus status);
-
 	Optional<Meal> findMealByIdAndMealStatus(long id, MealStatus status);
-
 	List<Meal> findAllByMealStatus(MealStatus mealStatus);
 }

@@ -9,17 +9,12 @@ import java.util.List;
 
 public interface MealService {
 
-	Meal createMeal(MealCreateUpdateDTO meal) throws MeaActivityStatusException;
-
-	Meal getMealByID(Long id) throws NotFound;
-
-	void deleteMealByID(Long id) throws NotFound;
-
-	Meal updateMeal(MealCreateUpdateDTO meal, Long mealToUpdateID) throws NotFound, MeaActivityStatusException;
-
-	boolean isMealPresentByID(Long id);
-
-	List<Meal> getAllMeals();
+    Meal createMeal(MealCreateUpdateDTO meal) throws MeaActivityStatusException;
+    Meal getMealByID(Long id) throws NotFound;
+    void deleteMealByID(Long id) throws NotFound;
+    Meal updateMeal(MealCreateUpdateDTO meal, Long mealToUpdateID) throws NotFound, MeaActivityStatusException;
+    boolean isMealPresentByID(Long id);
+    List<Meal> getAllMeals();
 
 
 }

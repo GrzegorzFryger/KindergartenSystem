@@ -44,15 +44,12 @@ public class MealCreateUpdateDTO {
 	public LocalDate getMealFromDate() {
 		return mealFromDate;
 	}
-
 	public LocalDate getMealToDate() {
 		return mealToDate;
 	}
-
 	public MealType getMealType() {
 		return mealType;
 	}
-
 	public long getChildID() {
 		return childID;
 	}

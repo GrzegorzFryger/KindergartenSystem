@@ -10,32 +10,32 @@ import javax.persistence.Id;
 @Entity
 public class MealPriceList {
 
-	@Id
-	private long id;
-	@Enumerated(EnumType.STRING)
-	private MealType mealType;
-	private double mealPrice;
+    @Id
+    private long id;
+    @Enumerated(EnumType.STRING)
+    private MealType mealType;
+    private double mealPrice;
 
-	public MealPriceList() {
-	}
+    public MealPriceList() {
+    }
 
-	public long getId() {
-		return id;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public MealType getMealType() {
-		return mealType;
-	}
+    public MealType getMealType() {
+        return mealType;
+    }
 
-	public double getMealPrice() {
-		return mealPrice;
-	}
+    public double getMealPrice() {
+        return mealPrice;
+    }
 
-	public void setMealType(MealType mealType) {
-		this.mealType = mealType;
-	}
+    public void setMealType(MealType mealType) {
+        this.mealType = mealType;
+    }
 
-	public void setMealPrice(double mealPrice) {
-		this.mealPrice = mealPrice;
-	}
+    public void setMealPrice(double mealPrice) {
+        this.mealPrice = mealPrice;
+    }
 }
