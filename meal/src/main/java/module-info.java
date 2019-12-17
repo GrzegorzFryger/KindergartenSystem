@@ -18,8 +18,9 @@ open module pl.edu.pja.prz.meal {
 	requires java.annotation;
 	requires spring.security.core;
 	requires spring.data.commons;
+    requires spring.web;
 
 
-	exports pl.edu.pja.prz.meal;
+    exports pl.edu.pja.prz.meal;
 
 }
