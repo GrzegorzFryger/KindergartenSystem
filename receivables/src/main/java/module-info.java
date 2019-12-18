@@ -1,4 +1,4 @@
-open module receivables {
+open module pl.edu.pja.prz.receivables {
     requires spring.boot.autoconfigure;
     requires spring.boot;
     requires spring.context;

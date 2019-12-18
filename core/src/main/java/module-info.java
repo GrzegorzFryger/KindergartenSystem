@@ -12,5 +12,9 @@ open module pl.edu.pja.prz.core {
 	requires com.fasterxml.classmate;
 	requires org.hibernate.orm.core;
 	requires pl.edu.pja.prz.account;
+
+
 	requires receivables;
+	requires groups;
+	requires payments;
 }
