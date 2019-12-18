@@ -8,6 +8,10 @@ open module pl.edu.pja.prz.receivables {
     requires commons.csv;
     requires java.sql;
     requires org.apache.commons.lang3;
+    requires spring.tx;
+    requires spring.data.jpa;
+    requires spring.orm;
+    requires spring.beans;
 
     exports pl.edu.pja.prz.receivables;
 }
