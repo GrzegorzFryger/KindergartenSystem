@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
-public class Transaction {
+public class Transaction extends BaseEntity<Long> {
     private LocalDate transactionDate;
     private LocalDate bookingDate;
     private String contractorDetails;
