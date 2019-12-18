@@ -14,7 +14,7 @@ open module pl.edu.pja.prz.core {
 	requires pl.edu.pja.prz.account;
 
 
-	requires receivables;
-	requires groups;
-	requires payments;
+	requires pl.edu.pja.prz.receivables;
+	requires pl.edu.pja.prz.groups;
+	requires pl.edu.pja.prz.payments;
 }

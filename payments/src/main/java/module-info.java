@@ -1,4 +1,5 @@
-open module payments {
+open module pl.edu.pja.prz.payments {
+
 	requires java.persistence;
 	requires java.sql;
 	requires java.xml.bind;

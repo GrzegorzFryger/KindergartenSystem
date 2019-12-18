@@ -1,4 +1,4 @@
-open module groups {
+open module pl.edu.pja.prz.groups {
     requires java.persistence;
     requires spring.context;
     requires org.slf4j;
