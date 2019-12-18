@@ -11,8 +11,11 @@ public class Child {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
-    @ManyToMany(mappedBy = "child")
-    private List<Group> groupList;
+    @ManyToMany
+    @JoinTable(name = "child_group",
+            joinColumns = { @JoinColumn(name = "fk_child ") },
+            inverseJoinColumns = { @JoinColumn(name = "fk_group") })
+    private List<Group> groups;
 
     public Child() {
     }
@@ -25,12 +28,12 @@ public class Child {
         this.id = id;
     }
 
-    public List<Group> getGroupList() {
-        return groupList;
+    public List<Group> getGroups() {
+        return groups;
     }
 
-    public void setGroupList(List<Group> groupList) {
-        this.groupList = groupList;
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
     }
 
     @Override
@@ -39,11 +42,11 @@ public class Child {
         if (o == null || getClass() != o.getClass()) return false;
         Child child = (Child) o;
         return id.equals(child.id) &&
-                Objects.equals(groupList, child.groupList);
+                Objects.equals(groups, child.groups);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, groupList);
+        return Objects.hash(id, groups);
     }
 }
