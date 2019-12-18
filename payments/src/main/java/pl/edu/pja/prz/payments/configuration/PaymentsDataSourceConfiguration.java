@@ -30,13 +30,13 @@ public class PaymentsDataSourceConfiguration {
 
 	@Bean
 	@ConfigurationProperties("app.datasource.payments-module.configuration")
-	public DataSource accountModuleDataSource() {
+	public DataSource paymentsModuleDataSource() {
 		return paymentsDataModuleSourceProperties().initializeDataSourceBuilder().build();
 	}
 
 	@Bean("paymentsModuleEntityManagerFactory")
 	public LocalContainerEntityManagerFactoryBean createPaymentsModuleEntityManagerFactory(EntityManagerFactoryBuilder builder) {
-		return builder.dataSource(accountModuleDataSource()).packages(Payment.class).build();
+		return builder.dataSource(paymentsModuleDataSource()).packages(Payment.class).build();
 	}
 
 	@Bean

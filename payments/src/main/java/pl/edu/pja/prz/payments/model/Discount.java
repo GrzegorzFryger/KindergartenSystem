@@ -2,6 +2,7 @@ package pl.edu.pja.prz.payments.model;
 
 import pl.edu.pja.prz.payments.model.enums.TypeDiscount;
 
+import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -9,6 +10,7 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
 public class Discount extends BaseEntity<Long> {
 	private String description;
 	private BigDecimal value;
