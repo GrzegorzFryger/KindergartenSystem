@@ -1,20 +1,17 @@
 package pl.edu.pja.prz.groups.model;
 
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
 
-@Entity
 public class Child {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
-    @ManyToMany
-    @JoinTable(name = "child_group",
-            joinColumns = { @JoinColumn(name = "fk_child ") },
-            inverseJoinColumns = { @JoinColumn(name = "fk_group") })
     private List<Group> groups;
 
     public Child() {
