@@ -24,6 +24,8 @@
         <module>account</module>
         <module>receivables</module>
         <module>meal</module>
+        <module>payments</module>
+        <module>groups</module>
     </modules>
 
     <parent>
