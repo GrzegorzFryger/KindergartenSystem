@@ -12,10 +12,9 @@ import java.util.stream.Collectors;
 public class MealDictionaryService {
 
     public List<DictionaryObjectDTO> getAllMealTypes() {
-       return Arrays.stream(MealType.values()).map(u -> {
-                   return new DictionaryObjectDTO(u.name(), u.toString());
-       }
-       ).collect(Collectors.toList());
+       return Arrays.stream(MealType.values())
+               .map(u -> new DictionaryObjectDTO(u.name(), u.toString()))
+               .collect(Collectors.toList());
     }
 
 }

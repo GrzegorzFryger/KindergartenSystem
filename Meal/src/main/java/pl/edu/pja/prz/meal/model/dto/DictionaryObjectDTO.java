@@ -2,7 +2,7 @@ package pl.edu.pja.prz.meal.model.dto;
 
 public class DictionaryObjectDTO {
     private String value;
-    String description;
+    private String description;
 
     public DictionaryObjectDTO(String value, String description) {
         this.value = value;

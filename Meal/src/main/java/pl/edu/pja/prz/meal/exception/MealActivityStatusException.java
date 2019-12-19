@@ -1,10 +1,12 @@
 package pl.edu.pja.prz.meal.exception;
 
-public class MealPriceListAlreadyExistException extends Exception {
+public class MealActivityStatusException extends Exception {
+
 	private final String message;
-	public MealPriceListAlreadyExistException(String message) {
+	public MealActivityStatusException(String message) {
 		this.message = message;
 	}
+
 	@Override
 	public String getMessage() {
 		return message;

@@ -4,7 +4,11 @@ import pl.edu.pja.prz.meal.model.enums.MealStatus;
 import pl.edu.pja.prz.meal.model.enums.MealType;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 @Entity
 public class Meal {
@@ -12,28 +16,29 @@ public class Meal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private double mealPrice;
+    private BigDecimal mealPrice;
     private LocalDateTime mealFromDate;
     private LocalDateTime mealToDate;
     private MealStatus mealStatus;
     @Enumerated(EnumType.STRING)
-    private MealType mealType;
-    private long childID;
+    private List<MealType> mealTypes = new ArrayList<>();
+    private UUID childID;
 
 
     public Meal() {
     }
 
-    public Meal(double mealPrice, LocalDateTime mealFromDate, LocalDateTime mealToDate, MealStatus mealStatus, MealType mealType, long childID) {
+    public Meal(BigDecimal mealPrice, LocalDateTime mealFromDate, LocalDateTime mealToDate,
+                MealStatus mealStatus, List<MealType> mealTypes, UUID childID) {
         this.mealPrice = mealPrice;
         this.mealFromDate = mealFromDate;
         this.mealToDate = mealToDate;
         this.mealStatus = mealStatus;
-        this.mealType = mealType;
+        this.mealTypes = mealTypes;
         this.childID = childID;
     }
 
-    public void setMealPrice(double mealPrice) {
+    public void setMealPrice(BigDecimal mealPrice) {
         this.mealPrice = mealPrice;
     }
 
@@ -45,15 +50,15 @@ public class Meal {
         this.mealStatus = mealStatus;
     }
 
-    public void setMealType(MealType mealType) {
-        this.mealType = mealType;
+    public void setMealTypes(List<MealType> mealType) {
+        this.mealTypes = mealTypes;
     }
 
     public Long getId() {
         return id;
     }
 
-    public double getMealPrice() {
+    public BigDecimal getMealPrice() {
         return mealPrice;
     }
 
@@ -69,11 +74,11 @@ public class Meal {
         return mealStatus;
     }
 
-    public MealType getMealType() {
-        return mealType;
+    public List<MealType> getMealTypes() {
+        return mealTypes;
     }
 
-    public long getChildID() {
+    public UUID getChildID() {
         return childID;
     }
 }

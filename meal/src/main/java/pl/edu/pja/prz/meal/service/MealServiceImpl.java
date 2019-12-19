@@ -2,8 +2,8 @@ package pl.edu.pja.prz.meal.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.edu.pja.prz.meal.exception.MeaActivityStatusException;
-import pl.edu.pja.prz.meal.exception.NotFound;
+import pl.edu.pja.prz.meal.exception.MealActivityStatusException;
+import pl.edu.pja.prz.meal.exception.NotFoundException;
 import pl.edu.pja.prz.meal.model.Meal;
 import pl.edu.pja.prz.meal.model.dto.MealCreateUpdateDTO;
 import pl.edu.pja.prz.meal.model.enums.MealStatus;
@@ -27,41 +27,41 @@ public class MealServiceImpl implements MealService {
     }
 
     @Override
-    public Meal createMeal(MealCreateUpdateDTO meal) throws MeaActivityStatusException {
+    public Meal createMeal(MealCreateUpdateDTO meal) throws MealActivityStatusException {
         if (mealRepository.findMealByChildIDAndMealStatus(meal.getChildID(), MealStatus.ACTIVE).isEmpty()) {
-            meal.setMealPrice(mealPriceListService.getPriceByMealType(meal.getMealType()));
+            meal.setMealPrice(mealPriceListService.getPriceByMealType(meal.getMealTypes()));
             return mealRepository.save(MealCreateUpdateDTO.createMealFactory(meal));
         } else
-            throw new MeaActivityStatusException("There is already meal with status ACTIVE for child with ID: " + meal.getChildID());
+            throw new MealActivityStatusException("There is already meal with status ACTIVE for child with ID: " + meal.getChildID());
     }
 
     @Override
-    public Meal getMealByID(Long id) throws NotFound {
-        return mealRepository.findById(id).orElseThrow(() -> new NotFound("Meal by ID " + id + "doest exist"));
+    public Meal getMealByID(Long id) throws NotFoundException {
+        return mealRepository.findById(id).orElseThrow(() -> new NotFoundException("Meal by ID " + id + "doest exist"));
     }
 
     @Override
-    public void deleteMealByID(Long id) throws NotFound {
+    public void deleteMealByID(Long id) throws NotFoundException {
         if (isMealPresentByID(id)) {
             mealRepository.deleteById(id);
-        } else throw new NotFound("Meal by ID " + id + "doest exist");
+        } else throw new NotFoundException("Meal by ID " + id + "doest exist");
     }
 
     @Override
-    public Meal updateMeal(MealCreateUpdateDTO meal, Long mealToUpdateID) throws NotFound, MeaActivityStatusException {
+    public Meal updateMeal(MealCreateUpdateDTO meal, Long mealToUpdateID) throws NotFoundException, MealActivityStatusException {
         if (!isMealPresentByID(mealToUpdateID)) {
-            throw new NotFound("Meal by ID " + mealToUpdateID + "doest exist");
+            throw new NotFoundException("Meal by ID " + mealToUpdateID + "doest exist");
         }
         if (mealRepository.findMealByIdAndMealStatus(mealToUpdateID, MealStatus.ACTIVE).isPresent()) {
-            throw new MeaActivityStatusException("Meal with ID: " + mealToUpdateID + " is not ACTIVE");
+            throw new MealActivityStatusException("Meal with ID: " + mealToUpdateID + " is not ACTIVE");
         }
 
         Meal mealToUpdate = getMealByID(mealToUpdateID);
-        if (meal.getMealPrice() != 0.0) {
+        if (meal.getMealPrice() != null) {
             mealToUpdate.setMealPrice(meal.getMealPrice());
         }
-        if (meal.getMealType() != null) {
-            mealToUpdate.setMealType(meal.getMealType());
+        if (meal.getMealTypes() != null) {
+            mealToUpdate.setMealTypes(meal.getMealTypes());
         }
         if (meal.getMealToDate() != null) {
             mealToUpdate.setMealToDate(LocalDateTime.of(meal.getMealToDate(), LocalTime.MIDNIGHT));
@@ -70,13 +70,13 @@ public class MealServiceImpl implements MealService {
         return mealRepository.save(mealToUpdate);
     }
 
-    public Meal markMealAsInactiveOnDemand(Long mealToMarkAsInactiveId) throws NotFound, MeaActivityStatusException {
+    public Meal markMealAsInactiveOnDemand(Long mealToMarkAsInactiveId) throws NotFoundException, MealActivityStatusException {
         if (!isMealPresentByID(mealToMarkAsInactiveId)) {
-            throw new NotFound("Meal by ID " + mealToMarkAsInactiveId + "doest exist");
+            throw new NotFoundException("Meal by ID " + mealToMarkAsInactiveId + "doest exist");
         }
 
         if (mealRepository.findMealByIdAndMealStatus(mealToMarkAsInactiveId, MealStatus.ACTIVE).isPresent()) {
-            throw new MeaActivityStatusException("Meal with ID: " + mealToMarkAsInactiveId + " is not ACTIVE");
+            throw new MealActivityStatusException("Meal with ID: " + mealToMarkAsInactiveId + " is not ACTIVE");
         }
 
         Meal mealToMarkAsInactive = getMealByID(mealToMarkAsInactiveId);

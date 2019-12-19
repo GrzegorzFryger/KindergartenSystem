@@ -3,11 +3,12 @@ package pl.edu.pja.prz.meal.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.meal.exception.MealPriceListAlreadyExistException;
-import pl.edu.pja.prz.meal.exception.NotFound;
+import pl.edu.pja.prz.meal.exception.NotFoundException;
 import pl.edu.pja.prz.meal.model.MealPriceList;
 import pl.edu.pja.prz.meal.model.enums.MealType;
 import pl.edu.pja.prz.meal.repository.MealPriceListRepository;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,10 +30,10 @@ public class MealPriceListServiceImpl {
         return mealPriceListRepository.save(mealPriceList);
     }
 
-    public MealPriceList updateMealPriceList(MealPriceList mealPriceList, long id) throws NotFound {
+    public MealPriceList updateMealPriceList(MealPriceList mealPriceList, long id) throws NotFoundException {
         Optional<MealPriceList> mealPriceListOptional = mealPriceListRepository.findById(id);
         if (mealPriceListOptional.isEmpty()) {
-            throw new NotFound("Price list with ID:" + id + " not found");
+            throw new NotFoundException("Price list with ID:" + id + " not found");
         }
 
         MealPriceList priceListToUpdate = mealPriceListOptional.get();
@@ -44,15 +45,17 @@ public class MealPriceListServiceImpl {
         return mealPriceListRepository.findAll();
     }
 
-    public void deleteMealPriceList(long id) throws NotFound {
+    public void deleteMealPriceList(long id) throws NotFoundException {
         if (!mealPriceListRepository.existsById(id)) {
-            throw new NotFound("Price list with ID:" + id + " not found");
+            throw new NotFoundException("Price list with ID:" + id + " not found");
         }
         mealPriceListRepository.deleteById(id);
     }
 
-    public double getPriceByMealType(MealType mealType) {
-        return mealPriceListRepository.findMealPriceByMealType(mealType);
+    BigDecimal getPriceByMealType(List<MealType> mealTypes) {
+        return BigDecimal.valueOf(mealTypes.stream()
+                .mapToDouble(u -> mealPriceListRepository.findMealPriceByMealType(u))
+                .sum());
     }
 
 }

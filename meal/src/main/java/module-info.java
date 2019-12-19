@@ -1,4 +1,4 @@
-open module pl.edu.pja.prz.meal {
+open module meal {
 
 	requires java.persistence;
 	requires java.sql;

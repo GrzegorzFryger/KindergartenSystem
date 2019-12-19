@@ -4,21 +4,23 @@ import pl.edu.pja.prz.meal.model.Meal;
 import pl.edu.pja.prz.meal.model.enums.MealStatus;
 import pl.edu.pja.prz.meal.model.enums.MealType;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 public class MealCreateUpdateDTO {
 
-	private double mealPrice;
-	private MealType mealType;
+	private BigDecimal mealPrice;
+	private List<MealType> mealTypes;
 	private long childID;
 	private LocalDate mealFromDate;
 	private LocalDate mealToDate;
 
-	public MealCreateUpdateDTO(double mealPrice, MealType mealType, long childID, LocalDate mealFromDate, LocalDate mealToDate) {
+	public MealCreateUpdateDTO(BigDecimal mealPrice, List<MealType> mealTypes, long childID, LocalDate mealFromDate, LocalDate mealToDate) {
 		this.mealPrice = mealPrice;
-		this.mealType = mealType;
+		this.mealTypes = mealTypes;
 		this.childID = childID;
 		this.mealFromDate = mealFromDate;
 		this.mealToDate = mealToDate;
@@ -29,15 +31,15 @@ public class MealCreateUpdateDTO {
 				LocalDateTime.of(dto.getMealFromDate(), LocalTime.NOON),
 				LocalDateTime.of(dto.getMealToDate(), LocalTime.MIDNIGHT),
 				MealStatus.ACTIVE,
-				dto.getMealType(),
+				dto.getMealTypes(),
 				dto.getChildID());
 	}
 
-	public double getMealPrice() {
+	public BigDecimal getMealPrice() {
 		return mealPrice;
 	}
 
-	public void setMealPrice(double mealPrice) {
+	public void setMealPrice(BigDecimal mealPrice) {
 		this.mealPrice = mealPrice;
 	}
 
@@ -47,8 +49,8 @@ public class MealCreateUpdateDTO {
 	public LocalDate getMealToDate() {
 		return mealToDate;
 	}
-	public MealType getMealType() {
-		return mealType;
+	public List<MealType> getMealTypes() {
+		return mealTypes;
 	}
 	public long getChildID() {
 		return childID;
