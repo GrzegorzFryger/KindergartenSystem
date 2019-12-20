@@ -9,7 +9,6 @@ import java.util.UUID;
 @Entity
 public class Child {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
     @ManyToMany(mappedBy = "child")
     private List<Group> groupList;
