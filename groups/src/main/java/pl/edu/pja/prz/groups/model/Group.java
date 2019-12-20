@@ -11,7 +11,12 @@ public class Group {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String groupName;
-    @ManyToMany(mappedBy = "group")
+    @ManyToMany
+    @JoinTable(
+            name = "Group_Child",
+            joinColumns = {@JoinColumn(name = "group_id")},
+            inverseJoinColumns = {@JoinColumn(name = "child_id")}
+    )
     private List<Child> childrenList;
     private String groupDescription;
 

@@ -10,7 +10,7 @@ import java.util.UUID;
 public class Child {
     @Id
     private UUID id;
-    @ManyToMany(mappedBy = "child")
+    @ManyToMany(mappedBy = "group")
     private List<Group> groupList;
 
     public Child() {
