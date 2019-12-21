@@ -91,6 +91,8 @@
 
                         <!-- Account module exclusions -->
                         <exclude>**/pl/edu/pja/prz/account/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/account/model/value/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/account/configuration/*</exclude>
 
                         <!-- Groups module exclusions -->
                         <exclude>**/pl/edu/pja/prz/groups/*</exclude>
