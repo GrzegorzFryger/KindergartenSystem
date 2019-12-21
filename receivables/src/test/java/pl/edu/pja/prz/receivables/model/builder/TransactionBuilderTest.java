@@ -1,9 +1,7 @@
 package pl.edu.pja.prz.receivables.model.builder;
 
-import org.apache.commons.csv.CSVRecord;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pja.prz.receivables.model.Transaction;
 
@@ -30,7 +28,7 @@ class TransactionBuilderTest {
                 .withBankName("TEST BANK")
                 .withDetails("WPŁYW")
                 .withTransactionNumber("1234")
-                .withTransactionAmount(new BigDecimal(50.2))
+                .withTransactionAmount(new BigDecimal("50.2"))
                 .withTransactionCurrency("PLN")
                 .build();
 
@@ -39,6 +37,6 @@ class TransactionBuilderTest {
         assertEquals(LocalDate.of(2020, 1, 1), result.getTransactionDate());
         assertEquals(LocalDate.of(2020, 1, 1), result.getBookingDate());
         assertEquals("Czesne", result.getTitle());
-        assertEquals(new BigDecimal(50.2), result.getTransactionAmount());
+        assertEquals(new BigDecimal("50.2"), result.getTransactionAmount());
     }
 }
