@@ -1,17 +1,16 @@
 package pl.edu.pja.prz.groups.model;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-
+@Entity
 public class Child {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
+    @ManyToMany(mappedBy = "children")
     private List<Group> groups;
 
     public Child() {
