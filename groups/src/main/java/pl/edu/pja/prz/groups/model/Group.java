@@ -1,17 +1,18 @@
 package pl.edu.pja.prz.groups.model;
 
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
+
 public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String groupName;
-    @ManyToMany(mappedBy = "group")
-    private List<Child> childrenList;
+    private List<Child> children;
     private String groupDescription;
 
 
@@ -19,9 +20,9 @@ public class Group {
 
     }
 
-    public Group(String groupName, List<Child> childrenList, String groupDescription) {
+    public Group(String groupName, List<Child> children, String groupDescription) {
         this.groupName = groupName;
-        this.childrenList = childrenList;
+        this.children = children;
         this.groupDescription = groupDescription;
     }
 
@@ -41,12 +42,12 @@ public class Group {
         this.groupName = groupName;
     }
 
-    public List<Child> getChildrenList() {
-        return childrenList;
+    public List<Child> getChildren() {
+        return children;
     }
 
-    public void setChildrenList(List<Child> childrenList) {
-        this.childrenList = childrenList;
+    public void setChildren(List<Child> children) {
+        this.children = children;
     }
 
     public String getGroupDescription() {
@@ -57,12 +58,13 @@ public class Group {
         this.groupDescription = groupDescription;
     }
 
+
     @Override
     public String toString() {
         return "Group{" +
                 "id=" + id +
                 ", groupName='" + groupName + '\'' +
-                ", childrenList=" + childrenList +
+                ", children=" + children +
                 ", groupDescription='" + groupDescription + '\'' +
                 '}';
     }
@@ -74,12 +76,12 @@ public class Group {
         Group group = (Group) o;
         return id.equals(group.id) &&
                 Objects.equals(groupName, group.groupName) &&
-                Objects.equals(childrenList, group.childrenList) &&
+                Objects.equals(children, group.children) &&
                 Objects.equals(groupDescription, group.groupDescription);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, groupName, childrenList, groupDescription);
+        return Objects.hash(id, groupName, children, groupDescription);
     }
 }
