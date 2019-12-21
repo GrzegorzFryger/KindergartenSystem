@@ -1,4 +1,4 @@
-open module pl.edu.pja.prz.account {
+open module account {
 
 	requires java.persistence;
 	requires java.sql;
