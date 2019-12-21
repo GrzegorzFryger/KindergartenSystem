@@ -1,4 +1,4 @@
-open module pl.edu.pja.prz.core {
+open module core {
 
 	requires java.persistence;
 	requires java.sql;
@@ -11,6 +11,10 @@ open module pl.edu.pja.prz.core {
 	requires spring.data.jpa;
 	requires com.fasterxml.classmate;
 	requires org.hibernate.orm.core;
-	requires pl.edu.pja.prz.account;
+	requires account;
+
+
 	requires receivables;
+	requires groups;
+	requires payments;
 }

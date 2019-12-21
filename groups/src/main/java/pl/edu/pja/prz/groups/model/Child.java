@@ -1,17 +1,18 @@
 package pl.edu.pja.prz.groups.model;
 
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
 
-@Entity
 public class Child {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
-    @ManyToMany(mappedBy = "group")
-    private List<Group> groupList;
+    private List<Group> groups;
 
     public Child() {
     }
@@ -24,12 +25,12 @@ public class Child {
         this.id = id;
     }
 
-    public List<Group> getGroupList() {
-        return groupList;
+    public List<Group> getGroups() {
+        return groups;
     }
 
-    public void setGroupList(List<Group> groupList) {
-        this.groupList = groupList;
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
     }
 
     @Override
@@ -38,11 +39,11 @@ public class Child {
         if (o == null || getClass() != o.getClass()) return false;
         Child child = (Child) o;
         return id.equals(child.id) &&
-                Objects.equals(groupList, child.groupList);
+                Objects.equals(groups, child.groups);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, groupList);
+        return Objects.hash(id, groups);
     }
 }
