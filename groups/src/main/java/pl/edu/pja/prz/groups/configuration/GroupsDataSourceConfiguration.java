@@ -18,31 +18,31 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "pl.edu.pja.prz.groups.repository",
-		entityManagerFactoryRef = "groupsModuleEntityManagerFactory",
-		transactionManagerRef = "groupsModuleTransactionManager")
+        entityManagerFactoryRef = "groupsModuleEntityManagerFactory",
+        transactionManagerRef = "groupsModuleTransactionManager")
 public class GroupsDataSourceConfiguration {
 
-	@Bean
-	@ConfigurationProperties("app.datasource.groups-module")
-	public DataSourceProperties groupsDataModuleSourceProperties() {
-		return new DataSourceProperties();
-	}
+    @Bean
+    @ConfigurationProperties("app.datasource.groups-module")
+    public DataSourceProperties groupsDataModuleSourceProperties() {
+        return new DataSourceProperties();
+    }
 
-	@Bean
-	@ConfigurationProperties("app.datasource.groups-module.configuration")
-	public DataSource groupsModuleDataSource() {
-		return groupsDataModuleSourceProperties().initializeDataSourceBuilder().build();
-	}
+    @Bean
+    @ConfigurationProperties("app.datasource.groups-module.configuration")
+    public DataSource groupsModuleDataSource() {
+        return groupsDataModuleSourceProperties().initializeDataSourceBuilder().build();
+    }
 
-	@Bean("groupsModuleEntityManagerFactory")
-	public LocalContainerEntityManagerFactoryBean createGroupsModuleEntityManagerFactory(EntityManagerFactoryBuilder builder) {
-		return builder.dataSource(groupsModuleDataSource()).packages(Group.class).build();
-	}
+    @Bean("groupsModuleEntityManagerFactory")
+    public LocalContainerEntityManagerFactoryBean createGroupsModuleEntityManagerFactory(EntityManagerFactoryBuilder builder) {
+        return builder.dataSource(groupsModuleDataSource()).packages(Group.class).build();
+    }
 
-	@Bean
-	public PlatformTransactionManager groupsModuleTransactionManager(
-			final @Qualifier("groupsModuleEntityManagerFactory")
-					LocalContainerEntityManagerFactoryBean containerEntityManagerFactoryBean) {
-		return new JpaTransactionManager(containerEntityManagerFactoryBean.getObject());
-	}
+    @Bean
+    public PlatformTransactionManager groupsModuleTransactionManager(
+            final @Qualifier("groupsModuleEntityManagerFactory")
+                    LocalContainerEntityManagerFactoryBean containerEntityManagerFactoryBean) {
+        return new JpaTransactionManager(containerEntityManagerFactoryBean.getObject());
+    }
 }
