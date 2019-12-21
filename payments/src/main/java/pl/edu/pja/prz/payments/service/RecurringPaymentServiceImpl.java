@@ -27,28 +27,48 @@ public class RecurringPaymentServiceImpl implements RecurringPaymentService {
 		this.discountRepository = discountRepository;
 	}
 
+	@Override public RecurringPayment createOtherPayment(Child child, Payment payment, PeriodValidity periodValidity) {
+		return recurringPaymentRepository.save(PaymentFactory.createOtherReccuringPayment(child, payment, periodValidity));
+	}
+
 	@Override public RecurringPayment createTuition(Child child, Payment payment, PeriodValidity periodValidity) {
 		return recurringPaymentRepository.save(PaymentFactory.createTuitionPayment(child, payment, periodValidity));
 	}
 
-	@Override public RecurringPayment changeTuitionStatus(Long paymentId, Status status) {
+	@Override public RecurringPayment updateRecurringPayment(Long paymentId, Payment newPayment, PeriodValidity period, Status status) {
 		return recurringPaymentRepository.findById(paymentId).map(payment -> {
-					payment.setStatus(status);
-					return recurringPaymentRepository.save(payment);
-				}).orElseThrow(() -> new IllegalArgumentException("Not found payment with id " + paymentId));
+			if (newPayment != null) {
+				payment.setAmount(payment.getAmount());
+				payment.setDescription(payment.getDescription());
+			}
+			if (period != null) {
+				payment.setPeriodValidity(period);
+			}
+			if (status != null) {
+				payment.setStatus(status);
+			}
+			return recurringPaymentRepository.save(payment);
+		}).orElseThrow(() -> new IllegalArgumentException("Not found payment with id " + paymentId));
 	}
 
-	@Override public Set<Discount> addDiscountsToTuition(UUID childId, Long discountId) {
-		return menageTuitionDiscounts(childId, discountId, false);
+	@Override public void deleteRecurringPayment(Long paymentId) {
+		recurringPaymentRepository.findById(paymentId).ifPresentOrElse(payment -> {
+			payment.setStatus(Status.DELETED);
+			recurringPaymentRepository.save(payment);
+		}, () -> {throw new IllegalArgumentException("Not found payment with id " + paymentId);} );
 	}
 
-	@Override public Set<Discount> removeDiscountsFromTuition(UUID childId, Long discountId) {
-		return menageTuitionDiscounts(childId, discountId, true);
+	@Override public Set<Discount> addDiscountsToRecurringPayment(UUID childId, Long discountId) {
+		return menageRecurringPaymentDiscounts(childId, discountId, false);
 	}
 
-	private Set<Discount> menageTuitionDiscounts(UUID childId, Long discountId, boolean remove) {
+	@Override public Set<Discount> removeDiscountsFromRecurringPayment(UUID childId, Long discountId) {
+		return menageRecurringPaymentDiscounts(childId, discountId, true);
+	}
+
+	private Set<Discount> menageRecurringPaymentDiscounts(UUID childId, Long discountId, boolean remove) {
 		return discountRepository.findById(discountId).map(discount ->
-				recurringPaymentRepository.findByChildId(childId).map(
+				recurringPaymentRepository.findActiveByChildId(childId).map(
 						payment -> {
 							if (remove) {
 								payment.removeDiscount(discount);
@@ -61,8 +81,6 @@ public class RecurringPaymentServiceImpl implements RecurringPaymentService {
 				).orElseThrow(() -> new IllegalArgumentException("Not found payment with child id " + childId))
 		).orElseThrow(() -> new IllegalArgumentException("Not found discount with id " + discountId));
 	}
-
-
 
 
 }

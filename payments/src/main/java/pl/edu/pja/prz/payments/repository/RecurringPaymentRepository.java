@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Repository
 public interface RecurringPaymentRepository extends CrudRepository<RecurringPayment,Long> {
-	@Query(" FROM #{#entityName} WHERE childId = ?1 ")
-	Optional<RecurringPayment> findByChildId(UUID childId);
+	@Query(" FROM #{#entityName} WHERE childId = ?1 AND status NOT LIKE 'DELETED' ")
+	Optional<RecurringPayment> findActiveByChildId(UUID childId);
 }
 

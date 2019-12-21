@@ -15,4 +15,13 @@ public class PeriodValidity {
 		this.startDate = startDate;
 		this.endDate = endDate;
 	}
+
+	public LocalDate getStartDate() {
+		return startDate;
+	}
+
+	public LocalDate getEndDate() {
+		return endDate;
+	}
+
 }

@@ -13,11 +13,15 @@ import java.util.UUID;
 
 @Service
 public interface RecurringPaymentService {
+	RecurringPayment updateRecurringPayment(Long paymentId, Payment newPayment, PeriodValidity period, Status status);
+
+	RecurringPayment createOtherPayment(Child child, Payment payment, PeriodValidity periodValidity);
+
 	RecurringPayment createTuition(Child child, Payment payment, PeriodValidity periodValidity);
 
-	RecurringPayment changeTuitionStatus(Long paymentId, Status status);
+	void deleteRecurringPayment(Long paymentId);
 
-	Set<Discount> addDiscountsToTuition(UUID childId, Long discountId);
+	Set<Discount> addDiscountsToRecurringPayment(UUID childId, Long discountId);
 
-	Set<Discount> removeDiscountsFromTuition(UUID childId, Long discountId);
+	Set<Discount> removeDiscountsFromRecurringPayment(UUID childId, Long discountId);
 }
