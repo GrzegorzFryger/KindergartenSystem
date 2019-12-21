@@ -13,8 +13,8 @@ public class Group {
     private String groupName;
     @ManyToMany
     @JoinTable(name = "classroom_child",
-            joinColumns = {@JoinColumn(referencedColumnName = "ID")},
-            inverseJoinColumns = {@JoinColumn(referencedColumnName = "ID")})
+            joinColumns = {@JoinColumn(name = "group_id")},
+            inverseJoinColumns = {@JoinColumn(name = "child_id")})
     private List<Child> children;
     private String groupDescription;
 

@@ -16,6 +16,10 @@ public class Child {
     public Child() {
     }
 
+    public Child(List<Group> groups) {
+        this.groups = groups;
+    }
+
     public UUID getId() {
         return id;
     }
