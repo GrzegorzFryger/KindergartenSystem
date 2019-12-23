@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 import pl.edu.pja.prz.payments.model.Discount;
 import pl.edu.pja.prz.payments.repository.DiscountRepository;
 
+import java.util.List;
+
 @Component
 public class DiscountServiceImpl implements DiscountService {
 	private final DiscountRepository discountRepository;
@@ -28,6 +30,10 @@ public class DiscountServiceImpl implements DiscountService {
 
 	@Override public void deleteDiscount(Discount discount) {
 		discountRepository.delete(discount);
+	}
+
+	@Override public List<Discount> getAllDiscount() {
+		return discountRepository.findAll();
 	}
 
 }
