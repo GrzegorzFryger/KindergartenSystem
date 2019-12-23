@@ -12,7 +12,7 @@ CREATE USER IF NOT EXISTS 'classrooms'@'localhost' IDENTIFIED BY 'classrooms01';
 CREATE USER IF NOT EXISTS 'meal'@'localhost' IDENTIFIED BY 'meal01';
 CREATE USER IF NOT EXISTS 'payments'@'localhost' IDENTIFIED BY 'payments01';
 CREATE USER IF NOT EXISTS 'receivables'@'localhost' IDENTIFIED BY 'receivables01';
-CREATE USER IF NOT EXISTS 'finances'@'localhost' IDENTIFIED BY 'finances';
+CREATE USER IF NOT EXISTS 'finances'@'localhost' IDENTIFIED BY 'finances01';
 
 GRANT ALL PRIVILEGES ON account.* TO 'account'@'localhost';
 GRANT ALL PRIVILEGES ON core.* TO 'core'@'localhost';
