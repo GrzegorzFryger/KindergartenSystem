@@ -22,20 +22,23 @@ public class RecurringPaymentServiceImpl implements RecurringPaymentService {
 	private final DiscountRepository discountRepository;
 
 	@Autowired
-	public RecurringPaymentServiceImpl(RecurringPaymentRepository recurringPaymentRepository, DiscountRepository discountRepository) {
+	public RecurringPaymentServiceImpl(RecurringPaymentRepository recurringPaymentRepository,
+	                                   DiscountRepository discountRepository) {
 		this.recurringPaymentRepository = recurringPaymentRepository;
 		this.discountRepository = discountRepository;
 	}
 
 	@Override public RecurringPayment createOtherPayment(Child child, Payment payment, PeriodValidity periodValidity) {
-		return recurringPaymentRepository.save(PaymentFactory.createOtherReccuringPayment(child, payment, periodValidity));
+		return recurringPaymentRepository
+				.save(PaymentFactory.createOtherReccuringPayment(child, payment, periodValidity));
 	}
 
 	@Override public RecurringPayment createTuition(Child child, Payment payment, PeriodValidity periodValidity) {
 		return recurringPaymentRepository.save(PaymentFactory.createTuitionPayment(child, payment, periodValidity));
 	}
 
-	@Override public RecurringPayment updatePayment(Long paymentId, Payment newPayment, PeriodValidity period, Status status) {
+	@Override public RecurringPayment updatePayment(Long paymentId, Payment newPayment, PeriodValidity period,
+	                                                Status status) {
 		return recurringPaymentRepository.findById(paymentId).map(payment -> {
 			if (newPayment != null) {
 				payment.setAmount(payment.getAmount());

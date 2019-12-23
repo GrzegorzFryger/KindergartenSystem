@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface RecurringPaymentRepository extends CrudRepository<RecurringPayment,Long> {
+public interface RecurringPaymentRepository extends CrudRepository<RecurringPayment, Long> {
 	@Query(" FROM #{#entityName} WHERE childId = ?1 AND status NOT LIKE CANCELED ")
 	Optional<RecurringPayment> findActiveByChildId(UUID childId);
 }
