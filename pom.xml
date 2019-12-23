@@ -25,6 +25,7 @@
         <module>receivables</module>
         <module>payments</module>
         <module>groups</module>
+        <module>finances</module>
     </modules>
 
     <parent>
@@ -93,6 +94,9 @@
                         <exclude>**/pl/edu/pja/prz/account/*</exclude>
                         <exclude>**/pl/edu/pja/prz/account/model/value/*</exclude>
                         <exclude>**/pl/edu/pja/prz/account/configuration/*</exclude>
+
+                        <!-- Finances module exclusions -->
+                        <exclude>**/pl/edu/pja/prz/finances/*</exclude>
 
                         <!-- Groups module exclusions -->
                         <exclude>**/pl/edu/pja/prz/groups/*</exclude>
