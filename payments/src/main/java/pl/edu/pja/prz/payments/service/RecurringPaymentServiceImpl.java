@@ -55,7 +55,9 @@ public class RecurringPaymentServiceImpl implements RecurringPaymentService {
 		recurringPaymentRepository.findById(paymentId).ifPresentOrElse(payment -> {
 			payment.setStatus(Status.CANCELED);
 			recurringPaymentRepository.save(payment);
-		}, () -> {throw new IllegalArgumentException("Not found payment with id " + paymentId);} );
+		}, () -> {
+			throw new IllegalArgumentException("Not found payment with id " + paymentId);
+		});
 	}
 
 	@Override public void deletePayment(RecurringPayment recurringPayment) {
