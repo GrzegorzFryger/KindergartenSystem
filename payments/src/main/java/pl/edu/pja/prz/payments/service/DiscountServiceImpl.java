@@ -16,11 +16,13 @@ public class DiscountServiceImpl implements DiscountService {
 		this.discountRepository = discountRepository;
 	}
 
-	@Override public Discount createDiscount(Discount discount) {
+	@Override
+	public Discount createDiscount(Discount discount) {
 		return discountRepository.save(discount);
 	}
 
-	@Override public Discount updateDiscount(Long id, Discount discount) {
+	@Override
+	public Discount updateDiscount(Long id, Discount discount) {
 		return discountRepository.findById(id)
 				.map(discount1 -> {
 					discount1 = discount;
@@ -28,11 +30,13 @@ public class DiscountServiceImpl implements DiscountService {
 				}).orElseThrow(() -> new IllegalArgumentException("Discount not found"));
 	}
 
-	@Override public void deleteDiscount(Discount discount) {
+	@Override
+	public void deleteDiscount(Discount discount) {
 		discountRepository.delete(discount);
 	}
 
-	@Override public List<Discount> getAllDiscount() {
+	@Override
+	public List<Discount> getAllDiscount() {
 		return discountRepository.findAll();
 	}
 

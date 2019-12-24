@@ -28,17 +28,20 @@ public class RecurringPaymentServiceImpl implements RecurringPaymentService {
 		this.discountRepository = discountRepository;
 	}
 
-	@Override public RecurringPayment createOtherPayment(Child child, Payment payment, PeriodValidity periodValidity) {
+	@Override
+	public RecurringPayment createOtherPayment(Child child, Payment payment, PeriodValidity periodValidity) {
 		return recurringPaymentRepository
 				.save(PaymentFactory.createOtherRecurringPayment(child, payment, periodValidity));
 	}
 
-	@Override public RecurringPayment createTuition(Child child, Payment payment, PeriodValidity periodValidity) {
+	@Override
+	public RecurringPayment createTuition(Child child, Payment payment, PeriodValidity periodValidity) {
 		return recurringPaymentRepository.save(PaymentFactory.createTuitionPayment(child, payment, periodValidity));
 	}
 
-	@Override public RecurringPayment updatePayment(Long paymentId, Payment newPayment, PeriodValidity period,
-	                                                Status status) {
+	@Override
+	public RecurringPayment updatePayment(Long paymentId, Payment newPayment, PeriodValidity period,
+	                                      Status status) {
 		return recurringPaymentRepository.findById(paymentId).map(payment -> {
 			if (newPayment != null) {
 				payment.setAmount(payment.getAmount());
@@ -54,7 +57,8 @@ public class RecurringPaymentServiceImpl implements RecurringPaymentService {
 		}).orElseThrow(() -> new IllegalArgumentException("Not found payment with id " + paymentId));
 	}
 
-	@Override public void markAsCancelPayment(Long paymentId) {
+	@Override
+	public void markAsCancelPayment(Long paymentId) {
 		recurringPaymentRepository.findById(paymentId).ifPresentOrElse(payment -> {
 			payment.setStatus(Status.CANCELED);
 			recurringPaymentRepository.save(payment);
@@ -63,15 +67,18 @@ public class RecurringPaymentServiceImpl implements RecurringPaymentService {
 		});
 	}
 
-	@Override public void deletePayment(RecurringPayment recurringPayment) {
+	@Override
+	public void deletePayment(RecurringPayment recurringPayment) {
 		recurringPaymentRepository.delete(recurringPayment);
 	}
 
-	@Override public Set<Discount> addDiscountsToPayment(UUID childId, Long discountId) {
+	@Override
+	public Set<Discount> addDiscountsToPayment(UUID childId, Long discountId) {
 		return menageRecurringPaymentDiscounts(childId, discountId, false);
 	}
 
-	@Override public Set<Discount> removeDiscountsFromPayment(UUID childId, Long discountId) {
+	@Override
+	public Set<Discount> removeDiscountsFromPayment(UUID childId, Long discountId) {
 		return menageRecurringPaymentDiscounts(childId, discountId, true);
 	}
 
