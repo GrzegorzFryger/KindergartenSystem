@@ -24,7 +24,7 @@ class PaymentFactoryTest {
 	void setUp() {
 		fullName = new FullName("Test Name", "Test surname");
 		child = new Child(new UUID(1L, 2L), fullName, new UUID(3L, 4L));
-		payment = new Payment(new BigDecimal(String.valueOf("50.0")), "Test payment");
+		payment = new Payment(new BigDecimal("50.0"), "Test payment");
 		periodValidity = new PeriodValidity(LocalDate.now(), LocalDate.now());
 	}
 
