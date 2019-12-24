@@ -32,7 +32,6 @@ public class CsvParsingServiceImpl implements CsvParsingService {
                 break; //Stop iteration when empty record is found
             }
             transactions.add(mapTransactionFromCsvRecord(csvRecord));
-            System.out.println(csvRecord);
         }
         parser.close();
         return transactions;
