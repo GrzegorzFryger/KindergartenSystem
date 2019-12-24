@@ -2,20 +2,25 @@ package pl.edu.pja.prz.payments.model;
 
 import pl.edu.pja.prz.payments.model.enums.Status;
 import pl.edu.pja.prz.payments.model.enums.TypeRecurringPayment;
+import pl.edu.pja.prz.payments.model.value.Child;
 import pl.edu.pja.prz.payments.model.value.PeriodValidity;
 
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
 public class RecurringPayment extends Payment implements DiscountCalculator {
 	private Child child;
 	private PeriodValidity periodValidity;
+	@ManyToMany(mappedBy = "recurringPayments")
 	private Set<Discount> discounts = new HashSet<>();
 	private Status status;
 	private TypeRecurringPayment recurringPayment;
 
-	public RecurringPayment(Payment payment, Child child, PeriodValidity periodValidity,
+	public RecurringPayment(Child child, Payment payment, PeriodValidity periodValidity,
 	                        TypeRecurringPayment recurringPayment, Status status) {
 		this(payment.getAmount(), payment.getDescription(), child, periodValidity, recurringPayment, status);
 	}
@@ -80,4 +85,13 @@ public class RecurringPayment extends Payment implements DiscountCalculator {
 		this.discounts.remove(discountPolicies);
 	}
 
+	public void addDiscount(Discount discount ) {
+		this.discounts.add(discount);
+		discount.getRecurringPayments().add(this);
+	}
+
+	public void removeDiscount(Discount discount ) {
+		this.discounts.remove(discount);
+		discount.getRecurringPayments().remove(this);
+	}
 }
