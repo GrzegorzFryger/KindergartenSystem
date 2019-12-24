@@ -78,7 +78,7 @@ class RecurringPaymentServiceImplTest {
 	@Test
 	void should_throwException_when_updatePayment() {
 		//when
-		when(recurringPaymentRepository.findById(1L)).thenReturn(Optional.of(mockPayment));
+		when(recurringPaymentRepository.findById(1L)).thenReturn(Optional.empty());
 		//then
 		assertThrows(IllegalArgumentException.class,
 				() -> recurringPaymentService.updatePayment(1L, payment, periodValidity, Status.ACTIVE));
@@ -87,7 +87,7 @@ class RecurringPaymentServiceImplTest {
 	@Test
 	void should_updatePayment() {
 		//when
-		when(recurringPaymentRepository.findById(1L)).thenReturn(Optional.empty());
+		when(recurringPaymentRepository.findById(1L)).thenReturn(Optional.of(mockPayment));
 		when(recurringPaymentRepository.save(any())).thenReturn(mockPayment);
 
 		recurringPaymentService.updatePayment(1L, payment, periodValidity, Status.ACTIVE);
