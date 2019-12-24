@@ -30,7 +30,7 @@ public class RecurringPaymentServiceImpl implements RecurringPaymentService {
 
 	@Override public RecurringPayment createOtherPayment(Child child, Payment payment, PeriodValidity periodValidity) {
 		return recurringPaymentRepository
-				.save(PaymentFactory.createOtherReccuringPayment(child, payment, periodValidity));
+				.save(PaymentFactory.createOtherRecurringPayment(child, payment, periodValidity));
 	}
 
 	@Override public RecurringPayment createTuition(Child child, Payment payment, PeriodValidity periodValidity) {
