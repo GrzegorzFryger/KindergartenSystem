@@ -2,43 +2,43 @@ package pl.edu.pja.prz.core.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import pl.edu.pja.prz.receivables.facade.ReceivablesFacade;
 import pl.edu.pja.prz.receivables.model.Transaction;
-import pl.edu.pja.prz.receivables.service.TransactionService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("api/receivables/")
 public class ReceivablesController {
-    private final TransactionService transactionService;
+    private final ReceivablesFacade receivablesFacade;
 
     @Autowired
-    public ReceivablesController(TransactionService transactionService) {
-        this.transactionService = transactionService;
+    public ReceivablesController(ReceivablesFacade receivablesFacade) {
+        this.receivablesFacade = receivablesFacade;
     }
 
     @GetMapping("transactions")
     public List<Transaction> getAllTransactions() {
-        return transactionService.getAllTransactions();
+        return receivablesFacade.getAllTransactions();
     }
 
     @GetMapping("transactions/{id}")
     public Transaction getAllTransactions(@PathVariable Long id) {
-        return transactionService.getTransaction(id);
+        return receivablesFacade.getTransaction(id);
     }
 
     @DeleteMapping("transactions/{id}")
     public void deleteTransaction(@PathVariable Long id) {
-        transactionService.delete(id);
+        receivablesFacade.delete(id);
     }
 
     @PostMapping("transactions")
     public void createTransaction(@RequestBody Transaction transaction) {
-        transactionService.create(transaction);
+        receivablesFacade.create(transaction);
     }
 
     @PutMapping("transactions")
     public void updateTransaction(@RequestBody Transaction transaction) {
-        transactionService.update(transaction);
+        receivablesFacade.update(transaction);
     }
 }
