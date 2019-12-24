@@ -107,10 +107,6 @@
                         <!-- Payments module exclusions -->
                         <exclude>**/pl/edu/pja/prz/payments/*</exclude>
                         <exclude>**/pl/edu/pja/prz/payments/configuration/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/payments/model/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/payments/model/value/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/payments/model/enums/*</exclude>
-
 
                         <!-- Receivables module exclusions -->
                         <exclude>**/pl/edu/pja/prz/receivables/*</exclude>
