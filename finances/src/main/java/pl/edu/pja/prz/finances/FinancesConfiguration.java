@@ -13,7 +13,7 @@ import javax.annotation.PostConstruct;
 @ComponentScan
 @PropertySource("classpath:application-finances.properties")
 public class FinancesConfiguration {
-    private static final Logger logger = LoggerFactory.getLogger(ReceivablesConfiguration.class);
+    private static final Logger logger = LoggerFactory.getLogger(FinancesConfiguration.class);
 
     @PostConstruct
     public void postConstruct() {

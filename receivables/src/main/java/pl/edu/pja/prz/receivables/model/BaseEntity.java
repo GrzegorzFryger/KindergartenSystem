@@ -17,4 +17,7 @@ public class BaseEntity<T> {
 		return id;
 	}
 
+	public void setId(T id) {
+		this.id = id;
+	}
 }
