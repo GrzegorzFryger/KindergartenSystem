@@ -81,7 +81,7 @@
                 </configuration>
             </plugin>
 
-         <plugin>
+            <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacoco-mavenplugin-version}</version>
@@ -89,6 +89,8 @@
                     <excludes>
                         <!-- Core module exclusions -->
                         <exclude>**/pl/edu/pja/prz/core/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/core/exception/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/core/controller/*</exclude>
 
                         <!-- Account module exclusions -->
                         <exclude>**/pl/edu/pja/prz/account/*</exclude>
