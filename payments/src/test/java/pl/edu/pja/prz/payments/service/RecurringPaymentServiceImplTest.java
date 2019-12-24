@@ -5,10 +5,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pl.edu.pja.prz.payments.model.Discount;
 import pl.edu.pja.prz.payments.model.Payment;
 import pl.edu.pja.prz.payments.model.PaymentFactory;
 import pl.edu.pja.prz.payments.model.RecurringPayment;
 import pl.edu.pja.prz.payments.model.enums.Status;
+import pl.edu.pja.prz.payments.model.enums.TypeDiscount;
 import pl.edu.pja.prz.payments.model.value.Child;
 import pl.edu.pja.prz.payments.model.value.FullName;
 import pl.edu.pja.prz.payments.model.value.PeriodValidity;
@@ -18,6 +20,7 @@ import pl.edu.pja.prz.payments.repository.RecurringPaymentRepository;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -34,10 +37,8 @@ class RecurringPaymentServiceImplTest {
 	@Mock
 	private RecurringPayment mockPayment;
 
-
 	private RecurringPaymentServiceImpl recurringPaymentService;
 	private Child child;
-	private FullName fullName;
 	private Payment payment;
 	private PeriodValidity periodValidity;
 
@@ -45,7 +46,7 @@ class RecurringPaymentServiceImplTest {
 	void setUp() {
 		recurringPaymentService = new RecurringPaymentServiceImpl(recurringPaymentRepository, discountRepository);
 
-		fullName = new FullName("Test Name", "Test surname");
+		FullName fullName = new FullName("Test Name", "Test surname");
 		child = new Child(new UUID(1L, 2L), fullName, new UUID(3L, 4L));
 		payment = new Payment(new BigDecimal("50.0"), "Test payment");
 		periodValidity = new PeriodValidity(LocalDate.now(), LocalDate.now());
@@ -120,14 +121,52 @@ class RecurringPaymentServiceImplTest {
 
 		//then
 		verify(recurringPaymentRepository, times(1)).delete(mockPayment);
-
 	}
 
 	@Test
 	void addDiscountsToPayment() {
+		//given
+		var discount = new Discount("discount test", new BigDecimal("50.0"), TypeDiscount.AMOUNT);
+
+		//when
+		when(discountRepository.findById(1L)).thenReturn(Optional.of(discount));
+		when(recurringPaymentRepository.findActiveByChildId(any())).thenReturn(Optional.of(mockPayment));
+		when(recurringPaymentRepository.save(any())).thenReturn(mockPayment);
+		when(mockPayment.getDiscounts()).thenReturn(Set.of(discount));
+
+		var discounts = recurringPaymentService
+				.addDiscountsToPayment(new UUID(1L, 2L), 1L);
+
+		//then
+		assertEquals(Set.of(discount), discounts);
+		verify(recurringPaymentRepository, times(1)).save(mockPayment);
+		verify(recurringPaymentRepository, times(1)).findActiveByChildId(any());
+		verify(mockPayment, times(1)).getDiscounts();
+		verify(mockPayment, times(1)).addDiscount(any());
+		verify(discountRepository, times(1)).findById(1L);
 	}
 
 	@Test
 	void removeDiscountsFromPayment() {
+		//given
+		var discount = new Discount("discount test", new BigDecimal("50.0"), TypeDiscount.AMOUNT);
+
+		//when
+		when(discountRepository.findById(1L)).thenReturn(Optional.of(discount));
+		when(recurringPaymentRepository.findActiveByChildId(any())).thenReturn(Optional.of(mockPayment));
+		when(recurringPaymentRepository.save(any())).thenReturn(mockPayment);
+		when(mockPayment.getDiscounts()).thenReturn(Set.of(discount));
+
+		var discounts = recurringPaymentService
+				.removeDiscountsFromPayment(new UUID(1L, 2L), 1L);
+
+		//then
+		assertEquals(Set.of(discount), discounts);
+		verify(recurringPaymentRepository, times(1)).save(mockPayment);
+		verify(recurringPaymentRepository, times(1)).findActiveByChildId(any());
+		verify(mockPayment, times(1)).getDiscounts();
+		verify(mockPayment, times(1)).removeDiscount(any());
+		verify(discountRepository, times(1)).findById(1L);
 	}
+
 }
