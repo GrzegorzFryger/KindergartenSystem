@@ -8,6 +8,9 @@ import pl.edu.pja.prz.payments.model.value.PeriodValidity;
 public class PaymentFactory {
 	private static final Status STATUS = Status.NONACTIVE;
 
+	private PaymentFactory() {
+	}
+
 	public static RecurringPayment createTuitionPayment(Child child, Payment payment, PeriodValidity periodValidity) {
 		return new RecurringPayment(child, payment, periodValidity, TypeRecurringPayment.TUITION, STATUS);
 	}
