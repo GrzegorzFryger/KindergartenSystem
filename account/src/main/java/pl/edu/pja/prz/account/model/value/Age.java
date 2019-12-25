@@ -5,8 +5,10 @@ import java.time.LocalDate;
 
 @Embeddable
 public class Age {
+	private LocalDate dateOfBirth;
 
-	private final LocalDate dateOfBirth;
+	public Age() {
+	}
 
 	public Age(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;

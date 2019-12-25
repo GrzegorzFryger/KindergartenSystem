@@ -8,8 +8,7 @@ import javax.persistence.MappedSuperclass;
 import java.util.UUID;
 
 @MappedSuperclass
-public class Person extends BaseEntity<UUID>{
-
+public class Person extends BaseEntity<UUID> {
 	private Address address;
 	private FullName fullName;
 	private Phone phoneNumber;

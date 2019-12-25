@@ -4,8 +4,8 @@ import javax.persistence.*;
 
 @MappedSuperclass
 public class BaseEntity<T> {
-
-	@Id @GeneratedValue(strategy = GenerationType.AUTO)
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private T id;
 	@Version
 	private Integer version;
@@ -17,7 +17,4 @@ public class BaseEntity<T> {
 		return id;
 	}
 
-	public Integer getVersion() {
-		return version;
-	}
 }

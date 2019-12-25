@@ -9,7 +9,6 @@ import pl.edu.pja.prz.account.model.value.FullName;
 import pl.edu.pja.prz.account.model.value.Password;
 import pl.edu.pja.prz.account.model.value.Phone;
 
-import java.time.LocalDate;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -29,17 +28,19 @@ class AccountFactoryTest {
 		address = new Address("70-700","City","Street 256");
 		phone = new Phone("123132123");
 		fullName = new FullName("TestName","TestSurname");
-		password = new Password(LocalDate.now(),"oldPassword","newPassword");
+		password = new Password("newPassword");
 		email = "test@test.com";
 	}
 
 	@Test
 	public void Should_ReturnAdministratorAccountType_When_FactoryCreateAdministrator() {
 		//given
-		roles = new HashSet<>(Collections.singletonList(new Role(PrivilegeType.ADMINISTRATOR.toString(),
-				Set.of(PrivilegeType.ADMINISTRATOR))));
+		var role = new Role(PrivilegeType.ADMINISTRATOR.toString());
+		role.setPrivileges(Set.of(PrivilegeType.ADMINISTRATOR));
+		roles = new HashSet<>(Collections.singletonList(role));
 		//when
-		var administrator = new AccountFactoryImpl().createAdministrator(address,fullName,phone,password,email);
+		var administrator = new AdministratorAccountFactoryImpl().createAdministrator(new Person(address,
+				fullName,phone),password,email);
 
 		//then
 		assertEquals(EmployeeType.ADMINISTRATOR, administrator.getEmployeeType());
@@ -53,11 +54,12 @@ class AccountFactoryTest {
 	@Test
 	public void Should_ReturnTeacherAccountType_When_FactoryCreateTeacher() {
 		//given
-		roles = new HashSet<>(Collections.singletonList(new Role(PrivilegeType.TEACHER.toString(),
-				Set.of(PrivilegeType.TEACHER))));
+		var role = new Role(PrivilegeType.TEACHER.toString());
+		role.setPrivileges(Set.of(PrivilegeType.TEACHER));
+		roles = new HashSet<>(Collections.singletonList(role));
 
 		//when
-		var teacher = new AccountFactoryImpl().createTeacher(address,fullName,phone,password,email);
+		var teacher =  new AdministratorAccountFactoryImpl().createTeacher(new Person(address,fullName,phone),password,email);
 
 		//then
 		assertEquals(Employee.class, teacher.getClass());
@@ -71,11 +73,12 @@ class AccountFactoryTest {
 	@Test
 	public void Should_ReturnGuardianAccountType_When_FactoryCreateTeacher() {
 		//given
-		roles = new HashSet<>(Collections.singletonList(new Role(PrivilegeType.USER.toString(),
-				Set.of(PrivilegeType.USER))));
+		var role = new Role(PrivilegeType.USER.toString());
+		role.setPrivileges(Set.of(PrivilegeType.USER));
+		roles = new HashSet<>(Collections.singletonList(role));
 
 		//when
-		var guardian = new AccountFactoryImpl().createGuardian(address,fullName,phone,password,email);
+		var guardian = new AdministratorAccountFactoryImpl().createGuardian(new Person(address,fullName,phone),password,email);
 
 		//then
 		assertEquals(Guardian.class, guardian.getClass());

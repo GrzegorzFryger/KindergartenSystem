@@ -5,7 +5,10 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class Phone {
-	private final String phone;
+	private String phone;
+
+	public Phone() {
+	}
 
 	public Phone(String phone) {
 		this.phone = phone;

@@ -6,8 +6,5 @@ import java.util.UUID;
 
 @Embeddable
 public class ChildId {
-
 	private UUID childrenId;
-
-
 }
