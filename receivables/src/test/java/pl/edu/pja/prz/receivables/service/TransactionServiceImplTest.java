@@ -1,5 +1,6 @@
 package pl.edu.pja.prz.receivables.service;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -43,6 +44,8 @@ class TransactionServiceImplTest {
                 .withTransactionAmount(new BigDecimal("55.55"))
                 .withTransactionCurrency("PLN")
                 .build();
+
+        transaction.setId(1L);
     }
 
     @Test
@@ -60,6 +63,7 @@ class TransactionServiceImplTest {
     @Test
     public void Should_UpdateTransaction() {
         //Given
+        when(repository.findById(anyLong())).thenReturn(Optional.of(transaction));
 
         //When
         service.update(transaction);
@@ -69,14 +73,41 @@ class TransactionServiceImplTest {
     }
 
     @Test
+    public void Should_ThrowException_When_TransactionToUpdateDoesNotExists() {
+        //Given
+
+        //When
+        Assertions.assertThrows(NullPointerException.class, () -> {
+            service.update(transaction);
+        });
+
+        //Then
+        verify(repository, times(0)).save(any(Transaction.class));
+    }
+
+    @Test
     public void Should_DeleteTransaction() {
         //Given
+        when(repository.findById(anyLong())).thenReturn(Optional.of(transaction));
 
         //When
         service.delete(1L);
 
         //Then
         verify(repository, times(1)).deleteById(anyLong());
+    }
+
+    @Test
+    public void Should_ThrowException_When_TransactionToDeleteDoesNotExists() {
+        //Given
+
+        //When
+        Assertions.assertThrows(NullPointerException.class, () -> {
+            service.delete(9999L);
+        });
+
+        //Then
+        verify(repository, times(0)).delete(any(Transaction.class));
     }
 
     @Test

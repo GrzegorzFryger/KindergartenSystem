@@ -81,7 +81,7 @@
                 </configuration>
             </plugin>
 
-         <plugin>
+            <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacoco-mavenplugin-version}</version>
@@ -89,6 +89,7 @@
                     <excludes>
                         <!-- Core module exclusions -->
                         <exclude>**/pl/edu/pja/prz/core/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/core/exception/*</exclude>
 
                         <!-- Account module exclusions -->
                         <exclude>**/pl/edu/pja/prz/account/*</exclude>
@@ -111,6 +112,7 @@
                         <!-- Receivables module exclusions -->
                         <exclude>**/pl/edu/pja/prz/receivables/*</exclude>
                         <exclude>**/pl/edu/pja/prz/receivables/configuration/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/receivables/facade/*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
