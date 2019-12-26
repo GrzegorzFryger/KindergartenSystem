@@ -5,14 +5,14 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class FullName {
 	private String name;
-	private String Surname;
+	private String surname;
 
 	public FullName() {
 	}
 
 	public FullName(String name, String surname) {
 		this.name = name;
-		Surname = surname;
+		this.surname = surname;
 	}
 
 	public String getName() {
@@ -20,6 +20,6 @@ public class FullName {
 	}
 
 	public String getSurname() {
-		return Surname;
+		return surname;
 	}
 }

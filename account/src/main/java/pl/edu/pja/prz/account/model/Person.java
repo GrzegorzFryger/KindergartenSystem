@@ -13,7 +13,7 @@ public class Person extends BaseEntity<UUID> {
 	private FullName fullName;
 	private Phone phoneNumber;
 
-	Person() {
+	public Person() {
 	}
 
 	public Person(Address address, FullName fullName, Phone phoneNumber) {
@@ -44,5 +44,14 @@ public class Person extends BaseEntity<UUID> {
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	@Override
+	public String toString() {
+		return "Person{" +
+				"address=" + address +
+				", fullName=" + fullName +
+				", phoneNumber=" + phoneNumber +
+				'}';
 	}
 }
