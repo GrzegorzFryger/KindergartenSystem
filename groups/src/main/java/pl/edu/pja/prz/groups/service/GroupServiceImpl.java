@@ -6,19 +6,24 @@ import pl.edu.pja.prz.groups.model.Group;
 import pl.edu.pja.prz.groups.model.GroupBuilder;
 import pl.edu.pja.prz.groups.repository.GroupRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class GroupServiceImpl implements GroupService {
+    private final GroupRepository groupRepository;
 
     @Autowired
-    GroupRepository groupRepository;
+    public GroupServiceImpl(GroupRepository groupRepository){
+        this.groupRepository = groupRepository;
+    }
 
     @Override
     public Group createGroup(String groupName, String groupDescription) {
         var group = new GroupBuilder()
                 .withGroupName(groupName)
                 .withGroupDescription(groupDescription)
+                .withChildren(new ArrayList<>())
                 .build();
         return groupRepository.save(group);
     }
