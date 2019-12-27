@@ -14,7 +14,7 @@ public class GroupServiceImpl implements GroupService {
     private final GroupRepository groupRepository;
 
     @Autowired
-    public GroupServiceImpl(GroupRepository groupRepository){
+    public GroupServiceImpl(GroupRepository groupRepository) {
         this.groupRepository = groupRepository;
     }
 
