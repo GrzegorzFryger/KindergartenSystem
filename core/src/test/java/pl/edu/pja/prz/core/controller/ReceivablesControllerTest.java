@@ -70,7 +70,7 @@ class ReceivablesControllerTest {
 
         mvc.perform(MockMvcRequestBuilders.get(BASE + "transactions/" + TEST_ID)
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(TEST_ID))
+                .andExpect(jsonPath("$.accountNumber").value("12345678901234"))
                 .andExpect(status().isOk());
 
         //Then
@@ -90,7 +90,7 @@ class ReceivablesControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$").isArray())
                 .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].id").value(TEST_ID))
+                .andExpect(jsonPath("$[0].accountNumber").value("12345678901234"))
                 .andExpect(status().isOk());
 
         //Then

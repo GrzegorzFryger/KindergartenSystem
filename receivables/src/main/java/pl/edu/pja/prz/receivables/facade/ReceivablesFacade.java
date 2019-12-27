@@ -1,7 +1,9 @@
 package pl.edu.pja.prz.receivables.facade;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.service.CsvParsingService;
 import pl.edu.pja.prz.receivables.service.TransactionService;
@@ -41,11 +43,13 @@ public class ReceivablesFacade {
         transactionService.create(transaction);
     }
 
-    public List<Transaction> getTransactionListFromCsv(File file) throws IOException {
-        return csvParsingService.getTransactionListFromCsv(file);
-    }
+    public List<Transaction> getTransactionListFromCsv(MultipartFile input, String charset) throws IOException {
+        File file = csvParsingService.convertMultipartToFile(input);
 
-    public List<Transaction> getTransactionListFromCsv(File file, String charset) throws IOException {
-        return csvParsingService.getTransactionListFromCsv(file, charset);
+        if (StringUtils.isNotEmpty(charset)) {
+            return csvParsingService.getTransactionListFromCsv(file, charset);
+        } else {
+            return csvParsingService.getTransactionListFromCsv(file);
+        }
     }
 }
