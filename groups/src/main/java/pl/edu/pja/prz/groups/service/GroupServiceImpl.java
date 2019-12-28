@@ -19,12 +19,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public Group createGroup(String groupName, String groupDescription) {
-        var group = new GroupBuilder()
-                .withGroupName(groupName)
-                .withGroupDescription(groupDescription)
-                .withChildren(new ArrayList<>())
-                .build();
+    public Group createGroup(Group group) {
         return groupRepository.save(group);
     }
 
