@@ -3,7 +3,6 @@ package pl.edu.pja.prz.groups.model;
 import java.util.List;
 
 public class GroupBuilder {
-    private Long id;
     private String groupName;
     private List<Child> children;
     private String groupDescription;
