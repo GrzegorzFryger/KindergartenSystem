@@ -13,7 +13,8 @@ import pl.edu.pja.prz.groups.repository.GroupRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class GroupServiceTest {
@@ -41,5 +42,14 @@ class GroupServiceTest {
     @Test
     void shouldCreateNewGroup() {
         groupService.createGroup(group);
+    }
+
+    @Test
+    void shouldReturnAllGroups() {
+        List<Group> groupList = new ArrayList<>();
+        groupList.add(group);
+        when(groupRepository.findAll()).thenReturn(groupList);
+        groupService.getAllGroups();
+        verify(groupRepository, times(1)).findAll();
     }
 }

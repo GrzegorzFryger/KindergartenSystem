@@ -3,10 +3,8 @@ package pl.edu.pja.prz.groups.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.groups.model.Group;
-import pl.edu.pja.prz.groups.model.GroupBuilder;
 import pl.edu.pja.prz.groups.repository.GroupRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -35,6 +33,6 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public List<Group> getAllGroups() {
-        return null;
+        return groupRepository.findAll();
     }
 }
