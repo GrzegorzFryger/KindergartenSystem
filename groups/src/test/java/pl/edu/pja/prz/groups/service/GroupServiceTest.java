@@ -12,7 +12,9 @@ import pl.edu.pja.prz.groups.repository.GroupRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
@@ -51,5 +53,12 @@ class GroupServiceTest {
         when(groupRepository.findAll()).thenReturn(groupList);
         groupService.getAllGroups();
         verify(groupRepository, times(1)).findAll();
+    }
+
+    @Test
+    void shouldReturnGroupWithGivenId() {
+        when(groupRepository.findById(anyLong())).thenReturn(Optional.of(group));
+        groupService.getGroup(1L);
+        verify(groupRepository,times(1)).findById(1L);
     }
 }

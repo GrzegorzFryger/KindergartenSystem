@@ -32,6 +32,12 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
+    public Group getGroup(Long id) {
+        return groupRepository.findById(id).orElseThrow(
+                () -> new NullPointerException("Group with id: " + id + " not found."));
+    }
+
+    @Override
     public List<Group> getAllGroups() {
         return groupRepository.findAll();
     }
