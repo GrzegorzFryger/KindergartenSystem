@@ -107,6 +107,8 @@
 
                         <!-- Groups module exclusions -->
                         <exclude>**/pl/edu/pja/prz/groups/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/groups/configuration/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/groups/model/*</exclude>
 
                         <!-- Meal module exclusions -->
                         <exclude>**/pl/edu/pja/prz/meal/*</exclude>
