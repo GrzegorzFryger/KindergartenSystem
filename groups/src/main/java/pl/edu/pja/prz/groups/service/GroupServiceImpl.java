@@ -1,7 +1,6 @@
 package pl.edu.pja.prz.groups.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.groups.model.Group;
 import pl.edu.pja.prz.groups.repository.GroupRepository;
