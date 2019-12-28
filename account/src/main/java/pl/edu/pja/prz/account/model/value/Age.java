@@ -18,6 +18,10 @@ public class Age {
 		return dateOfBirth;
 	}
 
+	public void setDateOfBirth(LocalDate dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;

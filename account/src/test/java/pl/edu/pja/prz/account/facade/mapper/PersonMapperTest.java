@@ -60,7 +60,6 @@ class PersonMapperTest {
 
 		//then
 		assertEquals(person,personFromMapper);
-
 	}
 
 
