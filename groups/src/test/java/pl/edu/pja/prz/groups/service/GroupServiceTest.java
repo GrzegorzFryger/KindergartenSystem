@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
@@ -45,6 +44,8 @@ class GroupServiceTest {
     @Test
     void shouldCreateNewGroup() {
         groupService.createGroup(group);
+
+        verify(groupRepository, times(1)).save(any(Group.class));
     }
 
     @Test
