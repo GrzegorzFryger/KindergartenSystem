@@ -38,59 +38,98 @@ class GroupServiceTest {
 
     @Test
     void groupServiceNotNull() {
+        //Given
+
+        //When
+
+        //Then
         assertNotNull(groupService);
     }
 
     @Test
     void shouldCreateNewGroup() {
+        //Given
+
+        //When
         groupService.createGroup(group);
 
+        //Then
         verify(groupRepository, times(1)).save(any(Group.class));
     }
 
     @Test
     void shouldReturnAllGroups() {
+        //Given
         List<Group> groupList = new ArrayList<>();
         groupList.add(group);
         when(groupRepository.findAll()).thenReturn(groupList);
+
+        //When
         groupService.getAllGroups();
+
+        //Then
         verify(groupRepository, times(1)).findAll();
     }
 
     @Test
     void shouldReturnGroupWithGivenId() {
+        //Given
         when(groupRepository.findById(anyLong())).thenReturn(Optional.of(group));
+
+        //When
         groupService.getGroup(1L);
+
+        //Then
         verify(groupRepository, times(1)).findById(1L);
     }
 
     @Test
     void shouldDeleteGroupWithGivenId() {
+        //Given
         when(groupRepository.findById(anyLong())).thenReturn(Optional.of(group));
+
+        //When
         groupService.deleteGroup(1L);
+
+        //Then
         verify(groupRepository, times(1)).deleteById(1L);
     }
 
     @Test
     void shouldThrowExceptionIfGroupToDeleteDoesntExist() {
+        //Given
+
+        //When
         Assertions.assertThrows(NullPointerException.class, () -> {
             groupService.deleteGroup(123L);
         });
+
+        //Then
         verify(groupRepository, times(0)).delete(any(Group.class));
     }
 
     @Test
     void shouldUpdateGroupById() {
+        //Given
         when(groupRepository.findById(anyLong())).thenReturn(Optional.of(group));
+
+        //When
         groupService.updateGroup(group, 1L);
+
+        //Then
         verify(groupRepository, times(1)).save(any(Group.class));
     }
 
     @Test
     void shouldThrowExceptionIfGroupToUpdateDoesntExist() {
+        //Given
+
+        //When
         Assertions.assertThrows(NullPointerException.class, () -> {
             groupService.updateGroup(group, 123L);
         });
+
+        //Then
         verify(groupRepository, times(0)).save(any(Group.class));
     }
 }
