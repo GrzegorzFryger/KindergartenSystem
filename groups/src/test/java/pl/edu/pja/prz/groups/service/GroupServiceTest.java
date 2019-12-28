@@ -1,5 +1,6 @@
 package pl.edu.pja.prz.groups.service;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,9 +21,9 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class GroupServiceTest {
-    private Group group;
     @InjectMocks
     GroupServiceImpl groupService;
+    private Group group;
     @Mock
     private GroupRepository groupRepository;
 
@@ -59,6 +60,21 @@ class GroupServiceTest {
     void shouldReturnGroupWithGivenId() {
         when(groupRepository.findById(anyLong())).thenReturn(Optional.of(group));
         groupService.getGroup(1L);
-        verify(groupRepository,times(1)).findById(1L);
+        verify(groupRepository, times(1)).findById(1L);
+    }
+
+    @Test
+    void shouldDeleteGroupWithGivenId() {
+        when(groupRepository.findById(anyLong())).thenReturn(Optional.of(group));
+        groupService.deleteGroup(1L);
+        verify(groupRepository, times(1)).deleteById(1L);
+    }
+
+    @Test
+    void shouldThrowExceptionIfDeletedGroupDoesntExist() {
+        Assertions.assertThrows(NullPointerException.class, () -> {
+            groupService.deleteGroup(123L);
+        });
+        verify(groupRepository, times(0)).delete(any(Group.class));
     }
 }
