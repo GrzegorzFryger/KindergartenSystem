@@ -71,10 +71,25 @@ class GroupServiceTest {
     }
 
     @Test
-    void shouldThrowExceptionIfDeletedGroupDoesntExist() {
+    void shouldThrowExceptionIfGroupToDeleteDoesntExist() {
         Assertions.assertThrows(NullPointerException.class, () -> {
             groupService.deleteGroup(123L);
         });
         verify(groupRepository, times(0)).delete(any(Group.class));
+    }
+
+    @Test
+    void shouldUpdateGroupById() {
+        when(groupRepository.findById(anyLong())).thenReturn(Optional.of(group));
+        groupService.updateGroup(group, 1L);
+        verify(groupRepository, times(1)).save(any(Group.class));
+    }
+
+    @Test
+    void shouldThrowExceptionIfGroupToUpdateDoesntExist() {
+        Assertions.assertThrows(NullPointerException.class, () -> {
+            groupService.updateGroup(group, 123L);
+        });
+        verify(groupRepository, times(0)).save(any(Group.class));
     }
 }

@@ -22,8 +22,20 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public Group updateGroup(Group group) {
-        return null;
+    public Group updateGroup(Group group, Long groupToUpdateId) {
+        if (groupRepository.findById(groupToUpdateId).isEmpty()) {
+            throw new NullPointerException("Group with id: " + groupToUpdateId + " not found.");
+        }
+        Group groupToUpdate = getGroup(groupToUpdateId);
+        if (groupToUpdate.getGroupName() != null) {
+            groupToUpdate.setGroupName(group.getGroupName());
+        }
+        if (groupToUpdate.getGroupDescription() != null) {
+            groupToUpdate.setGroupDescription(group.getGroupDescription());
+        }
+        //TODO: decide if this method should add children to the list, or if I should implement another method for it
+
+        return groupRepository.save(groupToUpdate);
     }
 
     @Override
