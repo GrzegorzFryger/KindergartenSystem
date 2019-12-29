@@ -20,6 +20,9 @@ public class Meal {
     private LocalDateTime mealFromDate;
     private LocalDateTime mealToDate;
     private MealStatus mealStatus;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @JoinTable(name = "tblMealTypes", joinColumns = @JoinColumn(name = "childID"))
+    @Column(name = "mealType", nullable = false)
     @Enumerated(EnumType.STRING)
     private List<MealType> mealTypes = new ArrayList<>();
     private UUID childID;
@@ -50,7 +53,7 @@ public class Meal {
         this.mealStatus = mealStatus;
     }
 
-    public void setMealTypes(List<MealType> mealType) {
+    public void setMealTypes(List<MealType> mealTypes) {
         this.mealTypes = mealTypes;
     }
 
