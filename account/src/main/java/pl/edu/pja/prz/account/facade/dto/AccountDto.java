@@ -2,12 +2,62 @@ package pl.edu.pja.prz.account.facade.dto;
 
 import pl.edu.pja.prz.account.model.enums.AccountStatus;
 
-public class AccountDto extends PersonDto {
+public class AccountDto {
+	private String name;
+	private String surname;
+	private String postalCode;
+	private String city;
+	private String streetNumber;
+	private String phone;
 	private AccountStatus status;
 	private String email;
 
-	public AccountDto() {
-		super();
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	public String getPostalCode() {
+		return postalCode;
+	}
+
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getStreetNumber() {
+		return streetNumber;
+	}
+
+	public void setStreetNumber(String streetNumber) {
+		this.streetNumber = streetNumber;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public AccountStatus getStatus() {

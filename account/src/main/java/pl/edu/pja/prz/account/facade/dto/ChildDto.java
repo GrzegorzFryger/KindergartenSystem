@@ -2,6 +2,7 @@ package pl.edu.pja.prz.account.facade.dto;
 
 import pl.edu.pja.prz.account.model.enums.Gender;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class ChildDto {
@@ -10,10 +11,9 @@ public class ChildDto {
 	private String surname;
 	private String pesel;
 	private Gender gender;
-	private StudyPeriodDto period;
-
-	public ChildDto() {
-	}
+	private LocalDate startDate;
+	private LocalDate endDate;
+	private LocalDate dateOfBirth;
 
 	public UUID getId() {
 		return id;
@@ -55,11 +55,27 @@ public class ChildDto {
 		this.gender = gender;
 	}
 
-	public StudyPeriodDto getPeriod() {
-		return period;
+	public LocalDate getStartDate() {
+		return startDate;
 	}
 
-	public void setPeriod(StudyPeriodDto period) {
-		this.period = period;
+	public void setStartDate(LocalDate startDate) {
+		this.startDate = startDate;
+	}
+
+	public LocalDate getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(LocalDate endDate) {
+		this.endDate = endDate;
+	}
+
+	public LocalDate getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(LocalDate dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
 	}
 }
