@@ -40,14 +40,26 @@ public class AdministratorService {
 		this.roleService = roleService;
 	}
 
+	public Guardian createGuardianAccount(Person person, String email) {
+		return this.createGuardianAccount(person.getAddress(),person.getFullName(),person.getPhoneNumber(),email);
+	}
+
 	public Guardian createGuardianAccount(Address address, FullName fullName, Phone phone,
 	                                      String email) {
 		return persistStandardAccount(address, fullName, phone, email, guardianRepository, Guardian.class);
 	}
 
+	public Employee createEmployeeAccount(Person person, String email) {
+		return this.createEmployeeAccount(person.getAddress(),person.getFullName(),person.getPhoneNumber(),email);
+	}
+
 	public Employee createEmployeeAccount(Address address, FullName fullName, Phone phone,
 	                                      String email) {
 		return persistStandardAccount(address, fullName, phone, email, employeeRepository, Employee.class);
+	}
+
+	public Employee createAdministratorAccount(Person person, String email) {
+		return this.createAdministratorAccount(person.getAddress(),person.getFullName(),person.getPhoneNumber(),email);
 	}
 
 	public Employee createAdministratorAccount(Address address, FullName fullName, Phone phone,
