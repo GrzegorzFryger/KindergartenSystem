@@ -37,8 +37,8 @@ public class PersonMapperImpl implements PersonMapper {
 
 		Person person = new Person();
 
-		person.setAddress(new Address(personDto.getPostalCode(),personDto.getCity(),personDto.getStreetNumber()));
-		person.setFullName(new FullName(personDto.getName(),personDto.getSurname()));
+		person.setAddress(new Address(personDto.getPostalCode(), personDto.getCity(), personDto.getStreetNumber()));
+		person.setFullName(new FullName(personDto.getName(), personDto.getSurname()));
 		person.setPhoneNumber(new Phone(personDto.getPhone()));
 		person.setId(personDto.getId());
 

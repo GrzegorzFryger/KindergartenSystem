@@ -7,6 +7,5 @@ import pl.edu.pja.prz.account.model.Person;
 @Service
 public interface PersonMapper {
 	PersonDto fromPerson(Person person);
-
 	Person toPerson(PersonDto personDto);
 }
