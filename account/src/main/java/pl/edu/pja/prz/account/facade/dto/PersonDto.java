@@ -12,6 +12,7 @@ public class PersonDto {
 	private String phone;
 
 	public PersonDto() {
+		super();
 	}
 
 	public PersonDto(UUID id, String name, String surname, String postalCode, String city, String streetNumber,
