@@ -2,12 +2,13 @@ package pl.edu.pja.prz.receivables.model;
 
 
 import javax.persistence.Entity;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
-public class Transaction {
+public class Transaction extends BaseEntity<Long> implements Serializable {
     private LocalDate transactionDate;
     private LocalDate bookingDate;
     private String contractorDetails;

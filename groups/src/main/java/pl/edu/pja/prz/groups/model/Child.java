@@ -5,16 +5,18 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-
 @Entity
 public class Child {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
-    @ManyToMany(mappedBy = "child")
-    private List<Group> groupList;
+    @ManyToMany(mappedBy = "children")
+    private List<Group> groups;
 
     public Child() {
+    }
+
+    public Child(List<Group> groups) {
+        this.groups = groups;
     }
 
     public UUID getId() {
@@ -25,12 +27,12 @@ public class Child {
         this.id = id;
     }
 
-    public List<Group> getGroupList() {
-        return groupList;
+    public List<Group> getGroups() {
+        return groups;
     }
 
-    public void setGroupList(List<Group> groupList) {
-        this.groupList = groupList;
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
     }
 
     @Override
@@ -39,11 +41,11 @@ public class Child {
         if (o == null || getClass() != o.getClass()) return false;
         Child child = (Child) o;
         return id.equals(child.id) &&
-                Objects.equals(groupList, child.groupList);
+                Objects.equals(groups, child.groups);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, groupList);
+        return Objects.hash(id, groups);
     }
 }

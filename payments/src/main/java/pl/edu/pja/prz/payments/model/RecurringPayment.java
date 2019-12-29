@@ -2,20 +2,25 @@ package pl.edu.pja.prz.payments.model;
 
 import pl.edu.pja.prz.payments.model.enums.Status;
 import pl.edu.pja.prz.payments.model.enums.TypeRecurringPayment;
+import pl.edu.pja.prz.payments.model.value.Child;
 import pl.edu.pja.prz.payments.model.value.PeriodValidity;
 
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
 public class RecurringPayment extends Payment implements DiscountCalculator {
 	private Child child;
 	private PeriodValidity periodValidity;
+	@ManyToMany(mappedBy = "recurringPayments")
 	private Set<Discount> discounts = new HashSet<>();
 	private Status status;
 	private TypeRecurringPayment recurringPayment;
 
-	public RecurringPayment(Payment payment, Child child, PeriodValidity periodValidity,
+	public RecurringPayment(Child child, Payment payment, PeriodValidity periodValidity,
 	                        TypeRecurringPayment recurringPayment, Status status) {
 		this(payment.getAmount(), payment.getDescription(), child, periodValidity, recurringPayment, status);
 	}
@@ -80,4 +85,47 @@ public class RecurringPayment extends Payment implements DiscountCalculator {
 		this.discounts.remove(discountPolicies);
 	}
 
+	public void addDiscount(Discount discount ) {
+		this.discounts.add(discount);
+		discount.getRecurringPayments().add(this);
+	}
+
+	public void removeDiscount(Discount discount ) {
+		this.discounts.remove(discount);
+		discount.getRecurringPayments().remove(this);
+	}
+
+	@Override public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof RecurringPayment)) return false;
+
+		RecurringPayment that = (RecurringPayment) o;
+
+		if (getChild() != null ? !getChild().equals(that.getChild()) : that.getChild() != null) return false;
+		if (getPeriodValidity() != null ? !getPeriodValidity().equals(that.getPeriodValidity()) : that.getPeriodValidity() != null)
+			return false;
+		if (getDiscounts() != null ? !getDiscounts().equals(that.getDiscounts()) : that.getDiscounts() != null)
+			return false;
+		if (getStatus() != that.getStatus()) return false;
+		return getRecurringPayment() == that.getRecurringPayment();
+	}
+
+	@Override public int hashCode() {
+		int result = getChild() != null ? getChild().hashCode() : 0;
+		result = 31 * result + (getPeriodValidity() != null ? getPeriodValidity().hashCode() : 0);
+		result = 31 * result + (getDiscounts() != null ? getDiscounts().hashCode() : 0);
+		result = 31 * result + (getStatus() != null ? getStatus().hashCode() : 0);
+		result = 31 * result + (getRecurringPayment() != null ? getRecurringPayment().hashCode() : 0);
+		return result;
+	}
+
+	@Override public String toString() {
+		return "RecurringPayment{" +
+				"child=" + child +
+				", periodValidity=" + periodValidity +
+				", discounts=" + discounts +
+				", status=" + status +
+				", recurringPayment=" + recurringPayment +
+				'}';
+	}
 }

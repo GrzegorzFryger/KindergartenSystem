@@ -10,7 +10,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class TuitionTest {
+class RecurringPaymentTest {
 	private RecurringPayment recurringPayment;
 	private Payment payment;
 

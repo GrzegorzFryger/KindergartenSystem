@@ -1,21 +1,21 @@
-package pl.edu.pja.prz.payments.model;
+package pl.edu.pja.prz.payments.model.value;
 
-import pl.edu.pja.prz.payments.model.value.FullName;
-
+import javax.persistence.Embeddable;
 import java.util.UUID;
 
+@Embeddable
 public class Child {
 	private UUID childId;
-	private UUID guardianId;
 	private FullName fullName;
+	private UUID guardianId;
 
 	Child() {
 	}
 
-	public Child(UUID childId, UUID guardianId, FullName fullName) {
+	public Child(UUID childId, FullName fullName, UUID guardianId) {
 		this.childId = childId;
-		this.guardianId = guardianId;
 		this.fullName = fullName;
+		this.guardianId = guardianId;
 	}
 
 	public UUID getChildId() {
