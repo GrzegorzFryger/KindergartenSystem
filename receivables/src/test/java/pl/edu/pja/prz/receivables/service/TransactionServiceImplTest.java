@@ -123,6 +123,20 @@ class TransactionServiceImplTest {
     }
 
     @Test
+    public void Should_ThrowException_When_TransactionNotFound() {
+        //Given
+        when(repository.findById(anyLong())).thenReturn(Optional.empty());
+
+        //When
+        Assertions.assertThrows(NullPointerException.class, () -> {
+            service.getTransaction(1L);
+        });
+
+        //Then
+        verify(repository, times(1)).findById(anyLong());
+    }
+
+    @Test
     public void Should_GetAllUnassignedTransactions() {
         //Given
         List<Transaction> transactions = new ArrayList<>();
