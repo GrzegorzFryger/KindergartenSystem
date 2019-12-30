@@ -1,15 +1,21 @@
 package pl.edu.pja.prz.receivables.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.model.TransactionMapping;
 import pl.edu.pja.prz.receivables.repository.TransactionMappingRepository;
+import pl.edu.pja.prz.receivables.util.RandomUtils;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class TransactionMappingServiceImpl implements TransactionMappingService {
+    @Value("${title-mapping.length}")
+    private Integer TITLE_MAPPING_LENGTH;
+
     private final TransactionMappingRepository repository;
 
     @Autowired
@@ -18,8 +24,18 @@ public class TransactionMappingServiceImpl implements TransactionMappingService 
     }
 
     @Override
-    public void create(TransactionMapping transactionMapping) {
-        repository.save(transactionMapping);
+    public void create(UUID guardianId, UUID childId) {
+        TransactionMapping mapping = new TransactionMapping();
+        mapping.setGuardianId(guardianId);
+        mapping.setChildId(childId);
+        while(true) {
+            String title = RandomUtils.randomNumeric(TITLE_MAPPING_LENGTH);
+            if (getByTitle(title).isEmpty()) {
+                mapping.setTitle(title);
+                break;
+            }
+        }
+        repository.save(mapping);
     }
 
     @Override

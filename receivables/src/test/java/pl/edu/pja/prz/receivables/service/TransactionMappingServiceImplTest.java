@@ -3,8 +3,10 @@ package pl.edu.pja.prz.receivables.service;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.util.ReflectionTestUtils;
 import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.model.TransactionMapping;
 import pl.edu.pja.prz.receivables.repository.TransactionMappingRepository;
@@ -12,8 +14,7 @@ import pl.edu.pja.prz.receivables.repository.TransactionMappingRepository;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -35,17 +36,21 @@ class TransactionMappingServiceImplTest {
         transactionMapping.setTitle("XYZ-123456");
         transactionMapping.setChildId(UUID.randomUUID());
         transactionMapping.setGuardianId(UUID.randomUUID());
+
+        ReflectionTestUtils.setField(service, "TITLE_MAPPING_LENGTH", 12);
     }
 
     @Test
     public void Should_CreateTransactionMapping() {
         //Given
+        ArgumentCaptor<TransactionMapping> argumentCaptor = ArgumentCaptor.forClass(TransactionMapping.class);
 
         //When
-        service.create(transactionMapping);
+        service.create(UUID.randomUUID(), UUID.randomUUID());
 
         //Then
-        verify(repository, times(1)).save(any(TransactionMapping.class));
+        verify(repository, times(1)).save(argumentCaptor.capture());
+        assertEquals(12, argumentCaptor.getValue().getTitle().length());
     }
 
     @Test
