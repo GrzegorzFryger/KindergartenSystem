@@ -1,6 +1,5 @@
 package pl.edu.pja.prz.receivables.service;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,7 +12,8 @@ import pl.edu.pja.prz.receivables.repository.TransactionMappingRepository;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -54,25 +54,25 @@ class TransactionMappingServiceImplTest {
         when(repository.findByTitle(anyString())).thenReturn(transactionMapping);
 
         //When
-        TransactionMapping mapping = service.getByTitle("SOME TITLE");
+        Optional<TransactionMapping> mapping = service.getByTitle("SOME TITLE");
 
         //Then
         verify(repository, times(1)).findByTitle(anyString());
-        assertNotNull(mapping);
+        assertTrue(mapping.isPresent());
     }
 
     @Test
-    public void Should_ThrowException_WhenTransactionMappingIsNotFound() {
+    public void Should_RetrurnEmptyOptional_When_TransactionDoesNotExist() {
         //Given
         when(repository.findByTitle(anyString())).thenReturn(null);
 
         //When
-        Assertions.assertThrows(NullPointerException.class, () -> {
-            service.getByTitle("SOME TITLE");
-        });
+        Optional<TransactionMapping> mapping = service.getByTitle("SOME TITLE");
 
         //Then
         verify(repository, times(1)).findByTitle(anyString());
+        assertTrue(mapping.isEmpty());
+
     }
 
     @Test
@@ -99,6 +99,22 @@ class TransactionMappingServiceImplTest {
         //Then
         verify(repository, times(1)).findById(anyLong());
         verify(repository, times(1)).deleteById(anyLong());
+    }
+
+    @Test
+    public void Should_Map_Transaction() {
+        //Given
+        Transaction transaction = new Transaction();
+        transaction.setTitle("SOME TITLE");
+        when(repository.findByTitle("SOME TITLE")).thenReturn(transactionMapping);
+
+        //When
+        Transaction result = service.mapTransaction(transaction);
+
+        //Then
+        verify(repository, times(1)).findByTitle(anyString());
+        assertNotNull(result.getChildId());
+        assertNotNull(result.getGuardianId());
     }
 
 }

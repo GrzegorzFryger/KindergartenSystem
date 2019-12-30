@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.service.CsvParsingService;
+import pl.edu.pja.prz.receivables.service.TransactionMappingService;
 import pl.edu.pja.prz.receivables.service.TransactionService;
 
 import java.io.File;
@@ -16,11 +17,14 @@ import java.util.List;
 public class ReceivablesFacade {
     private final CsvParsingService csvParsingService;
     private final TransactionService transactionService;
+    private final TransactionMappingService transactionMappingService;
 
     @Autowired
-    public ReceivablesFacade(CsvParsingService csvParsingService, TransactionService transactionService) {
+    public ReceivablesFacade(CsvParsingService csvParsingService, TransactionService transactionService,
+                             TransactionMappingService transactionMappingService) {
         this.csvParsingService = csvParsingService;
         this.transactionService = transactionService;
+        this.transactionMappingService = transactionMappingService;
     }
 
     public Transaction getTransaction(Long id) {
@@ -44,12 +48,17 @@ public class ReceivablesFacade {
     }
 
     public List<Transaction> getTransactionListFromCsv(MultipartFile input, String charset) throws IOException {
+        List<Transaction> transactions;
         File file = csvParsingService.convertMultipartToFile(input);
 
         if (StringUtils.isNotEmpty(charset)) {
-            return csvParsingService.getTransactionListFromCsv(file, charset);
+            transactions = csvParsingService.getTransactionListFromCsv(file, charset);
         } else {
-            return csvParsingService.getTransactionListFromCsv(file);
+            transactions = csvParsingService.getTransactionListFromCsv(file);
         }
+
+        transactions.forEach(transactionMappingService::mapTransaction);
+
+        return transactions;
     }
 }

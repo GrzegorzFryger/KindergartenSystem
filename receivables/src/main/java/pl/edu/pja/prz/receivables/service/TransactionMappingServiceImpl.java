@@ -2,8 +2,11 @@ package pl.edu.pja.prz.receivables.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.model.TransactionMapping;
 import pl.edu.pja.prz.receivables.repository.TransactionMappingRepository;
+
+import java.util.Optional;
 
 @Service
 public class TransactionMappingServiceImpl implements TransactionMappingService {
@@ -20,17 +23,14 @@ public class TransactionMappingServiceImpl implements TransactionMappingService 
     }
 
     @Override
-    public TransactionMapping getByTitle(String title) {
+    public Optional<TransactionMapping> getByTitle(String title) {
         TransactionMapping mapping = repository.findByTitle(title);
-        if (mapping == null) {
-            throw new NullPointerException("Transaction mapping with title: " + title + " not found");
-        }
-        return mapping;
+        return Optional.ofNullable(mapping);
     }
 
     @Override
     public void update(TransactionMapping transactionMapping) {
-        if (getByTitle(transactionMapping.getTitle()) != null) {
+        if (getByTitle(transactionMapping.getTitle()).isPresent()) {
             repository.save(transactionMapping);
         }
     }
@@ -41,5 +41,16 @@ public class TransactionMappingServiceImpl implements TransactionMappingService 
             throw new NullPointerException("Element with id: " + id + " is not found");
         }
         repository.deleteById(id);
+    }
+
+    @Override
+    public Transaction mapTransaction(Transaction transaction) {
+        Optional<TransactionMapping> mapping = getByTitle(transaction.getTitle());
+
+        if (mapping.isPresent()) {
+            transaction.setGuardianId(mapping.get().getGuardianId());
+            transaction.setChildId(mapping.get().getChildId());
+        }
+        return transaction;
     }
 }
