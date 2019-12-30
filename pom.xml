@@ -21,6 +21,7 @@
 
     <modules>
         <module>core</module>
+        <module>commons</module>
         <module>account</module>
         <module>receivables</module>
         <module>meal</module>
