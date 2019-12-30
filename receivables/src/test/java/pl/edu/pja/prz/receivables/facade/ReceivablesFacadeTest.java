@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
@@ -56,17 +55,17 @@ class ReceivablesFacadeTest {
     }
 
     @Test
-    public void Should_GetAllTransactions() {
+    public void Should_GetAllUnassignedTransactions() {
         //Given
         List<Transaction> transactionList = new ArrayList<>();
         transactionList.add(transaction);
 
         //When
-        when(transactionService.getAllTransactions()).thenReturn(transactionList);
-        List<Transaction> result = facade.getAllTransactions();
+        when(transactionService.getAllUnassignedTransactions()).thenReturn(transactionList);
+        List<Transaction> result = facade.getAllUnassignedTransactions();
 
         //Then
-        verify(transactionService, times(1)).getAllTransactions();
+        verify(transactionService, times(1)).getAllUnassignedTransactions();
         assertEquals(1, result.size());
     }
 

@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -54,7 +55,6 @@ class TransactionServiceImplTest {
 
         //When
         service.create(transaction);
-        List<Transaction> result = service.getAllTransactions();
 
         //Then
         verify(repository, times(1)).save(any(Transaction.class));
@@ -123,16 +123,44 @@ class TransactionServiceImplTest {
     }
 
     @Test
-    public void Should_GetAllTransaction() {
+    public void Should_GetAllUnassignedTransactions() {
         //Given
         List<Transaction> transactions = new ArrayList<>();
         transactions.add(transaction);
-        when(repository.findAll()).thenReturn(transactions);
+        when(repository.findAllByGuardianIdIsNullOrChildIdIsNull()).thenReturn(transactions);
 
         //When
-        service.getAllTransactions();
+        List<Transaction> result = service.getAllUnassignedTransactions();
 
         //Then
-        verify(repository, times(1)).findAll();
+        verify(repository, times(1)).findAllByGuardianIdIsNullOrChildIdIsNull();
+    }
+
+    @Test
+    public void Should_GetAllTransactionsByChildId() {
+        //Given
+        List<Transaction> transactions = new ArrayList<>();
+        transactions.add(transaction);
+        when(repository.findAllByChildId(any(UUID.class))).thenReturn(transactions);
+
+        //When
+        List<Transaction> result = service.getAllTransactionsByChildId(UUID.randomUUID());
+
+        //Then
+        verify(repository, times(1)).findAllByChildId(any(UUID.class));
+    }
+
+    @Test
+    public void Should_GetAllTransactionsByGuardianId() {
+        //Given
+        List<Transaction> transactions = new ArrayList<>();
+        transactions.add(transaction);
+        when(repository.findAllByGuardianId(any(UUID.class))).thenReturn(transactions);
+
+        //When
+        List<Transaction> result = service.getAllTransactionsByGuardianId(UUID.randomUUID());
+
+        //Then
+        verify(repository, times(1)).findAllByGuardianId(any(UUID.class));
     }
 }

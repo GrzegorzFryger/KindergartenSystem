@@ -27,8 +27,8 @@ public class ReceivablesFacade {
         return transactionService.getTransaction(id);
     }
 
-    public List<Transaction> getAllTransactions() {
-        return transactionService.getAllTransactions();
+    public List<Transaction> getAllUnassignedTransactions() {
+        return transactionService.getAllUnassignedTransactions();
     }
 
     public void delete(Long id) {

@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 public class Transaction extends BaseEntity<Long> implements Serializable {
@@ -19,6 +20,8 @@ public class Transaction extends BaseEntity<Long> implements Serializable {
     private String transactionNumber;
     private BigDecimal transactionAmount;
     private String transactionCurrency;
+    private UUID childId;
+    private UUID guardianId;
 
     public LocalDate getTransactionDate() {
         return transactionDate;
@@ -98,6 +101,22 @@ public class Transaction extends BaseEntity<Long> implements Serializable {
 
     public void setTransactionCurrency(String transactionCurrency) {
         this.transactionCurrency = transactionCurrency;
+    }
+
+    public UUID getChildId() {
+        return childId;
+    }
+
+    public void setChildId(UUID childId) {
+        this.childId = childId;
+    }
+
+    public UUID getGuardianId() {
+        return guardianId;
+    }
+
+    public void setGuardianId(UUID guardianId) {
+        this.guardianId = guardianId;
     }
 
     @Override

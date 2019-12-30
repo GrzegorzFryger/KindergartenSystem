@@ -6,6 +6,7 @@ import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.repository.TransactionRepository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -23,8 +24,18 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public List<Transaction> getAllTransactions() {
-        return repository.findAll();
+    public List<Transaction> getAllUnassignedTransactions() {
+        return repository.findAllByGuardianIdIsNullOrChildIdIsNull();
+    }
+
+    @Override
+    public List<Transaction> getAllTransactionsByChildId(UUID childId) {
+        return repository.findAllByChildId(childId);
+    }
+
+    @Override
+    public List<Transaction> getAllTransactionsByGuardianId(UUID guardianId) {
+        return repository.findAllByGuardianId(guardianId);
     }
 
     @Override

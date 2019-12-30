@@ -22,7 +22,7 @@ public class ReceivablesController {
 
     @GetMapping("transactions")
     public List<Transaction> getAllTransactions() {
-        return receivablesFacade.getAllTransactions();
+        return receivablesFacade.getAllUnassignedTransactions();
     }
 
     @GetMapping("transactions/{id}")
