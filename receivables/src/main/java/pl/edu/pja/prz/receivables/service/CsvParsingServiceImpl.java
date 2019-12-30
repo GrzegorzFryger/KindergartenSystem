@@ -13,6 +13,7 @@ import pl.edu.pja.prz.receivables.util.CharsetEncoding;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -47,6 +48,11 @@ public class CsvParsingServiceImpl implements CsvParsingService {
             fos.write(file.getBytes());
         }
         return convertedFile;
+    }
+
+    @Override
+    public void cleanUpFile(File file) throws IOException {
+        Files.delete(file.toPath());
     }
 
     private CSVFormat getCSVFormat() {
