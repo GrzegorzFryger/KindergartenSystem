@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class CsvParsingServiceImpl implements CsvParsingService {
@@ -41,12 +42,11 @@ public class CsvParsingServiceImpl implements CsvParsingService {
 
     @Override
     public File convertMultipartToFile(MultipartFile file) throws IOException {
-        File convFile = new File(file.getOriginalFilename());
-        convFile.createNewFile();
-        FileOutputStream fos = new FileOutputStream(convFile);
-        fos.write(file.getBytes());
-        fos.close();
-        return convFile;
+        File convertedFile = new File(Objects.requireNonNull(file.getOriginalFilename()));
+        try (FileOutputStream fos = new FileOutputStream(convertedFile)) {
+            fos.write(file.getBytes());
+        }
+        return convertedFile;
     }
 
     private CSVFormat getCSVFormat() {
