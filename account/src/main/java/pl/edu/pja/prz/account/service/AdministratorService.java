@@ -41,7 +41,7 @@ public class AdministratorService {
 	}
 
 	public Guardian createGuardianAccount(Person person, String email) {
-		return this.createGuardianAccount(person.getAddress(),person.getFullName(),person.getPhoneNumber(),email);
+		return this.createGuardianAccount(person.getAddress(), person.getFullName(), person.getPhoneNumber(), email);
 	}
 
 	public Guardian createGuardianAccount(Address address, FullName fullName, Phone phone,
@@ -50,7 +50,7 @@ public class AdministratorService {
 	}
 
 	public Employee createEmployeeAccount(Person person, String email) {
-		return this.createEmployeeAccount(person.getAddress(),person.getFullName(),person.getPhoneNumber(),email);
+		return this.createEmployeeAccount(person.getAddress(), person.getFullName(), person.getPhoneNumber(), email);
 	}
 
 	public Employee createEmployeeAccount(Address address, FullName fullName, Phone phone,
@@ -59,7 +59,7 @@ public class AdministratorService {
 	}
 
 	public Employee createAdministratorAccount(Person person, String email) {
-		return this.createAdministratorAccount(person.getAddress(),person.getFullName(),person.getPhoneNumber(),email);
+		return this.createAdministratorAccount(person.getAddress(), person.getFullName(), person.getPhoneNumber(), email);
 	}
 
 	public Employee createAdministratorAccount(Address address, FullName fullName, Phone phone,
@@ -80,20 +80,20 @@ public class AdministratorService {
 
 	public Child createChild(Long boroughId, Address address, FullName fullName, String pesel,
 	                         StudyPeriod studyPeriod) {
-		var borought = boroughRepository.findById(boroughId).orElseThrow(() -> {
+		var borough = boroughRepository.findById(boroughId).orElseThrow(() -> {
 			throw new IllegalArgumentException("Borough with id not exist: " + boroughId);
 		});
 
-		var child = childService.createChild(address, borought, fullName, pesel, studyPeriod);
-		addChildToBorough(child, borought);
+		var child = childService.createChild(address, borough, fullName, pesel, studyPeriod);
+		addChildToBorough(child, borough);
 		return child;
 
 	}
 
-	public Child createChild(Long boroughtId, Address address, Age age, FullName fullName, Gender gender,
+	public Child createChild(Long boroughId, Address address, Age age, FullName fullName, Gender gender,
 	                         StudyPeriod studyPeriod) {
-		var borough = boroughRepository.findById(boroughtId).orElseThrow(() -> {
-			throw new IllegalArgumentException("Borough with id not exist: " + boroughtId);
+		var borough = boroughRepository.findById(boroughId).orElseThrow(() -> {
+			throw new IllegalArgumentException("Borough with id not exist: " + boroughId);
 		});
 
 		//todo write condition for children without pesel number
@@ -103,8 +103,8 @@ public class AdministratorService {
 
 	}
 
-	public void appendChildrenToGuardian(UUID uuid, Set<UUID> setGuardianId) {
-		var child = childService.getChildById(uuid);
+	public void appendChildrenToGuardian(UUID childId, Set<UUID> setGuardianId) {
+		var child = childService.getChildById(childId);
 
 		guardianRepository.findAllById(setGuardianId).forEach(guardian -> {
 			guardian.addChild(child);
@@ -113,11 +113,6 @@ public class AdministratorService {
 	}
 
 	private void addChildToBorough(Child child, Borough borough) {
-		borough.addChild(child);
-		boroughRepository.save(borough);
-	}
-
-	private void addChildToGuardian(Child child, Borough borough) {
 		borough.addChild(child);
 		boroughRepository.save(borough);
 	}

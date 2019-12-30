@@ -14,9 +14,18 @@ public class ChildDto {
 	private LocalDate startDate;
 	private LocalDate endDate;
 	private LocalDate dateOfBirth;
+	private Long boroughId;
 
 	public UUID getId() {
 		return id;
+	}
+
+	public Long getBoroughId() {
+		return boroughId;
+	}
+
+	public void setBoroughId(Long boroughId) {
+		this.boroughId = boroughId;
 	}
 
 	public void setId(UUID id) {
