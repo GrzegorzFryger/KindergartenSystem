@@ -37,7 +37,7 @@ class TransactionMappingServiceImplTest {
         transactionMapping.setChildId(UUID.randomUUID());
         transactionMapping.setGuardianId(UUID.randomUUID());
 
-        ReflectionTestUtils.setField(service, "TITLE_MAPPING_LENGTH", 12);
+        ReflectionTestUtils.setField(service, "titleMappingLength", 12);
     }
 
     @Test
