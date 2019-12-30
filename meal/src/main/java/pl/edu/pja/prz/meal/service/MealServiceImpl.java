@@ -28,11 +28,12 @@ public class MealServiceImpl implements MealService {
 
     @Override
     public Meal createMeal(MealCreateUpdateDTO meal) throws MealActivityStatusException {
-        if (mealRepository.findMealByChildIDAndMealStatus(meal.getChildID(), MealStatus.ACTIVE).isEmpty()) {
+        if (mealRepository.findMealByChildIDAndMealStatusAndMealType(meal.getChildID(), MealStatus.ACTIVE, meal.getMealType()).isEmpty()) {
             meal.setMealPrice(mealPriceListService.getPriceByMealType(meal.getMealType()));
             return mealRepository.save(MealCreateUpdateDTO.createMealFactory(meal));
         } else
-            throw new MealActivityStatusException("There is already meal with status ACTIVE for child with ID: " + meal.getChildID());
+            throw new MealActivityStatusException("There is already meal with status ACTIVE and type " +
+                    meal.getMealType() + " for child with ID: " + meal.getChildID());
     }
 
     @Override
