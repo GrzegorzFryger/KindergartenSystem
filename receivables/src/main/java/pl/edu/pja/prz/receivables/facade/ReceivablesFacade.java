@@ -57,6 +57,8 @@ public class ReceivablesFacade {
             transactions = csvParsingService.getTransactionListFromCsv(file);
         }
 
+        file.delete();
+
         transactions.forEach(transactionMappingService::mapTransaction);
 
         return transactions;
