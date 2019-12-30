@@ -14,7 +14,7 @@ import java.util.UUID;
 @Service
 public class TransactionMappingServiceImpl implements TransactionMappingService {
     @Value("${title-mapping.length}")
-    private Integer TITLE_MAPPING_LENGTH;
+    private Integer titleMappingLength;
 
     private final TransactionMappingRepository repository;
 
@@ -29,7 +29,7 @@ public class TransactionMappingServiceImpl implements TransactionMappingService 
         mapping.setGuardianId(guardianId);
         mapping.setChildId(childId);
         while(true) {
-            String title = RandomUtils.randomNumeric(TITLE_MAPPING_LENGTH);
+            String title = RandomUtils.randomNumeric(titleMappingLength);
             if (getByTitle(title).isEmpty()) {
                 mapping.setTitle(title);
                 break;
