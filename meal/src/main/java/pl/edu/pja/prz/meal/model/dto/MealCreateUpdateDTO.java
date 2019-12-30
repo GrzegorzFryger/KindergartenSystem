@@ -8,21 +8,20 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.List;
 import java.util.UUID;
 
 public class MealCreateUpdateDTO {
 
 	private BigDecimal mealPrice;
-	private List<MealType> mealTypes;
+	private MealType mealType;
 	private UUID childID;
 	private LocalDate mealFromDate;
 	private LocalDate mealToDate;
 
-	public MealCreateUpdateDTO(BigDecimal mealPrice, List<MealType> mealTypes, UUID childID,
+	public MealCreateUpdateDTO(BigDecimal mealPrice, MealType mealType, UUID childID,
 							   LocalDate mealFromDate, LocalDate mealToDate) {
 		this.mealPrice = mealPrice;
-		this.mealTypes = mealTypes;
+		this.mealType = mealType;
 		this.childID = childID;
 		this.mealFromDate = mealFromDate;
 		this.mealToDate = mealToDate;
@@ -33,7 +32,7 @@ public class MealCreateUpdateDTO {
 				LocalDateTime.of(dto.getMealFromDate(), LocalTime.NOON),
 				LocalDateTime.of(dto.getMealToDate(), LocalTime.MIDNIGHT),
 				MealStatus.ACTIVE,
-				dto.getMealTypes(),
+				dto.getMealType(),
 				dto.getChildID());
 	}
 
@@ -51,8 +50,8 @@ public class MealCreateUpdateDTO {
 	public LocalDate getMealToDate() {
 		return mealToDate;
 	}
-	public List<MealType> getMealTypes() {
-		return mealTypes;
+	public MealType getMealType() {
+		return mealType;
 	}
 	public UUID getChildID() {
 		return childID;

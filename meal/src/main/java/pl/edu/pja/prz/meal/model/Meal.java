@@ -1,13 +1,12 @@
 package pl.edu.pja.prz.meal.model;
 
+import org.hibernate.annotations.Type;
 import pl.edu.pja.prz.meal.model.enums.MealStatus;
 import pl.edu.pja.prz.meal.model.enums.MealType;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -20,11 +19,10 @@ public class Meal {
     private LocalDateTime mealFromDate;
     private LocalDateTime mealToDate;
     private MealStatus mealStatus;
-    @ElementCollection(fetch = FetchType.EAGER)
-    @JoinTable(name = "tblMealTypes", joinColumns = @JoinColumn(name = "childID"))
-    @Column(name = "mealType", nullable = false)
     @Enumerated(EnumType.STRING)
-    private List<MealType> mealTypes = new ArrayList<>();
+    private MealType mealType;
+    @Type(type = "uuid-char")
+    @Column(length = 36)
     private UUID childID;
 
 
@@ -32,12 +30,12 @@ public class Meal {
     }
 
     public Meal(BigDecimal mealPrice, LocalDateTime mealFromDate, LocalDateTime mealToDate,
-                MealStatus mealStatus, List<MealType> mealTypes, UUID childID) {
+                MealStatus mealStatus, MealType mealType, UUID childID) {
         this.mealPrice = mealPrice;
         this.mealFromDate = mealFromDate;
         this.mealToDate = mealToDate;
         this.mealStatus = mealStatus;
-        this.mealTypes = mealTypes;
+        this.mealType = mealType;
         this.childID = childID;
     }
 
@@ -53,8 +51,8 @@ public class Meal {
         this.mealStatus = mealStatus;
     }
 
-    public void setMealTypes(List<MealType> mealTypes) {
-        this.mealTypes = mealTypes;
+    public void setMealTypes(MealType mealType) {
+        this.mealType = mealType;
     }
 
     public Long getId() {
@@ -77,8 +75,8 @@ public class Meal {
         return mealStatus;
     }
 
-    public List<MealType> getMealTypes() {
-        return mealTypes;
+    public MealType getMealType() {
+        return mealType;
     }
 
     public UUID getChildID() {

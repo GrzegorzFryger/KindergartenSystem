@@ -8,7 +8,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 
 @Entity
-public class MealPriceList {
+public class MealPrice {
 
     @Id
     private long id;
@@ -16,7 +16,7 @@ public class MealPriceList {
     private MealType mealType;
     private double mealPrice;
 
-    public MealPriceList() {
+    public MealPrice() {
     }
 
     public long getId() {

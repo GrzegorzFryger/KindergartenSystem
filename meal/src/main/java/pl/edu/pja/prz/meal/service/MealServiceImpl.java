@@ -17,11 +17,11 @@ import java.util.List;
 public class MealServiceImpl implements MealService {
 
     private MealRepository mealRepository;
-    private MealPriceListServiceImpl mealPriceListService;
+    private MealPriceServiceImpl mealPriceListService;
 
 
     @Autowired
-    public MealServiceImpl(MealRepository mealRepository, MealPriceListServiceImpl mealPriceListService) {
+    public MealServiceImpl(MealRepository mealRepository, MealPriceServiceImpl mealPriceListService) {
         this.mealRepository = mealRepository;
         this.mealPriceListService = mealPriceListService;
     }
@@ -29,7 +29,7 @@ public class MealServiceImpl implements MealService {
     @Override
     public Meal createMeal(MealCreateUpdateDTO meal) throws MealActivityStatusException {
         if (mealRepository.findMealByChildIDAndMealStatus(meal.getChildID(), MealStatus.ACTIVE).isEmpty()) {
-            meal.setMealPrice(mealPriceListService.getPriceByMealType(meal.getMealTypes()));
+            meal.setMealPrice(mealPriceListService.getPriceByMealType(meal.getMealType()));
             return mealRepository.save(MealCreateUpdateDTO.createMealFactory(meal));
         } else
             throw new MealActivityStatusException("There is already meal with status ACTIVE for child with ID: " + meal.getChildID());
@@ -60,8 +60,8 @@ public class MealServiceImpl implements MealService {
         if (meal.getMealPrice() != null) {
             mealToUpdate.setMealPrice(meal.getMealPrice());
         }
-        if (meal.getMealTypes() != null) {
-            mealToUpdate.setMealTypes(meal.getMealTypes());
+        if (meal.getMealType() != null) {
+            mealToUpdate.setMealTypes(meal.getMealType());
         }
         if (meal.getMealToDate() != null) {
             mealToUpdate.setMealToDate(LocalDateTime.of(meal.getMealToDate(), LocalTime.MIDNIGHT));
