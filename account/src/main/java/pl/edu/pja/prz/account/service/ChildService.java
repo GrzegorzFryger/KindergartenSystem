@@ -1,7 +1,7 @@
 package pl.edu.pja.prz.account.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.account.model.Borough;
 import pl.edu.pja.prz.account.model.Child;
 import pl.edu.pja.prz.account.model.ChildBuilder;
@@ -17,19 +17,55 @@ import pl.edu.pja.prz.account.utilites.PeselService;
 import java.util.Set;
 import java.util.UUID;
 
-@Component
+@Service
 class ChildService {
-	private final ChildStatus CHILDSTATUS = ChildStatus.NEW;
+	private static final ChildStatus CHILDSTATUS = ChildStatus.NEW;
 	private final ChildRepository childRepository;
 	private final PeselService peselService;
+	private final BoroughService boroughService;
 
 	@Autowired
-	public ChildService(ChildRepository childRepository, PeselService peselService) {
+	public ChildService(ChildRepository childRepository, PeselService peselService, BoroughService boroughService) {
 		this.childRepository = childRepository;
 		this.peselService = peselService;
+		this.boroughService = boroughService;
 	}
 
-	Child createChild(Address address, Borough borough, FullName fullName, String pesel, StudyPeriod studyPeriod) {
+
+	public Child createChild(Long boroughId, Address address, FullName fullName, String pesel,
+	                         StudyPeriod studyPeriod) {
+		var borough = boroughService.find(boroughId).orElseThrow(() -> {
+			throw new IllegalArgumentException("Borough with id not exist: " + boroughId);
+		});
+
+		var child = createChild(address, borough, fullName, pesel, studyPeriod);
+		boroughService.addChildToBorough(child, borough);
+		return child;
+
+	}
+
+	public Child createChild(Long boroughId, Address address, Age age, FullName fullName, Gender gender,
+	                         StudyPeriod studyPeriod) {
+		var borough = boroughService.find(boroughId).orElseThrow(() -> {
+			throw new IllegalArgumentException("Borough with id not exist: " + boroughId);
+		});
+
+		//todo write condition for children without pesel number
+		var child = createChild(address, age, borough, fullName, gender, "NOT_SET", studyPeriod);
+		boroughService.addChildToBorough(child, borough);
+		return child;
+
+	}
+
+	public Child getChildById(UUID id) {
+		return childRepository.findById(id).orElseThrow(
+				() -> {
+					throw new IllegalArgumentException("Not found child with id " + id);
+				});
+	}
+
+	private Child createChild(Address address, Borough borough, FullName fullName, String pesel,
+	                          StudyPeriod studyPeriod) {
 		return createChild(address,
 				new Age(peselService.extractDateOfBirth(pesel)),
 				borough,
@@ -40,7 +76,8 @@ class ChildService {
 		);
 	}
 
-	Child createChild(Address address, Age age, Borough borough, FullName fullName, Gender gender, String pesel,
+	private Child createChild(Address address, Age age, Borough borough, FullName fullName, Gender gender,
+	                          String pesel,
 	                  StudyPeriod studyPeriod) {
 		var child = ChildBuilder.aChild()
 				.withAddress(address)
@@ -55,12 +92,7 @@ class ChildService {
 		return childRepository.save(child);
 	}
 
-	public Child getChildById(UUID id) {
-		return childRepository.findById(id).orElseThrow(
-				() -> {
-					throw new IllegalArgumentException("Not found child with id " + id);
-				});
-	}
+
 
 
 }
