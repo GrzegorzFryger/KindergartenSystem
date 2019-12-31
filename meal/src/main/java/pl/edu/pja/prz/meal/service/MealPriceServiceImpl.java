@@ -23,14 +23,14 @@ public class MealPriceServiceImpl {
         this.mealPriceRepository = mealPriceRepository;
     }
 
-    public MealPrice creatMealPriceList(MealPrice mealPrice) throws MealPriceListAlreadyExistException {
+    public MealPrice creatMealPrice(MealPrice mealPrice) throws MealPriceListAlreadyExistException {
         if (mealPriceRepository.findByMealType(mealPrice.getMealType()).isPresent()) {
             throw new MealPriceListAlreadyExistException("Price list to " + mealPrice.getMealType() + " already exist");
         }
         return mealPriceRepository.save(mealPrice);
     }
 
-    public MealPrice updateMealPriceList(MealPrice mealPrice, long id) throws NotFoundException {
+    public MealPrice updateMealPrice(MealPrice mealPrice, long id) throws NotFoundException {
         Optional<MealPrice> mealPriceListOptional = mealPriceRepository.findById(id);
         if (mealPriceListOptional.isEmpty()) {
             throw new NotFoundException("Price list with ID:" + id + " not found");
@@ -41,11 +41,11 @@ public class MealPriceServiceImpl {
         return mealPriceRepository.save(priceListToUpdate);
     }
 
-    public List<MealPrice> getAllPriceList() {
+    public List<MealPrice> getAllPrices() {
         return mealPriceRepository.findAll();
     }
 
-    public void deleteMealPriceList(long id) throws NotFoundException {
+    public void deleteMealPriceById(long id) throws NotFoundException {
         if (!mealPriceRepository.existsById(id)) {
             throw new NotFoundException("Price list with ID:" + id + " not found");
         }

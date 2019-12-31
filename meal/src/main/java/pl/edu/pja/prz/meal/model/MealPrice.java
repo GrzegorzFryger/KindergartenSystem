@@ -2,15 +2,13 @@ package pl.edu.pja.prz.meal.model;
 
 import pl.edu.pja.prz.meal.model.enums.MealType;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class MealPrice {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Enumerated(EnumType.STRING)
     private MealType mealType;
