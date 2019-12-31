@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.model.builder.TransactionBuilder;
 import pl.edu.pja.prz.receivables.repository.TransactionRepository;
@@ -77,7 +78,7 @@ class TransactionServiceImplTest {
         //Given
 
         //When
-        Assertions.assertThrows(NullPointerException.class, () -> {
+        Assertions.assertThrows(ElementNotFoundException.class, () -> {
             service.update(transaction);
         });
 
@@ -102,7 +103,7 @@ class TransactionServiceImplTest {
         //Given
 
         //When
-        Assertions.assertThrows(NullPointerException.class, () -> {
+        Assertions.assertThrows(ElementNotFoundException.class, () -> {
             service.delete(9999L);
         });
 
