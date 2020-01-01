@@ -7,6 +7,5 @@ import pl.edu.pja.prz.account.model.Employee;
 @Service
 public interface EmployeeMapper extends AccountMapper {
 	EmployeeDto fromEmployee(Employee Employee);
-
 	Employee toEmployee(EmployeeDto employeeDto);
 }

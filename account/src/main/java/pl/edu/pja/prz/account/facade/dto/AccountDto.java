@@ -12,6 +12,9 @@ public class AccountDto {
 	private AccountStatus status;
 	private String email;
 
+	public AccountDto() {
+	}
+
 	public String getName() {
 		return name;
 	}

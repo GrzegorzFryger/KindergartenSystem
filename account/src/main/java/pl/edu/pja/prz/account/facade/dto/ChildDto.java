@@ -16,6 +16,9 @@ public class ChildDto {
 	private LocalDate dateOfBirth;
 	private Long boroughId;
 
+	public ChildDto() {
+	}
+
 	public UUID getId() {
 		return id;
 	}

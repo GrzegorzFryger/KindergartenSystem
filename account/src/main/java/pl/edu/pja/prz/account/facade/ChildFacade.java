@@ -23,7 +23,7 @@ public class ChildFacade {
 					childService.createChild(
 							childDto.getBoroughId(),
 							childMapper.toAddress(childDto),
-							childMapper.toFrullName(childDto),
+							childMapper.toFullName(childDto),
 							childDto.getPesel(),
 							childMapper.toStudyPeriod(childDto)
 					)
@@ -35,7 +35,7 @@ public class ChildFacade {
 							childDto.getBoroughId(),
 							childMapper.toAddress(childDto),
 							childMapper.toAge(childDto),
-							childMapper.toFrullName(childDto),
+							childMapper.toFullName(childDto),
 							childDto.getGender(),
 							childMapper.toStudyPeriod(childDto)
 					)
