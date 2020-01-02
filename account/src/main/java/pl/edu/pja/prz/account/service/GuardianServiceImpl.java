@@ -12,6 +12,7 @@ import pl.edu.pja.prz.account.model.value.Phone;
 import pl.edu.pja.prz.account.repository.GuardianRepository;
 import pl.edu.pja.prz.account.utilites.PasswordManager;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -41,6 +42,20 @@ public class GuardianServiceImpl extends AccountService<GuardianRepository, Guar
 	}
 
 	@Override
+	public Guardian getGuardianById(UUID id) {
+		return guardianRepository.findById(id).orElseThrow(() -> {
+					throw new IllegalArgumentException("Not found user with id: " + id);
+				}
+		);
+	}
+
+	@Override
+	public List<Guardian> getAllGuardians() {
+		//todo in the future will be add paging
+		return guardianRepository.findAll();
+	}
+
+	@Override
 	public void appendChildrenToGuardian(UUID childId, Set<UUID> setGuardianId) {
 		var child = childService.getChildById(childId);
 
@@ -51,8 +66,8 @@ public class GuardianServiceImpl extends AccountService<GuardianRepository, Guar
 	}
 
 	@Override
-	public Set<Child> getAllChildren(UUID id) {
-		return guardianRepository.findById(id)
+	public Set<Child> getAllChildren(UUID guardianId) {
+		return guardianRepository.findById(guardianId)
 				.map(Guardian::getChildren)
 				.orElseThrow(() -> {
 					throw new IllegalArgumentException("Not found");

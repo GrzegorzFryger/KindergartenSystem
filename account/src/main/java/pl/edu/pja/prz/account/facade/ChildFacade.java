@@ -6,6 +6,8 @@ import pl.edu.pja.prz.account.facade.dto.ChildDto;
 import pl.edu.pja.prz.account.facade.mapper.ChildMapper;
 import pl.edu.pja.prz.account.service.ChildService;
 
+import java.util.UUID;
+
 @Service
 public class ChildFacade {
 	private final ChildMapper childMapper;
@@ -17,7 +19,7 @@ public class ChildFacade {
 		this.childService = childService;
 	}
 
-	public ChildDto createChid(ChildDto childDto) {
+	public ChildDto createChild(ChildDto childDto) {
 		if (childDto.getPesel() != null) {
 			return childMapper.fromChild(
 					childService.createChild(
@@ -42,5 +44,11 @@ public class ChildFacade {
 			);
 		}
 
+	}
+
+	public ChildDto findChildById(UUID id) {
+		return childMapper.fromChild(
+						childService.getChildById(id)
+				);
 	}
 }
