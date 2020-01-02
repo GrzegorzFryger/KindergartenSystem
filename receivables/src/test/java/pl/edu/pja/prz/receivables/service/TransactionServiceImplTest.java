@@ -129,7 +129,7 @@ class TransactionServiceImplTest {
         when(repository.findById(anyLong())).thenReturn(Optional.empty());
 
         //When
-        Assertions.assertThrows(NullPointerException.class, () -> {
+        Assertions.assertThrows(ElementNotFoundException.class, () -> {
             service.getTransaction(1L);
         });
 
