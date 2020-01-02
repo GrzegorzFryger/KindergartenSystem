@@ -250,6 +250,46 @@
 						"description": ""
 					},
 					"response": []
+				},
+				{
+					"name": "/transactions/input",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"type": "text"
+							},
+							{
+								"key": "Input-Encoding",
+								"value": "UTF8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "input",
+									"type": "file",
+									"src": "/C:/Repo/KindergartenSystem/.postman/input_files/test_transactions.csv"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/transactions/import",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"transactions",
+								"import"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}

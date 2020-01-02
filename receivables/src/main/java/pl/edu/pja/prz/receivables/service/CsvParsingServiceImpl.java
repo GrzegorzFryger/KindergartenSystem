@@ -5,14 +5,18 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.model.builder.TransactionBuilder;
 import pl.edu.pja.prz.receivables.util.CharsetEncoding;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class CsvParsingServiceImpl implements CsvParsingService {
@@ -35,6 +39,20 @@ public class CsvParsingServiceImpl implements CsvParsingService {
         }
         parser.close();
         return transactions;
+    }
+
+    @Override
+    public File convertMultipartToFile(MultipartFile file) throws IOException {
+        File convertedFile = new File(Objects.requireNonNull(file.getOriginalFilename()));
+        try (FileOutputStream fos = new FileOutputStream(convertedFile)) {
+            fos.write(file.getBytes());
+        }
+        return convertedFile;
+    }
+
+    @Override
+    public void cleanUpFile(File file) throws IOException {
+        Files.delete(file.toPath());
     }
 
     private CSVFormat getCSVFormat() {
