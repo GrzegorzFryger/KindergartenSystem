@@ -84,7 +84,7 @@ class ReceivablesControllerTest {
         transactionList.add(transaction);
 
         //When
-        when(receivablesFacade.getAllTransactions()).thenReturn(transactionList);
+        when(receivablesFacade.getAllUnassignedTransactions()).thenReturn(transactionList);
 
         mvc.perform(MockMvcRequestBuilders.get(BASE + "transactions")
                 .accept(MediaType.APPLICATION_JSON))
@@ -94,7 +94,7 @@ class ReceivablesControllerTest {
                 .andExpect(status().isOk());
 
         //Then
-        verify(receivablesFacade, times(1)).getAllTransactions();
+        verify(receivablesFacade, times(1)).getAllUnassignedTransactions();
     }
 
     @Test

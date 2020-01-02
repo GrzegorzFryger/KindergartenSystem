@@ -4,12 +4,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.service.CsvParsingService;
+import pl.edu.pja.prz.receivables.service.TransactionMappingService;
 import pl.edu.pja.prz.receivables.service.TransactionService;
 
 import java.io.File;
@@ -30,6 +30,8 @@ class ReceivablesFacadeTest {
     private CsvParsingService csvParsingService;
     @Mock
     private TransactionService transactionService;
+    @Mock
+    private TransactionMappingService transactionMappingService;
 
     private Transaction transaction;
 
@@ -37,7 +39,7 @@ class ReceivablesFacadeTest {
 
     @BeforeEach
     public void setUp() {
-        facade = new ReceivablesFacade(csvParsingService, transactionService);
+        facade = new ReceivablesFacade(csvParsingService, transactionService, transactionMappingService);
 
         transaction = new Transaction();
     }
@@ -56,17 +58,17 @@ class ReceivablesFacadeTest {
     }
 
     @Test
-    public void Should_GetAllTransactions() {
+    public void Should_GetAllUnassignedTransactions() {
         //Given
         List<Transaction> transactionList = new ArrayList<>();
         transactionList.add(transaction);
 
         //When
-        when(transactionService.getAllTransactions()).thenReturn(transactionList);
-        List<Transaction> result = facade.getAllTransactions();
+        when(transactionService.getAllUnassignedTransactions()).thenReturn(transactionList);
+        List<Transaction> result = facade.getAllUnassignedTransactions();
 
         //Then
-        verify(transactionService, times(1)).getAllTransactions();
+        verify(transactionService, times(1)).getAllUnassignedTransactions();
         assertEquals(1, result.size());
     }
 
@@ -119,6 +121,7 @@ class ReceivablesFacadeTest {
         //Then
         verify(csvParsingService, times(1)).getTransactionListFromCsv(any(File.class), anyString());
         verify(csvParsingService, never()).getTransactionListFromCsv(any(File.class));
+        verify(csvParsingService, times(1)).cleanUpFile(any(File.class));
         assertEquals(1, result.size());
     }
 
@@ -138,7 +141,7 @@ class ReceivablesFacadeTest {
         //Then
         verify(csvParsingService, times(1)).getTransactionListFromCsv(any(File.class));
         verify(csvParsingService, never()).getTransactionListFromCsv(any(File.class), anyString());
+        verify(csvParsingService, times(1)).cleanUpFile(any(File.class));
         assertEquals(1, result.size());
     }
-
 }

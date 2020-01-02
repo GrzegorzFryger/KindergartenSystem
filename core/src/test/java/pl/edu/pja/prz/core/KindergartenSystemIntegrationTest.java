@@ -8,6 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 import java.util.Arrays;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
@@ -18,7 +19,8 @@ class KindergartenSystemIntegrationTest {
 	ApplicationContext applicationContext;
 
 	@Test
-	void contextLoads() {
+	void ShouldLoadContext() {
+		assertNotNull(applicationContext);
 	}
 
 
