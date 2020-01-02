@@ -11,10 +11,9 @@ import javax.persistence.*;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
-public class Child extends BaseEntity<UUID> {
+public class Child extends BaseEntityUuid {
 	private Address address;
 	private Age age;
 	@ManyToOne
@@ -31,7 +30,7 @@ public class Child extends BaseEntity<UUID> {
 	private String peselNumber;
 	private StudyPeriod studyPeriod;
 
-	Child() {
+	public Child() {
 	}
 
 	public Child(Set<ChildStatus> childStatuses, Gender gender, Borough borough, Set<Guardian> guardians,

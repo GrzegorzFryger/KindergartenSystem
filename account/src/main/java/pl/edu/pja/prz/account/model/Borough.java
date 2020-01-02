@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Borough extends BaseEntity<Long> {
+public class Borough extends BaseEntityLong {
 	private String name;
 	private Address address;
 	private Phone phone;

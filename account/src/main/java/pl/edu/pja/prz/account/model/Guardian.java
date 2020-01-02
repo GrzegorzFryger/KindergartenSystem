@@ -20,7 +20,7 @@ public class Guardian extends Account {
 			inverseJoinColumns = {@JoinColumn(name = "fk_child")})
 	private Set<Child> children = new HashSet<>();
 
-	Guardian() {
+	public Guardian() {
 		super();
 	}
 

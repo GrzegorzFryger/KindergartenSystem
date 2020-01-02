@@ -21,7 +21,7 @@ public class Account extends Person {
 	private Set<Role> roles = new HashSet<>();
 	private String email;
 
-	Account() {
+	public Account() {
 	}
 
 	public Account(Address address, FullName fullName, Phone phoneNumber,

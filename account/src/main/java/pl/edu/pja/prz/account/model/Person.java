@@ -5,10 +5,9 @@ import pl.edu.pja.prz.account.model.value.FullName;
 import pl.edu.pja.prz.account.model.value.Phone;
 
 import javax.persistence.MappedSuperclass;
-import java.util.UUID;
 
 @MappedSuperclass
-public class Person extends BaseEntity<UUID> {
+public class Person extends BaseEntityUuid {
 	private Address address;
 	private FullName fullName;
 	private Phone phoneNumber;
