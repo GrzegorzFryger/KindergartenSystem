@@ -17,6 +17,12 @@ public class MealPrice {
     public MealPrice() {
     }
 
+    public MealPrice(long id,MealType mealType, double mealPrice ) {
+        this.id = id;
+        this.mealType = mealType;
+        this.mealPrice = mealPrice;
+    }
+
     public long getId() {
         return id;
     }
