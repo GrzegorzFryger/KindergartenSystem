@@ -1,5 +1,6 @@
 package pl.edu.pja.prz.receivables.service;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -7,6 +8,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
+import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.model.TransactionMapping;
 import pl.edu.pja.prz.receivables.repository.TransactionMappingRepository;
@@ -67,7 +69,7 @@ class TransactionMappingServiceImplTest {
     }
 
     @Test
-    public void Should_RetrurnEmptyOptional_When_TransactionDoesNotExist() {
+    public void Should_ReturnEmptyOptional_When_TransactionDoesNotExist() {
         //Given
         when(repository.findByTitle(anyString())).thenReturn(null);
 
@@ -94,6 +96,21 @@ class TransactionMappingServiceImplTest {
     }
 
     @Test
+    public void Should_ThrowException_When_TransactionMappingToUpdateDoesNotExist() {
+        //Given
+        when(repository.findByTitle(anyString())).thenReturn(null);
+
+        //When
+        Assertions.assertThrows(ElementNotFoundException.class, () -> {
+            service.update(transactionMapping);
+        });
+
+        //Then
+        verify(repository, times(1)).findByTitle(anyString());
+        verify(repository, never()).save(any(TransactionMapping.class));
+    }
+
+    @Test
     public void Should_Delete_TransactionMapping() {
         //Given
         when(repository.findById(anyLong())).thenReturn(Optional.ofNullable(transactionMapping));
@@ -104,6 +121,21 @@ class TransactionMappingServiceImplTest {
         //Then
         verify(repository, times(1)).findById(anyLong());
         verify(repository, times(1)).deleteById(anyLong());
+    }
+
+    @Test
+    public void Should_ThrowException_When_TransactionMappingToDeleteDoesNotExist() {
+        //Given
+        when(repository.findById(anyLong())).thenReturn(Optional.empty());
+
+        //When
+        Assertions.assertThrows(ElementNotFoundException.class, () -> {
+            service.delete(1L);
+        });
+
+        //Then
+        verify(repository, times(1)).findById(anyLong());
+        verify(repository, never()).deleteById(anyLong());
     }
 
     @Test
