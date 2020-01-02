@@ -21,6 +21,7 @@
 
     <modules>
         <module>core</module>
+        <module>commons</module>
         <module>account</module>
         <module>receivables</module>
         <module>meal</module>
@@ -102,6 +103,9 @@
                         <exclude>**/pl/edu/pja/prz/account/*</exclude>
                         <exclude>**/pl/edu/pja/prz/account/model/value/*</exclude>
                         <exclude>**/pl/edu/pja/prz/account/configuration/*</exclude>
+
+                        <!-- Commons module exclusions -->
+                        <exclude>**/pl/edu/pja/prz/commons/*</exclude>
 
                         <!-- Finances module exclusions -->
                         <exclude>**/pl/edu/pja/prz/finances/*</exclude>

@@ -3,6 +3,7 @@ package pl.edu.pja.prz.receivables.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.model.TransactionMapping;
 import pl.edu.pja.prz.receivables.repository.TransactionMappingRepository;
@@ -13,6 +14,7 @@ import java.util.UUID;
 
 @Service
 public class TransactionMappingServiceImpl implements TransactionMappingService {
+    private static final String TRANSACTION_MAPPING = "Transaction Mapping";
     @Value("${title-mapping.length}")
     private Integer titleMappingLength;
 
@@ -46,15 +48,16 @@ public class TransactionMappingServiceImpl implements TransactionMappingService 
 
     @Override
     public void update(TransactionMapping transactionMapping) {
-        if (getByTitle(transactionMapping.getTitle()).isPresent()) {
-            repository.save(transactionMapping);
+        if (getByTitle(transactionMapping.getTitle()).isEmpty()) {
+            throw new ElementNotFoundException(TRANSACTION_MAPPING, transactionMapping.getTitle());
         }
+        repository.save(transactionMapping);
     }
 
     @Override
     public void delete(Long id) {
         if (repository.findById(id).isEmpty()) {
-            throw new NullPointerException("Element with id: " + id + " is not found");
+            throw new ElementNotFoundException(TRANSACTION_MAPPING, id);
         }
         repository.deleteById(id);
     }
