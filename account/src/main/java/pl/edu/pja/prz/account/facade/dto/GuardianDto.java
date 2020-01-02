@@ -4,7 +4,7 @@ package pl.edu.pja.prz.account.facade.dto;
 import java.util.Set;
 import java.util.UUID;
 
-public class GuardianDto extends AccountDto {
+public class GuardianDto {
 	private UUID id;
 	private AccountDto accountDto;
 	private Set<ChildDto> children;

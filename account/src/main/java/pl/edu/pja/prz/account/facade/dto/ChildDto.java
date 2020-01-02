@@ -9,6 +9,9 @@ public class ChildDto {
 	private UUID id;
 	private String name;
 	private String surname;
+	private String postalCode;
+	private String city;
+	private String streetNumber;
 	private String pesel;
 	private Gender gender;
 	private LocalDate startDate;
@@ -33,6 +36,30 @@ public class ChildDto {
 
 	public void setId(UUID id) {
 		this.id = id;
+	}
+
+	public String getPostalCode() {
+		return postalCode;
+	}
+
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getStreetNumber() {
+		return streetNumber;
+	}
+
+	public void setStreetNumber(String streetNumber) {
+		this.streetNumber = streetNumber;
 	}
 
 	public String getName() {
