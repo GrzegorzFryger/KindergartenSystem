@@ -13,6 +13,10 @@ public class BaseEntity<T> {
 	BaseEntity() {
 	}
 
+	public void setId(T id) {
+		this.id = id;
+	}
+
 	public T getId() {
 		return id;
 	}

@@ -22,9 +22,11 @@ public class Discount extends BaseEntity<Long> {
 	private Set<RecurringPayment> recurringPayments = new HashSet<>();
 
 	Discount() {
+		super();
 	}
 
 	public Discount(String description, BigDecimal value, TypeDiscount typeDiscount) {
+		super();
 		this.description = description;
 		this.value = value;
 		this.typeDiscount = typeDiscount;

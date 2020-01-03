@@ -35,6 +35,7 @@ public class RecurringPayment extends Payment implements DiscountCalculator {
 	}
 
 	RecurringPayment() {
+		super();
 	}
 
 	public Child getChild() {
