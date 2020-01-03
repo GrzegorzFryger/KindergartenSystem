@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
-    private static final Logger logger = LoggerFactory.getLogger(TransactionService.class);
+    private static final Logger logger = LoggerFactory.getLogger(TransactionServiceImpl.class);
     private static final String TRANSACTION = "Transaction";
 
     private final TransactionRepository repository;

@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 public class CashPaymentServiceImpl implements CashPaymentService {
-    private static final Logger logger = LoggerFactory.getLogger(CashPaymentService.class);
+    private static final Logger logger = LoggerFactory.getLogger(CashPaymentServiceImpl.class);
     private static final String CASH_PAYMENT = "Cash Payment";
 
     private final CashPaymentRepository repository;
