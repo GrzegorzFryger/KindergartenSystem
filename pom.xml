@@ -125,6 +125,8 @@
                         <!-- Receivables module exclusions -->
                         <exclude>**/pl/edu/pja/prz/receivables/*</exclude>
                         <exclude>**/pl/edu/pja/prz/receivables/configuration/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/receivables/model/enums/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/receivables/mapper/*</exclude>
 
                         <exclude>**/pl/edu/pja/prz/meal/exception/*</exclude>
                         <exclude>**/pl/edu/pja/prz/meal/model/*</exclude>

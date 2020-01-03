@@ -51,14 +51,26 @@ class TransactionServiceImplTest {
     }
 
     @Test
-    public void Should_CreateTransaction() {
+    public void Should_SaveTransaction() {
         //Given
 
         //When
-        service.create(transaction);
+        service.save(transaction);
 
         //Then
         verify(repository, times(1)).save(any(Transaction.class));
+    }
+
+    @Test
+    public void Should_Not_SaveTransaction_When_AmountIsNegative() {
+        //Given
+        transaction.setTransactionAmount(new BigDecimal("-0.01"));
+
+        //When
+        service.save(transaction);
+
+        //Then
+        verify(repository, never()).save(any(Transaction.class));
     }
 
     @Test
