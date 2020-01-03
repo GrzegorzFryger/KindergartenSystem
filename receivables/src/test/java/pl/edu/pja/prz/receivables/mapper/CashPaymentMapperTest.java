@@ -2,6 +2,9 @@ package pl.edu.pja.prz.receivables.mapper;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pja.prz.receivables.model.CashPayment;
 import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.model.dto.IncomingPaymentDto;
@@ -13,10 +16,20 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class CashPaymentMapperTest {
+    @Mock
+    private CashPaymentMapper cashPaymentMapper;
+
+    @Mock
+    private TransactionMapper transactionMapper;
+
     private Transaction transaction;
     private CashPayment cashPayment;
+    private IncomingPaymentDto dto;
 
     private LocalDate date;
     private UUID guardianId;
@@ -26,6 +39,7 @@ class CashPaymentMapperTest {
     public void setUp() {
         transaction = new Transaction();
         cashPayment = new CashPayment();
+        dto = new IncomingPaymentDto();
         guardianId = UUID.randomUUID();
         childId = UUID.randomUUID();
         date = LocalDate.now();
@@ -45,30 +59,42 @@ class CashPaymentMapperTest {
         transaction.setTransactionDate(date);
         transaction.setChildId(childId);
         transaction.setGuardianId(guardianId);
+
+        dto.setTitle("Czesne #001");
+        dto.setContractorDetails("Adam XYZ");
+        dto.setTransactionAmount(new BigDecimal("50.00"));
+        dto.setTransactionCurrency("PLN");
+        dto.setTransactionDate(date);
+        dto.setChildId(childId);
+        dto.setGuardianId(guardianId);
     }
 
     @Test
     public void Should_MapCashPayment() {
         //Given
+        dto.setPaymentType(PaymentType.CASH);
+        when(cashPaymentMapper.cashPaymentToDto(any(CashPayment.class))).thenReturn(dto);
 
         //When
-        IncomingPaymentDto dto = CashPaymentMapper.INSTANCE.cashPaymentToDto(cashPayment);
+        IncomingPaymentDto incomingPaymentDto = cashPaymentMapper.cashPaymentToDto(cashPayment);
 
         //Then
-        verifyDto(dto);
-        assertEquals(PaymentType.CASH, dto.getPaymentType());
+        verifyDto(incomingPaymentDto);
+        assertEquals(PaymentType.CASH, incomingPaymentDto.getPaymentType());
     }
 
     @Test
     public void Should_MapTransaction() {
         //Given
+        dto.setPaymentType(PaymentType.TRANSFER);
+        when(transactionMapper.transactionToDto(any(Transaction.class))).thenReturn(dto);
 
         //When
-        IncomingPaymentDto dto = TransactionMapper.INSTANCE.transactionToDto(transaction);
+        IncomingPaymentDto incomingPaymentDto = transactionMapper.transactionToDto(transaction);
 
         //Then
-        verifyDto(dto);
-        assertEquals(PaymentType.TRANSFER, dto.getPaymentType());
+        verifyDto(incomingPaymentDto);
+        assertEquals(PaymentType.TRANSFER, incomingPaymentDto.getPaymentType());
     }
 
     private void verifyDto(IncomingPaymentDto dto) {

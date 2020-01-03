@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pl.edu.pja.prz.receivables.mapper.CashPaymentMapper;
+import pl.edu.pja.prz.receivables.mapper.TransactionMapper;
 import pl.edu.pja.prz.receivables.model.CashPayment;
 import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.model.dto.IncomingPaymentDto;
@@ -29,13 +31,20 @@ class IncomingPaymentsServiceImplTest {
     @Mock
     private CashPaymentRepository cashPaymentRepository;
 
+    @Mock
+    private CashPaymentMapper cashPaymentMapper;
+
+    @Mock
+    private TransactionMapper transactionMapper;
+
     private List<Transaction> transactions;
     private List<CashPayment> cashPayments;
     private IncomingPaymentsServiceImpl service;
 
     @BeforeEach
     public void setUp() {
-        service = new IncomingPaymentsServiceImpl(transactionRepository, cashPaymentRepository);
+        service = new IncomingPaymentsServiceImpl(transactionRepository, cashPaymentRepository,
+                cashPaymentMapper, transactionMapper);
 
         transactions = new ArrayList<>();
         cashPayments = new ArrayList<>();

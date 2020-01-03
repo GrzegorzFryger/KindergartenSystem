@@ -19,12 +19,18 @@ import java.util.UUID;
 public class IncomingPaymentsServiceImpl implements IncomingPaymentsService {
     private final TransactionRepository transactionRepository;
     private final CashPaymentRepository cashPaymentRepository;
+    private final CashPaymentMapper cashPaymentMapper;
+    private final TransactionMapper transactionMapper;
 
     @Autowired
     public IncomingPaymentsServiceImpl(TransactionRepository transactionRepository,
-                                       CashPaymentRepository cashPaymentRepository) {
+                                       CashPaymentRepository cashPaymentRepository,
+                                       CashPaymentMapper cashPaymentMapper,
+                                       TransactionMapper transactionMapper) {
         this.transactionRepository = transactionRepository;
         this.cashPaymentRepository = cashPaymentRepository;
+        this.cashPaymentMapper = cashPaymentMapper;
+        this.transactionMapper = transactionMapper;
     }
 
     @Override
@@ -65,10 +71,10 @@ public class IncomingPaymentsServiceImpl implements IncomingPaymentsService {
     }
 
     private IncomingPaymentDto convertTransactionToDto(Transaction transaction) {
-        return TransactionMapper.INSTANCE.transactionToDto(transaction);
+        return transactionMapper.transactionToDto(transaction);
     }
 
     private IncomingPaymentDto covertCashPaymentToDto(CashPayment cashPayment) {
-        return CashPaymentMapper.INSTANCE.cashPaymentToDto(cashPayment);
+        return cashPaymentMapper.cashPaymentToDto(cashPayment);
     }
 }
