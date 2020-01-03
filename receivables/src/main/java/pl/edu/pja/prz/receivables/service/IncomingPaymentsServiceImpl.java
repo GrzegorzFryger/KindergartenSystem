@@ -2,6 +2,8 @@ package pl.edu.pja.prz.receivables.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.edu.pja.prz.receivables.mapper.CashPaymentMapper;
+import pl.edu.pja.prz.receivables.mapper.TransactionMapper;
 import pl.edu.pja.prz.receivables.model.CashPayment;
 import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.model.dto.IncomingPaymentDto;
@@ -17,15 +19,12 @@ import java.util.UUID;
 public class IncomingPaymentsServiceImpl implements IncomingPaymentsService {
     private final TransactionRepository transactionRepository;
     private final CashPaymentRepository cashPaymentRepository;
-    private final IncomingPaymentMapperService incomingPaymentMapperService;
 
     @Autowired
     public IncomingPaymentsServiceImpl(TransactionRepository transactionRepository,
-                                       CashPaymentRepository cashPaymentRepository,
-                                       IncomingPaymentMapperService incomingPaymentMapperService) {
+                                       CashPaymentRepository cashPaymentRepository) {
         this.transactionRepository = transactionRepository;
         this.cashPaymentRepository = cashPaymentRepository;
-        this.incomingPaymentMapperService = incomingPaymentMapperService;
     }
 
     @Override
@@ -33,7 +32,7 @@ public class IncomingPaymentsServiceImpl implements IncomingPaymentsService {
         List<Transaction> transactions = transactionRepository.findAllByGuardianId(guardianId);
         List<CashPayment> cashPayments = cashPaymentRepository.findAllByGuardianId(guardianId);
 
-        return convertToDto(transactions, cashPayments);
+        return convertTransactionsAndPaymentsToDto(transactions, cashPayments);
     }
 
     @Override
@@ -41,7 +40,7 @@ public class IncomingPaymentsServiceImpl implements IncomingPaymentsService {
         List<Transaction> transactions = transactionRepository.findAllByChildId(childId);
         List<CashPayment> cashPayments = cashPaymentRepository.findAllByChildId(childId);
 
-        return convertToDto(transactions, cashPayments);
+        return convertTransactionsAndPaymentsToDto(transactions, cashPayments);
     }
 
     @Override
@@ -58,10 +57,18 @@ public class IncomingPaymentsServiceImpl implements IncomingPaymentsService {
         return incomingPayments;
     }
 
-    private List<IncomingPaymentDto> convertToDto(List<Transaction> transactions, List<CashPayment> cashPayments) {
+    private List<IncomingPaymentDto> convertTransactionsAndPaymentsToDto(List<Transaction> transactions, List<CashPayment> cashPayments) {
         List<IncomingPaymentDto> incomingPayments = new ArrayList<>();
-        transactions.forEach(transaction -> incomingPayments.add(incomingPaymentMapperService.fromTransaction(transaction)));
-        cashPayments.forEach(cashPayment -> incomingPayments.add(incomingPaymentMapperService.fromCashPayment(cashPayment)));
+        transactions.forEach(transaction -> incomingPayments.add(convertTransactionToDto(transaction)));
+        cashPayments.forEach(cashPayment -> incomingPayments.add(covertCashPaymentToDto(cashPayment)));
         return incomingPayments;
+    }
+
+    private IncomingPaymentDto convertTransactionToDto(Transaction transaction) {
+        return TransactionMapper.INSTANCE.transactionToDto(transaction);
+    }
+
+    private IncomingPaymentDto covertCashPaymentToDto(CashPayment cashPayment) {
+        return CashPaymentMapper.INSTANCE.cashPaymentToDto(cashPayment);
     }
 }

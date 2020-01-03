@@ -29,17 +29,13 @@ class IncomingPaymentsServiceImplTest {
     @Mock
     private CashPaymentRepository cashPaymentRepository;
 
-    @Mock
-    private IncomingPaymentMapperService incomingPaymentMapperService;
-
     private List<Transaction> transactions;
     private List<CashPayment> cashPayments;
     private IncomingPaymentsServiceImpl service;
 
     @BeforeEach
     public void setUp() {
-        service = new IncomingPaymentsServiceImpl(transactionRepository,
-                cashPaymentRepository, incomingPaymentMapperService);
+        service = new IncomingPaymentsServiceImpl(transactionRepository, cashPaymentRepository);
 
         transactions = new ArrayList<>();
         cashPayments = new ArrayList<>();
