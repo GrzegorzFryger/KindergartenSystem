@@ -12,7 +12,6 @@ import pl.edu.pja.prz.payments.model.RecurringPayment;
 import pl.edu.pja.prz.payments.model.enums.Status;
 import pl.edu.pja.prz.payments.model.enums.TypeDiscount;
 import pl.edu.pja.prz.payments.model.value.Child;
-import pl.edu.pja.prz.payments.model.value.FullName;
 import pl.edu.pja.prz.payments.model.value.PeriodValidity;
 import pl.edu.pja.prz.payments.repository.DiscountRepository;
 import pl.edu.pja.prz.payments.repository.RecurringPaymentRepository;
@@ -46,8 +45,7 @@ class RecurringPaymentServiceImplTest {
 	void setUp() {
 		recurringPaymentService = new RecurringPaymentServiceImpl(recurringPaymentRepository, discountRepository);
 
-		FullName fullName = new FullName("Test Name", "Test surname");
-		child = new Child(new UUID(1L, 2L), fullName, new UUID(3L, 4L));
+		child = new Child(UUID.randomUUID(), UUID.randomUUID());
 		payment = new Payment(new BigDecimal("50.0"), "Test payment");
 		periodValidity = new PeriodValidity(LocalDate.now(), LocalDate.now());
 	}
