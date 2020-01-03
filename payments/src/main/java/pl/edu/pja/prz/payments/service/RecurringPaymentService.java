@@ -1,6 +1,5 @@
 package pl.edu.pja.prz.payments.service;
 
-import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.payments.model.Discount;
 import pl.edu.pja.prz.payments.model.Payment;
 import pl.edu.pja.prz.payments.model.RecurringPayment;
@@ -11,7 +10,7 @@ import pl.edu.pja.prz.payments.model.value.PeriodValidity;
 import java.util.Set;
 import java.util.UUID;
 
-@Service
+
 public interface RecurringPaymentService {
 	RecurringPayment updatePayment(Long paymentId, Payment newPayment, PeriodValidity period, Status status);
 

@@ -1,7 +1,7 @@
 package pl.edu.pja.prz.payments.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.payments.model.Discount;
 import pl.edu.pja.prz.payments.model.Payment;
 import pl.edu.pja.prz.payments.model.PaymentFactory;
@@ -15,7 +15,7 @@ import pl.edu.pja.prz.payments.repository.RecurringPaymentRepository;
 import java.util.Set;
 import java.util.UUID;
 
-@Component
+@Service
 public class RecurringPaymentServiceImpl implements RecurringPaymentService {
 
 	private final RecurringPaymentRepository recurringPaymentRepository;
