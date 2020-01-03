@@ -10,6 +10,8 @@ import java.util.UUID;
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
     List<Transaction> findAllByChildId(UUID childId);
+
     List<Transaction> findAllByGuardianId(UUID guardianId);
+
     List<Transaction> findAllByGuardianIdIsNullOrChildIdIsNull();
 }
