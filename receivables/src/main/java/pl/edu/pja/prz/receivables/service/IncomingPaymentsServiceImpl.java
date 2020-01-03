@@ -17,15 +17,15 @@ import java.util.UUID;
 public class IncomingPaymentsServiceImpl implements IncomingPaymentsService {
     private final TransactionRepository transactionRepository;
     private final CashPaymentRepository cashPaymentRepository;
-    private final DtoMappingService dtoMappingService;
+    private final IncomingPaymentMapperService incomingPaymentMapperService;
 
     @Autowired
     public IncomingPaymentsServiceImpl(TransactionRepository transactionRepository,
                                        CashPaymentRepository cashPaymentRepository,
-                                       DtoMappingService dtoMappingService) {
+                                       IncomingPaymentMapperService incomingPaymentMapperService) {
         this.transactionRepository = transactionRepository;
         this.cashPaymentRepository = cashPaymentRepository;
-        this.dtoMappingService = dtoMappingService;
+        this.incomingPaymentMapperService = incomingPaymentMapperService;
     }
 
     @Override
@@ -60,8 +60,8 @@ public class IncomingPaymentsServiceImpl implements IncomingPaymentsService {
 
     private List<IncomingPaymentDto> convertToDto(List<Transaction> transactions, List<CashPayment> cashPayments) {
         List<IncomingPaymentDto> incomingPayments = new ArrayList<>();
-        transactions.forEach(transaction -> incomingPayments.add(dtoMappingService.fromTransaction(transaction)));
-        cashPayments.forEach(cashPayment -> incomingPayments.add(dtoMappingService.fromCashPayment(cashPayment)));
+        transactions.forEach(transaction -> incomingPayments.add(incomingPaymentMapperService.fromTransaction(transaction)));
+        cashPayments.forEach(cashPayment -> incomingPayments.add(incomingPaymentMapperService.fromCashPayment(cashPayment)));
         return incomingPayments;
     }
 }

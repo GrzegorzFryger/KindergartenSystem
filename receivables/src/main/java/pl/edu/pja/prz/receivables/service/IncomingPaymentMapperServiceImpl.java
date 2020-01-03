@@ -7,7 +7,7 @@ import pl.edu.pja.prz.receivables.model.dto.IncomingPaymentDto;
 import pl.edu.pja.prz.receivables.model.enums.PaymentType;
 
 @Service
-public class DtoMappingServiceImpl implements DtoMappingService {
+public class IncomingPaymentMapperServiceImpl implements IncomingPaymentMapperService {
     public IncomingPaymentDto fromCashPayment(CashPayment cashPayment) {
         IncomingPaymentDto dto = new IncomingPaymentDto();
         dto.setPaymentType(PaymentType.CASH);

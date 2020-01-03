@@ -14,14 +14,14 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-class DtoMappingServiceImplTest {
+class IncomingPaymentMapperServiceImplTest {
     private Transaction transaction;
     private CashPayment cashPayment;
-    private DtoMappingServiceImpl service;
+    private IncomingPaymentMapperServiceImpl service;
 
     @BeforeEach
     public void setUp() {
-        service = new DtoMappingServiceImpl();
+        service = new IncomingPaymentMapperServiceImpl();
 
         transaction = new Transaction();
         cashPayment = new CashPayment();

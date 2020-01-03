@@ -30,7 +30,7 @@ class IncomingPaymentsServiceImplTest {
     private CashPaymentRepository cashPaymentRepository;
 
     @Mock
-    private DtoMappingService dtoMappingService;
+    private IncomingPaymentMapperService incomingPaymentMapperService;
 
     private List<Transaction> transactions;
     private List<CashPayment> cashPayments;
@@ -39,7 +39,7 @@ class IncomingPaymentsServiceImplTest {
     @BeforeEach
     public void setUp() {
         service = new IncomingPaymentsServiceImpl(transactionRepository,
-                cashPaymentRepository, dtoMappingService);
+                cashPaymentRepository, incomingPaymentMapperService);
 
         transactions = new ArrayList<>();
         cashPayments = new ArrayList<>();
