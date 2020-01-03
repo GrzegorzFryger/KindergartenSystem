@@ -3,7 +3,6 @@ package pl.edu.pja.prz.payments.service;
 import pl.edu.pja.prz.payments.model.Discount;
 import pl.edu.pja.prz.payments.model.Payment;
 import pl.edu.pja.prz.payments.model.RecurringPayment;
-import pl.edu.pja.prz.payments.model.enums.Status;
 import pl.edu.pja.prz.payments.model.value.Child;
 import pl.edu.pja.prz.payments.model.value.PeriodValidity;
 
@@ -12,15 +11,21 @@ import java.util.UUID;
 
 
 public interface RecurringPaymentService {
-	RecurringPayment updatePayment(Long paymentId, Payment newPayment, PeriodValidity period, Status status);
+	RecurringPayment createOtherPayment(RecurringPayment recurringPayment);
 
 	RecurringPayment createOtherPayment(Child child, Payment payment, PeriodValidity periodValidity);
 
+	RecurringPayment createTuition(RecurringPayment recurringPayment);
+
 	RecurringPayment createTuition(Child child, Payment payment, PeriodValidity periodValidity);
 
-	void markAsCancelPayment(Long paymentId);
+	RecurringPayment updatePayment(RecurringPayment recurringPayment);
+
+	RecurringPayment markAsCancelPayment(Long paymentId);
 
 	void deletePayment(RecurringPayment recurringPayment);
+
+	void deletePayment(Long id);
 
 	Set<Discount> addDiscountsToPayment(UUID childId, Long discountId);
 
