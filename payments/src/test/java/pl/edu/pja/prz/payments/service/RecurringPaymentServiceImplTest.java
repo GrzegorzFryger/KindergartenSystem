@@ -76,20 +76,36 @@ class RecurringPaymentServiceImplTest {
 
 	@Test
 	void should_throwException_when_updatePayment() {
+		//given
+		var payment = new RecurringPayment();
+		payment.setId(1L);
+		payment.setStatus(Status.ACTIVE);
+		payment.setAmount(new BigDecimal("50.0"));
+		payment.setDescription( "Test payment");
+		payment.setPeriodValidity(periodValidity);
+
 		//when
 		when(recurringPaymentRepository.findById(1L)).thenReturn(Optional.empty());
 		//then
 		assertThrows(IllegalArgumentException.class,
-				() -> recurringPaymentService.updatePayment(1L, payment, periodValidity, Status.ACTIVE));
+				() -> recurringPaymentService.updatePayment(payment));
 	}
 
 	@Test
 	void should_updatePayment() {
+		//given
+		var payment = new RecurringPayment();
+		payment.setId(1L);
+		payment.setStatus(Status.ACTIVE);
+		payment.setAmount(new BigDecimal("50.0"));
+		payment.setDescription( "Test payment");
+		payment.setPeriodValidity(periodValidity);
+
 		//when
 		when(recurringPaymentRepository.findById(1L)).thenReturn(Optional.of(mockPayment));
 		when(recurringPaymentRepository.save(any())).thenReturn(mockPayment);
 
-		recurringPaymentService.updatePayment(1L, payment, periodValidity, Status.ACTIVE);
+		recurringPaymentService.updatePayment(payment);
 
 		//then
 		verify(recurringPaymentRepository, times(1)).save(mockPayment);
@@ -102,14 +118,23 @@ class RecurringPaymentServiceImplTest {
 
 	@Test
 	void should_markAsCancelPayment() {
+		//given
+		var payment = new RecurringPayment();
+		payment.setId(1L);
+		payment.setAmount(new BigDecimal("50.0"));
+		payment.setDescription( "Test payment");
+		payment.setPeriodValidity(periodValidity);
+
 		//when
-		when(recurringPaymentRepository.findById(1L)).thenReturn(Optional.of(mockPayment));
+		when(recurringPaymentRepository.findById(1L)).thenReturn(Optional.of(payment));
+		when(recurringPaymentRepository.save(any())).thenReturn(payment);
 		recurringPaymentService.markAsCancelPayment(1L);
 
 		//then
-		verify(recurringPaymentRepository, times(1)).save(mockPayment);
+		assertEquals(Status.CANCELED, payment.getStatus());
+		verify(recurringPaymentRepository, times(1)).save(any());
 		verify(recurringPaymentRepository, times(1)).findById(1L);
-		verify(mockPayment, times(1)).setStatus(Status.CANCELED);
+
 	}
 
 	@Test
