@@ -1,6 +1,9 @@
 package pl.edu.pja.prz.receivables.model;
 
 
+import org.hibernate.annotations.Type;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -20,7 +23,11 @@ public class Transaction extends BaseEntity<Long> implements Serializable {
     private String transactionNumber;
     private BigDecimal transactionAmount;
     private String transactionCurrency;
+    @Type(type = "uuid-char")
+    @Column(length = 36)
     private UUID childId;
+    @Type(type = "uuid-char")
+    @Column(length = 36)
     private UUID guardianId;
 
     public LocalDate getTransactionDate() {
