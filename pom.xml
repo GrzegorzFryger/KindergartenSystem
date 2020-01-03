@@ -121,6 +121,10 @@
                         <!-- Payments module exclusions -->
                         <exclude>**/pl/edu/pja/prz/payments/*</exclude>
                         <exclude>**/pl/edu/pja/prz/payments/configuration/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/payments/facade/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/payments/facade/model/value/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/payments/facade/mapper/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/payments/facade/dto/*</exclude>
 
                         <!-- Receivables module exclusions -->
                         <exclude>**/pl/edu/pja/prz/receivables/*</exclude>
