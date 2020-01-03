@@ -12,6 +12,7 @@ import pl.edu.pja.prz.payments.model.value.PeriodValidity;
 import pl.edu.pja.prz.payments.repository.DiscountRepository;
 import pl.edu.pja.prz.payments.repository.RecurringPaymentRepository;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -48,6 +49,18 @@ public class RecurringPaymentServiceImpl implements RecurringPaymentService {
 	public RecurringPayment createTuition(Child child, Payment payment, PeriodValidity periodValidity) {
 		return recurringPaymentRepository.save(PaymentFactory.createTuitionPayment(child, payment, periodValidity));
 	}
+
+	@Override
+	public RecurringPayment getPaymentById(Long id) {
+		return recurringPaymentRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Not found payment with id " + id));
+	}
+
+	@Override
+	public List<RecurringPayment> getAllPayments() {
+		return recurringPaymentRepository.findAll();
+	}
+
 
 	@Override
 	public RecurringPayment updatePayment(RecurringPayment recurringPayment) {

@@ -1,9 +1,14 @@
 package pl.edu.pja.prz.payments.facade;
 
+import org.springframework.stereotype.Component;
 import pl.edu.pja.prz.payments.facade.dto.RecurringPaymentDto;
 import pl.edu.pja.prz.payments.facade.mapper.RecurringMapper;
 import pl.edu.pja.prz.payments.service.RecurringPaymentService;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Component
 public class RecurringPaymentFacade {
 	private final RecurringPaymentService recurringPaymentService;
 	private final RecurringMapper recurringMapper;
@@ -27,6 +32,19 @@ public class RecurringPaymentFacade {
 						recurringMapper.toRecurringPayment(recurringPaymentDto)
 				)
 		);
+	}
+
+	public RecurringPaymentDto findById(Long id) {
+		return recurringMapper.fromRecurringPayment(
+						recurringPaymentService.getPaymentById(id)
+				);
+	}
+
+	public List<RecurringPaymentDto> findAllPayments() {
+		return recurringPaymentService.getAllPayments()
+				.stream()
+				.map(recurringMapper::fromRecurringPayment)
+				.collect(Collectors.toList());
 	}
 
 	public RecurringPaymentDto updatePayment(RecurringPaymentDto recurringPayment) {
