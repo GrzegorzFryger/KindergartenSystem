@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
-public class IncomingPaymentDTO {
+public class IncomingPaymentDto {
     private PaymentType paymentType;
     private LocalDate transactionDate;
     private String contractorDetails;
