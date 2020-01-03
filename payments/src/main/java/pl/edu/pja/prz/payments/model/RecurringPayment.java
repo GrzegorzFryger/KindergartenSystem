@@ -18,23 +18,25 @@ public class RecurringPayment extends Payment implements DiscountCalculator {
 	@ManyToMany(mappedBy = "recurringPayments")
 	private Set<Discount> discounts = new HashSet<>();
 	private Status status;
-	private TypeRecurringPayment recurringPayment;
+	private TypeRecurringPayment typeRecurringPayment;
+
+
 
 	public RecurringPayment(Child child, Payment payment, PeriodValidity periodValidity,
-	                        TypeRecurringPayment recurringPayment, Status status) {
-		this(payment.getAmount(), payment.getDescription(), child, periodValidity, recurringPayment, status);
+	                        TypeRecurringPayment typeRecurringPayment, Status status) {
+		this(payment.getAmount(), payment.getDescription(), child, periodValidity, typeRecurringPayment, status);
 	}
 
 	public RecurringPayment(BigDecimal amount, String description, Child child, PeriodValidity periodValidity,
-	                        TypeRecurringPayment recurringPayment, Status status) {
+	                        TypeRecurringPayment typeRecurringPayment, Status status) {
 		super(amount, description);
 		this.child = child;
 		this.periodValidity = periodValidity;
-		this.recurringPayment = recurringPayment;
+		this.typeRecurringPayment = typeRecurringPayment;
 		this.status = status;
 	}
 
-	RecurringPayment() {
+	public RecurringPayment() {
 		super();
 	}
 
@@ -70,12 +72,12 @@ public class RecurringPayment extends Payment implements DiscountCalculator {
 		this.status = status;
 	}
 
-	public TypeRecurringPayment getRecurringPayment() {
-		return recurringPayment;
+	public TypeRecurringPayment getTypeRecurringPayment() {
+		return typeRecurringPayment;
 	}
 
-	public void setRecurringPayment(TypeRecurringPayment recurringPayment) {
-		this.recurringPayment = recurringPayment;
+	public void setTypeRecurringPayment(TypeRecurringPayment typeRecurringPayment) {
+		this.typeRecurringPayment = typeRecurringPayment;
 	}
 
 	public void addRebatePolicy(Discount discountPolicies) {
@@ -108,7 +110,7 @@ public class RecurringPayment extends Payment implements DiscountCalculator {
 		if (getDiscounts() != null ? !getDiscounts().equals(that.getDiscounts()) : that.getDiscounts() != null)
 			return false;
 		if (getStatus() != that.getStatus()) return false;
-		return getRecurringPayment() == that.getRecurringPayment();
+		return getTypeRecurringPayment() == that.getTypeRecurringPayment();
 	}
 
 	@Override public int hashCode() {
@@ -116,7 +118,7 @@ public class RecurringPayment extends Payment implements DiscountCalculator {
 		result = 31 * result + (getPeriodValidity() != null ? getPeriodValidity().hashCode() : 0);
 		result = 31 * result + (getDiscounts() != null ? getDiscounts().hashCode() : 0);
 		result = 31 * result + (getStatus() != null ? getStatus().hashCode() : 0);
-		result = 31 * result + (getRecurringPayment() != null ? getRecurringPayment().hashCode() : 0);
+		result = 31 * result + (getTypeRecurringPayment() != null ? getTypeRecurringPayment().hashCode() : 0);
 		return result;
 	}
 
@@ -126,7 +128,7 @@ public class RecurringPayment extends Payment implements DiscountCalculator {
 				", periodValidity=" + periodValidity +
 				", discounts=" + discounts +
 				", status=" + status +
-				", recurringPayment=" + recurringPayment +
+				", typeRecurringPayment=" + typeRecurringPayment +
 				'}';
 	}
 }
