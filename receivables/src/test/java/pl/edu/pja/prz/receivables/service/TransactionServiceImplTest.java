@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.model.builder.TransactionBuilder;
 import pl.edu.pja.prz.receivables.repository.TransactionRepository;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -54,7 +56,6 @@ class TransactionServiceImplTest {
 
         //When
         service.create(transaction);
-        List<Transaction> result = service.getAllTransactions();
 
         //Then
         verify(repository, times(1)).save(any(Transaction.class));
@@ -77,7 +78,7 @@ class TransactionServiceImplTest {
         //Given
 
         //When
-        Assertions.assertThrows(NullPointerException.class, () -> {
+        Assertions.assertThrows(ElementNotFoundException.class, () -> {
             service.update(transaction);
         });
 
@@ -102,7 +103,7 @@ class TransactionServiceImplTest {
         //Given
 
         //When
-        Assertions.assertThrows(NullPointerException.class, () -> {
+        Assertions.assertThrows(ElementNotFoundException.class, () -> {
             service.delete(9999L);
         });
 
@@ -123,16 +124,58 @@ class TransactionServiceImplTest {
     }
 
     @Test
-    public void Should_GetAllTransaction() {
+    public void Should_ThrowException_When_TransactionNotFound() {
+        //Given
+        when(repository.findById(anyLong())).thenReturn(Optional.empty());
+
+        //When
+        Assertions.assertThrows(ElementNotFoundException.class, () -> {
+            service.getTransaction(1L);
+        });
+
+        //Then
+        verify(repository, times(1)).findById(anyLong());
+    }
+
+    @Test
+    public void Should_GetAllUnassignedTransactions() {
         //Given
         List<Transaction> transactions = new ArrayList<>();
         transactions.add(transaction);
-        when(repository.findAll()).thenReturn(transactions);
+        when(repository.findAllByGuardianIdIsNullOrChildIdIsNull()).thenReturn(transactions);
 
         //When
-        service.getAllTransactions();
+        List<Transaction> result = service.getAllUnassignedTransactions();
 
         //Then
-        verify(repository, times(1)).findAll();
+        verify(repository, times(1)).findAllByGuardianIdIsNullOrChildIdIsNull();
+    }
+
+    @Test
+    public void Should_GetAllTransactionsByChildId() {
+        //Given
+        List<Transaction> transactions = new ArrayList<>();
+        transactions.add(transaction);
+        when(repository.findAllByChildId(any(UUID.class))).thenReturn(transactions);
+
+        //When
+        List<Transaction> result = service.getAllTransactionsByChildId(UUID.randomUUID());
+
+        //Then
+        verify(repository, times(1)).findAllByChildId(any(UUID.class));
+    }
+
+    @Test
+    public void Should_GetAllTransactionsByGuardianId() {
+        //Given
+        List<Transaction> transactions = new ArrayList<>();
+        transactions.add(transaction);
+        when(repository.findAllByGuardianId(any(UUID.class))).thenReturn(transactions);
+
+        //When
+        List<Transaction> result = service.getAllTransactionsByGuardianId(UUID.randomUUID());
+
+        //Then
+        verify(repository, times(1)).findAllByGuardianId(any(UUID.class));
     }
 }

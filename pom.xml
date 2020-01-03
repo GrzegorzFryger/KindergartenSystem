@@ -21,8 +21,10 @@
 
     <modules>
         <module>core</module>
+        <module>commons</module>
         <module>account</module>
         <module>receivables</module>
+        <module>meal</module>
         <module>payments</module>
         <module>groups</module>
         <module>finances</module>
@@ -69,6 +71,12 @@
             <artifactId>jacoco-maven-plugin</artifactId>
             <version>${jacoco-mavenplugin-version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.10.1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -96,11 +104,16 @@
                         <exclude>**/pl/edu/pja/prz/account/model/value/*</exclude>
                         <exclude>**/pl/edu/pja/prz/account/configuration/*</exclude>
 
+                        <!-- Commons module exclusions -->
+                        <exclude>**/pl/edu/pja/prz/commons/*</exclude>
+
                         <!-- Finances module exclusions -->
                         <exclude>**/pl/edu/pja/prz/finances/*</exclude>
 
                         <!-- Groups module exclusions -->
                         <exclude>**/pl/edu/pja/prz/groups/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/groups/configuration/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/groups/model/*</exclude>
 
                         <!-- Meal module exclusions -->
                         <exclude>**/pl/edu/pja/prz/meal/*</exclude>
@@ -112,7 +125,13 @@
                         <!-- Receivables module exclusions -->
                         <exclude>**/pl/edu/pja/prz/receivables/*</exclude>
                         <exclude>**/pl/edu/pja/prz/receivables/configuration/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/receivables/facade/*</exclude>
+
+                        <exclude>**/pl/edu/pja/prz/meal/exception/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/meal/model/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/meal/model/dto/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/meal/service/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/meal/configuration/*</exclude>
+
                     </excludes>
                 </configuration>
                 <executions>
