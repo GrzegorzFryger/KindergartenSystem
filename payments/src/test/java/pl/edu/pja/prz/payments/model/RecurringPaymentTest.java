@@ -26,7 +26,9 @@ class RecurringPaymentTest {
 	void shouldSubtractAmountOfDiscount_When_DiscountIsSet() {
 		//given
 		var rebate1 = new Discount("Test Discount", BigDecimal.valueOf(50), TypeDiscount.AMOUNT);
+		rebate1.setId(1L);
 		var rebate2 = new Discount("Test Discount", BigDecimal.valueOf(10), TypeDiscount.AMOUNT);
+		rebate2.setId(2L);
 		recurringPayment.setDiscounts(Set.of(rebate1,rebate2));
 		//when
 		var result = recurringPayment.calculateAmountWithDiscount();
@@ -37,7 +39,9 @@ class RecurringPaymentTest {
 	void shouldSubtractPercentageAmountOfDiscount_When_DiscountIsSet() {
 		//given
 		var rebate1 = new Discount("Test Discount", BigDecimal.valueOf(10), TypeDiscount.PERCENTAGE);
+		rebate1.setId(1L);
 		var rebate2 = new Discount("Test Discount", BigDecimal.valueOf(10), TypeDiscount.PERCENTAGE);
+		rebate2.setId(2L);
 		recurringPayment.setDiscounts(Set.of(rebate1,rebate2));
 		//when
 		var result = recurringPayment.calculateAmountWithDiscount();
