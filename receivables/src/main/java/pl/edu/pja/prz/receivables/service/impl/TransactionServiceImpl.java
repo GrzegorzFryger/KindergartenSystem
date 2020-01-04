@@ -10,6 +10,7 @@ import pl.edu.pja.prz.receivables.repository.TransactionRepository;
 import pl.edu.pja.prz.receivables.service.TransactionService;
 import pl.edu.pja.prz.receivables.util.BigDecimalUtils;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -44,6 +45,16 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public List<Transaction> getAllTransactionsByGuardianId(UUID guardianId) {
         return repository.findAllByGuardianId(guardianId);
+    }
+
+    @Override
+    public List<Transaction> getAllTransactionsByChildId(UUID childId, LocalDate start, LocalDate end) {
+        return repository.findAllByChildIdBetweenDates(childId, start, end);
+    }
+
+    @Override
+    public List<Transaction> getAllTransactionsByGuardianId(UUID guardianId, LocalDate start, LocalDate end) {
+        return repository.findAllByGuardianIdBetweenDates(guardianId, start, end);
     }
 
     @Override
