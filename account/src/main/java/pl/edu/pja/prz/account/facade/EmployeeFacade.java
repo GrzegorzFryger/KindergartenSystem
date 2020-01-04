@@ -28,7 +28,7 @@ public class EmployeeFacade {
 		);
 	}
 
-	private EmployeeDto createAdministratorAccount(AccountDto accountDto) {
+	public EmployeeDto createAdministratorAccount(AccountDto accountDto) {
 		return employeeMapper.fromEmployee(
 				employeeService.createAdministratorAccount(
 						employeeMapper.toPerson(accountDto),

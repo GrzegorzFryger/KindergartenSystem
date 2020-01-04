@@ -13,6 +13,7 @@ public class Person extends BaseEntityUuid {
 	private Phone phoneNumber;
 
 	public Person() {
+		super();
 	}
 
 	public Person(Address address, FullName fullName, Phone phoneNumber) {

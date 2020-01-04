@@ -10,8 +10,12 @@ import pl.edu.pja.prz.account.model.value.StudyPeriod;
 
 public interface ChildMapper {
 	FullName toFullName(ChildDto childDto);
+
 	Address toAddress(ChildDto childDto);
+
 	Age toAge(ChildDto childDto);
+
 	StudyPeriod toStudyPeriod(ChildDto childDto);
+
 	ChildDto fromChild(Child child);
 }

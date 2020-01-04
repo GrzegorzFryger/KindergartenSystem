@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.core.controller;
+package pl.edu.pja.prz.core.controller.accounts;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

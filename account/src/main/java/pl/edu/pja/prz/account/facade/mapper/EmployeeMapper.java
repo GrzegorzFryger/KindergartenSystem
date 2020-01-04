@@ -8,6 +8,7 @@ import pl.edu.pja.prz.account.model.Person;
 
 public interface EmployeeMapper {
 	EmployeeDto fromEmployee(Employee Employee);
+
 	Employee toEmployee(EmployeeDto employeeDto);
 
 	Person toPerson(AccountDto accountDto);

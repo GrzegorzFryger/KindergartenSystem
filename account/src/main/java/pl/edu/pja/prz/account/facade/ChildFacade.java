@@ -48,7 +48,7 @@ public class ChildFacade {
 
 	public ChildDto findChildById(UUID id) {
 		return childMapper.fromChild(
-						childService.getChildById(id)
-				);
+				childService.getChildById(id)
+		);
 	}
 }

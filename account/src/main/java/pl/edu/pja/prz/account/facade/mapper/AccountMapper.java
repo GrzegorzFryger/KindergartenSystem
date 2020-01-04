@@ -7,6 +7,8 @@ import pl.edu.pja.prz.account.model.Person;
 
 public interface AccountMapper {
 	AccountDto fromAccount(Account account);
+
 	Account toAccount(AccountDto accountDto);
+
 	Person toPerson(AccountDto accountDto);
 }

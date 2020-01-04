@@ -16,7 +16,7 @@ public class ChildMapperImpl implements ChildMapper {
 			return null;
 		}
 
-		return new FullName(childDto.getName(),childDto.getSurname());
+		return new FullName(childDto.getName(), childDto.getSurname());
 	}
 
 	@Override
@@ -25,7 +25,7 @@ public class ChildMapperImpl implements ChildMapper {
 			return null;
 		}
 
-		return new Address(childDto.getPostalCode(),childDto.getCity(),childDto.getStreetNumber());
+		return new Address(childDto.getPostalCode(), childDto.getCity(), childDto.getStreetNumber());
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class ChildMapperImpl implements ChildMapper {
 			return null;
 		}
 
-		return new StudyPeriod(childDto.getStartDate(),childDto.getEndDate());
+		return new StudyPeriod(childDto.getStartDate(), childDto.getEndDate());
 	}
 
 	@Override

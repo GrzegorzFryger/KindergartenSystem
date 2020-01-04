@@ -63,20 +63,24 @@ public class AccountMapperImpl implements AccountMapper {
 		setFullName(accountDto, person);
 		setPhone(accountDto, person);
 
-		person.setFullName(new FullName(accountDto.getName(),accountDto.getSurname()) );
+		person.setFullName(new FullName(accountDto.getName(), accountDto.getSurname()));
 		person.setPhoneNumber(new Phone(accountDto.getPhone()));
 
 		return person;
 	}
 
-	private<T extends Person> void setAddress(AccountDto accountDto, T person) {
-		person.setAddress(new Address(accountDto.getPostalCode(),accountDto.getCity(),accountDto.getStreetNumber()));
+	private <T extends Person> void setAddress(AccountDto accountDto, T person) {
+		person.setAddress(new Address(accountDto.getPostalCode(), accountDto.getCity(), accountDto.getStreetNumber()));
 
-	}private<T extends Person> void setFullName(AccountDto accountDto, T person) {
-		person.setAddress(new Address(accountDto.getPostalCode(),accountDto.getCity(),accountDto.getStreetNumber()));
+	}
 
-	}private<T extends Person> void setPhone(AccountDto accountDto, T person) {
-		person.setAddress(new Address(accountDto.getPostalCode(),accountDto.getCity(),accountDto.getStreetNumber()));
+	private <T extends Person> void setFullName(AccountDto accountDto, T person) {
+		person.setAddress(new Address(accountDto.getPostalCode(), accountDto.getCity(), accountDto.getStreetNumber()));
+
+	}
+
+	private <T extends Person> void setPhone(AccountDto accountDto, T person) {
+		person.setAddress(new Address(accountDto.getPostalCode(), accountDto.getCity(), accountDto.getStreetNumber()));
 
 	}
 }

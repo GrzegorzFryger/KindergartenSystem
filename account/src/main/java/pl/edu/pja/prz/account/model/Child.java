@@ -133,5 +133,41 @@ public class Child extends BaseEntityUuid {
 		return (status.length > 1) && childStatuses.containsAll(Arrays.asList(status));
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Child)) return false;
+		if (!super.equals(o)) return false;
 
+		Child child = (Child) o;
+
+		if (getAddress() != null ? !getAddress().equals(child.getAddress()) : child.getAddress() != null) return false;
+		if (getAge() != null ? !getAge().equals(child.getAge()) : child.getAge() != null) return false;
+		if (getBorough() != null ? !getBorough().equals(child.getBorough()) : child.getBorough() != null) return false;
+		if (getFullName() != null ? !getFullName().equals(child.getFullName()) : child.getFullName() != null)
+			return false;
+		if (getGender() != child.getGender()) return false;
+		if (getChildStatuses() != null ? !getChildStatuses().equals(child.getChildStatuses()) : child.getChildStatuses() != null)
+			return false;
+		if (getGuardians() != null ? !getGuardians().equals(child.getGuardians()) : child.getGuardians() != null)
+			return false;
+		if (getPeselNumber() != null ? !getPeselNumber().equals(child.getPeselNumber()) : child.getPeselNumber() != null)
+			return false;
+		return getStudyPeriod() != null ? getStudyPeriod().equals(child.getStudyPeriod()) : child.getStudyPeriod() == null;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = super.hashCode();
+		result = 31 * result + (getAddress() != null ? getAddress().hashCode() : 0);
+		result = 31 * result + (getAge() != null ? getAge().hashCode() : 0);
+		result = 31 * result + (getBorough() != null ? getBorough().hashCode() : 0);
+		result = 31 * result + (getFullName() != null ? getFullName().hashCode() : 0);
+		result = 31 * result + (getGender() != null ? getGender().hashCode() : 0);
+		result = 31 * result + (getChildStatuses() != null ? getChildStatuses().hashCode() : 0);
+		result = 31 * result + (getGuardians() != null ? getGuardians().hashCode() : 0);
+		result = 31 * result + (getPeselNumber() != null ? getPeselNumber().hashCode() : 0);
+		result = 31 * result + (getStudyPeriod() != null ? getStudyPeriod().hashCode() : 0);
+		return result;
+	}
 }
