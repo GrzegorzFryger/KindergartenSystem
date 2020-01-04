@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.receivables.service;
+package pl.edu.pja.prz.receivables.service.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.receivables.model.CashPayment;
 import pl.edu.pja.prz.receivables.repository.CashPaymentRepository;
+import pl.edu.pja.prz.receivables.service.CashPaymentService;
 import pl.edu.pja.prz.receivables.util.BigDecimalUtils;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.receivables.service;
+package pl.edu.pja.prz.receivables.service.impl;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +12,7 @@ import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.model.TransactionMapping;
 import pl.edu.pja.prz.receivables.repository.TransactionMappingRepository;
+import pl.edu.pja.prz.receivables.service.impl.TransactionMappingServiceImpl;
 
 import java.util.Optional;
 import java.util.UUID;

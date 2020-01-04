@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.receivables.service;
+package pl.edu.pja.prz.receivables.service.impl;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.receivables.model.CashPayment;
 import pl.edu.pja.prz.receivables.repository.CashPaymentRepository;
+import pl.edu.pja.prz.receivables.service.impl.CashPaymentServiceImpl;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

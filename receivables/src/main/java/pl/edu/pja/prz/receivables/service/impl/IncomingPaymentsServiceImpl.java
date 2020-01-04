@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.receivables.service;
+package pl.edu.pja.prz.receivables.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +9,7 @@ import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.model.dto.IncomingPaymentDto;
 import pl.edu.pja.prz.receivables.repository.CashPaymentRepository;
 import pl.edu.pja.prz.receivables.repository.TransactionRepository;
+import pl.edu.pja.prz.receivables.service.IncomingPaymentsService;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
