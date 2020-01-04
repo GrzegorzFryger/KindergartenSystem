@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.core.controller;
+package pl.edu.pja.prz.core.controller.receivables;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

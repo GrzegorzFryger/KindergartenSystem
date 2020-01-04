@@ -44,7 +44,7 @@ public class ReceivablesFacade {
     }
 
     public void create(Transaction transaction) {
-        transactionService.create(transaction);
+        transactionService.save(transaction);
     }
 
     public List<Transaction> getTransactionListFromCsv(MultipartFile input, String charset) throws IOException {

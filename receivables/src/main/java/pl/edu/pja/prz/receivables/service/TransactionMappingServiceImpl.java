@@ -30,7 +30,7 @@ public class TransactionMappingServiceImpl implements TransactionMappingService 
         TransactionMapping mapping = new TransactionMapping();
         mapping.setGuardianId(guardianId);
         mapping.setChildId(childId);
-        while(true) {
+        while (true) {
             String title = RandomUtils.randomNumeric(titleMappingLength);
             if (getByTitle(title).isEmpty()) {
                 mapping.setTitle(title);

@@ -102,7 +102,7 @@ class ReceivablesFacadeTest {
         facade.create(transaction);
 
         //Then
-        verify(transactionService, times(1)).create(any(Transaction.class));
+        verify(transactionService, times(1)).save(any(Transaction.class));
     }
 
     @Test

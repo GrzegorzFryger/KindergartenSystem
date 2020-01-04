@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import pl.edu.pja.prz.payments.model.enums.Status;
 import pl.edu.pja.prz.payments.model.enums.TypeRecurringPayment;
 import pl.edu.pja.prz.payments.model.value.Child;
-import pl.edu.pja.prz.payments.model.value.FullName;
 import pl.edu.pja.prz.payments.model.value.PeriodValidity;
 
 import java.math.BigDecimal;
@@ -16,14 +15,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PaymentFactoryTest {
 	private Child child;
-	private FullName fullName;
 	private Payment payment;
 	private PeriodValidity periodValidity;
 
 	@BeforeEach
 	void setUp() {
-		fullName = new FullName("Test Name", "Test surname");
-		child = new Child(new UUID(1L, 2L), fullName, new UUID(3L, 4L));
+
+		child = new Child(new UUID(1L, 2L), new UUID(3L, 4L));
 		payment = new Payment(new BigDecimal("50.0"), "Test payment");
 		periodValidity = new PeriodValidity(LocalDate.now(), LocalDate.now());
 	}

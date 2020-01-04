@@ -18,5 +18,5 @@ public interface TransactionService {
 
     void update(Transaction transaction);
 
-    void create(Transaction transaction);
+    void save(Transaction transaction);
 }

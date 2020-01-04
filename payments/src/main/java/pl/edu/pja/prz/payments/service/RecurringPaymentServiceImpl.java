@@ -1,7 +1,7 @@
 package pl.edu.pja.prz.payments.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.payments.model.Discount;
 import pl.edu.pja.prz.payments.model.Payment;
 import pl.edu.pja.prz.payments.model.PaymentFactory;
@@ -12,10 +12,11 @@ import pl.edu.pja.prz.payments.model.value.PeriodValidity;
 import pl.edu.pja.prz.payments.repository.DiscountRepository;
 import pl.edu.pja.prz.payments.repository.RecurringPaymentRepository;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-@Component
+@Service
 public class RecurringPaymentServiceImpl implements RecurringPaymentService {
 
 	private final RecurringPaymentRepository recurringPaymentRepository;
@@ -29,9 +30,19 @@ public class RecurringPaymentServiceImpl implements RecurringPaymentService {
 	}
 
 	@Override
+	public RecurringPayment createOtherPayment(RecurringPayment recurringPayment) {
+		return this.createOtherPayment(recurringPayment.getChild(),recurringPayment,recurringPayment.getPeriodValidity());
+	}
+
+	@Override
 	public RecurringPayment createOtherPayment(Child child, Payment payment, PeriodValidity periodValidity) {
 		return recurringPaymentRepository
 				.save(PaymentFactory.createOtherRecurringPayment(child, payment, periodValidity));
+	}
+
+	@Override
+	public RecurringPayment createTuition(RecurringPayment recurringPayment) {
+		return this.createTuition(recurringPayment.getChild(),recurringPayment,recurringPayment.getPeriodValidity());
 	}
 
 	@Override
@@ -40,36 +51,52 @@ public class RecurringPaymentServiceImpl implements RecurringPaymentService {
 	}
 
 	@Override
-	public RecurringPayment updatePayment(Long paymentId, Payment newPayment, PeriodValidity period,
-	                                      Status status) {
-		return recurringPaymentRepository.findById(paymentId).map(payment -> {
-			if (newPayment != null) {
-				payment.setAmount(payment.getAmount());
-				payment.setDescription(payment.getDescription());
-			}
-			if (period != null) {
-				payment.setPeriodValidity(period);
-			}
-			if (status != null) {
-				payment.setStatus(status);
-			}
-			return recurringPaymentRepository.save(payment);
-		}).orElseThrow(() -> new IllegalArgumentException("Not found payment with id " + paymentId));
+	public RecurringPayment getPaymentById(Long id) {
+		return recurringPaymentRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Not found payment with id " + id));
 	}
 
 	@Override
-	public void markAsCancelPayment(Long paymentId) {
-		recurringPaymentRepository.findById(paymentId).ifPresentOrElse(payment -> {
+	public List<RecurringPayment> getAllPayments() {
+		return recurringPaymentRepository.findAll();
+	}
+
+
+	@Override
+	public RecurringPayment updatePayment(RecurringPayment recurringPayment) {
+		return recurringPaymentRepository.findById(recurringPayment.getId()).map(payment -> {
+			if (recurringPayment.getDiscounts() != null) {
+				payment.setAmount(recurringPayment.getAmount());
+			}
+			if(recurringPayment.getDescription() != null) {
+				payment.setDescription(recurringPayment.getDescription());
+			}
+			if (recurringPayment.getPeriodValidity() != null) {
+				payment.setPeriodValidity(recurringPayment.getPeriodValidity());
+			}
+			if (recurringPayment.getStatus() != null) {
+				payment.setStatus(recurringPayment.getStatus());
+			}
+			return recurringPaymentRepository.save(payment);
+		}).orElseThrow(() -> new IllegalArgumentException("Not found payment with id " + recurringPayment.getId()));
+	}
+
+	@Override
+	public RecurringPayment markAsCancelPayment(Long paymentId) {
+		return recurringPaymentRepository.findById(paymentId).map(payment -> {
 			payment.setStatus(Status.CANCELED);
-			recurringPaymentRepository.save(payment);
-		}, () -> {
-			throw new IllegalArgumentException("Not found payment with id " + paymentId);
-		});
+			return recurringPaymentRepository.save(payment);
+		}).orElseThrow(() -> {throw new IllegalArgumentException("Not found payment with id " + paymentId);});
 	}
 
 	@Override
 	public void deletePayment(RecurringPayment recurringPayment) {
 		recurringPaymentRepository.delete(recurringPayment);
+	}
+
+	@Override
+	public void deletePayment(Long id) {
+		recurringPaymentRepository.deleteById(id);
 	}
 
 	@Override

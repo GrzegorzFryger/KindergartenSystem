@@ -1,5 +1,5 @@
 # 1. General Info
-![Version](https://img.shields.io/badge/version-1.0-blue?style=for-the-badge)
+![Version](https://img.shields.io/badge/version-1.1-blue?style=for-the-badge)
 ## 1.1 What are git hooks?
 > Git hooks are scripts that run automatically every time a particular event occurs in a Git repository. 
 They let you customize Git’s internal behavior and trigger customizable actions at key points in the development life cycle.
@@ -91,3 +91,8 @@ Examples:
 |:---:|:---:|
 |This change will simplify payments service development|OK|
 |This change will simplify payments service development by adding some new methods|[ERROR] There are 1 uncommented lines with length > 72 characters.|
+
+## 3.3 pre-push
+### 3.3.1 Pushing code directly to master or develop branch is forbidden
+Adding code to these branches is only possible via pull request.  
+In case you try to push code directly to one of these branches - error will be thrown.
