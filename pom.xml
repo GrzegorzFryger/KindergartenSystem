@@ -103,7 +103,11 @@
                         <!-- Account module exclusions -->
                         <exclude>**/pl/edu/pja/prz/account/*</exclude>
                         <exclude>**/pl/edu/pja/prz/account/model/value/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/account/model/*</exclude>
                         <exclude>**/pl/edu/pja/prz/account/configuration/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/account/facade/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/account/facade/mapper/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/account/facade/dto/*</exclude>
 
                         <!-- Commons module exclusions -->
                         <exclude>**/pl/edu/pja/prz/commons/*</exclude>
@@ -118,6 +122,11 @@
 
                         <!-- Meal module exclusions -->
                         <exclude>**/pl/edu/pja/prz/meal/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/meal/exception/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/meal/model/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/meal/model/dto/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/meal/service/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/meal/configuration/*</exclude>
 
                         <!-- Payments module exclusions -->
                         <exclude>**/pl/edu/pja/prz/payments/*</exclude>
@@ -133,11 +142,8 @@
                         <exclude>**/pl/edu/pja/prz/receivables/model/enums/*</exclude>
                         <exclude>**/pl/edu/pja/prz/receivables/mapper/*</exclude>
 
-                        <exclude>**/pl/edu/pja/prz/meal/exception/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/meal/model/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/meal/model/dto/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/meal/service/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/meal/configuration/*</exclude>
+
+
 
                     </excludes>
                 </configuration>

@@ -20,7 +20,7 @@ public class Guardian extends Account {
 			inverseJoinColumns = {@JoinColumn(name = "fk_child")})
 	private Set<Child> children = new HashSet<>();
 
-	Guardian() {
+	public Guardian() {
 		super();
 	}
 
@@ -46,5 +46,21 @@ public class Guardian extends Account {
 		return this.children.add(child);
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Guardian)) return false;
+		if (!super.equals(o)) return false;
 
+		Guardian guardian = (Guardian) o;
+
+		return getChildren() != null ? getChildren().equals(guardian.getChildren()) : guardian.getChildren() == null;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = super.hashCode();
+		result = 31 * result + (getChildren() != null ? getChildren().hashCode() : 0);
+		return result;
+	}
 }

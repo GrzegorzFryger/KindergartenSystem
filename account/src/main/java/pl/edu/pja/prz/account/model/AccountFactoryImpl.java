@@ -9,11 +9,12 @@ import pl.edu.pja.prz.account.model.value.Password;
 import java.util.Arrays;
 
 @Component
-public class StandardAccountFactoryImpl implements AccountFactory {
-	private final PrivilegeType USER_PRIVILEGE = PrivilegeType.USER;
-	private final PrivilegeType TEACHER_PRIVILEGE = PrivilegeType.TEACHER;
+public class AccountFactoryImpl implements AccountFactory {
+	private static final PrivilegeType USER_PRIVILEGE = PrivilegeType.USER;
+	private static final PrivilegeType TEACHER_PRIVILEGE = PrivilegeType.TEACHER;
+	private static final PrivilegeType ADMIN_PRIVILEGE = PrivilegeType.ADMINISTRATOR;
 
-	public StandardAccountFactoryImpl() {
+	public AccountFactoryImpl() {
 	}
 
 	@Override
@@ -57,6 +58,20 @@ public class StandardAccountFactoryImpl implements AccountFactory {
 		role.addAccount(guardian);
 		guardian.setAccountStatus(AccountStatus.NOT_ACTIVE);
 		return guardian;
+	}
+
+	@Override
+	public Employee createAdministrator(Person person, Password password, String email) {
+		var role = new Role(ADMIN_PRIVILEGE.toString());
+		role.addPrivilege(ADMIN_PRIVILEGE);
+
+		var administrator = new Employee(person.getAddress(), person.getFullName(),
+				person.getPhoneNumber(), password, email, EmployeeType.ADMINISTRATOR
+		);
+
+		role.addAccount(administrator);
+		administrator.setAccountStatus(AccountStatus.ACTIVE);
+		return administrator;
 	}
 
 }
