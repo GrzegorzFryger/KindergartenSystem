@@ -8,7 +8,7 @@ public class PeriodValidity {
 	private LocalDate startDate;
 	private LocalDate endDate;
 
-	PeriodValidity() {
+	public PeriodValidity() {
 	}
 
 	public PeriodValidity(LocalDate startDate, LocalDate endDate) {
@@ -24,4 +24,11 @@ public class PeriodValidity {
 		return endDate;
 	}
 
+	public void setStartDate(LocalDate startDate) {
+		this.startDate = startDate;
+	}
+
+	public void setEndDate(LocalDate endDate) {
+		this.endDate = endDate;
+	}
 }

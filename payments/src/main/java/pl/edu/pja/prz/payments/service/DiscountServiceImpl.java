@@ -1,13 +1,13 @@
 package pl.edu.pja.prz.payments.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.payments.model.Discount;
 import pl.edu.pja.prz.payments.repository.DiscountRepository;
 
 import java.util.List;
 
-@Component
+@Service
 public class DiscountServiceImpl implements DiscountService {
 	private final DiscountRepository discountRepository;
 

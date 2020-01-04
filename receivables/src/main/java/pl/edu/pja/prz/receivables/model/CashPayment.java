@@ -1,6 +1,5 @@
 package pl.edu.pja.prz.receivables.model;
 
-
 import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
@@ -12,15 +11,10 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-public class Transaction extends BaseEntity<Long> implements Serializable {
+public class CashPayment extends BaseEntity<Long> implements Serializable {
     private LocalDate transactionDate;
-    private LocalDate bookingDate;
     private String contractorDetails;
     private String title;
-    private String accountNumber;
-    private String bankName;
-    private String details;
-    private String transactionNumber;
     private BigDecimal transactionAmount;
     private String transactionCurrency;
     @Type(type = "uuid-char")
@@ -38,14 +32,6 @@ public class Transaction extends BaseEntity<Long> implements Serializable {
         this.transactionDate = transactionDate;
     }
 
-    public LocalDate getBookingDate() {
-        return bookingDate;
-    }
-
-    public void setBookingDate(LocalDate bookingDate) {
-        this.bookingDate = bookingDate;
-    }
-
     public String getContractorDetails() {
         return contractorDetails;
     }
@@ -60,38 +46,6 @@ public class Transaction extends BaseEntity<Long> implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getAccountNumber() {
-        return accountNumber;
-    }
-
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
-    }
-
-    public String getBankName() {
-        return bankName;
-    }
-
-    public void setBankName(String bankName) {
-        this.bankName = bankName;
-    }
-
-    public String getDetails() {
-        return details;
-    }
-
-    public void setDetails(String details) {
-        this.details = details;
-    }
-
-    public String getTransactionNumber() {
-        return transactionNumber;
-    }
-
-    public void setTransactionNumber(String transactionNumber) {
-        this.transactionNumber = transactionNumber;
     }
 
     public BigDecimal getTransactionAmount() {
@@ -130,22 +84,16 @@ public class Transaction extends BaseEntity<Long> implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Transaction that = (Transaction) o;
+        CashPayment that = (CashPayment) o;
         return transactionDate.equals(that.transactionDate) &&
-                Objects.equals(bookingDate, that.bookingDate) &&
                 contractorDetails.equals(that.contractorDetails) &&
                 title.equals(that.title) &&
-                accountNumber.equals(that.accountNumber) &&
-                bankName.equals(that.bankName) &&
-                details.equals(that.details) &&
-                transactionNumber.equals(that.transactionNumber) &&
                 transactionAmount.equals(that.transactionAmount) &&
                 transactionCurrency.equals(that.transactionCurrency);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(transactionDate, bookingDate, contractorDetails, title, accountNumber, bankName, details,
-                transactionNumber, transactionAmount, transactionCurrency);
+        return Objects.hash(transactionDate, contractorDetails, title, transactionAmount, transactionCurrency);
     }
 }

@@ -1,5 +1,7 @@
 package pl.edu.pja.prz.receivables.model;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.io.Serializable;
@@ -10,7 +12,11 @@ import java.util.UUID;
 public class TransactionMapping extends BaseEntity<Long> implements Serializable {
     @Column(unique = true)
     private String title;
+    @Type(type = "uuid-char")
+    @Column(length = 36)
     private UUID childId;
+    @Type(type = "uuid-char")
+    @Column(length = 36)
     private UUID guardianId;
 
     public String getTitle() {

@@ -7,9 +7,11 @@ public class Payment extends BaseEntity<Long>  {
 	private String description;
 
 	Payment() {
+		super();
 	}
 
 	public Payment(BigDecimal amount, String description) {
+		super();
 		this.amount = amount;
 		this.description = description;
 	}
