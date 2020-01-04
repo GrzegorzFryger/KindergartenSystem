@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.service.CsvParsingService;
-import pl.edu.pja.prz.receivables.service.impl.CsvParsingServiceImpl;
 
 import java.io.File;
 import java.io.IOException;

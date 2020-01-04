@@ -10,7 +10,6 @@ import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.model.builder.TransactionBuilder;
 import pl.edu.pja.prz.receivables.repository.TransactionRepository;
-import pl.edu.pja.prz.receivables.service.impl.TransactionServiceImpl;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

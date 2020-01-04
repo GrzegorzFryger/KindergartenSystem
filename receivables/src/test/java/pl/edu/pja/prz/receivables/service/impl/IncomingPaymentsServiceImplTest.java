@@ -12,7 +12,6 @@ import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.model.dto.IncomingPaymentDto;
 import pl.edu.pja.prz.receivables.repository.CashPaymentRepository;
 import pl.edu.pja.prz.receivables.repository.TransactionRepository;
-import pl.edu.pja.prz.receivables.service.impl.IncomingPaymentsServiceImpl;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
