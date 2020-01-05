@@ -9,6 +9,7 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.service.CsvParsingService;
+import pl.edu.pja.prz.receivables.service.IncomingPaymentsService;
 import pl.edu.pja.prz.receivables.service.TransactionMappingService;
 import pl.edu.pja.prz.receivables.service.TransactionService;
 
@@ -32,6 +33,8 @@ class ReceivablesFacadeTest {
     private TransactionService transactionService;
     @Mock
     private TransactionMappingService transactionMappingService;
+    @Mock
+    private IncomingPaymentsService incomingPaymentsService;
 
     private Transaction transaction;
 
@@ -39,7 +42,8 @@ class ReceivablesFacadeTest {
 
     @BeforeEach
     public void setUp() {
-        facade = new ReceivablesFacade(csvParsingService, transactionService, transactionMappingService);
+        facade = new ReceivablesFacade(csvParsingService, transactionService,
+                transactionMappingService, incomingPaymentsService);
 
         transaction = new Transaction();
     }

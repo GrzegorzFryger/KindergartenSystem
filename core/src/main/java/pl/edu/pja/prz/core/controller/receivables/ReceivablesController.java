@@ -6,9 +6,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.edu.pja.prz.receivables.facade.ReceivablesFacade;
 import pl.edu.pja.prz.receivables.model.Transaction;
+import pl.edu.pja.prz.receivables.model.dto.IncomingPaymentDto;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("api/receivables/")
@@ -43,6 +46,30 @@ public class ReceivablesController {
     @PutMapping("transactions")
     public void updateTransaction(@RequestBody Transaction transaction) {
         receivablesFacade.update(transaction);
+    }
+
+    @GetMapping("payments/child/{childId}")
+    public List<IncomingPaymentDto> getAllIncomingPaymentsForChild(@PathVariable UUID childId) {
+        return receivablesFacade.getAllIncomingPaymentsByChildId(childId);
+    }
+
+    @GetMapping("payments/child/{childId}/{from}/{to}")
+    public List<IncomingPaymentDto> getAllIncomingPaymentsForChild(@PathVariable UUID childId,
+                                                                   @PathVariable LocalDate from,
+                                                                   @PathVariable LocalDate to) {
+        return receivablesFacade.getAllIncomingPaymentsByChildId(childId, from, to);
+    }
+
+    @GetMapping("payments/guardian/{guardianId}")
+    public List<IncomingPaymentDto> getAllIncomingPaymentsForGuardian(@PathVariable UUID guardianId) {
+        return receivablesFacade.getAllIncomingPaymentsByGuardianId(guardianId);
+    }
+
+    @GetMapping("payments/guardian/{guardianId}/{from}/{to}")
+    public List<IncomingPaymentDto> getAllIncomingPaymentsForGuardian(@PathVariable UUID guardianId,
+                                                                      @PathVariable LocalDate from,
+                                                                      @PathVariable LocalDate to) {
+        return receivablesFacade.getAllIncomingPaymentsByGuardianId(guardianId, from, to);
     }
 
     @PostMapping(value = "transactions/import", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
