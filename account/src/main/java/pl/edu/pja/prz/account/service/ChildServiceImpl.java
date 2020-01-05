@@ -35,7 +35,7 @@ class ChildServiceImpl implements ChildService {
 	@Override
 	public Child createChild(Long boroughId, Address address, FullName fullName, String pesel,
 	                         StudyPeriod studyPeriod) {
-		var borough = boroughService.find(boroughId).orElseThrow(() -> {
+		var borough = boroughService.findBorough(boroughId).orElseThrow(() -> {
 			throw new IllegalArgumentException("Borough with id not exist: " + boroughId);
 		});
 
@@ -48,7 +48,7 @@ class ChildServiceImpl implements ChildService {
 	@Override
 	public Child createChild(Long boroughId, Address address, Age age, FullName fullName, Gender gender,
 	                         StudyPeriod studyPeriod) {
-		var borough = boroughService.find(boroughId).orElseThrow(() -> {
+		var borough = boroughService.findBorough(boroughId).orElseThrow(() -> {
 			throw new IllegalArgumentException("Borough with id not exist: " + boroughId);
 		});
 
