@@ -8,6 +8,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 import pl.edu.pja.prz.receivables.model.Transaction;
+import pl.edu.pja.prz.receivables.model.dto.IncomingPaymentDto;
 import pl.edu.pja.prz.receivables.service.CsvParsingService;
 import pl.edu.pja.prz.receivables.service.IncomingPaymentsService;
 import pl.edu.pja.prz.receivables.service.TransactionMappingService;
@@ -15,8 +16,10 @@ import pl.edu.pja.prz.receivables.service.TransactionService;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -37,6 +40,7 @@ class ReceivablesFacadeTest {
     private IncomingPaymentsService incomingPaymentsService;
 
     private Transaction transaction;
+    private IncomingPaymentDto dto;
 
     private ReceivablesFacade facade;
 
@@ -46,6 +50,7 @@ class ReceivablesFacadeTest {
                 transactionMappingService, incomingPaymentsService);
 
         transaction = new Transaction();
+        dto = new IncomingPaymentDto();
     }
 
     @Test
@@ -147,5 +152,76 @@ class ReceivablesFacadeTest {
         verify(csvParsingService, never()).getTransactionListFromCsv(any(File.class), anyString());
         verify(csvParsingService, times(1)).cleanUpFile(any(File.class));
         assertEquals(1, result.size());
+    }
+
+    @Test
+    public void Should_GetAllIncomingPaymentsByChildId() {
+        //Given
+        List<IncomingPaymentDto> dtos = new ArrayList<>();
+        dtos.add(dto);
+
+        //When
+        when(incomingPaymentsService.getAllPaymentsForChild(any(UUID.class))).thenReturn(dtos);
+        List<IncomingPaymentDto> result = facade.getAllIncomingPaymentsByChildId(UUID.randomUUID());
+
+        //Then
+        assertEquals(1, result.size());
+        verify(incomingPaymentsService, times(1)).getAllPaymentsForChild(any(UUID.class));
+    }
+
+    @Test
+    public void Should_GetAllIncomingPaymentsByGuardianId() {
+        //Given
+        List<IncomingPaymentDto> dtos = new ArrayList<>();
+        dtos.add(dto);
+
+        //When
+        when(incomingPaymentsService.getAllPaymentsForGuardian(any(UUID.class))).thenReturn(dtos);
+        List<IncomingPaymentDto> result = facade.getAllIncomingPaymentsByGuardianId(UUID.randomUUID());
+
+        //Then
+        assertEquals(1, result.size());
+        verify(incomingPaymentsService, times(1)).getAllPaymentsForGuardian(any(UUID.class));
+    }
+
+    @Test
+    public void Should_GetAllIncomingPaymentsByChildIdBetweenDates() {
+        //Given
+        List<IncomingPaymentDto> dtos = new ArrayList<>();
+        dtos.add(dto);
+        LocalDate start = LocalDate.now();
+        LocalDate end = LocalDate.now();
+
+        //When
+        when(incomingPaymentsService
+                .getAllPaymentsForChild(any(UUID.class), any(LocalDate.class), any(LocalDate.class)))
+                .thenReturn(dtos);
+        List<IncomingPaymentDto> result = facade.getAllIncomingPaymentsByChildId(UUID.randomUUID(), start, end);
+
+
+        //Then
+        assertEquals(1, result.size());
+        verify(incomingPaymentsService, times(1))
+                .getAllPaymentsForChild(any(UUID.class), any(LocalDate.class), any(LocalDate.class));
+    }
+
+    @Test
+    public void Should_GetAllIncomingPaymentsByGuardianIdBetweenDates() {
+        //Given
+        List<IncomingPaymentDto> dtos = new ArrayList<>();
+        dtos.add(dto);
+        LocalDate start = LocalDate.now();
+        LocalDate end = LocalDate.now();
+
+        //When
+        when(incomingPaymentsService
+                .getAllPaymentsForGuardian(any(UUID.class), any(LocalDate.class), any(LocalDate.class)))
+                .thenReturn(dtos);
+        List<IncomingPaymentDto> result = facade.getAllIncomingPaymentsByGuardianId(UUID.randomUUID(), start, end);
+
+        //Then
+        assertEquals(1, result.size());
+        verify(incomingPaymentsService, times(1))
+                .getAllPaymentsForGuardian(any(UUID.class), any(LocalDate.class), any(LocalDate.class));
     }
 }
