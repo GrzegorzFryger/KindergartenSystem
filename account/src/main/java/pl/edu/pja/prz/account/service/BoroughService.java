@@ -8,7 +8,7 @@ import pl.edu.pja.prz.account.model.value.Phone;
 import java.util.Optional;
 
 public interface BoroughService {
-    Borough createBorough(String name, Address toAddress, Phone toPhone, String email, String nipNumber);
+    Borough createBorough(String name, Address address, Phone phone, String email, String nipNumber);
 
     void addChildToBorough(Child child, Borough borough);
 

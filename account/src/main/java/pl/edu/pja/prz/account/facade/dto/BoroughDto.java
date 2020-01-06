@@ -1,7 +1,5 @@
 package pl.edu.pja.prz.account.facade.dto;
 
-import pl.edu.pja.prz.account.model.value.Address;
-
 public class BoroughDto {
     private long id;
     private String name;

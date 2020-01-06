@@ -27,7 +27,7 @@ public class BoroughMapperImpl implements BoroughMapper {
 
     @Override
     public BoroughDto fromBorough(Borough borough) {
-        if(borough == null) {
+        if (borough == null) {
             return null;
         }
         var boroughDto = new BoroughDto();
