@@ -58,7 +58,7 @@ class ChildServiceTest {
 				.build();
 
 		//when
-		when(boroughService.findBorough(any(Long.class))).thenReturn(Optional.of(borough));
+		when(boroughService.findBorough(any(Long.class))).thenReturn(borough);
 		when(peselService.extractDateOfBirth(any())).thenReturn(LocalDate.now());
 		when(peselService.extractGender(any())).thenReturn(Gender.MALE);
 		when(childRepository.save(any(Child.class))).thenReturn(child);
