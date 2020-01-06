@@ -17,7 +17,6 @@ public class BoroughController {
         this.boroughFacade = boroughFacade;
     }
 
-    //TODO: change find method to use facade
     @GetMapping("borough/{id}")
     public ResponseEntity<BoroughDto> findBorough(@PathVariable Long id) {
         return new ResponseEntity<>(boroughFacade.findBorough(id), HttpStatus.OK);

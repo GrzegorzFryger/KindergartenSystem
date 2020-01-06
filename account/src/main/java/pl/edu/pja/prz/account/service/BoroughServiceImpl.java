@@ -1,6 +1,5 @@
 package pl.edu.pja.prz.account.service;
 
-import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.account.model.Borough;
 import pl.edu.pja.prz.account.model.Child;
