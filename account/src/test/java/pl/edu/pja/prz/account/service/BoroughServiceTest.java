@@ -102,4 +102,24 @@ class BoroughServiceTest {
 		//then
 		verify(boroughRepository, times(1)).findById(1L);
 	}
+
+	@Test
+	void should_updateBorough() {
+		//given
+		var boroughToUpdateId = Long.valueOf(1);
+
+		var borough = new Borough("Test borough",
+				new Address("70-700", "City", "Street 256"),
+				new Phone("123132123"),
+				"test@test.com",
+				"99576122623"
+		);
+
+		//when
+		when(boroughRepository.findById(1L)).thenReturn(Optional.of(borough));
+		boroughService.updateBorough(borough, boroughToUpdateId);
+
+		//then
+		verify(boroughRepository, times(1)).save(borough);
+	}
 }

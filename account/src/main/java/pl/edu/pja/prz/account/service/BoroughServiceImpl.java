@@ -1,5 +1,6 @@
 package pl.edu.pja.prz.account.service;
 
+import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.account.model.Borough;
 import pl.edu.pja.prz.account.model.Child;
@@ -35,6 +36,31 @@ public class BoroughServiceImpl implements BoroughService {
                     throw new IllegalArgumentException("Borough with id " + id + " not found.");
                 }
         );
+    }
+
+    @Override
+    public Borough updateBorough(Borough borough, Long boroughToUpdateId) {
+        Borough boroughToUpdate = boroughRepository.findById(boroughToUpdateId).orElseThrow(
+                () -> {
+                    throw new IllegalArgumentException("Borough with id " + boroughToUpdateId + " not found.");
+                }
+        );
+        if (borough.getName() != null) {
+            boroughToUpdate.setName(borough.getName());
+        }
+        if (borough.getAddress() != null) {
+            boroughToUpdate.setAddress(borough.getAddress());
+        }
+        if (borough.getPhone() != null) {
+            boroughToUpdate.setPhone(borough.getPhone());
+        }
+        if (borough.getEmail() != null) {
+            boroughToUpdate.setEmail(borough.getEmail());
+        }
+        if (borough.getNipNumber() != null) {
+            boroughToUpdate.setNipNumber(borough.getNipNumber());
+        }
+        return boroughRepository.save(boroughToUpdate);
     }
 
 }

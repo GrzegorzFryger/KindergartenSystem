@@ -14,4 +14,6 @@ public interface BoroughService {
 
     Borough findBorough(Long id);
 
+    Borough updateBorough(Borough borough, Long boroughToUpdateId);
+
 }
