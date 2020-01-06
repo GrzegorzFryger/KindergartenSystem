@@ -11,4 +11,6 @@ public interface BoroughMapper {
     Phone toPhone(BoroughDto boroughDto);
 
     BoroughDto fromBorough(Borough borough);
+
+    Borough toBorough(BoroughDto boroughDto);
 }

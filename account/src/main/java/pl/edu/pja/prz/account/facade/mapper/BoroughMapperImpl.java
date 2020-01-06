@@ -44,4 +44,22 @@ public class BoroughMapperImpl implements BoroughMapper {
 
         return boroughDto;
     }
+
+    @Override
+    public Borough toBorough(BoroughDto boroughDto) {
+        if( boroughDto == null) {
+            return null;
+        }
+
+        var borough = new Borough();
+
+        borough.setId(boroughDto.getId());
+        borough.setName(boroughDto.getName());
+        borough.setAddress(toAddress(boroughDto));
+        borough.setPhone(toPhone(boroughDto));
+        borough.setEmail(boroughDto.getEmail());
+        borough.setNipNumber(boroughDto.getNipNumber());
+
+        return borough;
+    }
 }
