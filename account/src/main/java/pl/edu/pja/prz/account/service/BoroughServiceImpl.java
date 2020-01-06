@@ -7,8 +7,6 @@ import pl.edu.pja.prz.account.model.value.Address;
 import pl.edu.pja.prz.account.model.value.Phone;
 import pl.edu.pja.prz.account.repository.BoroughRepository;
 
-import java.util.Optional;
-
 @Service
 public class BoroughServiceImpl implements BoroughService {
     private final BoroughRepository boroughRepository;
@@ -31,8 +29,12 @@ public class BoroughServiceImpl implements BoroughService {
     }
 
     @Override
-    public Optional<Borough> findBorough(Long id) {
-        return boroughRepository.findById(id);
+    public Borough findBorough(Long id) {
+        return boroughRepository.findById(id).orElseThrow(
+                () -> {
+                    throw new IllegalArgumentException("Borough with id " + id + " not found.");
+                }
+        );
     }
 
 }

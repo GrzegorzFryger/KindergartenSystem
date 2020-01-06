@@ -12,6 +12,6 @@ public interface BoroughService {
 
     void addChildToBorough(Child child, Borough borough);
 
-    Optional<Borough> findBorough(Long id);
+    Borough findBorough(Long id);
 
 }

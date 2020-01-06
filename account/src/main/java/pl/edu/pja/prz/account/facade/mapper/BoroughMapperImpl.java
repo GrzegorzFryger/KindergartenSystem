@@ -31,6 +31,7 @@ public class BoroughMapperImpl implements BoroughMapper {
             return null;
         }
         var boroughDto = new BoroughDto();
+
         boroughDto.setId(borough.getId());
         boroughDto.setName(borough.getName());
 

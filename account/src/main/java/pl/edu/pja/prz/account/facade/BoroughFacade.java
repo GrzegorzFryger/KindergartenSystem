@@ -28,4 +28,10 @@ public class BoroughFacade {
                 )
         );
     }
+
+    public BoroughDto findBorough(Long id) {
+        return boroughMapper.fromBorough(
+                boroughService.findBorough(id)
+        );
+    }
 }
