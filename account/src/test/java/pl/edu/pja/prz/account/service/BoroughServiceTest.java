@@ -32,24 +32,29 @@ class BoroughServiceTest {
 		boroughService = new BoroughServiceImpl(boroughRepository);
 	}
 
-//	@Test
-//	void should_creatBorough() {
-//		//given
-//		var borough = new Borough("Test borough",
-//				new Address("70-700", "City", "Street 256"),
-//				new Phone("123132123"),
-//				"test@test.com",
-//				"99576122623"
-//		);
-//
-//		//when
-//		when(boroughRepository.save(any(Borough.class))).thenReturn(borough);
-//		var returnedBorough = boroughService.createBorough(borough);
-//
-//		//then
-//		assertNotNull(returnedBorough);
-//		verify(boroughRepository, times(1)).save(borough);
-//	}
+	@Test
+	void should_creatBorough() {
+		//given
+		String name = "Test borough";
+		Address address = new Address("70-700", "City", "Street 256");
+		Phone phone = new Phone("123132123");
+		String email = "test@test.com";
+		String nipNumber = "99576122623";
+		var borough = new Borough("Test borough",
+				new Address("70-700", "City", "Street 256"),
+				new Phone("123132123"),
+				"test@test.com",
+				"99576122623"
+		);
+
+		//when
+		when(boroughRepository.save(any(Borough.class))).thenReturn(borough);
+		var returnedBorough = boroughService.createBorough(name, address, phone, email, nipNumber);
+
+		//then
+		assertNotNull(returnedBorough);
+		verify(boroughRepository, times(1)).save(borough);
+	}
 
 	@Test
 	void should_addChildToBorough() {

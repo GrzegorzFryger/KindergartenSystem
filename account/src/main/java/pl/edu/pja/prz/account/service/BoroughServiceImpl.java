@@ -19,9 +19,9 @@ public class BoroughServiceImpl implements BoroughService {
 
 
     @Override
-    public Borough createBorough(String name, Address toAddress, Phone toPhone, String email, String nipNumber) {
-        //TODO: implement create method
-        return null;
+    public Borough createBorough(String name, Address address, Phone phone, String email, String nipNumber) {
+        var borough = new Borough(name, address, phone, email, nipNumber);
+        return boroughRepository.save(borough);
     }
 
     @Override
