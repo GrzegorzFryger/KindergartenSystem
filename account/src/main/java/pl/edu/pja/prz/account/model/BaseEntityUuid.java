@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @MappedSuperclass
-public class BaseEntityUuid {
+public class BaseEntityUuid implements BaseEntity<UUID> {
 	@Id
 	@GeneratedValue()
 	@Type(type = "uuid-char")
@@ -21,6 +21,7 @@ public class BaseEntityUuid {
 	public UUID getId() {
 		return id;
 	}
+
 
 	public void setId(UUID id) {
 		this.id = id;
