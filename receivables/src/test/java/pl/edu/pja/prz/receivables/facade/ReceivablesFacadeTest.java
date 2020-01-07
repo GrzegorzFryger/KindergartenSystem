@@ -131,6 +131,7 @@ class ReceivablesFacadeTest {
         verify(csvParsingService, times(1)).getTransactionListFromCsv(any(File.class), anyString());
         verify(csvParsingService, never()).getTransactionListFromCsv(any(File.class));
         verify(csvParsingService, times(1)).cleanUpFile(any(File.class));
+        verify(transactionService, times(1)).save(any(Transaction.class));
         assertEquals(1, result.size());
     }
 
@@ -151,6 +152,7 @@ class ReceivablesFacadeTest {
         verify(csvParsingService, times(1)).getTransactionListFromCsv(any(File.class));
         verify(csvParsingService, never()).getTransactionListFromCsv(any(File.class), anyString());
         verify(csvParsingService, times(1)).cleanUpFile(any(File.class));
+        verify(transactionService, times(1)).save(any(Transaction.class));
         assertEquals(1, result.size());
     }
 

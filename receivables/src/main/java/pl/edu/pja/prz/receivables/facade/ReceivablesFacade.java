@@ -66,6 +66,7 @@ public class ReceivablesFacade {
         csvParsingService.cleanUpFile(file);
 
         transactions.forEach(transactionMappingService::mapTransaction);
+        transactions.forEach(transactionService::save);
 
         return transactions;
     }
