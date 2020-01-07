@@ -34,4 +34,12 @@ public class BoroughFacade {
                 boroughService.findBorough(id)
         );
     }
+
+    public BoroughDto updateBorough(BoroughDto boroughDto) {
+        return boroughMapper.fromBorough(
+                boroughService.updateBorough(
+                        boroughMapper.toBorough(boroughDto)
+                )
+        );
+    }
 }

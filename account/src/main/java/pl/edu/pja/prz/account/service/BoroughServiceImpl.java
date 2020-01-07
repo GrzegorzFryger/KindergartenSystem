@@ -38,10 +38,10 @@ public class BoroughServiceImpl implements BoroughService {
     }
 
     @Override
-    public Borough updateBorough(Borough borough, Long boroughToUpdateId) {
-        Borough boroughToUpdate = boroughRepository.findById(boroughToUpdateId).orElseThrow(
+    public Borough updateBorough(Borough borough) {
+        Borough boroughToUpdate = boroughRepository.findById(borough.getId()).orElseThrow(
                 () -> {
-                    throw new IllegalArgumentException("Borough with id " + boroughToUpdateId + " not found.");
+                    throw new IllegalArgumentException("Borough with id " + borough.getId() + " not found.");
                 }
         );
         if (borough.getName() != null) {
