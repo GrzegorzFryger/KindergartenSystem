@@ -1,24 +1,26 @@
 package pl.edu.pja.prz.account.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.account.model.Borough;
 import pl.edu.pja.prz.account.model.Child;
-import pl.edu.pja.prz.account.model.value.Address;
-import pl.edu.pja.prz.account.model.value.Phone;
 import pl.edu.pja.prz.account.repository.BoroughRepository;
+import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 
 @Service
 public class BoroughServiceImpl implements BoroughService {
+    private static final String BOROUGH = "Borough";
+
     private final BoroughRepository boroughRepository;
 
+    @Autowired
     public BoroughServiceImpl(BoroughRepository boroughRepository) {
         this.boroughRepository = boroughRepository;
     }
 
 
     @Override
-    public Borough createBorough(String name, Address address, Phone phone, String email, String nipNumber) {
-        var borough = new Borough(name, address, phone, email, nipNumber);
+    public Borough createBorough(Borough borough) {
         return boroughRepository.save(borough);
     }
 
@@ -32,7 +34,7 @@ public class BoroughServiceImpl implements BoroughService {
     public Borough findBorough(Long id) {
         return boroughRepository.findById(id).orElseThrow(
                 () -> {
-                    throw new IllegalArgumentException("Borough with id " + id + " not found.");
+                    throw new ElementNotFoundException(BOROUGH, id);
                 }
         );
     }
@@ -41,7 +43,7 @@ public class BoroughServiceImpl implements BoroughService {
     public Borough updateBorough(Borough borough) {
         Borough boroughToUpdate = boroughRepository.findById(borough.getId()).orElseThrow(
                 () -> {
-                    throw new IllegalArgumentException("Borough with id " + borough.getId() + " not found.");
+                    throw new ElementNotFoundException(BOROUGH, borough.getId());
                 }
         );
         if (borough.getName() != null) {

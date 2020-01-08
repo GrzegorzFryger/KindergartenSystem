@@ -27,7 +27,7 @@ public class BoroughController {
         return new ResponseEntity<>(boroughFacade.createBorough(boroughDto), HttpStatus.OK);
     }
 
-    @PostMapping("borough/update")
+    @PutMapping("borough")
     public ResponseEntity<BoroughDto> updateBorough(@RequestBody BoroughDto boroughDto) {
         return new ResponseEntity<>(boroughFacade.updateBorough(boroughDto), HttpStatus.OK);
     }
