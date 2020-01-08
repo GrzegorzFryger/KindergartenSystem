@@ -1,16 +1,18 @@
 package pl.edu.pja.prz.account.facade;
 
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.account.facade.dto.BoroughDto;
 import pl.edu.pja.prz.account.facade.mapper.BoroughMapper;
 import pl.edu.pja.prz.account.service.BoroughService;
 
-@Component
+@Service
 public class BoroughFacadeImpl implements BoroughFacade {
 
     private final BoroughService boroughService;
     private final BoroughMapper boroughMapper;
 
+    @Autowired
     public BoroughFacadeImpl(BoroughService boroughService, BoroughMapper boroughMapper) {
         this.boroughService = boroughService;
         this.boroughMapper = boroughMapper;
