@@ -108,7 +108,7 @@
                         <exclude>**/pl/edu/pja/prz/account/facade/*</exclude>
                         <exclude>**/pl/edu/pja/prz/account/facade/mapper/*</exclude>
                         <exclude>**/pl/edu/pja/prz/account/facade/dto/*</exclude>
-
+                        <exclude>**/pl/edu/pja/prz/account/repository/*</exclude>
                         <!-- Commons module exclusions -->
                         <exclude>**/pl/edu/pja/prz/commons/*</exclude>
 
