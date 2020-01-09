@@ -9,6 +9,8 @@ import java.util.UUID;
 public interface CashPaymentService {
     CashPayment getCashPayment(Long id);
 
+    List<CashPayment> getAllCashPayments();
+
     List<CashPayment> getAllCashPaymentsByChildId(UUID childId);
 
     List<CashPayment> getAllCashPaymentsByGuardianId(UUID guardianId);

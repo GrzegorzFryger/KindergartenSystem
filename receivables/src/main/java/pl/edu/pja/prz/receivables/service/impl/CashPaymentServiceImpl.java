@@ -32,6 +32,11 @@ public class CashPaymentServiceImpl implements CashPaymentService {
     }
 
     @Override
+    public List<CashPayment> getAllCashPayments() {
+        return repository.findAll();
+    }
+
+    @Override
     public List<CashPayment> getAllCashPaymentsByChildId(UUID childId) {
         return repository.findAllByChildId(childId);
     }

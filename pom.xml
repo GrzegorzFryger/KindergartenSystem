@@ -99,6 +99,7 @@
                         <exclude>**/pl/edu/pja/prz/core/*</exclude>
                         <exclude>**/pl/edu/pja/prz/core/exception/*</exclude>
                         <exclude>**/pl/edu/pja/prz/core/controller/payments/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/core/controller/receivables/*</exclude>
 
                         <!-- Account module exclusions -->
                         <exclude>**/pl/edu/pja/prz/account/*</exclude>

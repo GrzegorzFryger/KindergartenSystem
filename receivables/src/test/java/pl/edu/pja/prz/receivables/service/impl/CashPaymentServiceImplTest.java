@@ -69,6 +69,22 @@ class CashPaymentServiceImplTest {
     }
 
     @Test
+    public void Should_GetAllCashPayments() {
+        //Given
+        List<CashPayment> payments = new ArrayList<>();
+        payments.add(payment);
+        when(repository.findAll()).thenReturn(payments);
+
+        //When
+        List<CashPayment> result = service.getAllCashPayments();
+
+        //Then
+        assertEquals(1, result.size());
+        verify(repository, times(1)).findAll();
+
+    }
+
+    @Test
     public void Should_ThrowException_When_CashPaymentDoesNotExist() {
         //Given
         when(repository.findById(anyLong())).thenReturn(Optional.empty());

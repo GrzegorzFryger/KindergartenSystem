@@ -7,12 +7,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
+import pl.edu.pja.prz.receivables.model.CashPayment;
 import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.model.dto.IncomingPaymentDto;
-import pl.edu.pja.prz.receivables.service.CsvParsingService;
-import pl.edu.pja.prz.receivables.service.IncomingPaymentsService;
-import pl.edu.pja.prz.receivables.service.TransactionMappingService;
-import pl.edu.pja.prz.receivables.service.TransactionService;
+import pl.edu.pja.prz.receivables.service.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,8 +36,11 @@ class ReceivablesFacadeTest {
     private TransactionMappingService transactionMappingService;
     @Mock
     private IncomingPaymentsService incomingPaymentsService;
+    @Mock
+    private CashPaymentService cashPaymentService;
 
     private Transaction transaction;
+    private CashPayment cashPayment;
     private IncomingPaymentDto dto;
 
     private ReceivablesFacade facade;
@@ -47,9 +48,10 @@ class ReceivablesFacadeTest {
     @BeforeEach
     public void setUp() {
         facade = new ReceivablesFacade(csvParsingService, transactionService,
-                transactionMappingService, incomingPaymentsService);
+                transactionMappingService, incomingPaymentsService, cashPaymentService);
 
         transaction = new Transaction();
+        cashPayment = new CashPayment();
         dto = new IncomingPaymentDto();
     }
 
@@ -63,6 +65,19 @@ class ReceivablesFacadeTest {
 
         //Then
         verify(transactionService, times(1)).getTransaction(TEST_ID);
+        assertNotNull(result);
+    }
+
+    @Test
+    public void Should_GetCashPayment() {
+        //Given
+
+        //When
+        when(cashPaymentService.getCashPayment(anyLong())).thenReturn(cashPayment);
+        CashPayment result = facade.getCashPayment(TEST_ID);
+
+        //Then
+        verify(cashPaymentService, times(1)).getCashPayment(TEST_ID);
         assertNotNull(result);
     }
 
@@ -86,10 +101,21 @@ class ReceivablesFacadeTest {
         //Given
 
         //When
-        facade.delete(TEST_ID);
+        facade.deleteTransaction(TEST_ID);
 
         //Then
         verify(transactionService, times(1)).delete(TEST_ID);
+    }
+
+    @Test
+    public void Should_DeleteCashPayment() {
+        //Given
+
+        //When
+        facade.deleteCashPayment(TEST_ID);
+
+        //Then
+        verify(cashPaymentService, times(1)).delete(TEST_ID);
     }
 
     @Test
@@ -104,6 +130,17 @@ class ReceivablesFacadeTest {
     }
 
     @Test
+    public void Should_UpdateCashPayment() {
+        //Given
+
+        //When
+        facade.update(cashPayment);
+
+        //Then
+        verify(cashPaymentService, times(1)).update(any(CashPayment.class));
+    }
+
+    @Test
     public void Should_CreateTransaction() {
         //Given
 
@@ -112,6 +149,17 @@ class ReceivablesFacadeTest {
 
         //Then
         verify(transactionService, times(1)).save(any(Transaction.class));
+    }
+
+    @Test
+    public void Should_CreateCashPayment() {
+        //Given
+
+        //When
+        facade.create(cashPayment);
+
+        //Then
+        verify(cashPaymentService, times(1)).save(any(CashPayment.class));
     }
 
     @Test
