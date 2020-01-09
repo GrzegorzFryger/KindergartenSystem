@@ -21,45 +21,31 @@
     <dependencies>
         <dependency>
             <groupId>pl.edu.pja.prz</groupId>
-            <artifactId>commons</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>pl.edu.pja.prz</groupId>
             <artifactId>account</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>pl.edu.pja.prz</groupId>
-            <artifactId>groups</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>pl.edu.pja.prz</groupId>
-            <artifactId>payments</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>pl.edu.pja.prz</groupId>
-            <artifactId>receivables</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
+            <artifactId>commons</artifactId>
         </dependency>
         <dependency>
             <groupId>pl.edu.pja.prz</groupId>
             <artifactId>finances</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>pl.edu.pja.prz</groupId>
+            <artifactId>groups</artifactId>
         </dependency>
         <dependency>
             <groupId>pl.edu.pja.prz</groupId>
             <artifactId>meal</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>pl.edu.pja.prz</groupId>
+            <artifactId>payments</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>pl.edu.pja.prz</groupId>
+            <artifactId>receivables</artifactId>
         </dependency>
 
         <dependency>

@@ -2,22 +2,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.0.RELEASE</version>
+        <relativePath/>
+    </parent>
 
     <groupId>pl.edu.pja.prz</groupId>
     <artifactId>KindergartenSystem</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
-    <properties>
-        <java.version>11</java.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.release>11</maven.compiler.release>
-        <jacoco-mavenplugin-version>0.8.5</jacoco-mavenplugin-version>
-        <!-- Code Quality Rules -->
-        <code-coverage-minimum-level>0.50</code-coverage-minimum-level>
-    </properties>
+    <modelVersion>4.0.0</modelVersion>
 
     <modules>
         <module>core</module>
@@ -30,12 +27,83 @@
         <module>finances</module>
     </modules>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.0.RELEASE</version>
-        <relativePath/>
-    </parent>
+    <properties>
+        <java.version>11</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.release>11</maven.compiler.release>
+
+        <!-- Submodules -->
+        <account-module.version>1.0-SNAPSHOT</account-module.version>
+        <commons-module.version>1.0-SNAPSHOT</commons-module.version>
+        <core-module.version>1.0-SNAPSHOT</core-module.version>
+        <groups-module.version>1.0-SNAPSHOT</groups-module.version>
+        <finances-module.version>1.0-SNAPSHOT</finances-module.version>
+        <meal-module.version>1.0-SNAPSHOT</meal-module.version>
+        <payments-module.version>1.0-SNAPSHOT</payments-module.version>
+        <receivables-module.version>1.0-SNAPSHOT</receivables-module.version>
+
+        <!-- Shared libraries -->
+
+        <!-- Plugins -->
+        <jacoco-mavenplugin.version>0.8.5</jacoco-mavenplugin.version>
+
+        <!-- Code Quality Rules -->
+        <code-coverage-minimum-level>0.50</code-coverage-minimum-level>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>pl.edu.pja.prz</groupId>
+                <artifactId>account</artifactId>
+                <version>${account-module.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>pl.edu.pja.prz</groupId>
+                <artifactId>commons</artifactId>
+                <version>${commons-module.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>pl.edu.pja.prz</groupId>
+                <artifactId>core</artifactId>
+                <version>${core-module.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>pl.edu.pja.prz</groupId>
+                <artifactId>finances</artifactId>
+                <version>${finances-module.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>pl.edu.pja.prz</groupId>
+                <artifactId>groups</artifactId>
+                <version>${groups-module.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>pl.edu.pja.prz</groupId>
+                <artifactId>meal</artifactId>
+                <version>${meal-module.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>pl.edu.pja.prz</groupId>
+                <artifactId>payments</artifactId>
+                <version>${payments-module.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>pl.edu.pja.prz</groupId>
+                <artifactId>receivables</artifactId>
+                <version>${receivables-module.version}</version>
+                <scope>compile</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -65,13 +133,11 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
-
         <dependency>
             <groupId>org.jacoco</groupId>
             <artifactId>jacoco-maven-plugin</artifactId>
-            <version>${jacoco-mavenplugin-version}</version>
+            <version>${jacoco-mavenplugin.version}</version>
         </dependency>
-
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
@@ -92,7 +158,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco-mavenplugin-version}</version>
+                <version>${jacoco-mavenplugin.version}</version>
                 <configuration>
                     <excludes>
                         <!-- Core module exclusions -->
@@ -141,10 +207,6 @@
                         <exclude>**/pl/edu/pja/prz/receivables/configuration/*</exclude>
                         <exclude>**/pl/edu/pja/prz/receivables/model/enums/*</exclude>
                         <exclude>**/pl/edu/pja/prz/receivables/mapper/*</exclude>
-
-
-
-
                     </excludes>
                 </configuration>
                 <executions>
