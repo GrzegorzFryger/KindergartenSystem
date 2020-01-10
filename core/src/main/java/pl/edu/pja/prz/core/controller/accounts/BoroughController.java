@@ -32,4 +32,10 @@ public class BoroughController {
         return new ResponseEntity<>(boroughFacade.updateBorough(boroughDto), HttpStatus.OK);
     }
 
+    @DeleteMapping("borough/{id}")
+    public ResponseEntity<?> deleteBorough(@PathVariable Long id) {
+        boroughFacade.deleteBorough(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

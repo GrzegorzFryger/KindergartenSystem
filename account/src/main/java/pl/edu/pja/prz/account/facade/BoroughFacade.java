@@ -9,4 +9,6 @@ public interface BoroughFacade {
     BoroughDto findBorough(Long id);
 
     BoroughDto updateBorough(BoroughDto boroughDto);
+
+    void deleteBorough(Long id);
 }

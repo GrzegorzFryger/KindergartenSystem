@@ -64,4 +64,13 @@ public class BoroughServiceImpl implements BoroughService {
         return boroughRepository.save(boroughToUpdate);
     }
 
+    @Override
+    public void deleteBorough(Long id) {
+        Borough boroughToDelete = boroughRepository.findById(id).orElseThrow(
+                () -> {
+                    throw new ElementNotFoundException(BOROUGH, id);
+                }
+        );
+        boroughRepository.delete(boroughToDelete);
+    }
 }

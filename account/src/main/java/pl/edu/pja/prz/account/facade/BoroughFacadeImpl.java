@@ -42,4 +42,9 @@ public class BoroughFacadeImpl implements BoroughFacade {
                 )
         );
     }
+
+    @Override
+    public void deleteBorough(Long id) {
+        boroughService.deleteBorough(id);
+    }
 }

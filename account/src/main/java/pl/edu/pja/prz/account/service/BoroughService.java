@@ -2,10 +2,6 @@ package pl.edu.pja.prz.account.service;
 
 import pl.edu.pja.prz.account.model.Borough;
 import pl.edu.pja.prz.account.model.Child;
-import pl.edu.pja.prz.account.model.value.Address;
-import pl.edu.pja.prz.account.model.value.Phone;
-
-import java.util.Optional;
 
 public interface BoroughService {
     Borough createBorough(Borough borough);
@@ -15,4 +11,6 @@ public interface BoroughService {
     Borough findBorough(Long id);
 
     Borough updateBorough(Borough borough);
+
+    void deleteBorough(Long id);
 }
