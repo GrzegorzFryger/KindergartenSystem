@@ -55,12 +55,12 @@ public class BoroughMapperTest {
         BoroughDto newBoroughDto = boroughMapper.fromBorough(borough);
 
         //Then
-        verifyDto(boroughDto);
+        verifyDto(newBoroughDto);
         verify(boroughMapper, times(1)).fromBorough(any(Borough.class));
 
     }
 
-    public void verifyDto(BoroughDto boroughDto) {
+    private void verifyDto(BoroughDto boroughDto) {
         assertNotNull(boroughDto);
         assertEquals("Test Borough", boroughDto.getName());
         assertEquals("70-700", boroughDto.getPostalCode());
