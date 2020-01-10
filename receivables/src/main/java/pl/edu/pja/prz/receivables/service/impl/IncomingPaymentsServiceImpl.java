@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.receivables.service;
+package pl.edu.pja.prz.receivables.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +9,7 @@ import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.model.dto.IncomingPaymentDto;
 import pl.edu.pja.prz.receivables.repository.CashPaymentRepository;
 import pl.edu.pja.prz.receivables.repository.TransactionRepository;
+import pl.edu.pja.prz.receivables.service.IncomingPaymentsService;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -51,16 +52,18 @@ public class IncomingPaymentsServiceImpl implements IncomingPaymentsService {
 
     @Override
     public List<IncomingPaymentDto> getAllPaymentsForGuardian(UUID guardianId, LocalDate from, LocalDate to) {
-        //TODO Implement this method
-        List<IncomingPaymentDto> incomingPayments = new ArrayList<>();
-        return incomingPayments;
+        List<Transaction> transactions = transactionRepository.findAllByGuardianIdBetweenDates(guardianId, from, to);
+        List<CashPayment> cashPayments = cashPaymentRepository.findAllByGuardianIdBetweenDates(guardianId, from, to);
+
+        return convertTransactionsAndPaymentsToDto(transactions, cashPayments);
     }
 
     @Override
     public List<IncomingPaymentDto> getAllPaymentsForChild(UUID childId, LocalDate from, LocalDate to) {
-        //TODO Implement this method
-        List<IncomingPaymentDto> incomingPayments = new ArrayList<>();
-        return incomingPayments;
+        List<Transaction> transactions = transactionRepository.findAllByChildIdBetweenDates(childId, from, to);
+        List<CashPayment> cashPayments = cashPaymentRepository.findAllByChildIdBetweenDates(childId, from, to);
+
+        return convertTransactionsAndPaymentsToDto(transactions, cashPayments);
     }
 
     private List<IncomingPaymentDto> convertTransactionsAndPaymentsToDto(List<Transaction> transactions, List<CashPayment> cashPayments) {
