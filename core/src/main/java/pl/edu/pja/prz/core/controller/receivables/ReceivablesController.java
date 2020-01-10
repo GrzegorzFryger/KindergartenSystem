@@ -5,10 +5,14 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.edu.pja.prz.receivables.facade.ReceivablesFacade;
+import pl.edu.pja.prz.receivables.model.CashPayment;
 import pl.edu.pja.prz.receivables.model.Transaction;
+import pl.edu.pja.prz.receivables.model.dto.IncomingPaymentDto;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("api/receivables/")
@@ -26,13 +30,13 @@ public class ReceivablesController {
     }
 
     @GetMapping("transactions/{id}")
-    public Transaction getAllTransactions(@PathVariable Long id) {
+    public Transaction getTransaction(@PathVariable Long id) {
         return receivablesFacade.getTransaction(id);
     }
 
     @DeleteMapping("transactions/{id}")
     public void deleteTransaction(@PathVariable Long id) {
-        receivablesFacade.delete(id);
+        receivablesFacade.deleteTransaction(id);
     }
 
     @PostMapping("transactions")
@@ -43,6 +47,55 @@ public class ReceivablesController {
     @PutMapping("transactions")
     public void updateTransaction(@RequestBody Transaction transaction) {
         receivablesFacade.update(transaction);
+    }
+
+    @GetMapping("cash-payments")
+    public List<CashPayment> getAllCashPayments() {
+        return receivablesFacade.getAllCashPayments();
+    }
+
+    @GetMapping("cash-payments/{id}")
+    public CashPayment getCashPayment(@PathVariable Long id) {
+        return receivablesFacade.getCashPayment(id);
+    }
+
+    @DeleteMapping("cash-payments/{id}")
+    public void deleteCashPayment(@PathVariable Long id) {
+        receivablesFacade.deleteTransaction(id);
+    }
+
+    @PostMapping("cash-payments")
+    public void createCashPayment(@RequestBody CashPayment cashPayment) {
+        receivablesFacade.create(cashPayment);
+    }
+
+    @PutMapping("cash-payments")
+    public void updateCashPayment(@RequestBody CashPayment cashPayment) {
+        receivablesFacade.update(cashPayment);
+    }
+
+    @GetMapping("payments/child/{childId}")
+    public List<IncomingPaymentDto> getAllIncomingPaymentsForChild(@PathVariable UUID childId) {
+        return receivablesFacade.getAllIncomingPaymentsByChildId(childId);
+    }
+
+    @GetMapping("payments/child/{childId}/{from}/{to}")
+    public List<IncomingPaymentDto> getAllIncomingPaymentsForChild(@PathVariable UUID childId,
+                                                                   @PathVariable LocalDate from,
+                                                                   @PathVariable LocalDate to) {
+        return receivablesFacade.getAllIncomingPaymentsByChildId(childId, from, to);
+    }
+
+    @GetMapping("payments/guardian/{guardianId}")
+    public List<IncomingPaymentDto> getAllIncomingPaymentsForGuardian(@PathVariable UUID guardianId) {
+        return receivablesFacade.getAllIncomingPaymentsByGuardianId(guardianId);
+    }
+
+    @GetMapping("payments/guardian/{guardianId}/{from}/{to}")
+    public List<IncomingPaymentDto> getAllIncomingPaymentsForGuardian(@PathVariable UUID guardianId,
+                                                                      @PathVariable LocalDate from,
+                                                                      @PathVariable LocalDate to) {
+        return receivablesFacade.getAllIncomingPaymentsByGuardianId(guardianId, from, to);
     }
 
     @PostMapping(value = "transactions/import", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.receivables.service;
+package pl.edu.pja.prz.receivables.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -7,6 +7,7 @@ import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.model.TransactionMapping;
 import pl.edu.pja.prz.receivables.repository.TransactionMappingRepository;
+import pl.edu.pja.prz.receivables.service.TransactionMappingService;
 import pl.edu.pja.prz.receivables.util.RandomUtils;
 
 import java.util.Optional;

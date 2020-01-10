@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.receivables.service;
+package pl.edu.pja.prz.receivables.service.impl;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -189,5 +189,41 @@ class TransactionServiceImplTest {
 
         //Then
         verify(repository, times(1)).findAllByGuardianId(any(UUID.class));
+    }
+
+    @Test
+    public void Should_GetAllTransactionsByChildIdBetweenDates() {
+        //Given
+        LocalDate start = LocalDate.now();
+        LocalDate end = LocalDate.now();
+        List<Transaction> transactions = new ArrayList<>();
+        transactions.add(transaction);
+        when(repository.findAllByChildIdBetweenDates(any(UUID.class), any(LocalDate.class), any(LocalDate.class)))
+                .thenReturn(transactions);
+
+        //When
+        List<Transaction> result = service.getAllTransactionsByChildId(UUID.randomUUID(), start, end);
+
+        //Then
+        verify(repository, times(1))
+                .findAllByChildIdBetweenDates(any(UUID.class), any(LocalDate.class), any(LocalDate.class));
+    }
+
+    @Test
+    public void Should_GetAllTransactionsByGuardianIdBetweenDates() {
+        //Given
+        LocalDate start = LocalDate.now();
+        LocalDate end = LocalDate.now();
+        List<Transaction> transactions = new ArrayList<>();
+        transactions.add(transaction);
+        when(repository.findAllByGuardianIdBetweenDates(any(UUID.class), any(LocalDate.class), any(LocalDate.class)))
+                .thenReturn(transactions);
+
+        //When
+        List<Transaction> result = service.getAllTransactionsByGuardianId(UUID.randomUUID(), start, end);
+
+        //Then
+        verify(repository, times(1))
+                .findAllByGuardianIdBetweenDates(any(UUID.class), any(LocalDate.class), any(LocalDate.class));
     }
 }

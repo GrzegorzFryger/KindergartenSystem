@@ -108,7 +108,7 @@ class ReceivablesControllerTest {
                 .andExpect(status().isOk());
 
         //Then
-        verify(receivablesFacade, times(1)).delete(TEST_ID);
+        verify(receivablesFacade, times(1)).deleteTransaction(TEST_ID);
     }
 
     @Test
