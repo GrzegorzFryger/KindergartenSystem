@@ -1,6 +1,8 @@
 package pl.edu.pja.prz.groups.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
