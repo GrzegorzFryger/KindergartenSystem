@@ -55,7 +55,6 @@
     </dependencies>
 
     <build>
-        <!-- TODO: FIND A WAY TO CREATE FAT JAR -->
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -65,7 +64,7 @@
                         <goals>
                             <goal>repackage</goal>
                         </goals>
-                        <configuration>
+                        <configuration combine.self="override">
                             <mainClass>pl.edu.pja.prz.core.KindergartenSystem</mainClass>
                         </configuration>
                     </execution>
