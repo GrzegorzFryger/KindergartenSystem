@@ -18,7 +18,7 @@ public class Borough extends BaseEntityLong {
 	@OneToMany(mappedBy = "borough")
 	private Set<Child> children = new HashSet<>();
 
-	Borough() {
+	public Borough() {
 	}
 
 	public Borough(String name, Address address, Phone phone, String email, String nipNumber, Set<Child> children) {

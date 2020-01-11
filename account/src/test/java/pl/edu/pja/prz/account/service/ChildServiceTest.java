@@ -58,14 +58,14 @@ class ChildServiceTest {
 				.build();
 
 		//when
-		when(boroughService.find(any(Long.class))).thenReturn(Optional.of(borough));
+		when(boroughService.findBorough(any(Long.class))).thenReturn(borough);
 		when(peselService.extractDateOfBirth(any())).thenReturn(LocalDate.now());
 		when(peselService.extractGender(any())).thenReturn(Gender.MALE);
 		when(childRepository.save(any(Child.class))).thenReturn(child);
 		var createdChild = childService.createChild(1L, address, fullName, "00440758725", new StudyPeriod());
 
 		//then
-		verify( boroughService, times(1)).find(any(Long.class));
+		verify( boroughService, times(1)).findBorough(any(Long.class));
 		verify( boroughService, times(1)).addChildToBorough(any(Child.class),any(Borough.class));
 	}
 

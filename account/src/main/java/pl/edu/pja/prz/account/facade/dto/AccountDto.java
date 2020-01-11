@@ -2,7 +2,10 @@ package pl.edu.pja.prz.account.facade.dto;
 
 import pl.edu.pja.prz.account.model.enums.AccountStatus;
 
+import java.util.UUID;
+
 public class AccountDto {
+	private UUID id;
 	private String name;
 	private String surname;
 	private String postalCode;
@@ -13,6 +16,14 @@ public class AccountDto {
 	private String email;
 
 	public AccountDto() {
+	}
+
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
 	}
 
 	public String getName() {
