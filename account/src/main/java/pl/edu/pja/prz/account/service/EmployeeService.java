@@ -1,30 +1,25 @@
 package pl.edu.pja.prz.account.service;
 
-import org.springframework.stereotype.Component;
 import pl.edu.pja.prz.account.model.Employee;
 import pl.edu.pja.prz.account.model.Group;
-import pl.edu.pja.prz.account.repository.EmployeeRepository;
-import pl.edu.pja.prz.account.utilites.PasswordManager;
+import pl.edu.pja.prz.account.model.Person;
+import pl.edu.pja.prz.account.model.value.Address;
+import pl.edu.pja.prz.account.model.value.FullName;
+import pl.edu.pja.prz.account.model.value.Phone;
 
 import java.util.Set;
 import java.util.UUID;
 
-@Component
-public class EmployeeService extends AccountServiceImpl<EmployeeRepository, Employee>
-		implements AccountService<EmployeeRepository, Employee> {
+public interface EmployeeService {
+	Employee createEmployeeAccount(Person person, String email);
 
-	private final EmployeeRepository employeeRepository;
+	Employee createEmployeeAccount(Address address, FullName fullName, Phone phone,
+	                               String email);
 
-	public EmployeeService(PasswordManager passwordManager, EmployeeRepository employeeRepository) {
-		super(employeeRepository, passwordManager);
-		this.employeeRepository = employeeRepository;
-	}
+	Employee createAdministratorAccount(Person person, String email);
 
-	public Set<Group> getIdGroups(UUID id) {
-		return employeeRepository.findById(id)
-				.map(Employee::getGroups)
-				.orElseThrow(() -> {
-					throw new IllegalArgumentException("Not found");
-				});
-	}
+	Employee createAdministratorAccount(Address address, FullName fullName, Phone phone,
+	                                    String email);
+
+	Set<Group> getIdGroups(UUID id);
 }

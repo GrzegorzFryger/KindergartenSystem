@@ -25,6 +25,14 @@ public class StudyPeriod {
 		return endingDate;
 	}
 
+	public void setAdditionDate(LocalDate additionDate) {
+		this.additionDate = additionDate;
+	}
+
+	public void setEndingDate(LocalDate endingDate) {
+		this.endingDate = endingDate;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -42,5 +50,13 @@ public class StudyPeriod {
 		int result = getAdditionDate() != null ? getAdditionDate().hashCode() : 0;
 		result = 31 * result + (getEndingDate() != null ? getEndingDate().hashCode() : 0);
 		return result;
+	}
+
+	@Override
+	public String toString() {
+		return "StudyPeriod{" +
+				"additionDate=" + additionDate +
+				", endingDate=" + endingDate +
+				'}';
 	}
 }

@@ -1,5 +1,5 @@
 # 1. General Info
-![Version](https://img.shields.io/badge/version-1.1-blue?style=for-the-badge)
+![Version](https://img.shields.io/badge/version-1.2-blue?style=for-the-badge)
 ## 1.1 What are git hooks?
 > Git hooks are scripts that run automatically every time a particular event occurs in a Git repository. 
 They let you customize Git’s internal behavior and trigger customizable actions at key points in the development life cycle.
@@ -15,8 +15,19 @@ While these rules seem to be useful, it may be difficult to remember about apply
 Therefore git hooks should help us with this issue by automating them to some extent.
 
 # 2. Installation
+There are 2 ways of installing git hooks:  
+a) Using Bash Script:  
+Run `install_hooks.sh` from .git_hooks directory.  
+This script will set .git_hooks directory as local directory with git hooks.  
+
+In case you want to stop using them:  
+Run `uninstall_hooks.sh` from .git_hooks directory.  
+
+b) Manually:  
 You simply have to copy files into `.git/hooks` directory in your local git repository.  
-In case you want to stop using them - you can simply remove them.
+
+In case you want to stop using them:   
+Simply previously copied files.
 
 # 3. Implementation details
 Hooks which are created are used for commit template generation and validation of commit message.  

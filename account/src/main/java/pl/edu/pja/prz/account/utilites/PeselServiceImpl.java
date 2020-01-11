@@ -6,18 +6,20 @@ import pl.edu.pja.prz.account.model.enums.Gender;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Map;
-import java.util.function.BiFunction;
-import java.util.function.Function;
+import java.util.function.BiPredicate;
+import java.util.function.IntUnaryOperator;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Component
 public class PeselServiceImpl implements PeselService {
-	private final int[] WEIGHT_FACTOR = {1, 3, 7, 9, 1, 3, 7, 9, 1, 3};
-	private final Integer[][] NUMBERS_PESEL = {{80, 1800}, {0, 1900}, {20, 2000}, {40, 2100}, {60, 2200}};
-	private Function<Integer, Boolean> isTwoDigit = x -> Integer.toString(Math.abs(x)).length() == 2;
-	private Function<Integer, Integer> extractSingleDigit = x -> x % 10;
-	private BiFunction<int[], Integer, Boolean> checkControlSumIsCorrect =
+	private static final int PESELLENGTH = 12;
+	private static final int[] WEIGHTFACTORS = {1, 3, 7, 9, 1, 3, 7, 9, 1, 3};
+	private static final Integer[][] PESELNUMBERS = {{80, 1800}, {0, 1900}, {20, 2000}, {40, 2100}, {60, 2200}};
+	private Predicate<Integer> isTwoDigit = x -> Integer.toString(Math.abs(x)).length() == 2;
+	private IntUnaryOperator extractSingleDigit = x -> x % 10;
+	private BiPredicate<int[], Integer> checkControlSumIsCorrect =
 			(arrayPesel, sumMultiplyByWeight) -> (10 - sumMultiplyByWeight % 10) == arrayPesel[10];
 
 	@Override
@@ -66,14 +68,14 @@ public class PeselServiceImpl implements PeselService {
 	}
 
 	private Map<Integer, Integer> getMapOfPeselMontNumers() {
-		return Stream.of(NUMBERS_PESEL).collect(Collectors.toMap(data -> data[0], data -> data[1]));
+		return Stream.of(PESELNUMBERS).collect(Collectors.toMap(data -> data[0], data -> data[1]));
 	}
 
 	private DateOfBirth getDateOfBirthFromPesel(String pesel) {
 		var dateOfBirth = new DateOfBirth();
 
 		this.getMapOfPeselMontNumers().forEach((number, year) -> {
-			if (0 < (getMonthFromPesel(pesel) - number) && (getMonthFromPesel(pesel) - number) < 13) {
+			if (1 <= (getMonthFromPesel(pesel) - number) && (getMonthFromPesel(pesel) - number) <= PESELLENGTH) {
 				dateOfBirth.day = getDayFromPesel(pesel);
 				dateOfBirth.month = getMonthFromPesel(pesel) - number;
 				dateOfBirth.year = year + getYearFromPesel(pesel);
@@ -87,13 +89,13 @@ public class PeselServiceImpl implements PeselService {
 		var sumMultiplyByWeight = 0;
 
 		for (var i = 0; i < 10; i++) {
-			var tempSum = separatedPeselNumber[i] * WEIGHT_FACTOR[i];
+			var tempSum = separatedPeselNumber[i] * WEIGHTFACTORS[i];
 
-			if (isTwoDigit.apply(tempSum)) {
-				sumMultiplyByWeight += extractSingleDigit.apply(tempSum);
+			if (isTwoDigit.test(tempSum)) {
+				sumMultiplyByWeight += extractSingleDigit.applyAsInt(tempSum);
 			} else sumMultiplyByWeight += tempSum;
 		}
-		return checkControlSumIsCorrect.apply(separatedPeselNumber, sumMultiplyByWeight);
+		return checkControlSumIsCorrect.test(separatedPeselNumber, sumMultiplyByWeight);
 	}
 
 	private class DateOfBirth {

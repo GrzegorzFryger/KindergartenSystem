@@ -22,12 +22,24 @@ public class Address {
 		return postalCode;
 	}
 
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
+	}
+
 	public String getCity() {
 		return city;
 	}
 
+	public void setCity(String city) {
+		this.city = city;
+	}
+
 	public String getStreetNumber() {
 		return streetNumber;
+	}
+
+	public void setStreetNumber(String streetNumber) {
+		this.streetNumber = streetNumber;
 	}
 
 	@Override
@@ -59,4 +71,7 @@ public class Address {
 				", streetNumber='" + streetNumber + '\'' +
 				'}';
 	}
+
+
+
 }

@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.receivables.service;
+package pl.edu.pja.prz.receivables.service.impl;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -73,7 +73,7 @@ class IncomingPaymentsServiceImplTest {
     }
 
     @Test
-    public void Should_MapAllTransactionsForGivenGuardianUUID() {
+    public void Should_MapAllTransactionsForGivenGuardianId() {
         //Given
 
         //When
@@ -88,7 +88,7 @@ class IncomingPaymentsServiceImplTest {
     }
 
     @Test
-    public void Should_MapAllTransactionsForGivenChildUUID() {
+    public void Should_MapAllTransactionsForGivenChildId() {
         //Given
 
         //When
@@ -100,5 +100,47 @@ class IncomingPaymentsServiceImplTest {
         assertEquals(2, dtos.size());
         verify(cashPaymentRepository, times(1)).findAllByChildId(any(UUID.class));
         verify(transactionRepository, times(1)).findAllByChildId(any(UUID.class));
+    }
+
+    @Test
+    public void Should_MapAllTransactionsForGivenGuardianIdBetweenDates() {
+        //Given
+        LocalDate start = LocalDate.now();
+        LocalDate end = LocalDate.now();
+
+        //When
+        when(cashPaymentRepository.findAllByGuardianIdBetweenDates(any(UUID.class), any(LocalDate.class), any(LocalDate.class)))
+                .thenReturn(cashPayments);
+        when(transactionRepository.findAllByGuardianIdBetweenDates(any(UUID.class), any(LocalDate.class), any(LocalDate.class)))
+                .thenReturn(transactions);
+        List<IncomingPaymentDto> dtos = service.getAllPaymentsForGuardian(UUID.randomUUID(), start, end);
+
+        //Then
+        assertEquals(2, dtos.size());
+        verify(cashPaymentRepository, times(1))
+                .findAllByGuardianIdBetweenDates(any(UUID.class), any(LocalDate.class), any(LocalDate.class));
+        verify(transactionRepository, times(1))
+                .findAllByGuardianIdBetweenDates(any(UUID.class), any(LocalDate.class), any(LocalDate.class));
+    }
+
+    @Test
+    public void Should_MapAllTransactionsForGivenChildIdBetweenDates() {
+        //Given
+        LocalDate start = LocalDate.now();
+        LocalDate end = LocalDate.now();
+
+        //When
+        when(cashPaymentRepository.findAllByChildIdBetweenDates(any(UUID.class), any(LocalDate.class), any(LocalDate.class)))
+                .thenReturn(cashPayments);
+        when(transactionRepository.findAllByChildIdBetweenDates(any(UUID.class), any(LocalDate.class), any(LocalDate.class)))
+                .thenReturn(transactions);
+        List<IncomingPaymentDto> dtos = service.getAllPaymentsForChild(UUID.randomUUID(), start, end);
+
+        //Then
+        assertEquals(2, dtos.size());
+        verify(cashPaymentRepository, times(1))
+                .findAllByChildIdBetweenDates(any(UUID.class), any(LocalDate.class), any(LocalDate.class));
+        verify(transactionRepository, times(1))
+                .findAllByChildIdBetweenDates(any(UUID.class), any(LocalDate.class), any(LocalDate.class));
     }
 }

@@ -7,15 +7,17 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
+import pl.edu.pja.prz.receivables.model.CashPayment;
 import pl.edu.pja.prz.receivables.model.Transaction;
-import pl.edu.pja.prz.receivables.service.CsvParsingService;
-import pl.edu.pja.prz.receivables.service.TransactionMappingService;
-import pl.edu.pja.prz.receivables.service.TransactionService;
+import pl.edu.pja.prz.receivables.model.dto.IncomingPaymentDto;
+import pl.edu.pja.prz.receivables.service.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -32,16 +34,25 @@ class ReceivablesFacadeTest {
     private TransactionService transactionService;
     @Mock
     private TransactionMappingService transactionMappingService;
+    @Mock
+    private IncomingPaymentsService incomingPaymentsService;
+    @Mock
+    private CashPaymentService cashPaymentService;
 
     private Transaction transaction;
+    private CashPayment cashPayment;
+    private IncomingPaymentDto dto;
 
     private ReceivablesFacade facade;
 
     @BeforeEach
     public void setUp() {
-        facade = new ReceivablesFacade(csvParsingService, transactionService, transactionMappingService);
+        facade = new ReceivablesFacade(csvParsingService, transactionService,
+                transactionMappingService, incomingPaymentsService, cashPaymentService);
 
         transaction = new Transaction();
+        cashPayment = new CashPayment();
+        dto = new IncomingPaymentDto();
     }
 
     @Test
@@ -54,6 +65,19 @@ class ReceivablesFacadeTest {
 
         //Then
         verify(transactionService, times(1)).getTransaction(TEST_ID);
+        assertNotNull(result);
+    }
+
+    @Test
+    public void Should_GetCashPayment() {
+        //Given
+
+        //When
+        when(cashPaymentService.getCashPayment(anyLong())).thenReturn(cashPayment);
+        CashPayment result = facade.getCashPayment(TEST_ID);
+
+        //Then
+        verify(cashPaymentService, times(1)).getCashPayment(TEST_ID);
         assertNotNull(result);
     }
 
@@ -77,10 +101,21 @@ class ReceivablesFacadeTest {
         //Given
 
         //When
-        facade.delete(TEST_ID);
+        facade.deleteTransaction(TEST_ID);
 
         //Then
         verify(transactionService, times(1)).delete(TEST_ID);
+    }
+
+    @Test
+    public void Should_DeleteCashPayment() {
+        //Given
+
+        //When
+        facade.deleteCashPayment(TEST_ID);
+
+        //Then
+        verify(cashPaymentService, times(1)).delete(TEST_ID);
     }
 
     @Test
@@ -95,6 +130,17 @@ class ReceivablesFacadeTest {
     }
 
     @Test
+    public void Should_UpdateCashPayment() {
+        //Given
+
+        //When
+        facade.update(cashPayment);
+
+        //Then
+        verify(cashPaymentService, times(1)).update(any(CashPayment.class));
+    }
+
+    @Test
     public void Should_CreateTransaction() {
         //Given
 
@@ -103,6 +149,17 @@ class ReceivablesFacadeTest {
 
         //Then
         verify(transactionService, times(1)).save(any(Transaction.class));
+    }
+
+    @Test
+    public void Should_CreateCashPayment() {
+        //Given
+
+        //When
+        facade.create(cashPayment);
+
+        //Then
+        verify(cashPaymentService, times(1)).save(any(CashPayment.class));
     }
 
     @Test
@@ -122,6 +179,7 @@ class ReceivablesFacadeTest {
         verify(csvParsingService, times(1)).getTransactionListFromCsv(any(File.class), anyString());
         verify(csvParsingService, never()).getTransactionListFromCsv(any(File.class));
         verify(csvParsingService, times(1)).cleanUpFile(any(File.class));
+        verify(transactionService, times(1)).save(any(Transaction.class));
         assertEquals(1, result.size());
     }
 
@@ -142,6 +200,78 @@ class ReceivablesFacadeTest {
         verify(csvParsingService, times(1)).getTransactionListFromCsv(any(File.class));
         verify(csvParsingService, never()).getTransactionListFromCsv(any(File.class), anyString());
         verify(csvParsingService, times(1)).cleanUpFile(any(File.class));
+        verify(transactionService, times(1)).save(any(Transaction.class));
         assertEquals(1, result.size());
+    }
+
+    @Test
+    public void Should_GetAllIncomingPaymentsByChildId() {
+        //Given
+        List<IncomingPaymentDto> dtos = new ArrayList<>();
+        dtos.add(dto);
+
+        //When
+        when(incomingPaymentsService.getAllPaymentsForChild(any(UUID.class))).thenReturn(dtos);
+        List<IncomingPaymentDto> result = facade.getAllIncomingPaymentsByChildId(UUID.randomUUID());
+
+        //Then
+        assertEquals(1, result.size());
+        verify(incomingPaymentsService, times(1)).getAllPaymentsForChild(any(UUID.class));
+    }
+
+    @Test
+    public void Should_GetAllIncomingPaymentsByGuardianId() {
+        //Given
+        List<IncomingPaymentDto> dtos = new ArrayList<>();
+        dtos.add(dto);
+
+        //When
+        when(incomingPaymentsService.getAllPaymentsForGuardian(any(UUID.class))).thenReturn(dtos);
+        List<IncomingPaymentDto> result = facade.getAllIncomingPaymentsByGuardianId(UUID.randomUUID());
+
+        //Then
+        assertEquals(1, result.size());
+        verify(incomingPaymentsService, times(1)).getAllPaymentsForGuardian(any(UUID.class));
+    }
+
+    @Test
+    public void Should_GetAllIncomingPaymentsByChildIdBetweenDates() {
+        //Given
+        List<IncomingPaymentDto> dtos = new ArrayList<>();
+        dtos.add(dto);
+        LocalDate start = LocalDate.now();
+        LocalDate end = LocalDate.now();
+
+        //When
+        when(incomingPaymentsService
+                .getAllPaymentsForChild(any(UUID.class), any(LocalDate.class), any(LocalDate.class)))
+                .thenReturn(dtos);
+        List<IncomingPaymentDto> result = facade.getAllIncomingPaymentsByChildId(UUID.randomUUID(), start, end);
+
+
+        //Then
+        assertEquals(1, result.size());
+        verify(incomingPaymentsService, times(1))
+                .getAllPaymentsForChild(any(UUID.class), any(LocalDate.class), any(LocalDate.class));
+    }
+
+    @Test
+    public void Should_GetAllIncomingPaymentsByGuardianIdBetweenDates() {
+        //Given
+        List<IncomingPaymentDto> dtos = new ArrayList<>();
+        dtos.add(dto);
+        LocalDate start = LocalDate.now();
+        LocalDate end = LocalDate.now();
+
+        //When
+        when(incomingPaymentsService
+                .getAllPaymentsForGuardian(any(UUID.class), any(LocalDate.class), any(LocalDate.class)))
+                .thenReturn(dtos);
+        List<IncomingPaymentDto> result = facade.getAllIncomingPaymentsByGuardianId(UUID.randomUUID(), start, end);
+
+        //Then
+        assertEquals(1, result.size());
+        verify(incomingPaymentsService, times(1))
+                .getAllPaymentsForGuardian(any(UUID.class), any(LocalDate.class), any(LocalDate.class));
     }
 }

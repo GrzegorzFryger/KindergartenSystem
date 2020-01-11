@@ -1,181 +1,106 @@
 {
+	"variables": [],
 	"info": {
-		"_postman_id": "5a61ca7c-fc40-457b-973d-cade16c32c80",
 		"name": "KindergartenSystem",
+		"_postman_id": "2d1deba1-9cb0-43ce-c4a9-7e323eca3866",
 		"description": "This collection contains all API requests to backend system of our application.",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "Account",
-			"item": [],
 			"description": "All requests from Account module.",
-			"event": [
+			"item": [
 				{
-					"listen": "prerequest",
-					"script": {
-						"id": "82ace918-8ed0-4db9-81e3-2bc487f01a44",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
+					"name": "/guardian",
+					"request": {
+						"url": "{{HOST}}/{{ACCOUNT}}/guardian",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"name\":\"Test Name\",\r\n\t\"surname\":\"Test surname\",\r\n\t\"postalCode\": \"test postalcode\",\r\n\t\"city\": \"test City\",\r\n\t\"streetNumber\": \"street Number 23\",\r\n\t\"phone\": \"123132132\",\r\n\t\"email\": \"test@test.com\"\r\n}"
+						},
+						"description": "Created guardian"
+					},
+					"response": []
 				},
 				{
-					"listen": "test",
-					"script": {
-						"id": "fcf13308-0ff8-435e-8afa-47b53f958e0d",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
+					"name": "/borough",
+					"request": {
+						"url": "{{HOST}}/{{ACCOUNT}}/borough",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"name\": \"test\",\n\"email\": \"email\",\n\"nipNumber\": \"97545456\"\n}"
+						},
+						"description": "Create borough"
+					},
+					"response": []
+				},
+				{
+					"name": "/child",
+					"request": {
+						"url": "{{HOST}}/{{ACCOUNT}}/child",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n\"name\": \"Name\",\n\"surname\": \"surname\",\n\"postalCode\": \"80-170\",\n\"city\": \"city\",\n\"streetNumber\": \"Street 17\",\n\"pesel\": \"94071105694\",\n\"gender\" : \"MALE\",\n\"startDate\": \"2007-12-03\",\n\"endDate\": \"2007-12-03\",\n\"dateOfBirth\": \"2007-12-03\",\n\"boroughId\": \"1\"\n\n}"
+						},
+						"description": "Create child"
+					},
+					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Core",
-			"item": [],
 			"description": "All requests from Core module.",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "b7b3f69b-ecd5-4261-acbb-242565bc039f",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"id": "55e3ccb4-6dde-454e-a979-57413e3b67c5",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				}
-			],
-			"protocolProfileBehavior": {}
+			"item": []
 		},
 		{
 			"name": "Finances",
-			"item": [],
 			"description": "All requests from Finances module.",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "978205d8-e6df-42ce-b13c-15aa6fff999b",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"id": "b4e26ed2-775c-4bef-956c-65b55712a8ae",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				}
-			],
-			"protocolProfileBehavior": {}
+			"item": []
 		},
 		{
 			"name": "Groups",
-			"item": [],
 			"description": "All requests from Groups module.",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "274f5e85-b017-46d1-a16a-30296c6ca06e",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"id": "3bbe5893-f338-4c5b-9cef-edd2ef575e9a",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				}
-			],
-			"protocolProfileBehavior": {}
+			"item": []
 		},
 		{
 			"name": "Meal",
-			"item": [],
 			"description": "All requests from Meal module.",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "cf3c4232-3ade-4ecb-9650-4f0f8d4bb6e9",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"id": "7bcd0c11-47e8-40f6-9e6b-d5339aa845d8",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				}
-			],
-			"protocolProfileBehavior": {}
+			"item": []
 		},
 		{
 			"name": "Payments",
-			"item": [],
 			"description": "All requests from Payments module.",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "d6a0c105-e5bb-4d47-9f3b-6af0561be589",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"id": "b072a2f4-69f1-4c45-b887-6ef051c87363",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				}
-			],
-			"protocolProfileBehavior": {}
+			"item": []
 		},
 		{
 			"name": "Receivables",
+			"description": "All requests from Receivables module.",
 			"item": [
 				{
 					"name": "/transactions/{id}",
@@ -183,30 +108,24 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "e8d815e0-a24e-4c12-9a88-c0206111190f",
+								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
-								],
-								"type": "text/javascript"
+								]
 							}
 						}
 					],
 					"request": {
+						"url": "{{HOST}}/{{RECEIVABLES}}/transactions/1",
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{HOST}}/{{RECEIVABLES}}/transactions/1",
-							"host": [
-								"{{HOST}}"
-							],
-							"path": [
-								"{{RECEIVABLES}}",
-								"transactions",
-								"1"
-							]
-						}
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				},
@@ -216,30 +135,24 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "f5150d14-5824-4595-afdb-4dc356c5dd2a",
+								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
-								],
-								"type": "text/javascript"
+								]
 							}
 						}
 					],
 					"request": {
+						"url": "{{HOST}}/{{RECEIVABLES}}/transactions/1",
 						"method": "DELETE",
 						"header": [],
-						"url": {
-							"raw": "{{HOST}}/{{RECEIVABLES}}/transactions/1",
-							"host": [
-								"{{HOST}}"
-							],
-							"path": [
-								"{{RECEIVABLES}}",
-								"transactions",
-								"1"
-							]
-						}
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				},
@@ -249,29 +162,24 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "7b576118-d2a1-4f94-8ec6-cadf18997967",
+								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
-								],
-								"type": "text/javascript"
+								]
 							}
 						}
 					],
 					"request": {
+						"url": "{{HOST}}/{{RECEIVABLES}}/transactions",
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{HOST}}/{{RECEIVABLES}}/transactions",
-							"host": [
-								"{{HOST}}"
-							],
-							"path": [
-								"{{RECEIVABLES}}",
-								"transactions"
-							]
-						}
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
 					},
 					"response": []
 				},
@@ -281,17 +189,17 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "143e61c9-5680-40db-89e2-fcb964a38be5",
+								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
-								],
-								"type": "text/javascript"
+								]
 							}
 						}
 					],
 					"request": {
+						"url": "{{HOST}}/{{RECEIVABLES}}/transactions",
 						"method": "POST",
 						"header": [
 							{
@@ -303,23 +211,9 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"transactionDate\": \"2019-10-15\",\n\t\"bookingDate\": \"2019-10-15\",\n\t\"contractorDetails\": \"Rodzic #001\",\n\t\"title\": \"Czesne\",\n\t\"accountNumber\": \"1234123412341234\",\n\t\"bankName\": \"ING Bank\",\n\t\"details\": \"Za dziecko XYZ\",\n\t\"transactionNumber\": \"XYZ-123456\",\n\t\"transactionAmount\": \"20.50\",\n\t\"transactionCurrency\": \"PLN\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"transactionDate\": \"2019-10-15\",\n\t\"bookingDate\": \"2019-10-15\",\n\t\"contractorDetails\": \"Rodzic #001\",\n\t\"title\": \"Czesne\",\n\t\"accountNumber\": \"1234123412341234\",\n\t\"bankName\": \"ING Bank\",\n\t\"details\": \"Za dziecko XYZ\",\n\t\"transactionNumber\": \"XYZ-123456\",\n\t\"transactionAmount\": \"20.50\",\n\t\"transactionCurrency\": \"PLN\"\n}"
 						},
-						"url": {
-							"raw": "{{HOST}}/{{RECEIVABLES}}/transactions",
-							"host": [
-								"{{HOST}}"
-							],
-							"path": [
-								"{{RECEIVABLES}}",
-								"transactions"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
@@ -329,17 +223,17 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "f19ea2e0-cd7b-426d-b7f7-7d1b4163eacb",
+								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
-								],
-								"type": "text/javascript"
+								]
 							}
 						}
 					],
 					"request": {
+						"url": "{{HOST}}/{{RECEIVABLES}}/transactions",
 						"method": "PUT",
 						"header": [
 							{
@@ -351,23 +245,9 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"id\": 2,\n\t\"transactionDate\": \"2019-10-15\",\n\t\"bookingDate\": \"2019-10-15\",\n\t\"contractorDetails\": \"Rodzic #001\",\n\t\"title\": \"Czesne\",\n\t\"accountNumber\": \"1234123412341234\",\n\t\"bankName\": \"ING Bank\",\n\t\"details\": \"Za dziecko XYZ\",\n\t\"transactionNumber\": \"XYZ-123456\",\n\t\"transactionAmount\": \"20.50\",\n\t\"transactionCurrency\": \"PLN\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n\t\"id\": 2,\n\t\"transactionDate\": \"2019-10-15\",\n\t\"bookingDate\": \"2019-10-15\",\n\t\"contractorDetails\": \"Rodzic #001\",\n\t\"title\": \"Czesne\",\n\t\"accountNumber\": \"1234123412341234\",\n\t\"bankName\": \"ING Bank\",\n\t\"details\": \"Za dziecko XYZ\",\n\t\"transactionNumber\": \"XYZ-123456\",\n\t\"transactionAmount\": \"20.50\",\n\t\"transactionCurrency\": \"PLN\"\n}"
 						},
-						"url": {
-							"raw": "{{HOST}}/{{RECEIVABLES}}/transactions",
-							"host": [
-								"{{HOST}}"
-							],
-							"path": [
-								"{{RECEIVABLES}}",
-								"transactions"
-							]
-						}
+						"description": ""
 					},
 					"response": []
 				},
@@ -411,54 +291,7 @@
 					},
 					"response": []
 				}
-			],
-			"description": "All requests from Receivables module.",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "ed0012bf-34dc-48d4-ab7c-201338f5159a",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"id": "87d330d3-737a-4a39-afc3-ab5cb57738b7",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		}
-	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"id": "4537074e-6147-435e-8d26-7215338f9cd7",
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"id": "78f4e78d-4e03-4518-82af-829df9a6bd5b",
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }

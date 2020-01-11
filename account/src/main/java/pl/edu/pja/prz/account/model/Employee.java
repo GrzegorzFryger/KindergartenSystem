@@ -50,5 +50,24 @@ public class Employee extends Account {
 		return groups.remove(group);
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Employee)) return false;
+		if (!super.equals(o)) return false;
 
+		Employee employee = (Employee) o;
+
+		if (getGroups() != null ? !getGroups().equals(employee.getGroups()) : employee.getGroups() != null)
+			return false;
+		return getEmployeeType() == employee.getEmployeeType();
+	}
+
+	@Override
+	public int hashCode() {
+		int result = super.hashCode();
+		result = 31 * result + (getGroups() != null ? getGroups().hashCode() : 0);
+		result = 31 * result + (getEmployeeType() != null ? getEmployeeType().hashCode() : 0);
+		return result;
+	}
 }

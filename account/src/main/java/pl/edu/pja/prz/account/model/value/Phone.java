@@ -18,6 +18,10 @@ public class Phone {
 		return phone;
 	}
 
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -31,5 +35,12 @@ public class Phone {
 	@Override
 	public int hashCode() {
 		return getPhone() != null ? getPhone().hashCode() : 0;
+	}
+
+	@Override
+	public String toString() {
+		return "Phone{" +
+				"phone='" + phone + '\'' +
+				'}';
 	}
 }
