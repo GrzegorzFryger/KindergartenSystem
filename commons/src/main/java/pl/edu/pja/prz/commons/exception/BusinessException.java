@@ -14,7 +14,7 @@ public class BusinessException extends RuntimeException {
     }
 
     private String buildErrorMessage(String message) {
-        return "[ERROR] Application error occurred. Reason: " + message;
+        return "Application error occurred. Reason: " + message;
     }
 
     @Override

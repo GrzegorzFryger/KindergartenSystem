@@ -14,7 +14,7 @@ public class IncorrectInputException extends RuntimeException {
     }
 
     private String buildErrorMessage(String type) {
-        return "[ERROR] Wrong input! Excepted type: " + type;
+        return "Wrong input! Excepted type: " + type;
     }
 
     @Override

@@ -21,7 +21,7 @@ public class ElementNotFoundException extends RuntimeException {
     }
 
     private String buildErrorMessage(String element, String id) {
-        return "[ERROR] " + element + " with id: " + id + " not found.";
+        return element + " with id: " + id + " not found.";
     }
 
     @Override
