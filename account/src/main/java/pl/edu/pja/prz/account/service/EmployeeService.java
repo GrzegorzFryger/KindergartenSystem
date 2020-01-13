@@ -3,9 +3,9 @@ package pl.edu.pja.prz.account.service;
 import pl.edu.pja.prz.account.model.Employee;
 import pl.edu.pja.prz.account.model.Group;
 import pl.edu.pja.prz.account.model.Person;
-import pl.edu.pja.prz.account.model.value.Address;
-import pl.edu.pja.prz.account.model.value.FullName;
-import pl.edu.pja.prz.account.model.value.Phone;
+import pl.edu.pja.prz.commons.model.Address;
+import pl.edu.pja.prz.commons.model.FullName;
+import pl.edu.pja.prz.commons.model.Phone;
 
 import java.util.Set;
 import java.util.UUID;

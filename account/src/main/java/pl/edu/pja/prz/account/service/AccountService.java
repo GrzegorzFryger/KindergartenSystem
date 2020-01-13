@@ -3,10 +3,10 @@ package pl.edu.pja.prz.account.service;
 import pl.edu.pja.prz.account.model.Account;
 import pl.edu.pja.prz.account.model.AccountFactory;
 import pl.edu.pja.prz.account.model.Person;
-import pl.edu.pja.prz.account.model.value.Address;
-import pl.edu.pja.prz.account.model.value.FullName;
+import pl.edu.pja.prz.commons.model.Address;
+import pl.edu.pja.prz.commons.model.FullName;
 import pl.edu.pja.prz.account.model.value.Password;
-import pl.edu.pja.prz.account.model.value.Phone;
+import pl.edu.pja.prz.commons.model.Phone;
 import pl.edu.pja.prz.account.repository.BasicAccountRepository;
 import pl.edu.pja.prz.account.utilites.PasswordManager;
 

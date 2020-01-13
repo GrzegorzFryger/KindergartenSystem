@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.account.model.value;
+package pl.edu.pja.prz.commons.model;
 
 import javax.persistence.Embeddable;
 

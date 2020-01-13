@@ -10,9 +10,9 @@ import pl.edu.pja.prz.account.facade.mapper.AccountMapper;
 import pl.edu.pja.prz.account.model.Account;
 import pl.edu.pja.prz.account.model.Person;
 import pl.edu.pja.prz.account.model.enums.AccountStatus;
-import pl.edu.pja.prz.account.model.value.Address;
-import pl.edu.pja.prz.account.model.value.FullName;
-import pl.edu.pja.prz.account.model.value.Phone;
+import pl.edu.pja.prz.commons.model.Address;
+import pl.edu.pja.prz.commons.model.FullName;
+import pl.edu.pja.prz.commons.model.Phone;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
