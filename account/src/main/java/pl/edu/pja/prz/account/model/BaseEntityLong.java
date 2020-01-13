@@ -3,7 +3,7 @@ package pl.edu.pja.prz.account.model;
 import javax.persistence.*;
 
 @MappedSuperclass
-public class BaseEntityLong {
+public class BaseEntityLong implements BaseEntity<Long> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -14,16 +14,13 @@ public class BaseEntityLong {
 
 	}
 
+	@Override
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Integer getVersion() {
-		return version;
 	}
 
 	public void setVersion(Integer version) {
@@ -38,13 +35,13 @@ public class BaseEntityLong {
 		BaseEntityLong that = (BaseEntityLong) o;
 
 		if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) return false;
-		return getVersion() != null ? getVersion().equals(that.getVersion()) : that.getVersion() == null;
+		return version != null ? version.equals(that.version) : that.version == null;
 	}
 
 	@Override
 	public int hashCode() {
 		int result = getId() != null ? getId().hashCode() : 0;
-		result = 31 * result + (getVersion() != null ? getVersion().hashCode() : 0);
+		result = 31 * result + (version != null ? version.hashCode() : 0);
 		return result;
 	}
 }
