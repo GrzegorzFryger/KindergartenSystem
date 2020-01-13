@@ -36,7 +36,7 @@ public class ReceivablesDataSourceConfiguration {
 
 	@Bean("receivablesModuleEntityManagerFactory")
 	public LocalContainerEntityManagerFactoryBean createReceivablesModuleEntityManagerFactory(EntityManagerFactoryBuilder builder) {
-		return builder.dataSource(receivablesModuleDataSource()).packages(Transaction.class).build();
+		return builder.dataSource(receivablesModuleDataSource()).packages("pl.edu.pja.prz.receivables.model").build();
 	}
 
 	@Bean
