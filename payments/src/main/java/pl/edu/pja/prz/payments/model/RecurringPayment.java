@@ -6,6 +6,8 @@ import pl.edu.pja.prz.payments.model.value.Child;
 import pl.edu.pja.prz.payments.model.value.PeriodValidity;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToMany;
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -17,7 +19,9 @@ public class RecurringPayment extends Payment implements DiscountCalculator {
 	private PeriodValidity periodValidity;
 	@ManyToMany(mappedBy = "recurringPayments")
 	private Set<Discount> discounts = new HashSet<>();
+	@Enumerated(EnumType.STRING)
 	private Status status;
+	@Enumerated(EnumType.STRING)
 	private TypeRecurringPayment typeRecurringPayment;
 
 
