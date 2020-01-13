@@ -1,6 +1,7 @@
 package pl.edu.pja.prz.receivables.model;
 
 import org.hibernate.annotations.Type;
+import pl.edu.pja.prz.commons.model.BaseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
