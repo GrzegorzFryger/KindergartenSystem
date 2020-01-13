@@ -1,5 +1,10 @@
 package pl.edu.pja.prz.commons.exception;
 
+/**
+ * Custom Exception, which is handled by Exception Advice from core module.<br><br>
+ *
+ * This exception should be used for all cases, when some resource is not found.
+ */
 public class ElementNotFoundException extends RuntimeException {
     private final String message;
 
@@ -16,7 +21,7 @@ public class ElementNotFoundException extends RuntimeException {
     }
 
     private String buildErrorMessage(String element, String id) {
-        return "[ERROR] " + element + " with id: " + id + " not found.";
+        return element + " with id: " + id + " not found.";
     }
 
     @Override

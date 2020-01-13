@@ -11,7 +11,6 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import pl.edu.pja.prz.receivables.model.Transaction;
 
 import javax.sql.DataSource;
 
@@ -36,7 +35,7 @@ public class ReceivablesDataSourceConfiguration {
 
 	@Bean("receivablesModuleEntityManagerFactory")
 	public LocalContainerEntityManagerFactoryBean createReceivablesModuleEntityManagerFactory(EntityManagerFactoryBuilder builder) {
-		return builder.dataSource(receivablesModuleDataSource()).packages(Transaction.class).build();
+		return builder.dataSource(receivablesModuleDataSource()).packages("pl.edu.pja.prz.receivables.model").build();
 	}
 
 	@Bean

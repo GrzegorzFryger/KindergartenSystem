@@ -1,19 +1,22 @@
-package pl.edu.pja.prz.receivables.model;
+package pl.edu.pja.prz.commons.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @MappedSuperclass
 public class BaseEntity<T> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@JsonIgnore
+	@NotNull
 	private T id;
 	@Version
 	private Integer version;
 
-	BaseEntity() {
+	public BaseEntity() {
+
 	}
 
 	public T getId() {
