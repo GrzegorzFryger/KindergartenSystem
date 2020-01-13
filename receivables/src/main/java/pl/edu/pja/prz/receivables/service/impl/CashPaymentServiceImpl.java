@@ -5,10 +5,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
+import pl.edu.pja.prz.commons.util.BigDecimalUtils;
 import pl.edu.pja.prz.receivables.model.CashPayment;
 import pl.edu.pja.prz.receivables.repository.CashPaymentRepository;
 import pl.edu.pja.prz.receivables.service.CashPaymentService;
-import pl.edu.pja.prz.commons.util.BigDecimalUtils;
 
 import java.time.LocalDate;
 import java.util.List;

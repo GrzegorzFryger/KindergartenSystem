@@ -19,7 +19,7 @@ public class Balance extends BaseEntity<Long> implements Serializable {
     private UUID guardianId;
 
     @Column(columnDefinition="Decimal(10,2) default '0.00'")
-    private BigDecimal balance;
+    private BigDecimal amount;
 
     public UUID getChildId() {
         return childId;
@@ -37,11 +37,11 @@ public class Balance extends BaseEntity<Long> implements Serializable {
         this.guardianId = guardianId;
     }
 
-    public BigDecimal getBalance() {
-        return balance;
+    public BigDecimal getAmount() {
+        return amount;
     }
 
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 }
