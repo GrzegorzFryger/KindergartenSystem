@@ -90,6 +90,19 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>**/pl/edu/pja/prz/core/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/core/exception/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/core/controller/payments/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/core/controller/accounts/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/core/controller/receivables/*</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>

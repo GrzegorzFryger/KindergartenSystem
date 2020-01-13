@@ -10,4 +10,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>commons</artifactId>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>**/pl/edu/pja/prz/commons/*</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

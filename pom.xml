@@ -261,60 +261,6 @@
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>${jacoco-maven-plugin.version}</version>
-                    <configuration>
-                        <excludes>
-                            <!-- Core module exclusions -->
-                            <exclude>**/pl/edu/pja/prz/core/*</exclude>
-                            <exclude>**/pl/edu/pja/prz/core/exception/*</exclude>
-                            <exclude>**/pl/edu/pja/prz/core/controller/payments/*</exclude>
-                            <exclude>**/pl/edu/pja/prz/core/controller/accounts/*</exclude>
-                            <exclude>**/pl/edu/pja/prz/core/controller/receivables/*</exclude>
-
-                            <!-- Account module exclusions -->
-                            <exclude>**/pl/edu/pja/prz/account/*</exclude>
-                            <exclude>**/pl/edu/pja/prz/account/model/value/*</exclude>
-                            <exclude>**/pl/edu/pja/prz/account/model/*</exclude>
-                            <exclude>**/pl/edu/pja/prz/account/configuration/*</exclude>
-                            <exclude>**/pl/edu/pja/prz/account/repository/*</exclude>
-                            <exclude>**/pl/edu/pja/prz/account/facade/*</exclude>
-                            <exclude>**/pl/edu/pja/prz/account/facade/mapper/*</exclude>
-                            <exclude>**/pl/edu/pja/prz/account/facade/dto/*</exclude>
-
-                            <!-- Commons module exclusions -->
-                            <exclude>**/pl/edu/pja/prz/commons/*</exclude>
-
-                            <!-- Finances module exclusions -->
-                            <exclude>**/pl/edu/pja/prz/finances/*</exclude>
-
-                            <!-- Groups module exclusions -->
-                            <exclude>**/pl/edu/pja/prz/groups/*</exclude>
-                            <exclude>**/pl/edu/pja/prz/groups/configuration/*</exclude>
-                            <exclude>**/pl/edu/pja/prz/groups/model/*</exclude>
-
-                            <!-- Meal module exclusions -->
-                            <exclude>**/pl/edu/pja/prz/meal/*</exclude>
-                            <exclude>**/pl/edu/pja/prz/meal/exception/*</exclude>
-                            <exclude>**/pl/edu/pja/prz/meal/model/*</exclude>
-                            <exclude>**/pl/edu/pja/prz/meal/model/dto/*</exclude>
-                            <exclude>**/pl/edu/pja/prz/meal/model/enums/*</exclude>
-                            <exclude>**/pl/edu/pja/prz/meal/service/*</exclude>
-                            <exclude>**/pl/edu/pja/prz/meal/configuration/*</exclude>
-
-                            <!-- Payments module exclusions -->
-                            <exclude>**/pl/edu/pja/prz/payments/*</exclude>
-                            <exclude>**/pl/edu/pja/prz/payments/configuration/*</exclude>
-                            <exclude>**/pl/edu/pja/prz/payments/facade/*</exclude>
-                            <exclude>**/pl/edu/pja/prz/payments/model/value/*</exclude>
-                            <exclude>**/pl/edu/pja/prz/payments/facade/mapper/*</exclude>
-                            <exclude>**/pl/edu/pja/prz/payments/facade/dto/*</exclude>
-
-                            <!-- Receivables module exclusions -->
-                            <exclude>**/pl/edu/pja/prz/receivables/*</exclude>
-                            <exclude>**/pl/edu/pja/prz/receivables/configuration/*</exclude>
-                            <exclude>**/pl/edu/pja/prz/receivables/model/enums/*</exclude>
-                            <exclude>**/pl/edu/pja/prz/receivables/mapper/*</exclude>
-                        </excludes>
-                    </configuration>
                     <executions>
                         <execution>
                             <id>jacoco-initialize</id>
@@ -357,10 +303,6 @@
         </pluginManagement>
 
         <plugins>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
