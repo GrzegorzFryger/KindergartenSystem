@@ -8,7 +8,7 @@ import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.repository.TransactionRepository;
 import pl.edu.pja.prz.receivables.service.TransactionService;
-import pl.edu.pja.prz.receivables.util.BigDecimalUtils;
+import pl.edu.pja.prz.commons.util.BigDecimalUtils;
 
 import java.time.LocalDate;
 import java.util.List;
