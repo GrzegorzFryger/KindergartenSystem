@@ -15,13 +15,21 @@ public class ExceptionAdvice {
     private static final Logger logger = LoggerFactory.getLogger(ExceptionAdvice.class);
 
     @ExceptionHandler({
-            ElementNotFoundException.class,
             BusinessException.class,
             IncorrectInputException.class,
-            NullPointerException.class
     })
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Error handle(Exception e) {
+        logger.debug(e.getMessage());
+        return new Error(e.getMessage());
+    }
+
+    @ExceptionHandler({
+            ElementNotFoundException.class,
+            NullPointerException.class
+    })
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Error handleErrorWhenResourceNotFound(Exception e) {
         logger.debug(e.getMessage());
         return new Error(e.getMessage());
     }
