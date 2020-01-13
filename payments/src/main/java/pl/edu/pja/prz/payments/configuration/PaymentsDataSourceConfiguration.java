@@ -28,7 +28,7 @@ public class PaymentsDataSourceConfiguration {
 		return new DataSourceProperties();
 	}
 
-	@Bean
+	@Bean("paymentDataSource")
 	@ConfigurationProperties("app.datasource.payments-module.configuration")
 	public DataSource paymentsModuleDataSource() {
 		return paymentsDataModuleSourceProperties().initializeDataSourceBuilder().build();
