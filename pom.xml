@@ -25,6 +25,7 @@
         <module>payments</module>
         <module>groups</module>
         <module>finances</module>
+        <module>calendar</module>
     </modules>
 
     <properties>
