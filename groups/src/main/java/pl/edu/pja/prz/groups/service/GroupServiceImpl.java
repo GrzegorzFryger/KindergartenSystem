@@ -2,6 +2,7 @@ package pl.edu.pja.prz.groups.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.groups.model.Group;
 import pl.edu.pja.prz.groups.repository.GroupRepository;
 
@@ -9,6 +10,8 @@ import java.util.List;
 
 @Service
 public class GroupServiceImpl implements GroupService {
+    private static final String GROUP = "Group";
+
     private final GroupRepository groupRepository;
 
     @Autowired
@@ -24,7 +27,7 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public Group updateGroup(Group group, Long groupToUpdateId) {
         if (groupRepository.findById(groupToUpdateId).isEmpty()) {
-            throw new NullPointerException("Group with id: " + groupToUpdateId + " not found.");
+            throw new ElementNotFoundException(GROUP, groupToUpdateId);
         }
         Group groupToUpdate = getGroup(groupToUpdateId);
         if (groupToUpdate.getGroupName() != null) {
@@ -41,7 +44,7 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public void deleteGroup(Long id) {
         if (groupRepository.findById(id).isEmpty()) {
-            throw new NullPointerException("Group with id: " + id + " not found.");
+            throw new ElementNotFoundException(GROUP, id);
         }
         groupRepository.deleteById(id);
 
@@ -50,7 +53,7 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public Group getGroup(Long id) {
         return groupRepository.findById(id).orElseThrow(
-                () -> new NullPointerException("Group with id: " + id + " not found."));
+                () -> new ElementNotFoundException(GROUP, id));
     }
 
     @Override

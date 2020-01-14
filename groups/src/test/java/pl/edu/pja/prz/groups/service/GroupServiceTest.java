@@ -7,6 +7,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.groups.model.Group;
 import pl.edu.pja.prz.groups.model.GroupBuilder;
 import pl.edu.pja.prz.groups.repository.GroupRepository;
@@ -100,7 +101,7 @@ class GroupServiceTest {
         //Given
 
         //When
-        Assertions.assertThrows(NullPointerException.class, () -> {
+        Assertions.assertThrows(ElementNotFoundException.class, () -> {
             groupService.deleteGroup(123L);
         });
 
@@ -125,7 +126,7 @@ class GroupServiceTest {
         //Given
 
         //When
-        Assertions.assertThrows(NullPointerException.class, () -> {
+        Assertions.assertThrows(ElementNotFoundException.class, () -> {
             groupService.updateGroup(group, 123L);
         });
 
