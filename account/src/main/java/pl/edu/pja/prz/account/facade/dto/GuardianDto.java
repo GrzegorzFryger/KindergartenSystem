@@ -16,7 +16,6 @@ public class GuardianDto {
 	private String phone;
 	private AccountStatus status;
 	private String email;
-	private Set<ChildDto> children;
 
 	public GuardianDto() {
 	}
@@ -91,13 +90,5 @@ public class GuardianDto {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public Set<ChildDto> getChildren() {
-		return children;
-	}
-
-	public void setChildren(Set<ChildDto> children) {
-		this.children = children;
 	}
 }
