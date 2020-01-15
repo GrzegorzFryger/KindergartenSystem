@@ -33,20 +33,15 @@ public class SchedulerConfiguration {
 	 * The preferred way to achieve transactional execution is to demarcate declarative transactions at the business facade level,
 	 * which will automatically apply to Scheduler operations performed within those scopes. Alternatively, you may add transactional advice for the Scheduler itself.
 	 *
-	 * @param quartzProperties Allow inject configuration properties from properties file
 	 * @param dataSource payments data source
 	 */
 
 	@Bean(name = "scheduleFactory")
-	public SchedulerFactoryBean createSchedulerFactory(final ApplicationContext applicationContext,
-	                                                   QuartzProperties quartzProperties,
+	public SchedulerFactoryBean createSchedulerFactory(final ApplicationContext applicationContext, Properties properties,
 	                                                   @Qualifier("paymentDataSource") DataSource dataSource) {
 
 		CustomSpringBeanJobFactory jobFactory = new CustomSpringBeanJobFactory();
 		jobFactory.setApplicationContext(applicationContext);
-
-		Properties properties = new Properties();
-		properties.putAll(quartzProperties.getProperties());
 
 		SchedulerFactoryBean factory = new SchedulerFactoryBean();
 
@@ -55,5 +50,15 @@ public class SchedulerConfiguration {
 		factory.setQuartzProperties(properties);
 		factory.setJobFactory(jobFactory);
 		return factory;
+	}
+
+	/**
+	 * @param quartzProperties Allow inject configuration properties from properties file
+	 */
+	@Bean
+	public Properties createQuartzProperties(QuartzProperties quartzProperties) {
+		var properties = new Properties();
+		properties.putAll(quartzProperties.getProperties());
+		return properties;
 	}
 }

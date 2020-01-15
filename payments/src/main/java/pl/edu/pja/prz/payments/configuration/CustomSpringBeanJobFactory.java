@@ -21,6 +21,21 @@ public final class CustomSpringBeanJobFactory extends SpringBeanJobFactory imple
 		beanFactory = context.getAutowireCapableBeanFactory();
 	}
 
+	/**
+	 *
+	 * protected Object createJobInstance(TriggerFiredBundle bundle)
+	 * throws Exception
+	 * Create the job instance, populating it with property values taken from the scheduler context, job data map and trigger data map.
+	 * Overrides:
+	 * createJobInstance in class AdaptableJobFactory
+	 * Parameters:
+	 * bundle - the TriggerFiredBundle from which the JobDetail and other info relating to the trigger firing can be obtained
+	 * Returns:
+	 * the job instance
+	 * Throws:
+	 * Exception - if job instantiation failed
+	 */
+
 	@Override
 	protected Object createJobInstance(final TriggerFiredBundle bundle) throws Exception {
 		final Object job = super.createJobInstance(bundle);
