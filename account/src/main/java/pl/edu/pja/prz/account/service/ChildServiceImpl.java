@@ -13,6 +13,7 @@ import pl.edu.pja.prz.account.model.value.Age;
 import pl.edu.pja.prz.account.model.value.StudyPeriod;
 import pl.edu.pja.prz.account.repository.ChildRepository;
 import pl.edu.pja.prz.account.utilites.PeselService;
+import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.commons.model.Address;
 import pl.edu.pja.prz.commons.model.Address_;
 import pl.edu.pja.prz.commons.model.FullName;
@@ -23,6 +24,7 @@ import java.util.UUID;
 
 @Service
 class ChildServiceImpl implements ChildService {
+	private static final String CHILD = "Child";
 	private static final ChildStatus CHILDSTATUS = ChildStatus.NEW;
 	private final ChildRepository childRepository;
 	private final PeselService peselService;
@@ -63,7 +65,7 @@ class ChildServiceImpl implements ChildService {
 	public Child getChildById(UUID id) {
 		return childRepository.findById(id).orElseThrow(
 				() -> {
-					throw new IllegalArgumentException("Not found child with id " + id);
+					throw new ElementNotFoundException(CHILD, id);
 				});
 	}
 
