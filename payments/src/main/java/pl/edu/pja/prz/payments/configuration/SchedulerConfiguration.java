@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.quartz.QuartzProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
 import org.springframework.scheduling.quartz.JobDetailFactoryBean;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
@@ -71,8 +72,12 @@ public class SchedulerConfiguration {
 
 	@Bean
 	public JobDetailFactoryBean createJobFactory() {
-		var jobDetailFactory = new JobDetailFactoryBean();
 		//jobDetailFactory.setGroup("PAYMENTS");
-		return  jobDetailFactory;
+		return new JobDetailFactoryBean();
+	}
+
+	@Bean
+	public CronTriggerFactoryBean createCronFactory(){
+		return new CronTriggerFactoryBean();
 	}
 }
