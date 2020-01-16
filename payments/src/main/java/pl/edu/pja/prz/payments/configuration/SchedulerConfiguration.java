@@ -63,10 +63,16 @@ public class SchedulerConfiguration {
 		return properties;
 	}
 
+	/**
+	 * NOTE: If a FactoryBean indicates to hold a singleton object, the object returned from getObject()
+	 * might get cached by the owning BeanFactory. Hence, do not return true unless the FactoryBean always exposes the same reference
+	 *
+	 */
+
 	@Bean
 	public JobDetailFactoryBean createJobFactory() {
 		var jobDetailFactory = new JobDetailFactoryBean();
-		jobDetailFactory.setGroup("PAYMENTS");
+		//jobDetailFactory.setGroup("PAYMENTS");
 		return  jobDetailFactory;
 	}
 }
