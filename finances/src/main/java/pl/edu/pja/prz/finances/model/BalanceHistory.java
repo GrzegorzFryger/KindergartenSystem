@@ -17,7 +17,7 @@ public class BalanceHistory extends BaseEntityLong implements Serializable {
     private UUID childId;
     private LocalDate date;
     private BigDecimal balanceBeforeChange;
-    private BigDecimal change;
+    private BigDecimal amountOfChange;
 
     public UUID getChildId() {
         return childId;
@@ -43,11 +43,11 @@ public class BalanceHistory extends BaseEntityLong implements Serializable {
         this.balanceBeforeChange = balanceBeforeChange;
     }
 
-    public BigDecimal getChange() {
-        return change;
+    public BigDecimal getAmountOfChange() {
+        return amountOfChange;
     }
 
-    public void setChange(BigDecimal change) {
-        this.change = change;
+    public void setAmountOfChange(BigDecimal change) {
+        this.amountOfChange = change;
     }
 }
