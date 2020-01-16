@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import pl.edu.pja.prz.commons.exception.BusinessException;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
-import pl.edu.pja.prz.commons.exception.IncorrectInputException;
+import pl.edu.pja.prz.commons.exception.EmptyInputException;
+import pl.edu.pja.prz.commons.exception.IncorrectInputTypeException;
 
 @RestControllerAdvice
 public class ExceptionAdvice {
@@ -16,7 +17,7 @@ public class ExceptionAdvice {
 
     @ExceptionHandler({
             BusinessException.class,
-            IncorrectInputException.class,
+            IncorrectInputTypeException.class,
     })
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Error handle(Exception e) {
@@ -26,6 +27,7 @@ public class ExceptionAdvice {
 
     @ExceptionHandler({
             ElementNotFoundException.class,
+            EmptyInputException.class,
             NullPointerException.class
     })
     @ResponseStatus(HttpStatus.NOT_FOUND)
