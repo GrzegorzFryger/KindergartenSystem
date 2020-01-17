@@ -10,7 +10,7 @@ import pl.edu.pja.prz.commons.exception.BusinessException;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.finances.model.Balance;
 import pl.edu.pja.prz.finances.repository.BalanceRepository;
-import pl.edu.pja.prz.receivables.model.CashPayment;
+import pl.edu.pja.prz.finances.service.BalanceHistoryService;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -29,11 +29,13 @@ class BalanceServiceImplTest {
     private Balance balance;
     @Mock
     private BalanceRepository repository;
+    @Mock
+    private BalanceHistoryService historyService;
     private BalanceServiceImpl balanceService;
 
     @BeforeEach
     public void setUp() {
-        balanceService = new BalanceServiceImpl(repository);
+        balanceService = new BalanceServiceImpl(repository, historyService);
 
         balance = new Balance();
         balance.setAmount(new BigDecimal("50.00"));
@@ -97,6 +99,8 @@ class BalanceServiceImplTest {
         assertNotNull(result);
         assertEquals(new BigDecimal("100.00"), result.getAmount());
         verify(repository, times(1)).save(any(Balance.class));
+        verify(historyService, times(1))
+                .saveBalanceInHistory(any(UUID.class), any(BigDecimal.class), any(BigDecimal.class));
     }
 
     @Test
@@ -123,6 +127,8 @@ class BalanceServiceImplTest {
         assertNotNull(result);
         assertEquals(new BigDecimal("0.00"), result.getAmount());
         verify(repository, times(1)).save(any(Balance.class));
+        verify(historyService, times(1))
+                .saveBalanceInHistory(any(UUID.class), any(BigDecimal.class), any(BigDecimal.class));
     }
 
     @Test

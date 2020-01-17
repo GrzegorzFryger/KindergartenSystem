@@ -6,7 +6,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pja.prz.finances.model.Balance;
-import pl.edu.pja.prz.finances.service.BalanceHistoryService;
 import pl.edu.pja.prz.finances.service.BalanceService;
 
 import java.math.BigDecimal;
@@ -25,13 +24,11 @@ class FinancesFacadeTest {
     private Balance balance;
     @Mock
     private BalanceService balanceService;
-    @Mock
-    private BalanceHistoryService balanceHistoryService;
     private FinancesFacade facade;
 
     @BeforeEach
     public void setUp() {
-        facade = new FinancesFacade(balanceService, balanceHistoryService);
+        facade = new FinancesFacade(balanceService);
 
         balance = new Balance();
         balance.setAmount(new BigDecimal("50.00"));
@@ -73,13 +70,10 @@ class FinancesFacadeTest {
         //Given
 
         //When
-        when(balanceService.getBalance(any(UUID.class))).thenReturn(balance);
         facade.increaseBalance(UUID.randomUUID(), new BigDecimal("50.00"));
 
         //Then
         verify(balanceService, times(1)).increaseBalance(any(UUID.class), any(BigDecimal.class));
-        verify(balanceHistoryService, times(1))
-                .saveBalanceInHistory(any(UUID.class), any(BigDecimal.class), any(BigDecimal.class));
     }
 
     @Test
@@ -87,12 +81,9 @@ class FinancesFacadeTest {
         //Given
 
         //When
-        when(balanceService.getBalance(any(UUID.class))).thenReturn(balance);
         facade.decreaseBalance(UUID.randomUUID(), new BigDecimal("-50.00"));
 
         //Then
         verify(balanceService, times(1)).decreaseBalance(any(UUID.class), any(BigDecimal.class));
-        verify(balanceHistoryService, times(1))
-                .saveBalanceInHistory(any(UUID.class), any(BigDecimal.class), any(BigDecimal.class));
     }
 }

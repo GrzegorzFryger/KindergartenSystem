@@ -6,6 +6,7 @@ import pl.edu.pja.prz.commons.exception.BusinessException;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.finances.model.Balance;
 import pl.edu.pja.prz.finances.repository.BalanceRepository;
+import pl.edu.pja.prz.finances.service.BalanceHistoryService;
 import pl.edu.pja.prz.finances.service.BalanceService;
 
 import java.math.BigDecimal;
@@ -19,10 +20,12 @@ import static pl.edu.pja.prz.commons.util.BigDecimalUtils.*;
 public class BalanceServiceImpl implements BalanceService {
     private static final String BALANCE = "Balance";
     private final BalanceRepository repository;
+    private final BalanceHistoryService historyService;
 
     @Autowired
-    public BalanceServiceImpl(BalanceRepository repository) {
+    public BalanceServiceImpl(BalanceRepository repository, BalanceHistoryService historyService) {
         this.repository = repository;
+        this.historyService = historyService;
     }
 
     @Override
@@ -43,8 +46,10 @@ public class BalanceServiceImpl implements BalanceService {
     public Balance increaseBalance(UUID childId, BigDecimal amount) {
         if (isPositive(amount)) {
             Balance balance = getBalance(childId);
+            BigDecimal amountBeforeChange = balance.getAmount();
             balance.setAmount(sum(balance.getAmount(), amount));
             saveBalance(balance);
+            historyService.saveBalanceInHistory(childId, amountBeforeChange, amount);
             return balance;
         } else {
             throw new BusinessException("Attempt was made to increase balance when providing negative amount: " + amount);
@@ -55,8 +60,10 @@ public class BalanceServiceImpl implements BalanceService {
     public Balance decreaseBalance(UUID childId, BigDecimal amount) {
         if (isNegative(amount)) {
             Balance balance = getBalance(childId);
+            BigDecimal amountBeforeChange = balance.getAmount();
             balance.setAmount(sum(balance.getAmount(), amount));
             saveBalance(balance);
+            historyService.saveBalanceInHistory(childId, amountBeforeChange, amount);
             return balance;
         } else {
             throw new BusinessException("Attempt was made to decrease balance when providing positive amount: " + amount);
