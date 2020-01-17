@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
-import pl.edu.pja.prz.commons.util.BigDecimalUtils;
 import pl.edu.pja.prz.receivables.model.CashPayment;
 import pl.edu.pja.prz.receivables.repository.CashPaymentRepository;
 import pl.edu.pja.prz.receivables.service.CashPaymentService;
@@ -13,6 +12,8 @@ import pl.edu.pja.prz.receivables.service.CashPaymentService;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
+
+import static pl.edu.pja.prz.commons.util.BigDecimalUtils.isPositive;
 
 @Service
 public class CashPaymentServiceImpl implements CashPaymentService {
@@ -75,7 +76,7 @@ public class CashPaymentServiceImpl implements CashPaymentService {
 
     @Override
     public void save(CashPayment cashPayment) {
-        if (BigDecimalUtils.isPositive(cashPayment.getTransactionAmount())) {
+        if (isPositive(cashPayment.getTransactionAmount())) {
             logger.info("Saving cash payment: " + cashPayment.getTitle() + " ["
                     + cashPayment.getTransactionAmount() + " " + cashPayment.getTransactionCurrency() + "]");
             repository.save(cashPayment);
