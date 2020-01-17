@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
-import pl.edu.pja.prz.commons.util.BigDecimalUtils;
 import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.repository.TransactionRepository;
 import pl.edu.pja.prz.receivables.service.TransactionService;
@@ -13,6 +12,8 @@ import pl.edu.pja.prz.receivables.service.TransactionService;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
+
+import static pl.edu.pja.prz.commons.util.BigDecimalUtils.isPositive;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -76,7 +77,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public void save(Transaction transaction) {
-        if (BigDecimalUtils.isPositive(transaction.getTransactionAmount())) {
+        if (isPositive(transaction.getTransactionAmount())) {
             logger.info("Saving transaction: " + transaction.getTitle() + " ["
                     + transaction.getTransactionAmount() + " " + transaction.getTransactionCurrency() + "]");
             repository.save(transaction);

@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -17,7 +18,8 @@ public class BalanceHistory extends BaseEntityLong implements Serializable {
     private UUID childId;
     private LocalDate date;
     private BigDecimal balanceBeforeChange;
-    private BigDecimal change;
+    private BigDecimal amountOfChange;
+    private String title;
 
     public UUID getChildId() {
         return childId;
@@ -43,11 +45,37 @@ public class BalanceHistory extends BaseEntityLong implements Serializable {
         this.balanceBeforeChange = balanceBeforeChange;
     }
 
-    public BigDecimal getChange() {
-        return change;
+    public BigDecimal getAmountOfChange() {
+        return amountOfChange;
     }
 
-    public void setChange(BigDecimal change) {
-        this.change = change;
+    public void setAmountOfChange(BigDecimal change) {
+        this.amountOfChange = change;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        BalanceHistory that = (BalanceHistory) o;
+        return childId.equals(that.childId) &&
+                date.equals(that.date) &&
+                balanceBeforeChange.equals(that.balanceBeforeChange) &&
+                amountOfChange.equals(that.amountOfChange) &&
+                title.equals(that.title);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), childId, date, balanceBeforeChange, amountOfChange, title);
     }
 }

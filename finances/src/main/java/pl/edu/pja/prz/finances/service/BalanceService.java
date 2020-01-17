@@ -11,7 +11,9 @@ public interface BalanceService {
 
     List<Balance> getBalances(UUID guardianId);
 
-    Balance increaseBalance(UUID childId, BigDecimal amount);
+    Balance increaseBalance(UUID childId, BigDecimal amount, String title);
 
-    Balance decreaseBalance(UUID childId, BigDecimal amount);
+    Balance decreaseBalance(UUID childId, BigDecimal amount, String title);
+
+    void saveBalance(Balance balance);
 }

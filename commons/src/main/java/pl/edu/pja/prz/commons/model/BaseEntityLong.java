@@ -1,6 +1,7 @@
 package pl.edu.pja.prz.commons.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @MappedSuperclass
 public class BaseEntityLong implements BaseEntity<Long> {
@@ -35,7 +36,7 @@ public class BaseEntityLong implements BaseEntity<Long> {
 		BaseEntityLong that = (BaseEntityLong) o;
 
 		if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) return false;
-		return version != null ? version.equals(that.version) : that.version == null;
+		return Objects.equals(version, that.version);
 	}
 
 	@Override
