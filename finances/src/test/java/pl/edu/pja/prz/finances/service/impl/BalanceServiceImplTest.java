@@ -93,14 +93,14 @@ class BalanceServiceImplTest {
 
         //When
         when(repository.getByChildId(any(UUID.class))).thenReturn(Optional.ofNullable(balance));
-        Balance result = balanceService.increaseBalance(UUID.randomUUID(), new BigDecimal("50.00"));
+        Balance result = balanceService.increaseBalance(UUID.randomUUID(), new BigDecimal("50.00"), "PAYMENT");
 
         //Then
         assertNotNull(result);
         assertEquals(new BigDecimal("100.00"), result.getAmount());
         verify(repository, times(1)).save(any(Balance.class));
         verify(historyService, times(1))
-                .saveBalanceInHistory(any(UUID.class), any(BigDecimal.class), any(BigDecimal.class));
+                .saveBalanceInHistory(any(UUID.class), any(BigDecimal.class), any(BigDecimal.class), anyString());
     }
 
     @Test
@@ -109,7 +109,7 @@ class BalanceServiceImplTest {
 
         //When
         Assertions.assertThrows(BusinessException.class, () -> {
-            balanceService.increaseBalance(UUID.randomUUID(), new BigDecimal("-50.00"));
+            balanceService.increaseBalance(UUID.randomUUID(), new BigDecimal("-50.00"), "PAYMENT");
         });
 
         //Then
@@ -121,14 +121,14 @@ class BalanceServiceImplTest {
 
         //When
         when(repository.getByChildId(any(UUID.class))).thenReturn(Optional.ofNullable(balance));
-        Balance result = balanceService.decreaseBalance(UUID.randomUUID(), new BigDecimal("-50.00"));
+        Balance result = balanceService.decreaseBalance(UUID.randomUUID(), new BigDecimal("-50.00"), "PAYMENT");
 
         //Then
         assertNotNull(result);
         assertEquals(new BigDecimal("0.00"), result.getAmount());
         verify(repository, times(1)).save(any(Balance.class));
         verify(historyService, times(1))
-                .saveBalanceInHistory(any(UUID.class), any(BigDecimal.class), any(BigDecimal.class));
+                .saveBalanceInHistory(any(UUID.class), any(BigDecimal.class), any(BigDecimal.class), anyString());
     }
 
     @Test
@@ -137,7 +137,7 @@ class BalanceServiceImplTest {
 
         //When
         Assertions.assertThrows(BusinessException.class, () -> {
-            balanceService.decreaseBalance(UUID.randomUUID(), new BigDecimal("50.00"));
+            balanceService.decreaseBalance(UUID.randomUUID(), new BigDecimal("50.00"), "PAYMENT");
         });
 
         //Then

@@ -21,11 +21,12 @@ public class BalanceHistoryServiceImpl implements BalanceHistoryService {
     }
 
     @Override
-    public void saveBalanceInHistory(UUID childId, BigDecimal oldBalance, BigDecimal amountOfChange) {
+    public void saveBalanceInHistory(UUID childId, BigDecimal oldBalance, BigDecimal amountOfChange, String title) {
         BalanceHistory balanceHistory = new BalanceHistoryBuilder()
                 .withChildId(childId)
                 .withBalanceBeforeChange(oldBalance)
                 .withAmountOfChange(amountOfChange)
+                .withTitle(title)
                 .build();
 
         repository.save(balanceHistory);

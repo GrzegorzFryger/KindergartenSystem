@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -43,5 +44,21 @@ public class Balance extends BaseEntityLong implements Serializable {
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Balance balance = (Balance) o;
+        return childId.equals(balance.childId) &&
+                guardianId.equals(balance.guardianId) &&
+                amount.equals(balance.amount);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), childId, guardianId, amount);
     }
 }

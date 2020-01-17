@@ -26,11 +26,11 @@ public class FinancesFacade {
         return balanceService.getBalances(guardianId);
     }
 
-    public void increaseBalance(UUID childId, BigDecimal amount) {
-        balanceService.increaseBalance(childId, amount);
+    public void increaseBalance(UUID childId, BigDecimal amount, String title) {
+        balanceService.increaseBalance(childId, amount, title);
     }
 
-    public void decreaseBalance(UUID childId, BigDecimal amount) {
-        balanceService.decreaseBalance(childId, amount);
+    public void decreaseBalance(UUID childId, BigDecimal amount, String title) {
+        balanceService.decreaseBalance(childId, amount, title);
     }
 }

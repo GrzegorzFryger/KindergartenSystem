@@ -43,13 +43,13 @@ public class BalanceServiceImpl implements BalanceService {
     }
 
     @Override
-    public Balance increaseBalance(UUID childId, BigDecimal amount) {
+    public Balance increaseBalance(UUID childId, BigDecimal amount, String title) {
         if (isPositive(amount)) {
             Balance balance = getBalance(childId);
             BigDecimal amountBeforeChange = balance.getAmount();
             balance.setAmount(sum(balance.getAmount(), amount));
             saveBalance(balance);
-            historyService.saveBalanceInHistory(childId, amountBeforeChange, amount);
+            historyService.saveBalanceInHistory(childId, amountBeforeChange, amount, title);
             return balance;
         } else {
             throw new BusinessException("Attempt was made to increase balance when providing negative amount: " + amount);
@@ -57,13 +57,13 @@ public class BalanceServiceImpl implements BalanceService {
     }
 
     @Override
-    public Balance decreaseBalance(UUID childId, BigDecimal amount) {
+    public Balance decreaseBalance(UUID childId, BigDecimal amount, String title) {
         if (isNegative(amount)) {
             Balance balance = getBalance(childId);
             BigDecimal amountBeforeChange = balance.getAmount();
             balance.setAmount(sum(balance.getAmount(), amount));
             saveBalance(balance);
-            historyService.saveBalanceInHistory(childId, amountBeforeChange, amount);
+            historyService.saveBalanceInHistory(childId, amountBeforeChange, amount, title);
             return balance;
         } else {
             throw new BusinessException("Attempt was made to decrease balance when providing positive amount: " + amount);

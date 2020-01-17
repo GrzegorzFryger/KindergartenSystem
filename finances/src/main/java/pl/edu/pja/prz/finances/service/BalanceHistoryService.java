@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface BalanceHistoryService {
-    void saveBalanceInHistory(UUID childId, BigDecimal oldBalance, BigDecimal amountOfChange);
+    void saveBalanceInHistory(UUID childId, BigDecimal oldBalance, BigDecimal amountOfChange, String title);
 
     List<BalanceHistory> getAllHistoryRecordsForChild(UUID childId);
 }

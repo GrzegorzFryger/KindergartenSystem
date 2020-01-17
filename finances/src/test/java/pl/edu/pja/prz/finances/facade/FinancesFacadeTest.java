@@ -70,10 +70,11 @@ class FinancesFacadeTest {
         //Given
 
         //When
-        facade.increaseBalance(UUID.randomUUID(), new BigDecimal("50.00"));
+        facade.increaseBalance(UUID.randomUUID(), new BigDecimal("50.00"),"PAYMENT");
 
         //Then
-        verify(balanceService, times(1)).increaseBalance(any(UUID.class), any(BigDecimal.class));
+        verify(balanceService, times(1))
+                .increaseBalance(any(UUID.class), any(BigDecimal.class), anyString());
     }
 
     @Test
@@ -81,9 +82,10 @@ class FinancesFacadeTest {
         //Given
 
         //When
-        facade.decreaseBalance(UUID.randomUUID(), new BigDecimal("-50.00"));
+        facade.decreaseBalance(UUID.randomUUID(), new BigDecimal("-50.00"),"PAYMENT");
 
         //Then
-        verify(balanceService, times(1)).decreaseBalance(any(UUID.class), any(BigDecimal.class));
+        verify(balanceService, times(1))
+                .decreaseBalance(any(UUID.class), any(BigDecimal.class), anyString());
     }
 }

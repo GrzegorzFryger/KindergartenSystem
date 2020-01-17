@@ -1,5 +1,6 @@
 package pl.edu.pja.prz.finances.model.builder;
 
+import org.apache.commons.lang3.StringUtils;
 import pl.edu.pja.prz.commons.exception.EmptyInputException;
 import pl.edu.pja.prz.finances.model.BalanceHistory;
 
@@ -11,6 +12,7 @@ public class BalanceHistoryBuilder {
     private UUID childId;
     private BigDecimal balanceBeforeChange;
     private BigDecimal amountOfChange;
+    private String title;
 
     public BalanceHistoryBuilder() {
 
@@ -31,6 +33,11 @@ public class BalanceHistoryBuilder {
         return this;
     }
 
+    public BalanceHistoryBuilder withTitle(String title) {
+        this.title = title;
+        return this;
+    }
+
     public BalanceHistory build() {
         BalanceHistory balanceHistory = new BalanceHistory();
         if (childId == null) {
@@ -42,10 +49,14 @@ public class BalanceHistoryBuilder {
         if (amountOfChange == null) {
             throw new EmptyInputException("Big Decimal", "Amount of change");
         }
+        if (title == null || StringUtils.isEmpty(title)) {
+            throw new EmptyInputException("String", "title");
+        }
 
         balanceHistory.setChildId(childId);
         balanceHistory.setBalanceBeforeChange(balanceBeforeChange);
         balanceHistory.setAmountOfChange(amountOfChange);
+        balanceHistory.setTitle(title);
         balanceHistory.setDate(LocalDate.now());
 
         return balanceHistory;
