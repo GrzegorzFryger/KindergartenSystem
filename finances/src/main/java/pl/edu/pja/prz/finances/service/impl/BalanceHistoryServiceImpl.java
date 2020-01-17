@@ -27,7 +27,7 @@ public class BalanceHistoryServiceImpl implements BalanceHistoryService {
                 .withBalanceBeforeChange(oldBalance)
                 .withAmountOfChange(amountOfChange)
                 .build();
-        
+
         repository.save(balanceHistory);
     }
 

@@ -14,4 +14,6 @@ public interface BalanceService {
     Balance increaseBalance(UUID childId, BigDecimal amount);
 
     Balance decreaseBalance(UUID childId, BigDecimal amount);
+
+    void saveBalance(Balance balance);
 }

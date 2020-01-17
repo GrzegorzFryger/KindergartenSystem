@@ -23,18 +23,16 @@ import static org.mockito.Mockito.*;
 class BalanceHistoryServiceImplTest {
 
     private BalanceHistory record;
-
     @Mock
     private BalanceHistoryRepository repository;
-
     private BalanceHistoryServiceImpl service;
 
     @BeforeEach
     public void setUp() {
         service = new BalanceHistoryServiceImpl(repository);
 
-        BalanceHistory record = new BalanceHistoryBuilder()
-                .withAmountOfChange( new BigDecimal("-200.50"))
+        record = new BalanceHistoryBuilder()
+                .withAmountOfChange(new BigDecimal("-200.50"))
                 .withBalanceBeforeChange(new BigDecimal("100.23"))
                 .withChildId(UUID.randomUUID())
                 .build();

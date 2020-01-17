@@ -29,12 +29,16 @@ public class FinancesFacade {
         return balanceService.getBalances(guardianId);
     }
 
-    public Balance increaseBalance(UUID childId, BigDecimal amount) {
-        return balanceService.increaseBalance(childId, amount);
+    public void increaseBalance(UUID childId, BigDecimal amount) {
+        Balance beforeChange = getBalance(childId);
+        balanceService.increaseBalance(childId, amount);
+        saveBalanceInHistory(childId, beforeChange.getAmount(), amount);
     }
 
-    public Balance decreaseBalance(UUID childId, BigDecimal amount) {
-        return balanceService.decreaseBalance(childId, amount);
+    public void decreaseBalance(UUID childId, BigDecimal amount) {
+        Balance beforeChange = getBalance(childId);
+        balanceService.decreaseBalance(childId, amount);
+        saveBalanceInHistory(childId, beforeChange.getAmount(), amount);
     }
 
     public void saveBalanceInHistory(UUID childId, BigDecimal oldBalance, BigDecimal change) {

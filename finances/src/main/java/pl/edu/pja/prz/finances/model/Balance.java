@@ -18,7 +18,7 @@ public class Balance extends BaseEntityLong implements Serializable {
     @Column(length = 36)
     private UUID guardianId;
 
-    @Column(columnDefinition="Decimal(10,2) default '0.00'")
+    @Column(columnDefinition = "Decimal(10,2) default '0.00'")
     private BigDecimal amount;
 
     public UUID getChildId() {

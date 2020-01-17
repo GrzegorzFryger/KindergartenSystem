@@ -73,6 +73,7 @@ class BalanceHistoryBuilderTest {
 
         //Then
         assertNotNull(result);
+        assertNotNull(result.getDate());
         assertEquals(amountOfChange, result.getAmountOfChange());
         assertEquals(balanceBeforeChange, result.getBalanceBeforeChange());
         assertEquals(childId, result.getChildId());
