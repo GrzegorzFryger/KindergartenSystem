@@ -16,12 +16,12 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("api/account/")
-public class AccountController {
+public class GuardianController {
 	private final GuardianFacade guardianFacade;
 	private final EmployeeFacade employeeFacade;
 
 	@Autowired
-	public AccountController(GuardianFacade guardianFacade, EmployeeFacade employeeFacade) {
+	public GuardianController(GuardianFacade guardianFacade, EmployeeFacade employeeFacade) {
 		this.guardianFacade = guardianFacade;
 		this.employeeFacade = employeeFacade;
 	}
