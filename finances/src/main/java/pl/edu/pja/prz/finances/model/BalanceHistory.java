@@ -1,7 +1,7 @@
 package pl.edu.pja.prz.finances.model;
 
 import org.hibernate.annotations.Type;
-import pl.edu.pja.prz.commons.model.BaseEntity;
+import pl.edu.pja.prz.commons.model.BaseEntityLong;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-public class BalanceHistory extends BaseEntity<Long> implements Serializable {
+public class BalanceHistory extends BaseEntityLong implements Serializable {
     @Type(type = "uuid-char")
     @Column(length = 36)
     private UUID childId;

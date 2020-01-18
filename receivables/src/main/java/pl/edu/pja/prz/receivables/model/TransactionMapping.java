@@ -1,7 +1,7 @@
 package pl.edu.pja.prz.receivables.model;
 
 import org.hibernate.annotations.Type;
-import pl.edu.pja.prz.commons.model.BaseEntity;
+import pl.edu.pja.prz.commons.model.BaseEntityLong;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +10,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-public class TransactionMapping extends BaseEntity<Long> implements Serializable {
+public class TransactionMapping extends BaseEntityLong implements Serializable {
     @Column(unique = true)
     private String title;
     @Type(type = "uuid-char")

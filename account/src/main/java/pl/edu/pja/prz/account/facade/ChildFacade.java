@@ -5,7 +5,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.account.facade.dto.ChildDto;
 import pl.edu.pja.prz.account.facade.mapper.ChildMapper;
-import pl.edu.pja.prz.account.model.value.FullName;
+import pl.edu.pja.prz.commons.model.FullName;
 import pl.edu.pja.prz.account.service.ChildService;
 
 import java.util.Optional;

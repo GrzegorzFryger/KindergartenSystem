@@ -4,9 +4,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import pl.edu.pja.prz.account.facade.dto.ChildDto;
 import pl.edu.pja.prz.account.model.Child;
-import pl.edu.pja.prz.account.model.value.Address;
+import pl.edu.pja.prz.commons.model.Address;
 import pl.edu.pja.prz.account.model.value.Age;
-import pl.edu.pja.prz.account.model.value.FullName;
+import pl.edu.pja.prz.commons.model.FullName;
 import pl.edu.pja.prz.account.model.value.StudyPeriod;
 
 @Mapper(componentModel = "spring")

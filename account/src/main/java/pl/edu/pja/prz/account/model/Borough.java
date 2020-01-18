@@ -1,7 +1,8 @@
 package pl.edu.pja.prz.account.model;
 
-import pl.edu.pja.prz.account.model.value.Address;
-import pl.edu.pja.prz.account.model.value.Phone;
+import pl.edu.pja.prz.commons.model.Address;
+import pl.edu.pja.prz.commons.model.Phone;
+import pl.edu.pja.prz.commons.model.BaseEntityLong;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;

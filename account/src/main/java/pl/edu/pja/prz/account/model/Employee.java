@@ -1,10 +1,10 @@
 package pl.edu.pja.prz.account.model;
 
 import pl.edu.pja.prz.account.model.enums.EmployeeType;
-import pl.edu.pja.prz.account.model.value.Address;
-import pl.edu.pja.prz.account.model.value.FullName;
+import pl.edu.pja.prz.commons.model.Address;
+import pl.edu.pja.prz.commons.model.FullName;
 import pl.edu.pja.prz.account.model.value.Password;
-import pl.edu.pja.prz.account.model.value.Phone;
+import pl.edu.pja.prz.commons.model.Phone;
 
 import javax.persistence.*;
 import java.util.Set;

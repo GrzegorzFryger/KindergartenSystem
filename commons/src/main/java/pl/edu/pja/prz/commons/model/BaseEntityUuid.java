@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.account.model;
+package pl.edu.pja.prz.commons.model;
 
 import org.hibernate.annotations.Type;
 
@@ -15,7 +15,7 @@ public class BaseEntityUuid implements BaseEntity<UUID> {
 	@Version
 	private Integer version;
 
-	BaseEntityUuid() {
+	public BaseEntityUuid() {
 	}
 
 	public UUID getId() {

@@ -1,7 +1,7 @@
 package pl.edu.pja.prz.finances.model;
 
 import org.hibernate.annotations.Type;
-import pl.edu.pja.prz.commons.model.BaseEntity;
+import pl.edu.pja.prz.commons.model.BaseEntityLong;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
-public class Balance extends BaseEntity<Long> implements Serializable {
+public class Balance extends BaseEntityLong implements Serializable {
     @Type(type = "uuid-char")
     @Column(length = 36)
     private UUID childId;

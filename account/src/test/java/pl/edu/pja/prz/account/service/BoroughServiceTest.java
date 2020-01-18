@@ -10,6 +10,9 @@ import pl.edu.pja.prz.account.model.Child;
 import pl.edu.pja.prz.account.model.enums.Gender;
 import pl.edu.pja.prz.account.model.value.*;
 import pl.edu.pja.prz.account.repository.BoroughRepository;
+import pl.edu.pja.prz.commons.model.Address;
+import pl.edu.pja.prz.commons.model.FullName;
+import pl.edu.pja.prz.commons.model.Phone;
 
 import java.time.LocalDate;
 import java.util.Optional;
