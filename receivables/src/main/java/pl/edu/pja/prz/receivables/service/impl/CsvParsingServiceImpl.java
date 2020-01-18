@@ -23,6 +23,21 @@ import java.util.Objects;
 public class CsvParsingServiceImpl implements CsvParsingService {
 
     @Override
+    public List<Transaction> parseTransactionsFromCsvFile(MultipartFile input, String charset) throws IOException {
+        List<Transaction> transactions;
+        File file = convertMultipartToFile(input);
+
+        if (StringUtils.isNotEmpty(charset)) {
+            transactions = getTransactionListFromCsv(file, charset);
+        } else {
+            transactions = getTransactionListFromCsv(file);
+        }
+
+        cleanUpFile(file);
+        return transactions;
+    }
+
+    @Override
     public List<Transaction> getTransactionListFromCsv(File file) throws IOException {
         return getTransactionListFromCsv(file, "Cp1250");
     }
