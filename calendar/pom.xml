@@ -19,6 +19,7 @@
                 <configuration>
                     <excludes>
                         <exclude>**/pl/edu/pja/prz/calendar/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/calendar/configuration/*</exclude>
                     </excludes>
                 </configuration>
             </plugin>
