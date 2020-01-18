@@ -110,7 +110,74 @@
 		},
 		{
 			"name": "Finances",
-			"item": [],
+			"item": [
+				{
+					"name": "/balance/{childId}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dfa25d81-00dd-429c-ad43-5841159a1b51",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{FINCANCES}}/balance/{{childId}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{FINCANCES}}",
+								"balance",
+								"{{childId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/balance-list/{guardianId}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dfa25d81-00dd-429c-ad43-5841159a1b51",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{FINCANCES}}/balance-list/{{guardianId}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{FINCANCES}}",
+								"balance-list",
+								"{{guardianId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
 			"description": "All requests from Finances module.",
 			"protocolProfileBehavior": {}
 		},
