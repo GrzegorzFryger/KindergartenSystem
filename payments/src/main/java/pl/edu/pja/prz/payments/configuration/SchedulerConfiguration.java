@@ -5,8 +5,6 @@ import org.springframework.boot.autoconfigure.quartz.QuartzProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
-import org.springframework.scheduling.quartz.JobDetailFactoryBean;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
 import javax.sql.DataSource;
@@ -26,7 +24,7 @@ public class SchedulerConfiguration {
 	 * For dynamic registration of jobs at runtime, use a bean reference to this SchedulerFactoryBean to get direct access to the Quartz Scheduler (org.quartz.Scheduler).
 	 * This allows you to create new jobs and triggers, and also to control and monitor the entire Scheduler.
 	 * <p>
-	 * Note that Quartz instantiates a new Job for each execution, in contrast to Timer which uses a TimerTask instance that is shared between repeated executions.
+	 * Note that Quartz instantiates a new job for each execution, in contrast to Timer which uses a TimerTask instance that is shared between repeated executions.
 	 * Just JobDetail descriptors are shared.
 	 * <p>
 	 * When using persistent jobs, it is strongly recommended to perform all operations on the Scheduler within Spring-managed (or plain JTA) transactions.
@@ -38,15 +36,14 @@ public class SchedulerConfiguration {
 	 * @param dataSource payments data source
 	 */
 
-	@Bean(name = "scheduleFactory")
-	public SchedulerFactoryBean createSchedulerFactory(final ApplicationContext applicationContext, Properties properties,
+	@Bean("schedulerFactory")
+	public SchedulerFactoryBean createSchedulerFactory(final ApplicationContext applicationContext,
+	                                                   @Qualifier("schedulerProperties") Properties properties,
 	                                                   @Qualifier("paymentDataSource") DataSource dataSource) {
-
 		CustomSpringBeanJobFactory jobFactory = new CustomSpringBeanJobFactory();
 		jobFactory.setApplicationContext(applicationContext);
 
 		SchedulerFactoryBean factory = new SchedulerFactoryBean();
-
 		factory.setOverwriteExistingJobs(true);
 		factory.setDataSource(dataSource);
 		factory.setQuartzProperties(properties);
@@ -57,27 +54,12 @@ public class SchedulerConfiguration {
 	/**
 	 * @param quartzProperties Allow inject configuration properties from properties file
 	 */
-	@Bean
+
+	@Bean("schedulerProperties")
 	public Properties createQuartzProperties(QuartzProperties quartzProperties) {
 		var properties = new Properties();
 		properties.putAll(quartzProperties.getProperties());
 		return properties;
 	}
 
-	/**
-	 * NOTE: If a FactoryBean indicates to hold a singleton object, the object returned from getObject()
-	 * might get cached by the owning BeanFactory. Hence, do not return true unless the FactoryBean always exposes the same reference
-	 *
-	 */
-
-	@Bean
-	public JobDetailFactoryBean createJobFactory() {
-		//jobDetailFactory.setGroup("PAYMENTS");
-		return new JobDetailFactoryBean();
-	}
-
-	@Bean
-	public CronTriggerFactoryBean createCronFactory(){
-		return new CronTriggerFactoryBean();
-	}
 }

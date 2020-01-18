@@ -14,41 +14,37 @@ import java.util.Optional;
 
 @Component
 public class QuartzFactory {
-	private final JobDetailFactoryBean jobFactory;
-	private final CronTriggerFactoryBean cronTriggerFactory;
+	public final static String GROUP_NAME = "PAYMENT";
+	private final IdentifyGenerator identifyGenerator;
 	private transient ApplicationContext applicationContext;
 
-	public final static String GROUP_NAME = "payments" ;
-
 	@Autowired
-	public QuartzFactory(JobDetailFactoryBean jobFactory, CronTriggerFactoryBean cronTriggerFactory,
-	                     ApplicationContext applicationContext) {
-		this.jobFactory = jobFactory;
-		this.cronTriggerFactory = cronTriggerFactory;
+	public QuartzFactory(IdentifyGenerator identifyGenerator, ApplicationContext applicationContext) {
+		this.identifyGenerator = identifyGenerator;
 		this.applicationContext = applicationContext;
 	}
 
-	public Optional<JobDetail> ceateJobDetail(String jobClassName, String name,  String description,
-	                                          boolean durability) {
-		try {
-			jobFactory.setJobClass((Class<? extends Job>) Class.forName(jobClassName));
-			jobFactory.setName(name);
-			jobFactory.setGroup(GROUP_NAME);
-			jobFactory.setDescription(description);
-			jobFactory.setDurability(durability);
-			jobFactory.setApplicationContext(applicationContext);
-			jobFactory.afterPropertiesSet();
-		} catch (ClassNotFoundException  e) {
-			//todo throw common exception
-			e.printStackTrace();
-		}
+	public Optional<JobDetail> createJobDetail(String jobClassName, String description, boolean durability) {
+
+		var jobFactory = new JobDetailFactoryBean();
+
+		jobFactory.setJobClass(getClass(jobClassName));
+		jobFactory.setName(identifyGenerator.generateId());
+		jobFactory.setGroup(GROUP_NAME);
+		jobFactory.setDescription(description);
+		jobFactory.setDurability(durability);
+		jobFactory.setApplicationContext(applicationContext);
+		jobFactory.afterPropertiesSet();
+
 		//todo handle with exceptions, and check isSingleton
 		return Optional.ofNullable(jobFactory.getObject());
 	}
 
-	public Optional<CronTrigger> createCronTriger(String name,  String description, String cronExpression) {
+	public Optional<CronTrigger> createCronTigger(String description, String cronExpression) {
+		var cronTriggerFactory = new CronTriggerFactoryBean();
+
 		try {
-			cronTriggerFactory.setBeanName(name);
+			cronTriggerFactory.setBeanName(identifyGenerator.generateId());
 			cronTriggerFactory.setGroup(GROUP_NAME);
 			cronTriggerFactory.setDescription(description);
 			cronTriggerFactory.setCronExpression(cronExpression);
@@ -57,8 +53,17 @@ public class QuartzFactory {
 			//todo throw common exception
 			e.printStackTrace();
 		}
-
+		//todo handle with exceptions, and check isSingleton
 		return Optional.ofNullable(cronTriggerFactory.getObject());
+	}
+
+	@SuppressWarnings("unchecked")
+	private Class<? extends Job> getClass(String nameClass) {
+		try {
+			return (Class<? extends Job>) Class.forName(nameClass);
+		} catch (ClassNotFoundException e) {
+			throw new IllegalArgumentException();
+		}
 	}
 
 }
