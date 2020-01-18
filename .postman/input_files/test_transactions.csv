@@ -1,9 +1,9 @@
 ﻿Data transakcji;Data księgowania;Dane kontrahenta;Tytuł;Nr rachunku;Nazwa banku;Szczegóły;Nr transakcji;Kwota transakcji (waluta rachunku);Waluta;Kwota blokady/zwolnienie blokady;Waluta;Kwota płatności w walucie;Waluta;Konto;Waluta
-10.12.2019;;Rodzic 1;Czesne #0023433;TEST_1;ING;;1;10;PLN;;;;;;
-11.12.2019;;Rodzic 2;Czesne #0025243;TEST_1;ING;;2;20;PLN;;;;;;
-12.12.2019;;Rodzic 3;Czesne #0035441;TEST_1;ING;;3;30;PLN;;;;;;
-13.12.2019;;Rodzic 4;Czesne #0062344;TEST_1;ING;;4;40;PLN;;;;;;
-14.12.2019;;Rodzic 5;Czesne #0063245;TEST_1;ING;;5;50;PLN;;;;;;
+10.12.2019;10.12.2019;Andrzej Małysz;429630192312;61109010140000071219812874;ING Bank;Za dziecko XYZ;1;100.50;PLN;;;;;;
+11.12.2019;11.12.2019;Andrzej Małysz;429630192312;61109010140000071219812874;ING Bank;Za dziecko XYZ;2;200.50;PLN;;;;;;
+12.12.2019;12.12.2019;Andrzej Małysz;429630192312;61109010140000071219812874;ING Bank;Za dziecko XYZ;3;300.50;PLN;;;;;;
+13.12.2019;13.12.2019;Andrzej Małysz;429630192312;61109010140000071219812874;ING Bank;Za dziecko XYZ;4;400.50;PLN;;;;;;
+14.12.2019;14.12.2019;Andrzej Małysz;429630192312;61109010140000071219812874;ING Bank;Za dziecko XYZ;5;500.50;PLN;;;;;;
 ;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;
 Dokument ma charakter informacyjny, nie stanowi dowodu księgowego;;;;;;;;;;;;;;;
