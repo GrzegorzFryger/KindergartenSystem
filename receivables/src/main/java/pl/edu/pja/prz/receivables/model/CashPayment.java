@@ -118,6 +118,6 @@ public class CashPayment extends BaseEntityLong implements Serializable {
 
     @PostPersist
     public void postPersist() {
-        logger.info("Saved cash payment: " + this);
+        logger.info("Saved cash payment: {}", this);
     }
 }

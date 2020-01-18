@@ -175,6 +175,6 @@ public class Transaction extends BaseEntityLong implements Serializable {
 
     @PostPersist
     public void postPersist() {
-        logger.info("Saved transaction: " + this);
+        logger.info("Saved transaction: {}", this);
     }
 }

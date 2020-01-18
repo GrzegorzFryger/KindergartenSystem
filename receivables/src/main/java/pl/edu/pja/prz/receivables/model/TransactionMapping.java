@@ -75,6 +75,6 @@ public class TransactionMapping extends BaseEntityLong implements Serializable {
 
     @PostPersist
     public void postPersist() {
-        logger.info("Saved transaction mapping: " + this);
+        logger.info("Saved transaction mapping: {}", this);
     }
 }

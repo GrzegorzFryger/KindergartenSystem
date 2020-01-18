@@ -97,6 +97,6 @@ public class BalanceHistory extends BaseEntityLong implements Serializable {
 
     @PostPersist
     public void postPersist() {
-        logger.info("Saved balance change: " + this);
+        logger.info("Saved balance change: {}", this);
     }
 }
