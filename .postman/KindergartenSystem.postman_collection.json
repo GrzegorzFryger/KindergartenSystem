@@ -1,31 +1,37 @@
 {
-	"variables": [],
 	"info": {
+		"_postman_id": "36129465-c2f0-4193-93eb-fcad1e95f070",
 		"name": "KindergartenSystem",
-		"_postman_id": "2d1deba1-9cb0-43ce-c4a9-7e323eca3866",
 		"description": "This collection contains all API requests to backend system of our application.",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "Account",
-			"description": "All requests from Account module.",
 			"item": [
 				{
 					"name": "/guardian",
 					"request": {
-						"url": "{{HOST}}/{{ACCOUNT}}/guardian",
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n\t\"name\":\"Test Name\",\r\n\t\"surname\":\"Test surname\",\r\n\t\"postalCode\": \"test postalcode\",\r\n\t\"city\": \"test City\",\r\n\t\"streetNumber\": \"street Number 23\",\r\n\t\"phone\": \"123132132\",\r\n\t\"email\": \"test@test.com\"\r\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}/{{ACCOUNT}}/guardian",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{ACCOUNT}}",
+								"guardian"
+							]
 						},
 						"description": "Created guardian"
 					},
@@ -34,18 +40,26 @@
 				{
 					"name": "/borough",
 					"request": {
-						"url": "{{HOST}}/{{ACCOUNT}}/borough",
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n\"name\": \"test\",\n\"email\": \"email\",\n\"nipNumber\": \"97545456\"\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}/{{ACCOUNT}}/borough",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{ACCOUNT}}",
+								"borough"
+							]
 						},
 						"description": "Create borough"
 					},
@@ -54,53 +68,139 @@
 				{
 					"name": "/child",
 					"request": {
-						"url": "{{HOST}}/{{ACCOUNT}}/child",
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n\n\"name\": \"Name\",\n\"surname\": \"surname\",\n\"postalCode\": \"80-170\",\n\"city\": \"city\",\n\"streetNumber\": \"Street 17\",\n\"pesel\": \"94071105694\",\n\"gender\" : \"MALE\",\n\"startDate\": \"2007-12-03\",\n\"endDate\": \"2007-12-03\",\n\"dateOfBirth\": \"2007-12-03\",\n\"boroughId\": \"1\"\n\n}"
 						},
+						"url": {
+							"raw": "{{HOST}}/{{ACCOUNT}}/child",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{ACCOUNT}}",
+								"child"
+							]
+						},
 						"description": "Create child"
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "All requests from Account module.",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Calendar",
+			"item": [],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Core",
+			"item": [],
 			"description": "All requests from Core module.",
-			"item": []
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Finances",
+			"item": [
+				{
+					"name": "/balance/{childId}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dfa25d81-00dd-429c-ad43-5841159a1b51",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{FINCANCES}}/balance/{{childId}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{FINCANCES}}",
+								"balance",
+								"{{childId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/balance-list/{guardianId}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dfa25d81-00dd-429c-ad43-5841159a1b51",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{FINCANCES}}/balance-list/{{guardianId}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{FINCANCES}}",
+								"balance-list",
+								"{{guardianId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
 			"description": "All requests from Finances module.",
-			"item": []
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Groups",
+			"item": [],
 			"description": "All requests from Groups module.",
-			"item": []
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Meal",
+			"item": [],
 			"description": "All requests from Meal module.",
-			"item": []
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Payments",
+			"item": [],
 			"description": "All requests from Payments module.",
-			"item": []
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Receivables",
-			"description": "All requests from Receivables module.",
 			"item": [
 				{
 					"name": "/transactions/{id}",
@@ -118,14 +218,19 @@
 						}
 					],
 					"request": {
-						"url": "{{HOST}}/{{RECEIVABLES}}/transactions/1",
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/transactions/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"transactions",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
@@ -145,14 +250,23 @@
 						}
 					],
 					"request": {
-						"url": "{{HOST}}/{{RECEIVABLES}}/transactions/1",
 						"method": "DELETE",
 						"header": [],
 						"body": {
 							"mode": "raw",
 							"raw": ""
 						},
-						"description": ""
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/transactions/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"transactions",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
@@ -172,14 +286,18 @@
 						}
 					],
 					"request": {
-						"url": "{{HOST}}/{{RECEIVABLES}}/transactions",
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/transactions",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"transactions"
+							]
+						}
 					},
 					"response": []
 				},
@@ -189,17 +307,17 @@
 						{
 							"listen": "test",
 							"script": {
-								"type": "text/javascript",
+								"id": "0399eec6-8890-4359-aab2-3d6a5158d673",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
-								]
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
 					"request": {
-						"url": "{{HOST}}/{{RECEIVABLES}}/transactions",
 						"method": "POST",
 						"header": [
 							{
@@ -211,9 +329,18 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"transactionDate\": \"2019-10-15\",\n\t\"bookingDate\": \"2019-10-15\",\n\t\"contractorDetails\": \"Rodzic #001\",\n\t\"title\": \"Czesne\",\n\t\"accountNumber\": \"1234123412341234\",\n\t\"bankName\": \"ING Bank\",\n\t\"details\": \"Za dziecko XYZ\",\n\t\"transactionNumber\": \"XYZ-123456\",\n\t\"transactionAmount\": \"20.50\",\n\t\"transactionCurrency\": \"PLN\"\n}"
+							"raw": "{\n\t\"transactionDate\": \"2019-10-15\",\n\t\"bookingDate\": \"2019-10-15\",\n\t\"contractorDetails\": \"Andrzej Małysz\",\n\t\"title\": \"429630192312\",\n\t\"accountNumber\": \"61 1090 1014 0000 0712 1981 2874\",\n\t\"bankName\": \"ING Bank\",\n\t\"details\": \"Za dziecko XYZ\",\n\t\"transactionNumber\": \"201967193405359451\",\n\t\"transactionAmount\": \"390.50\",\n\t\"transactionCurrency\": \"PLN\"\n}"
 						},
-						"description": ""
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/transactions",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"transactions"
+							]
+						}
 					},
 					"response": []
 				},
@@ -233,7 +360,6 @@
 						}
 					],
 					"request": {
-						"url": "{{HOST}}/{{RECEIVABLES}}/transactions",
 						"method": "PUT",
 						"header": [
 							{
@@ -247,7 +373,16 @@
 							"mode": "raw",
 							"raw": "{\n\t\"id\": 2,\n\t\"transactionDate\": \"2019-10-15\",\n\t\"bookingDate\": \"2019-10-15\",\n\t\"contractorDetails\": \"Rodzic #001\",\n\t\"title\": \"Czesne\",\n\t\"accountNumber\": \"1234123412341234\",\n\t\"bankName\": \"ING Bank\",\n\t\"details\": \"Za dziecko XYZ\",\n\t\"transactionNumber\": \"XYZ-123456\",\n\t\"transactionAmount\": \"20.50\",\n\t\"transactionCurrency\": \"PLN\"\n}"
 						},
-						"description": ""
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/transactions",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"transactions"
+							]
+						}
 					},
 					"response": []
 				},
@@ -290,8 +425,253 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "/payments/child/{id}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dfa25d81-00dd-429c-ad43-5841159a1b51",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/payments/child/{{childId}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"payments",
+								"child",
+								"{{childId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/payments/child/{id}/{from}/{to}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dfa25d81-00dd-429c-ad43-5841159a1b51",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/payments/child/{{childId}}/2019-10-14/2019-10-15",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"payments",
+								"child",
+								"{{childId}}",
+								"2019-10-14",
+								"2019-10-15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/payments/guardian/{id}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dfa25d81-00dd-429c-ad43-5841159a1b51",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/payments/guardian/{{guardianId}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"payments",
+								"guardian",
+								"{{guardianId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/payments/guardian/{id}/{from}/{to}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dfa25d81-00dd-429c-ad43-5841159a1b51",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/payments/guardian/{{guardianId}}/2019-10-14/2019-10-15",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"payments",
+								"guardian",
+								"{{guardianId}}",
+								"2019-10-14",
+								"2019-10-15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/cash-payments/{id}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "439902e7-0603-4100-be96-7365485aec2d",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/cash-payments/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"cash-payments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/cash-payments",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "439902e7-0603-4100-be96-7365485aec2d",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/cash-payments",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"cash-payments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/cash-payments/{id}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e8883706-ea69-4fb2-9bd6-b126d6dee217",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/cash-payments/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"cash-payments",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
-			]
+			],
+			"description": "All requests from Receivables module.",
+			"protocolProfileBehavior": {}
 		}
-	]
+	],
+	"protocolProfileBehavior": {}
 }

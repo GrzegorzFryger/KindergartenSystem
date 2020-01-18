@@ -7,6 +7,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
+import pl.edu.pja.prz.finances.facade.FinancesFacade;
 import pl.edu.pja.prz.receivables.model.CashPayment;
 import pl.edu.pja.prz.receivables.repository.CashPaymentRepository;
 
@@ -25,15 +26,15 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class CashPaymentServiceImplTest {
     private CashPayment payment;
-
     @Mock
-    CashPaymentRepository repository;
-
-    CashPaymentServiceImpl service;
+    private FinancesFacade facade;
+    @Mock
+    private CashPaymentRepository repository;
+    private CashPaymentServiceImpl service;
 
     @BeforeEach
     public void setUp() {
-        service = new CashPaymentServiceImpl(repository);
+        service = new CashPaymentServiceImpl(facade, repository);
 
         payment = new CashPayment();
         payment.setContractorDetails("Adam Smith");
@@ -42,6 +43,7 @@ class CashPaymentServiceImplTest {
         payment.setTransactionAmount(new BigDecimal("50.00"));
         payment.setTitle("Czesne #001");
         payment.setId(1L);
+        payment.setChildId(UUID.randomUUID());
     }
 
     @Test
@@ -53,6 +55,8 @@ class CashPaymentServiceImplTest {
 
         //Then
         verify(repository, times(1)).save(any(CashPayment.class));
+        verify(facade, times(1))
+                .increaseBalance(any(UUID.class), any(BigDecimal.class), anyString());
     }
 
     @Test
@@ -108,6 +112,8 @@ class CashPaymentServiceImplTest {
 
         //Then
         verify(repository, never()).save(any(CashPayment.class));
+        verify(facade, never())
+                .increaseBalance(any(UUID.class), any(BigDecimal.class), anyString());
     }
 
     @Test

@@ -1,10 +1,14 @@
 package pl.edu.pja.prz.receivables.model;
 
 import org.hibernate.annotations.Type;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.edu.pja.prz.commons.model.BaseEntityLong;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.PostPersist;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -13,16 +17,25 @@ import java.util.UUID;
 
 @Entity
 public class CashPayment extends BaseEntityLong implements Serializable {
+    private static final Logger logger = LoggerFactory.getLogger(CashPayment.class);
+
+    @NotNull
     private LocalDate transactionDate;
+    @NotNull
     private String contractorDetails;
+    @NotNull
     private String title;
+    @NotNull
     private BigDecimal transactionAmount;
+    @NotNull
     private String transactionCurrency;
     @Type(type = "uuid-char")
     @Column(length = 36)
+    @NotNull
     private UUID childId;
     @Type(type = "uuid-char")
     @Column(length = 36)
+    @NotNull
     private UUID guardianId;
 
     public LocalDate getTransactionDate() {
@@ -96,5 +109,15 @@ public class CashPayment extends BaseEntityLong implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(transactionDate, contractorDetails, title, transactionAmount, transactionCurrency);
+    }
+
+    @Override
+    public String toString() {
+        return title + " [" + transactionAmount + " " + transactionCurrency + "]";
+    }
+
+    @PostPersist
+    public void postPersist() {
+        logger.info("Saved cash payment: {}", this);
     }
 }

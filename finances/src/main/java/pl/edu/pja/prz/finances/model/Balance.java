@@ -1,10 +1,14 @@
 package pl.edu.pja.prz.finances.model;
 
 import org.hibernate.annotations.Type;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.edu.pja.prz.commons.model.BaseEntityLong;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.PostPersist;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -12,11 +16,15 @@ import java.util.UUID;
 
 @Entity
 public class Balance extends BaseEntityLong implements Serializable {
+    private static final Logger logger = LoggerFactory.getLogger(Balance.class);
+
     @Type(type = "uuid-char")
     @Column(length = 36)
+    @NotNull
     private UUID childId;
     @Type(type = "uuid-char")
     @Column(length = 36)
+    @NotNull
     private UUID guardianId;
 
     @Column(columnDefinition = "Decimal(10,2) default '0.00'")
@@ -60,5 +68,15 @@ public class Balance extends BaseEntityLong implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), childId, guardianId, amount);
+    }
+
+    @Override
+    public String toString() {
+        return "[" + childId + "]: " + amount;
+    }
+
+    @PostPersist
+    public void postPersist() {
+        logger.info("Saved new balance: {}", this);
     }
 }

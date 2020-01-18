@@ -6,6 +6,7 @@ import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import pl.edu.pja.prz.commons.exception.EmptyInputException;
 import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.model.builder.TransactionBuilder;
 import pl.edu.pja.prz.receivables.service.CsvParsingService;
@@ -24,6 +25,10 @@ public class CsvParsingServiceImpl implements CsvParsingService {
 
     @Override
     public List<Transaction> parseTransactionsFromCsvFile(MultipartFile input, String charset) throws IOException {
+        if (input == null) {
+            throw new EmptyInputException("MultipartFile");
+        }
+
         List<Transaction> transactions;
         File file = convertMultipartToFile(input);
 
