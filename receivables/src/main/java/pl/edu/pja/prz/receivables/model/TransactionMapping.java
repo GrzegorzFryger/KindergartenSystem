@@ -8,6 +8,7 @@ import pl.edu.pja.prz.commons.model.BaseEntityLong;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.PostPersist;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
@@ -17,12 +18,15 @@ public class TransactionMapping extends BaseEntityLong implements Serializable {
     private static final Logger logger = LoggerFactory.getLogger(TransactionMapping.class);
 
     @Column(unique = true)
+    @NotNull
     private String title;
     @Type(type = "uuid-char")
     @Column(length = 36)
+    @NotNull
     private UUID childId;
     @Type(type = "uuid-char")
     @Column(length = 36)
+    @NotNull
     private UUID guardianId;
 
     public String getTitle() {

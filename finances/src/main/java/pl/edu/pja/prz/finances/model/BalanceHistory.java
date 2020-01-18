@@ -8,6 +8,7 @@ import pl.edu.pja.prz.commons.model.BaseEntityLong;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.PostPersist;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -20,10 +21,15 @@ public class BalanceHistory extends BaseEntityLong implements Serializable {
 
     @Type(type = "uuid-char")
     @Column(length = 36)
+    @NotNull
     private UUID childId;
+    @NotNull
     private LocalDate date;
+    @NotNull
     private BigDecimal balanceBeforeChange;
+    @NotNull
     private BigDecimal amountOfChange;
+    @NotNull
     private String title;
 
     public UUID getChildId() {
