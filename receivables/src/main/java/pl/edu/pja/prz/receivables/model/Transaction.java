@@ -155,8 +155,13 @@ public class Transaction extends BaseEntityLong implements Serializable {
                 transactionNumber, transactionAmount, transactionCurrency);
     }
 
+    @Override
+    public String toString() {
+        return title + " [" + transactionAmount + " " + transactionCurrency + "]";
+    }
+
     @PostPersist
     public void postPersist() {
-        logger.info("Saved transaction: " + title + " [" + transactionAmount + " " + transactionCurrency + "]");
+        logger.info("Saved transaction: " + this);
     }
 }

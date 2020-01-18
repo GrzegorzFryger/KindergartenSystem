@@ -1,16 +1,21 @@
 package pl.edu.pja.prz.receivables.model;
 
 import org.hibernate.annotations.Type;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.edu.pja.prz.commons.model.BaseEntityLong;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.PostPersist;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
 @Entity
 public class TransactionMapping extends BaseEntityLong implements Serializable {
+    private static final Logger logger = LoggerFactory.getLogger(TransactionMapping.class);
+
     @Column(unique = true)
     private String title;
     @Type(type = "uuid-char")
@@ -57,5 +62,15 @@ public class TransactionMapping extends BaseEntityLong implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(title, childId, guardianId);
+    }
+
+    @Override
+    public String toString() {
+        return childId + " - " + title;
+    }
+
+    @PostPersist
+    public void postPersist() {
+        logger.info("Saved transaction mapping: " + this);
     }
 }
