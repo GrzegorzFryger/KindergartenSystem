@@ -2,10 +2,13 @@ package pl.edu.pja.prz.receivables.model;
 
 
 import org.hibernate.annotations.Type;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.edu.pja.prz.commons.model.BaseEntityLong;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.PostPersist;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -14,6 +17,8 @@ import java.util.UUID;
 
 @Entity
 public class Transaction extends BaseEntityLong implements Serializable {
+    private static final Logger logger = LoggerFactory.getLogger(Transaction.class);
+
     private LocalDate transactionDate;
     private LocalDate bookingDate;
     private String contractorDetails;
@@ -148,5 +153,10 @@ public class Transaction extends BaseEntityLong implements Serializable {
     public int hashCode() {
         return Objects.hash(transactionDate, bookingDate, contractorDetails, title, accountNumber, bankName, details,
                 transactionNumber, transactionAmount, transactionCurrency);
+    }
+
+    @PostPersist
+    public void postPersist() {
+        logger.info("Saved transaction: " + title + " [" + transactionAmount + " " + transactionCurrency + "]");
     }
 }

@@ -1,7 +1,5 @@
 package pl.edu.pja.prz.receivables.service.impl;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
@@ -17,7 +15,6 @@ import static pl.edu.pja.prz.commons.util.BigDecimalUtils.isPositive;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
-    private static final Logger logger = LoggerFactory.getLogger(TransactionServiceImpl.class);
     private static final String TRANSACTION = "Transaction";
 
     private final TransactionRepository repository;
@@ -78,8 +75,6 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public void save(Transaction transaction) {
         if (isPositive(transaction.getTransactionAmount())) {
-            logger.info("Saving transaction: " + transaction.getTitle() + " ["
-                    + transaction.getTransactionAmount() + " " + transaction.getTransactionCurrency() + "]");
             repository.save(transaction);
         }
     }
