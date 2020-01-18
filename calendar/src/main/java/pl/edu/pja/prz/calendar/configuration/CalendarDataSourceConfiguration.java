@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.receivables.configuration;
+package pl.edu.pja.prz.calendar.configuration;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
