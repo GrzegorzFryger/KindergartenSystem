@@ -1,5 +1,5 @@
 # 1. General info
-![Version](https://img.shields.io/badge/version-1.1-blue?style=for-the-badge)  
+![Version](https://img.shields.io/badge/version-1.2-blue?style=for-the-badge)  
 
 Our project is using MySQL Community Server - version 8.0.X 
 https://dev.mysql.com/downloads/  
@@ -7,6 +7,7 @@ https://dev.mysql.com/downloads/
 The easiest way to install this database is to use **MySQL Installer for Windows**.  
 MySQL server will be installed as Windows Service, which can be easily turned on and off.
 # 2. Install procedure
+All install scripts are placed in `install` directory.  
 You can run all below scripts via MySQL Workbench.  
 
 **Important notice:**  
@@ -28,6 +29,7 @@ Hibernate will create all necessary tables.
 This script will insert some test data.   
 
 # 3. Uninstall procedure
+All uninstall scripts are placed in `uninstall` directory.  
 ## 3.1 Schema
 In order to uninstall database:   
 * run `rollback_1_0.sql` script
