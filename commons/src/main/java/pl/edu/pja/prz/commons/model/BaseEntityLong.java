@@ -6,7 +6,7 @@ import java.util.Objects;
 @MappedSuperclass
 public class BaseEntityLong implements BaseEntity<Long> {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 	@Version
 	private Integer version;
