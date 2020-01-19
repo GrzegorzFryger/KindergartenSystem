@@ -11,7 +11,8 @@ import pl.edu.pja.prz.meal.model.MealPrice;
 import pl.edu.pja.prz.meal.model.enums.MealType;
 import pl.edu.pja.prz.meal.service.MealPriceServiceImpl;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.math.BigDecimal;
+
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -27,7 +28,7 @@ public class MealPriceFacadeTest {
     @BeforeEach
     public void setUp() {
         mealPriceFacade = new MealPriceFacade(mealPriceService);
-        mealPrice = new MealPrice(1, MealType.BREAKFAST, 22.22 );
+        mealPrice = new MealPrice(1, MealType.BREAKFAST, BigDecimal.valueOf(22.22));
     }
 
     @Test

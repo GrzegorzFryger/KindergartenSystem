@@ -43,8 +43,7 @@ public class MealServiceImplTest {
 
     @BeforeEach
     public void setup() {
-        MealPriceServiceImpl mealPriceService = new MealPriceServiceImpl(mealPriceListRepository);
-        mealService = new MealServiceImpl(mealRepository, mealPriceService );
+        mealService = new MealServiceImpl(mealRepository, new MealPriceServiceImpl(mealPriceListRepository));
 
         mealCreateUpdateDTO =
                 new MealCreateUpdateDTO(new BigDecimal(1), MealType.BREAKFAST, UUID.randomUUID(), LocalDate.MIN, LocalDate.MAX);

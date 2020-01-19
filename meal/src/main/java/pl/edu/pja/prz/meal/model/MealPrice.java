@@ -3,6 +3,7 @@ package pl.edu.pja.prz.meal.model;
 import pl.edu.pja.prz.meal.model.enums.MealType;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 public class MealPrice {
@@ -12,12 +13,12 @@ public class MealPrice {
     private long id;
     @Enumerated(EnumType.STRING)
     private MealType mealType;
-    private double mealPrice;
+    private BigDecimal mealPrice;
 
     public MealPrice() {
     }
 
-    public MealPrice(long id,MealType mealType, double mealPrice ) {
+    public MealPrice(long id,MealType mealType, BigDecimal mealPrice ) {
         this.id = id;
         this.mealType = mealType;
         this.mealPrice = mealPrice;
@@ -31,7 +32,7 @@ public class MealPrice {
         return mealType;
     }
 
-    public double getMealPrice() {
+    public BigDecimal getMealPrice() {
         return mealPrice;
     }
 
@@ -39,7 +40,7 @@ public class MealPrice {
         this.mealType = mealType;
     }
 
-    public void setMealPrice(double mealPrice) {
+    public void setMealPrice(BigDecimal mealPrice) {
         this.mealPrice = mealPrice;
     }
 }

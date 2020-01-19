@@ -103,7 +103,6 @@ public class MealServiceImpl implements MealService {
                 mealRepository.save(u);
             }
         });
-
         return allMealsWithActiveStatus;
     }
 
