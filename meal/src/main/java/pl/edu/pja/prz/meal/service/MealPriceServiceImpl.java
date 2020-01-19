@@ -31,14 +31,14 @@ public class MealPriceServiceImpl {
     }
 
     public MealPrice updateMealPrice(MealPrice mealPrice, long id) throws NotFoundException {
-        Optional<MealPrice> mealPriceListOptional = mealPriceRepository.findById(id);
-        if (mealPriceListOptional.isEmpty()) {
+        Optional<MealPrice> mealPriceOptional = mealPriceRepository.findById(id);
+        if (mealPriceOptional.isEmpty()) {
             throw new NotFoundException("Price list with ID:" + id + " not found");
         }
 
-        MealPrice priceListToUpdate = mealPriceListOptional.get();
-        priceListToUpdate.setMealPrice(mealPrice.getMealPrice());
-        return mealPriceRepository.save(priceListToUpdate);
+        MealPrice priceToUpdate = mealPriceOptional.get();
+        priceToUpdate.setMealPrice(mealPrice.getMealPrice());
+        return mealPriceRepository.save(priceToUpdate);
     }
 
     public List<MealPrice> getAllPrices() {

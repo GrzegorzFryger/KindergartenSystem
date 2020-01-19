@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pja.prz.meal.exception.MealPriceListAlreadyExistException;
+import pl.edu.pja.prz.meal.exception.NotFoundException;
 import pl.edu.pja.prz.meal.model.MealPrice;
 import pl.edu.pja.prz.meal.model.enums.MealType;
 import pl.edu.pja.prz.meal.repository.MealPriceRepository;
@@ -57,11 +58,34 @@ class MealPriceServiceImplTest {
     }
 
     @Test
-    void updateMealPrice() {
+    void ShouldUpdateMealPrice_When_InputArgumentIsCorrect() throws NotFoundException {
+        //given
+        MealPrice updatedMealPrice = new MealPrice(1L, MealType.BREAKFAST, BigDecimal.TEN );
+        MealPrice mealPrice = new MealPrice(2L, MealType.BREAKFAST, BigDecimal.ONE );
+        when(mealPriceRepository.findById(2L)).thenReturn(Optional.of(mealPrice));
+
+        //when
+        mealPriceService.updateMealPrice(updatedMealPrice, 2L);
+
+        //then
+        assertEquals(mealPrice.getMealPrice(), BigDecimal.TEN);
     }
 
     @Test
-    void getAllPrices() {
+    void ShouldNotFoundException_When_MealPriceNotFound() {
+        //given
+        when(mealPriceRepository.findById(2L)).thenReturn(Optional.empty());
+        MealPrice updatedMealPrice = new MealPrice(1L, MealType.BREAKFAST, BigDecimal.TEN );
+
+        //then
+        assertThrows(NotFoundException.class, () -> {
+            mealPriceService.updateMealPrice(updatedMealPrice, 2L);
+        });
+
+    }
+
+    @Test
+    void ShouldGetAllPrices() {
     }
 
     @Test
