@@ -7,6 +7,7 @@ import org.quartz.SchedulerException;
 import org.quartz.impl.matchers.GroupMatcher;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Service;
+import pl.edu.pja.prz.commons.exception.BusinessException;
 import pl.edu.pja.prz.payments.model.JobInfo;
 import pl.edu.pja.prz.payments.model.ScheduleJobInfo;
 import pl.edu.pja.prz.payments.utilites.QuartzFactory;
@@ -43,7 +44,7 @@ public class QuartzSchedulerService {
 							try {
 								return scheduler.getTrigger(triggerKey);
 							} catch (SchedulerException e) {
-								throw new IllegalArgumentException("Business exceptions, can not get scheduler");
+								throw new BusinessException("Can not get Trigger");
 							}
 
 						})
@@ -53,7 +54,7 @@ public class QuartzSchedulerService {
 							try {
 								jobFromTrigger = scheduler.getJobDetail(trigger.getJobKey());
 							} catch (SchedulerException e) {
-								throw new IllegalArgumentException("Business exceptions, can not get scheduler");
+								throw new BusinessException("Can not get JobDetail from scheduler");
 							}
 
 							return new ScheduleJobInfo(
@@ -68,9 +69,9 @@ public class QuartzSchedulerService {
 						})
 						.collect(Collectors.toList());
 			} catch (SchedulerException e) {
-				throw new IllegalArgumentException("Business exceptions, can not get scheduler");
+				throw new BusinessException("Can not get TriggersKeys form scheduler");
 			}
-		}).orElseThrow(() -> new IllegalArgumentException("Business exceptions, can not get scheduler"));
+		}).orElseThrow(() -> new BusinessException("Can not get Scheduler"));
 
 	}
 
@@ -78,14 +79,14 @@ public class QuartzSchedulerService {
 	public ScheduleJobInfo scheduleCronJob(String jobName, String triggerDescription, String cronExpression, boolean durability) {
 
 		var jobInfo = jobService.getJobInfoByName(jobName)
-				.orElseThrow(() -> new IllegalArgumentException("Not found job with name"));
+				.orElseThrow(() -> new BusinessException("Can not get JobInfo"));
 
 		var trigger = quartzFactory.createCronTrigger(triggerDescription, cronExpression)
-				.orElseThrow(() -> new IllegalArgumentException("Can not create trigger"));
+				.orElseThrow(() -> new BusinessException("Can not get Trigger"));
 
 		var jobDetails = quartzFactory.createJobDetail(jobInfo.getClassType(), jobInfo.getDescription(),
 				durability, null)
-				.orElseThrow(() -> new IllegalArgumentException("Can not create job"));
+				.orElseThrow(() -> new BusinessException("Can not get JobDetails"));
 
 		getScheduler().ifPresentOrElse(
 				scheduler -> {
@@ -96,7 +97,7 @@ public class QuartzSchedulerService {
 					}
 				},
 				() -> {
-					throw new IllegalArgumentException("Can not schedule cron Job");
+					throw new BusinessException("Can not get JobDetails");
 				}
 		);
 
@@ -118,10 +119,10 @@ public class QuartzSchedulerService {
 								scheduler.getTriggerKeys(GroupMatcher.groupEquals(quartzFactory.getGroupName()))
 						));
 					} catch (SchedulerException e) {
-						throw new IllegalArgumentException("Business exceptions, can not get scheduler");
+						throw new BusinessException("Can not get Trigger form scheduler");
 					}
 				},
-				() -> new IllegalArgumentException("Business exceptions, can not get scheduler")
+				() -> new BusinessException("Can not get Trigger Scheduler")
 		);
 	}
 
@@ -132,7 +133,7 @@ public class QuartzSchedulerService {
 			} catch (SchedulerException e) {
 				e.printStackTrace();
 			}
-		}, IllegalArgumentException::new);
+		}, () -> new BusinessException("Can not get Scheduler"));
 	}
 
 	public void pauseJob(String jobKey) {
@@ -140,9 +141,9 @@ public class QuartzSchedulerService {
 			try {
 				scheduler.pauseJob(createJobKey(jobKey));
 			} catch (SchedulerException e) {
-				e.printStackTrace();
+				throw new BusinessException("Can not pauseJob");
 			}
-		}, IllegalArgumentException::new);
+		}, () -> new BusinessException("Can not get Scheduler"));
 	}
 
 	public void resumeJob(String jobKey) {
@@ -150,9 +151,9 @@ public class QuartzSchedulerService {
 			try {
 				scheduler.resumeJob(createJobKey(jobKey));
 			} catch (SchedulerException e) {
-				e.printStackTrace();
+				throw new BusinessException("Can not resumeJob");
 			}
-		}, IllegalArgumentException::new);
+		}, () -> new BusinessException("Can not get Scheduler"));
 	}
 
 	public void removeJob(String jobKey) {
@@ -160,9 +161,9 @@ public class QuartzSchedulerService {
 			try {
 				scheduler.deleteJob(createJobKey(jobKey));
 			} catch (SchedulerException e) {
-				e.printStackTrace();
+				throw new BusinessException("Can not deleteJob");
 			}
-		}, IllegalArgumentException::new);
+		}, () -> new BusinessException("Can not get Scheduler"));
 	}
 
 

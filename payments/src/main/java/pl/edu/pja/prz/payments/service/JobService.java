@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
+import pl.edu.pja.prz.commons.exception.BusinessException;
+import pl.edu.pja.prz.commons.exception.IncorrectInputException;
 import pl.edu.pja.prz.payments.job.QuartzJob;
 import pl.edu.pja.prz.payments.model.JobInfo;
 
@@ -35,7 +37,7 @@ public class JobService {
 				.stream()
 				.filter(jobInfo -> jobInfo.getName().equals(name))
 				.reduce((u, v) -> {
-					throw new IllegalStateException("More than one found");
+					throw new IncorrectInputException("More than one found");
 				});
 	}
 
@@ -54,7 +56,7 @@ public class JobService {
 			);
 		} catch (Exception e) {
 			logger.warn("Can not assign job class");
-			throw new IllegalArgumentException("Business exception");
+			throw new BusinessException("Can not create class form Job annotation");
 		}
 	}
 	@SuppressWarnings("unchecked")
