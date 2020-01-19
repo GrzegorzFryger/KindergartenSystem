@@ -12,6 +12,8 @@ import pl.edu.pja.prz.meal.model.enums.MealType;
 import pl.edu.pja.prz.meal.repository.MealPriceRepository;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -85,14 +87,38 @@ class MealPriceServiceImplTest {
     }
 
     @Test
-    void ShouldGetAllPrices() {
+    void ShouldGetAllPrices_When_InputArgumentIsCorrect() {
+        //given
+        List<MealPrice> mealPriceList = new ArrayList<>();
+        mealPriceList.add(new MealPrice(1L, MealType.BREAKFAST, BigDecimal.TEN ));
+        when(mealPriceRepository.findAll()).thenReturn(mealPriceList);
+
+        //when
+        List<MealPrice> returnedMealPrice = mealPriceService.getAllPrices();
+
+        //then
+        assertEquals(mealPriceList, returnedMealPrice);
     }
 
     @Test
-    void deleteMealPriceById() {
+    void ShouldReturnNotFoundException_When_TriedToDeleteMealPriceWithNotExist() {
+        //given
+        when(mealPriceRepository.existsById(1L)).thenReturn(false);
+        //then
+        assertThrows(NotFoundException.class, () -> {
+            mealPriceService.deleteMealPriceById(1L);
+        });
     }
 
     @Test
-    void getPriceByMealType() {
+    void ShouldGetPriceByMealType_When_InputArgumentIsCorrect() {
+        //given
+        when(mealPriceRepository.findMealPriceByMealType(MealType.BREAKFAST)).thenReturn(22.22);
+
+        //when
+        BigDecimal price = mealPriceService.getPriceByMealType(MealType.BREAKFAST);
+
+        //then
+        assertEquals(price, BigDecimal.valueOf(22.22));
     }
 }
