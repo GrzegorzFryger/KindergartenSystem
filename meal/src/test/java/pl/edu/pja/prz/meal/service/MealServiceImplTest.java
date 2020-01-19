@@ -7,6 +7,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pja.prz.meal.exception.MealActivityStatusException;
+import pl.edu.pja.prz.meal.exception.NotFoundException;
 import pl.edu.pja.prz.meal.model.Meal;
 import pl.edu.pja.prz.meal.model.dto.MealCreateUpdateDTO;
 import pl.edu.pja.prz.meal.model.enums.MealStatus;
@@ -22,6 +23,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -80,7 +82,29 @@ public class MealServiceImplTest {
         });
     }
     @Test
-    public void getMealByID() {
+    public void shouldGetMealByID_When_MealExists() throws NotFoundException {
+        //given
+        when(mealRepository.findById(anyLong())).thenReturn(Optional.of(MealCreateUpdateDTO.createMealFactory(mealCreateUpdateDTO)));
+
+        //when
+        Meal meal = mealService.getMealByID(1L);
+
+        //then
+        Assert.assertNotNull(meal);
+
+    }
+
+    @Test
+    public void shouldReturnNotFoundException_When_TriedToGetMealWithNotExist() {
+        //given
+        when(mealRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        //when
+        assertThrows(NotFoundException.class, () -> {
+            mealService.getMealByID(1L);
+        });
+
+
     }
 
     @Test
