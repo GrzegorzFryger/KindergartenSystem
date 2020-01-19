@@ -16,6 +16,10 @@
             <groupId>pl.edu.pja.prz</groupId>
             <artifactId>commons</artifactId>
         </dependency>
+        <dependency>
+            <groupId>pl.edu.pja.prz</groupId>
+            <artifactId>finances</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
