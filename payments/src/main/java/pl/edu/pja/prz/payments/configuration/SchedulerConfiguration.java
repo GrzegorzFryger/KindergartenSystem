@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
+import pl.edu.pja.prz.payments.service.JobService;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -60,6 +61,11 @@ public class SchedulerConfiguration {
 		var properties = new Properties();
 		properties.putAll(quartzProperties.getProperties());
 		return properties;
+	}
+
+	@Bean
+	public JobService createJobService(){
+		return new JobService("pl.edu.pja.prz.payments");
 	}
 
 }
