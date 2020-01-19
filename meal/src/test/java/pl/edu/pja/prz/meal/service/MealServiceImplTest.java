@@ -19,11 +19,12 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
@@ -203,18 +204,52 @@ public class MealServiceImplTest {
     }
 
     @Test
-    public void getAllMeals() {
+    public void ShouldGetAllMeals_When_InputArgumentIsCorrect() {
+        //given
+        List<Meal> meals = new ArrayList<>();
+        meals.add(new Meal(BigDecimal.ONE, LocalDateTime.MIN, LocalDateTime.MAX, MealStatus.ACTIVE, MealType.BREAKFAST, UUID.randomUUID() ));
+        meals.add(new Meal(BigDecimal.ONE, LocalDateTime.MIN, LocalDateTime.MAX, MealStatus.INACTIVE, MealType.BREAKFAST, UUID.randomUUID() ));
+        when(mealRepository.findAll()).thenReturn(meals);
+
+        //when
+        List<Meal> returnedMeals = mealService.getAllMeals();
+
+        //then
+        assertEquals(meals, returnedMeals);
     }
 
     @Test
-    public void getAllActiveMeals() {
+    public void ShouldGetAllActiveMeals_When_InputArgumentIsCorrect() {
+        //given
+        List<Meal> meals = new ArrayList<>();
+        meals.add(new Meal(BigDecimal.ONE, LocalDateTime.MIN, LocalDateTime.MAX, MealStatus.ACTIVE, MealType.BREAKFAST, UUID.randomUUID() ));
+        when(mealRepository.findAllByMealStatus(MealStatus.ACTIVE)).thenReturn(meals);
+
+        //when
+        List<Meal> returnedMeals = mealService.getAllActiveMeals();
+
+        //then
+        assertEquals(meals, returnedMeals);
     }
 
     @Test
-    public void markMealsAsInactiveIfNeeded() {
+    public void ShouldMarkMealsAsInactiveIfNeeded_When_InputArgumentIsCorrect() {
+        //given
+        List<Meal> meals = new ArrayList<>();
+        meals.add(new Meal(BigDecimal.ONE, LocalDateTime.MIN, LocalDateTime.MIN, MealStatus.ACTIVE, MealType.BREAKFAST, UUID.randomUUID() ));
+        meals.add(new Meal(BigDecimal.ONE, LocalDateTime.MIN, LocalDateTime.MIN, MealStatus.ACTIVE, MealType.BREAKFAST, UUID.randomUUID() ));
+        meals.add(new Meal(BigDecimal.ONE, LocalDateTime.MIN, LocalDateTime.MIN, MealStatus.ACTIVE, MealType.BREAKFAST, UUID.randomUUID() ));
+        when(mealRepository.findAllByMealStatus(MealStatus.ACTIVE)).thenReturn(meals);
+
+        List<Meal> afterInactiveMark = mealService.markMealsAsInactiveIfNeeded();
+
+        assertEquals(afterInactiveMark.get(1).getMealStatus(), MealStatus.INACTIVE);
+
     }
 
     @Test
-    public void isMealPresentByID() {
+    public void ShouldIsMealPresentByID_When_InputArgumentIsCorrect() {
+        when(mealRepository.existsById(1L)).thenReturn(true);
+        assertTrue(mealService.isMealPresentByID(1L));
     }
 }

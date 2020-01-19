@@ -95,14 +95,16 @@ public class MealServiceImpl implements MealService {
         return mealRepository.findAllByMealStatus(MealStatus.ACTIVE);
     }
 
-    public void markMealsAsInactiveIfNeeded() {
+    public List<Meal> markMealsAsInactiveIfNeeded() {
         List<Meal> allMealsWithActiveStatus = mealRepository.findAllByMealStatus(MealStatus.ACTIVE);
         allMealsWithActiveStatus.forEach(u -> {
-            if (u.getMealToDate().isAfter(LocalDateTime.now())) {
+            if (u.getMealToDate().isBefore(LocalDateTime.now())) {
                 u.setMealStatus(MealStatus.INACTIVE);
                 mealRepository.save(u);
             }
         });
+
+        return allMealsWithActiveStatus;
     }
 
     public boolean isMealPresentByID(Long id) {
