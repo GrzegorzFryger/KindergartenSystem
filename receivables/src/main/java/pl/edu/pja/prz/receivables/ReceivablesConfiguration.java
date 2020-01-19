@@ -17,7 +17,7 @@ public class ReceivablesConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(ReceivablesConfiguration.class);
 
     @PostConstruct
-    public void postConstruct(){
+    public void postConstruct() {
         logger.info("Loaded module: RECEIVABLES");
     }
 }

@@ -1,5 +1,6 @@
 package pl.edu.pja.prz.payments.model;
 
+import pl.edu.pja.prz.commons.model.BaseEntityLong;
 import pl.edu.pja.prz.payments.model.enums.TypeDiscount;
 
 import javax.persistence.Entity;
@@ -11,7 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Discount extends BaseEntity<Long> {
+public class Discount extends BaseEntityLong {
 	private String description;
 	private BigDecimal value;
 	private TypeDiscount typeDiscount;
@@ -22,9 +23,11 @@ public class Discount extends BaseEntity<Long> {
 	private Set<RecurringPayment> recurringPayments = new HashSet<>();
 
 	Discount() {
+		super();
 	}
 
 	public Discount(String description, BigDecimal value, TypeDiscount typeDiscount) {
+		super();
 		this.description = description;
 		this.value = value;
 		this.typeDiscount = typeDiscount;

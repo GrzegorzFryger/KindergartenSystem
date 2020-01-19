@@ -2,6 +2,7 @@ package pl.edu.pja.prz.account.model;
 
 
 import pl.edu.pja.prz.account.model.enums.PrivilegeType;
+import pl.edu.pja.prz.commons.model.BaseEntityLong;
 
 import javax.persistence.*;
 import java.util.Arrays;
@@ -9,7 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Role extends BaseEntity<Long> {
+public class Role extends BaseEntityLong {
 	private String name;
 	@ElementCollection @Enumerated(EnumType.STRING)
 	private Set<PrivilegeType> privileges = new HashSet<>();

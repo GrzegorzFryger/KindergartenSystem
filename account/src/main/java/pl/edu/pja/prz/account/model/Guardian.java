@@ -1,9 +1,9 @@
 package pl.edu.pja.prz.account.model;
 
-import pl.edu.pja.prz.account.model.value.Address;
-import pl.edu.pja.prz.account.model.value.FullName;
+import pl.edu.pja.prz.commons.model.Address;
+import pl.edu.pja.prz.commons.model.FullName;
 import pl.edu.pja.prz.account.model.value.Password;
-import pl.edu.pja.prz.account.model.value.Phone;
+import pl.edu.pja.prz.commons.model.Phone;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -20,7 +20,7 @@ public class Guardian extends Account {
 			inverseJoinColumns = {@JoinColumn(name = "fk_child")})
 	private Set<Child> children = new HashSet<>();
 
-	Guardian() {
+	public Guardian() {
 		super();
 	}
 
@@ -46,5 +46,21 @@ public class Guardian extends Account {
 		return this.children.add(child);
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Guardian)) return false;
+		if (!super.equals(o)) return false;
 
+		Guardian guardian = (Guardian) o;
+
+		return getChildren() != null ? getChildren().equals(guardian.getChildren()) : guardian.getChildren() == null;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = super.hashCode();
+		result = 31 * result + (getChildren() != null ? getChildren().hashCode() : 0);
+		return result;
+	}
 }

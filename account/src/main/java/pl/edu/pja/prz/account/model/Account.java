@@ -2,10 +2,10 @@ package pl.edu.pja.prz.account.model;
 
 
 import pl.edu.pja.prz.account.model.enums.AccountStatus;
-import pl.edu.pja.prz.account.model.value.Address;
-import pl.edu.pja.prz.account.model.value.FullName;
+import pl.edu.pja.prz.commons.model.Address;
+import pl.edu.pja.prz.commons.model.FullName;
 import pl.edu.pja.prz.account.model.value.Password;
-import pl.edu.pja.prz.account.model.value.Phone;
+import pl.edu.pja.prz.commons.model.Phone;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -21,7 +21,8 @@ public class Account extends Person {
 	private Set<Role> roles = new HashSet<>();
 	private String email;
 
-	Account() {
+	public Account() {
+		super();
 	}
 
 	public Account(Address address, FullName fullName, Phone phoneNumber,
@@ -74,5 +75,28 @@ public class Account extends Person {
 		return this.roles.add(role);
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Account)) return false;
+		if (!super.equals(o)) return false;
 
+		Account account = (Account) o;
+
+		if (getAccountStatus() != account.getAccountStatus()) return false;
+		if (getPassword() != null ? !getPassword().equals(account.getPassword()) : account.getPassword() != null)
+			return false;
+		if (getRoles() != null ? !getRoles().equals(account.getRoles()) : account.getRoles() != null) return false;
+		return getEmail() != null ? getEmail().equals(account.getEmail()) : account.getEmail() == null;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = super.hashCode();
+		result = 31 * result + (getAccountStatus() != null ? getAccountStatus().hashCode() : 0);
+		result = 31 * result + (getPassword() != null ? getPassword().hashCode() : 0);
+		result = 31 * result + (getRoles() != null ? getRoles().hashCode() : 0);
+		result = 31 * result + (getEmail() != null ? getEmail().hashCode() : 0);
+		return result;
+	}
 }

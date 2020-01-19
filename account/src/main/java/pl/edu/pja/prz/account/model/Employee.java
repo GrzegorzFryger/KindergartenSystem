@@ -1,10 +1,10 @@
 package pl.edu.pja.prz.account.model;
 
 import pl.edu.pja.prz.account.model.enums.EmployeeType;
-import pl.edu.pja.prz.account.model.value.Address;
-import pl.edu.pja.prz.account.model.value.FullName;
+import pl.edu.pja.prz.commons.model.Address;
+import pl.edu.pja.prz.commons.model.FullName;
 import pl.edu.pja.prz.account.model.value.Password;
-import pl.edu.pja.prz.account.model.value.Phone;
+import pl.edu.pja.prz.commons.model.Phone;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -50,5 +50,24 @@ public class Employee extends Account {
 		return groups.remove(group);
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Employee)) return false;
+		if (!super.equals(o)) return false;
 
+		Employee employee = (Employee) o;
+
+		if (getGroups() != null ? !getGroups().equals(employee.getGroups()) : employee.getGroups() != null)
+			return false;
+		return getEmployeeType() == employee.getEmployeeType();
+	}
+
+	@Override
+	public int hashCode() {
+		int result = super.hashCode();
+		result = 31 * result + (getGroups() != null ? getGroups().hashCode() : 0);
+		result = 31 * result + (getEmployeeType() != null ? getEmployeeType().hashCode() : 0);
+		return result;
+	}
 }

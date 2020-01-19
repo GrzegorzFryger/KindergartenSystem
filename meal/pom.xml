@@ -11,40 +11,30 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>meal</artifactId>
-
-
+    <dependencies>
+        <dependency>
+            <groupId>pl.edu.pja.prz</groupId>
+            <artifactId>commons</artifactId>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>**/pl/edu/pja/prz/meal/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/meal/exception/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/meal/model/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/meal/model/dto/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/meal/model/enums/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/meal/service/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/meal/configuration/*</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
         </plugins>
     </build>
-    <dependencies>
-
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.5.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-junit-jupiter</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
 </project>

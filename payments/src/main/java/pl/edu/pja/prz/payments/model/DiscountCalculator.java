@@ -12,20 +12,24 @@ public interface DiscountCalculator {
 	Set<Discount> getDiscounts();
 
 	default BigDecimal calculateAmountWithDiscount() {
-		return getDiscounts()
-				.stream()
-				.map(discount -> {
-					BigDecimal valueOfDiscount;
-					if (TypeDiscount.PERCENTAGE == discount.getTypeDiscount()) {
-						valueOfDiscount = getAmount().multiply(
-								discount.getValue().divide(BigDecimal.valueOf(100))
-						).setScale(2, RoundingMode.CEILING);
-					} else {
-						valueOfDiscount = discount.getValue()
-								.setScale(2, RoundingMode.CEILING);
-					}
-					return valueOfDiscount;
-				})
-				.reduce(getAmount(), BigDecimal::subtract);
+		if (getDiscounts().isEmpty()) {
+			return getAmount();
+		} else {
+			return getDiscounts()
+					.stream()
+					.map(discount -> {
+						BigDecimal valueOfDiscount;
+						if (TypeDiscount.PERCENTAGE == discount.getTypeDiscount()) {
+							valueOfDiscount = getAmount().multiply(
+									discount.getValue().divide(BigDecimal.valueOf(100))
+							).setScale(2, RoundingMode.CEILING);
+						} else {
+							valueOfDiscount = discount.getValue()
+									.setScale(2, RoundingMode.CEILING);
+						}
+						return valueOfDiscount;
+					})
+					.reduce(getAmount(), BigDecimal::subtract);
+		}
 	}
 }

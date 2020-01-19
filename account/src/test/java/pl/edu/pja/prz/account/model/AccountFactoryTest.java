@@ -4,10 +4,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pl.edu.pja.prz.account.model.enums.EmployeeType;
 import pl.edu.pja.prz.account.model.enums.PrivilegeType;
-import pl.edu.pja.prz.account.model.value.Address;
-import pl.edu.pja.prz.account.model.value.FullName;
+import pl.edu.pja.prz.commons.model.Address;
+import pl.edu.pja.prz.commons.model.FullName;
 import pl.edu.pja.prz.account.model.value.Password;
-import pl.edu.pja.prz.account.model.value.Phone;
+import pl.edu.pja.prz.commons.model.Phone;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -39,7 +39,7 @@ class AccountFactoryTest {
 		role.setPrivileges(Set.of(PrivilegeType.ADMINISTRATOR));
 		roles = new HashSet<>(Collections.singletonList(role));
 		//when
-		var administrator = new AdministratorAccountFactoryImpl().createAdministrator(new Person(address,
+		var administrator = new AccountFactoryImpl().createAdministrator(new Person(address,
 				fullName,phone),password,email);
 
 		//then
@@ -59,7 +59,7 @@ class AccountFactoryTest {
 		roles = new HashSet<>(Collections.singletonList(role));
 
 		//when
-		var teacher =  new AdministratorAccountFactoryImpl().createTeacher(new Person(address,fullName,phone),password,email);
+		var teacher =  new AccountFactoryImpl().createTeacher(new Person(address,fullName,phone),password,email);
 
 		//then
 		assertEquals(Employee.class, teacher.getClass());
@@ -78,7 +78,7 @@ class AccountFactoryTest {
 		roles = new HashSet<>(Collections.singletonList(role));
 
 		//when
-		var guardian = new AdministratorAccountFactoryImpl().createGuardian(new Person(address,fullName,phone),password,email);
+		var guardian = new AccountFactoryImpl().createGuardian(new Person(address,fullName,phone),password,email);
 
 		//then
 		assertEquals(Guardian.class, guardian.getClass());

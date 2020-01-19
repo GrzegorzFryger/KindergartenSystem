@@ -14,33 +14,27 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>pl.edu.pja.prz</groupId>
+            <artifactId>commons</artifactId>
         </dependency>
         <dependency>
-            <groupId>pl.edu.pja.prz</groupId>
-            <artifactId>receivables</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>pl.edu.pja.prz</groupId>
-            <artifactId>payments</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>**/pl/edu/pja/prz/finances/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/finances/configuration/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/finances/mapper/*</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
         </plugins>
     </build>

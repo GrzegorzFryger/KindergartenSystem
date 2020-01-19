@@ -13,17 +13,41 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>pl.edu.pja.prz</groupId>
+            <artifactId>commons</artifactId>
         </dependency>
     </dependencies>
 
-
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${mapstruct.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>**/pl/edu/pja/prz/payments/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/payments/configuration/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/payments/facade/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/payments/model/value/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/payments/facade/mapper/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/payments/facade/dto/*</exclude>>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
