@@ -19,7 +19,7 @@ class RecurringPaymentTest {
 	void setUp() {
 		payment = new Payment(BigDecimal.valueOf(100), "Tuition Payment");
 		recurringPayment = new RecurringPayment();
-		recurringPayment.setAmount(BigDecimal.valueOf(100));
+		recurringPayment.setBaseAmount(BigDecimal.valueOf(100));
 	}
 
 	@Test

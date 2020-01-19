@@ -8,7 +8,7 @@ public class DisposablePayment extends Payment {
 	}
 
 	public DisposablePayment(Payment payment) {
-		this(payment.getAmount(), payment.getDescription());
+		this(payment.getBaseAmount(), payment.getDescription());
 	}
 
 

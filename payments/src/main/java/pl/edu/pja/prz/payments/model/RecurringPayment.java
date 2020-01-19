@@ -24,11 +24,9 @@ public class RecurringPayment extends Payment implements DiscountCalculator {
 	@Enumerated(EnumType.STRING)
 	private TypeRecurringPayment typeRecurringPayment;
 
-
-
 	public RecurringPayment(Child child, Payment payment, PeriodValidity periodValidity,
 	                        TypeRecurringPayment typeRecurringPayment, Status status) {
-		this(payment.getAmount(), payment.getDescription(), child, periodValidity, typeRecurringPayment, status);
+		this(payment.getBaseAmount(), payment.getDescription(), child, periodValidity, typeRecurringPayment, status);
 	}
 
 	public RecurringPayment(BigDecimal amount, String description, Child child, PeriodValidity periodValidity,
@@ -60,7 +58,8 @@ public class RecurringPayment extends Payment implements DiscountCalculator {
 		this.periodValidity = periodValidity;
 	}
 
-	@Override public Set<Discount> getDiscounts() {
+	@Override
+	public Set<Discount> getDiscounts() {
 		return discounts;
 	}
 
@@ -92,17 +91,18 @@ public class RecurringPayment extends Payment implements DiscountCalculator {
 		this.discounts.remove(discountPolicies);
 	}
 
-	public void addDiscount(Discount discount ) {
+	public void addDiscount(Discount discount) {
 		this.discounts.add(discount);
 		discount.getRecurringPayments().add(this);
 	}
 
-	public void removeDiscount(Discount discount ) {
+	public void removeDiscount(Discount discount) {
 		this.discounts.remove(discount);
 		discount.getRecurringPayments().remove(this);
 	}
 
-	@Override public boolean equals(Object o) {
+	@Override
+	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (!(o instanceof RecurringPayment)) return false;
 
@@ -117,7 +117,8 @@ public class RecurringPayment extends Payment implements DiscountCalculator {
 		return getTypeRecurringPayment() == that.getTypeRecurringPayment();
 	}
 
-	@Override public int hashCode() {
+	@Override
+	public int hashCode() {
 		int result = getChild() != null ? getChild().hashCode() : 0;
 		result = 31 * result + (getPeriodValidity() != null ? getPeriodValidity().hashCode() : 0);
 		result = 31 * result + (getDiscounts() != null ? getDiscounts().hashCode() : 0);
@@ -126,7 +127,8 @@ public class RecurringPayment extends Payment implements DiscountCalculator {
 		return result;
 	}
 
-	@Override public String toString() {
+	@Override
+	public String toString() {
 		return "RecurringPayment{" +
 				"child=" + child +
 				", periodValidity=" + periodValidity +
