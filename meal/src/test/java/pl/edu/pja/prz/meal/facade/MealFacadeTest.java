@@ -9,7 +9,6 @@ import pl.edu.pja.prz.meal.exception.MealActivityStatusException;
 import pl.edu.pja.prz.meal.model.dto.MealCreateUpdateDTO;
 import pl.edu.pja.prz.meal.service.MealServiceImpl;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 

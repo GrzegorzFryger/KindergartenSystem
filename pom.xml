@@ -117,9 +117,10 @@
                         <exclude>**/pl/edu/pja/prz/meal/exception/*</exclude>
                         <exclude>**/pl/edu/pja/prz/meal/model/*</exclude>
                         <exclude>**/pl/edu/pja/prz/meal/model/dto/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/meal/service/*</exclude>
                         <exclude>**/pl/edu/pja/prz/meal/configuration/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/meal/facade/*</exclude>
+
+                        <exclude>**/pl/edu/pja/prz/meal/service/*</exclude>
+
 
                         <!-- Payments module exclusions -->
                         <exclude>**/pl/edu/pja/prz/payments/*</exclude>

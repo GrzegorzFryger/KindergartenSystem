@@ -1,10 +1,12 @@
 package pl.edu.pja.prz.meal.service;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pl.edu.pja.prz.meal.exception.MealActivityStatusException;
+import pl.edu.pja.prz.meal.model.dto.MealCreateUpdateDTO;
 import pl.edu.pja.prz.meal.repository.MealPriceRepository;
 import pl.edu.pja.prz.meal.repository.MealRepository;
 
@@ -17,6 +19,8 @@ public class MealServiceImplTest {
     private MealPriceRepository mealPriceListRepository;
     private MealServiceImpl mealService ;
 
+    private MealCreateUpdateDTO mealCreateUpdateDTO;
+
 
     @BeforeEach
     public void setup() {
@@ -25,7 +29,8 @@ public class MealServiceImplTest {
 
 
     @Test
-    public void createMeal()  {
+    public void createMeal() throws MealActivityStatusException {
+        mealService.createMeal(mealCreateUpdateDTO);
     }
 
     @Test
