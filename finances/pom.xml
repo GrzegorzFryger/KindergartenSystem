@@ -21,10 +21,6 @@
             <groupId>pl.edu.pja.prz</groupId>
             <artifactId>receivables</artifactId>
         </dependency>
-        <dependency>
-            <groupId>pl.edu.pja.prz</groupId>
-            <artifactId>payments</artifactId>
-        </dependency>
     </dependencies>
 
     <build>
