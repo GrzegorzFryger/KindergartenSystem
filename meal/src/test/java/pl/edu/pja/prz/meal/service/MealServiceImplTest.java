@@ -18,13 +18,15 @@ import pl.edu.pja.prz.meal.repository.MealRepository;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Optional;
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class MealServiceImplTest {
@@ -44,7 +46,7 @@ public class MealServiceImplTest {
         mealService = new MealServiceImpl(mealRepository, mealPriceService );
 
         mealCreateUpdateDTO =
-                new MealCreateUpdateDTO(new BigDecimal(88), MealType.BREAKFAST, UUID.randomUUID(), LocalDate.MIN, LocalDate.MAX);
+                new MealCreateUpdateDTO(new BigDecimal(1), MealType.BREAKFAST, UUID.randomUUID(), LocalDate.MIN, LocalDate.MAX);
     }
 
 
@@ -103,20 +105,101 @@ public class MealServiceImplTest {
         assertThrows(NotFoundException.class, () -> {
             mealService.getMealByID(1L);
         });
-
-
     }
 
     @Test
-    public void deleteMealByID() {
+    public void shouldDeleteMealByID_When_MealExists() throws NotFoundException {
+        //given
+        when(mealRepository.existsById(anyLong())).thenReturn(true);
+
+        //when
+        mealService.deleteMealByID(1L);
+
+        verify(mealRepository, times(1)).deleteById(any());
     }
 
     @Test
-    public void updateMeal() {
+    public void shouldReturnNotFoundException_When_TriedToDeleteMealWithNotExist() {
+
+        //when
+        assertThrows(NotFoundException.class, () -> {
+            mealService.deleteMealByID(1L);
+        });
     }
 
     @Test
-    public void markMealAsInactiveOnDemand() {
+    public void ShouldUpdateMeal_When_InputArgumentIsCorrect() throws NotFoundException, MealActivityStatusException {
+        //given
+        Meal meal = new Meal(new BigDecimal(88), LocalDateTime.MIN, LocalDateTime.now(),MealStatus.ACTIVE, MealType.SOUP, UUID.randomUUID());
+        when(mealService.isMealPresentByID(1L)).thenReturn(true);
+        when(mealRepository.findMealByIdAndMealStatus(any(), any())).thenReturn(Optional.empty());
+        when(mealRepository.findById(1L)).thenReturn(Optional.of(meal));
+        when(mealRepository.save(meal)).thenReturn(MealCreateUpdateDTO.createMealFactory(mealCreateUpdateDTO));
+
+        Meal updatedMeal = mealService.updateMeal(mealCreateUpdateDTO, 1L);
+
+        Assert.assertEquals(updatedMeal.getMealPrice(), mealCreateUpdateDTO.getMealPrice());
+        Assert.assertEquals(updatedMeal.getMealType(), mealCreateUpdateDTO.getMealType());
+        Assert.assertEquals(updatedMeal.getMealToDate(), LocalDateTime.of(mealCreateUpdateDTO.getMealToDate(), LocalTime.MIDNIGHT));
+    }
+
+    @Test
+    public void ShouldReturnNotFoundException_When_TriedToUpdateMealWithNotExist() {
+
+        assertThrows(NotFoundException.class, () -> {
+            mealService.updateMeal(mealCreateUpdateDTO, 1L);
+        });
+    }
+
+    @Test
+    public void ShouldReturnMealActivityStatusException_When_TriedToUpdateMealWithIsNotActive() {
+
+        //given
+        Meal meal = new Meal(BigDecimal.ONE, LocalDateTime.MIN, LocalDateTime.MAX, MealStatus.INACTIVE, MealType.BREAKFAST, UUID.randomUUID() );
+        when(mealRepository.existsById(1L)).thenReturn(true);
+        when(mealRepository.findMealByIdAndMealStatus(1L, MealStatus.INACTIVE)).thenReturn(Optional.of(MealCreateUpdateDTO.createMealFactory(mealCreateUpdateDTO)));
+
+        //then
+        assertThrows(MealActivityStatusException.class, () -> {
+            mealService.updateMeal(mealCreateUpdateDTO, 1L);
+        });
+    }
+
+    @Test
+    public void ShouldMarkMealAsInactiveOnDemand_When_InputArgumentIsCorrect() throws NotFoundException, MealActivityStatusException {
+        //given
+        when(mealRepository.existsById(1L)).thenReturn(true);
+        when(mealRepository.findMealByIdAndMealStatus(any(), any())).thenReturn(Optional.empty());
+        Meal meal = new Meal(BigDecimal.ONE, LocalDateTime.MIN, LocalDateTime.MAX, MealStatus.ACTIVE, MealType.BREAKFAST, UUID.randomUUID() );
+
+        when(mealRepository.findById(1L)).thenReturn(Optional.of(meal));
+
+        //when
+        mealService.markMealAsInactiveOnDemand(1L);
+
+        //then
+        assertEquals(meal.getMealStatus(), MealStatus.INACTIVE);
+    }
+
+    @Test
+    public void ShouldReturnNotFoundException_When_TriedToMarkMealAsInactiveOnDemandWithNotExist() {
+        assertThrows(NotFoundException.class, () -> {
+            mealService.markMealAsInactiveOnDemand(111L);
+        });
+    }
+
+    @Test
+    public void ShouldReturnMealActivityStatusException_When_TriedToMarkMealAsInactiveOnDemandWithIsNotActive() {
+        //given
+        when(mealRepository.existsById(111L)).thenReturn(true);
+        Meal meal = new Meal(BigDecimal.ONE, LocalDateTime.MIN, LocalDateTime.MAX, MealStatus.ACTIVE, MealType.BREAKFAST, UUID.randomUUID() );
+        when(mealRepository.findMealByIdAndMealStatus(any(), any())).thenReturn(Optional.of(meal));
+
+
+        //then
+        assertThrows(MealActivityStatusException.class, () -> {
+            mealService.markMealAsInactiveOnDemand(111L);
+        });
     }
 
     @Test

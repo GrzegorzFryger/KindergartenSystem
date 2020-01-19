@@ -38,22 +38,22 @@ public class MealServiceImpl implements MealService {
 
     @Override
     public Meal getMealByID(Long id) throws NotFoundException {
-        return mealRepository.findById(id).orElseThrow(() -> new NotFoundException("Meal by ID " + id + "doest exist"));
+        return mealRepository.findById(id).orElseThrow(() -> new NotFoundException("Meal by ID " + id + " doest exist"));
     }
 
     @Override
     public void deleteMealByID(Long id) throws NotFoundException {
         if (isMealPresentByID(id)) {
             mealRepository.deleteById(id);
-        } else throw new NotFoundException("Meal by ID " + id + "doest exist");
+        } else throw new NotFoundException("Meal by ID " + id + " doest exist");
     }
 
     @Override
     public Meal updateMeal(MealCreateUpdateDTO meal, Long mealToUpdateID) throws NotFoundException, MealActivityStatusException {
         if (!isMealPresentByID(mealToUpdateID)) {
-            throw new NotFoundException("Meal by ID " + mealToUpdateID + "doest exist");
+            throw new NotFoundException("Meal by ID " + mealToUpdateID + " doest exist");
         }
-        if (mealRepository.findMealByIdAndMealStatus(mealToUpdateID, MealStatus.ACTIVE).isPresent()) {
+        if (mealRepository.findMealByIdAndMealStatus(mealToUpdateID, MealStatus.INACTIVE).isPresent()) {
             throw new MealActivityStatusException("Meal with ID: " + mealToUpdateID + " is not ACTIVE");
         }
 
