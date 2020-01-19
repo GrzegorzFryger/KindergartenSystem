@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.account.model;
+package pl.edu.pja.prz.commons.model;
 
 import org.hibernate.annotations.Type;
 
@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @MappedSuperclass
-public class BaseEntityUuid {
+public class BaseEntityUuid implements BaseEntity<UUID> {
 	@Id
 	@GeneratedValue()
 	@Type(type = "uuid-char")
@@ -15,12 +15,13 @@ public class BaseEntityUuid {
 	@Version
 	private Integer version;
 
-	BaseEntityUuid() {
+	public BaseEntityUuid() {
 	}
 
 	public UUID getId() {
 		return id;
 	}
+
 
 	public void setId(UUID id) {
 		this.id = id;

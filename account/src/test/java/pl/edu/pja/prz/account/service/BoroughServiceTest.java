@@ -10,6 +10,9 @@ import pl.edu.pja.prz.account.model.Child;
 import pl.edu.pja.prz.account.model.enums.Gender;
 import pl.edu.pja.prz.account.model.value.*;
 import pl.edu.pja.prz.account.repository.BoroughRepository;
+import pl.edu.pja.prz.commons.model.Address;
+import pl.edu.pja.prz.commons.model.FullName;
+import pl.edu.pja.prz.commons.model.Phone;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -44,7 +47,7 @@ class BoroughServiceTest {
 
 		//when
 		when(boroughRepository.save(any(Borough.class))).thenReturn(borough);
-		var returnedBorough = boroughService.create(borough);
+		var returnedBorough = boroughService.createBorough(borough);
 
 		//then
 		assertNotNull(returnedBorough);
@@ -92,9 +95,28 @@ class BoroughServiceTest {
 
 		//when
 		when(boroughRepository.findById(1L)).thenReturn(Optional.of(borough));
-		var returnedValue = boroughService.find(1L);
+		var returnedValue = boroughService.findBorough(1L);
 
 		//then
 		verify(boroughRepository, times(1)).findById(1L);
+	}
+
+	@Test
+	void should_updateBorough() {
+		//given
+		var borough = new Borough("Test borough",
+				new Address("70-700", "City", "Street 256"),
+				new Phone("123132123"),
+				"test@test.com",
+				"99576122623"
+		);
+		borough.setId(1L);
+
+		//when
+		when(boroughRepository.findById(1L)).thenReturn(Optional.of(borough));
+		var updatedBorough = boroughService.updateBorough(borough);
+
+		//then
+		verify(boroughRepository, times(1)).save(borough);
 	}
 }

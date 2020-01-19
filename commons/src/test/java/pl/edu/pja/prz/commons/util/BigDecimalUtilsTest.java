@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.receivables.util;
+package pl.edu.pja.prz.commons.util;
 
 import org.junit.jupiter.api.Test;
 

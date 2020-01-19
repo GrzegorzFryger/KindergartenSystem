@@ -35,7 +35,7 @@ public class FinancesDataSourceConfiguration {
 
     @Bean("financesModuleEntityManagerFactory")
     public LocalContainerEntityManagerFactoryBean createFinancesModuleEntityManagerFactory(EntityManagerFactoryBuilder builder) {
-        return builder.dataSource(financesModuleDataSource()).packages("pl.edu.pja.prz.finances.repository").build();
+        return builder.dataSource(financesModuleDataSource()).packages("pl.edu.pja.prz.finances.model").build();
     }
 
     @Bean

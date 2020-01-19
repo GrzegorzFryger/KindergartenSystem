@@ -1,19 +1,23 @@
 package pl.edu.pja.prz.account.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.account.model.Borough;
 import pl.edu.pja.prz.account.model.Child;
 import pl.edu.pja.prz.account.model.ChildBuilder;
+import pl.edu.pja.prz.account.model.Child_;
 import pl.edu.pja.prz.account.model.enums.ChildStatus;
 import pl.edu.pja.prz.account.model.enums.Gender;
-import pl.edu.pja.prz.account.model.value.Address;
 import pl.edu.pja.prz.account.model.value.Age;
-import pl.edu.pja.prz.account.model.value.FullName;
 import pl.edu.pja.prz.account.model.value.StudyPeriod;
 import pl.edu.pja.prz.account.repository.ChildRepository;
 import pl.edu.pja.prz.account.utilites.PeselService;
+import pl.edu.pja.prz.commons.model.Address;
+import pl.edu.pja.prz.commons.model.Address_;
+import pl.edu.pja.prz.commons.model.FullName;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -35,9 +39,7 @@ class ChildServiceImpl implements ChildService {
 	@Override
 	public Child createChild(Long boroughId, Address address, FullName fullName, String pesel,
 	                         StudyPeriod studyPeriod) {
-		var borough = boroughService.find(boroughId).orElseThrow(() -> {
-			throw new IllegalArgumentException("Borough with id not exist: " + boroughId);
-		});
+		var borough = boroughService.findBorough(boroughId);
 
 		var child = createChild(address, borough, fullName, pesel, studyPeriod);
 		boroughService.addChildToBorough(child, borough);
@@ -48,9 +50,7 @@ class ChildServiceImpl implements ChildService {
 	@Override
 	public Child createChild(Long boroughId, Address address, Age age, FullName fullName, Gender gender,
 	                         StudyPeriod studyPeriod) {
-		var borough = boroughService.find(boroughId).orElseThrow(() -> {
-			throw new IllegalArgumentException("Borough with id not exist: " + boroughId);
-		});
+		var borough = boroughService.findBorough(boroughId);
 
 		//todo write condition for children without pesel number
 		var child = createChild(address, age, borough, fullName, gender, "NOT_SET", studyPeriod);
@@ -95,7 +95,29 @@ class ChildServiceImpl implements ChildService {
 		return childRepository.save(child);
 	}
 
-
+	@Override
+	public Optional<Child> findByFullNameOrAddressReadOnly(FullName fullName, @Nullable String street)
+			throws IllegalStateException {
+		if (street == null) {
+			return childRepository.findReadOnly((root, query, cb) ->
+					cb.equal(root.get(Child_.fullName), fullName), Child.class)
+					.stream()
+					.reduce((u, v) -> {
+						throw new IllegalStateException("More than one child found");
+					});
+		} else {
+			return childRepository.findReadOnly((root, query, cb) ->
+							cb.and(
+									cb.equal(root.get(Child_.fullName), fullName),
+									cb.like(root.get(Child_.address).get(Address_.streetNumber), street)
+							)
+					, Child.class)
+					.stream()
+					.reduce((u, v) -> {
+						throw new IllegalStateException("More than one child found");
+					});
+		}
+	}
 
 
 }

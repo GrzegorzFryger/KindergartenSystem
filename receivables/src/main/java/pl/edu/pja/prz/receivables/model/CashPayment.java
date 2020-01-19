@@ -1,6 +1,7 @@
 package pl.edu.pja.prz.receivables.model;
 
 import org.hibernate.annotations.Type;
+import pl.edu.pja.prz.commons.model.BaseEntityLong;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +12,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-public class CashPayment extends BaseEntity<Long> implements Serializable {
+public class CashPayment extends BaseEntityLong implements Serializable {
     private LocalDate transactionDate;
     private String contractorDetails;
     private String title;

@@ -1,9 +1,12 @@
 package pl.edu.pja.prz.payments.model;
 
+import pl.edu.pja.prz.commons.model.BaseEntityLong;
+
 import java.math.BigDecimal;
 
-public class Payment extends BaseEntity<Long> {
-	private BigDecimal baseAmount;
+
+public class Payment extends BaseEntityLong {
+	private BigDecimal amount;
 	private String description;
 
 	Payment() {

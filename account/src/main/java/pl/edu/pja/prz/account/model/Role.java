@@ -2,6 +2,7 @@ package pl.edu.pja.prz.account.model;
 
 
 import pl.edu.pja.prz.account.model.enums.PrivilegeType;
+import pl.edu.pja.prz.commons.model.BaseEntityLong;
 
 import javax.persistence.*;
 import java.util.Arrays;
