@@ -17,7 +17,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Service
-public class RecurringPaymentServiceImpl implements RecurringPaymentService, RecurringPaymentSearchService {
+public class RecurringPaymentServiceImpl implements RecurringPaymentService  {
 	private final RecurringPaymentRepository recurringPaymentRepository;
 	private final DiscountRepository discountRepository;
 
@@ -122,11 +122,5 @@ public class RecurringPaymentServiceImpl implements RecurringPaymentService, Rec
 						}
 				).orElseThrow(() -> new IllegalArgumentException("Not found payment with child id " + childId))
 		).orElseThrow(() -> new IllegalArgumentException("Not found discount with id " + discountId));
-	}
-
-
-	@Override
-	public String search() {
-		return null;
 	}
 }
