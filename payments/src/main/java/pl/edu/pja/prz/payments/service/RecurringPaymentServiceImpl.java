@@ -17,8 +17,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Service
-public class RecurringPaymentServiceImpl implements RecurringPaymentService {
-
+public class RecurringPaymentServiceImpl implements RecurringPaymentService, RecurringPaymentSearchService {
 	private final RecurringPaymentRepository recurringPaymentRepository;
 	private final DiscountRepository discountRepository;
 
@@ -66,7 +65,7 @@ public class RecurringPaymentServiceImpl implements RecurringPaymentService {
 	public RecurringPayment updatePayment(RecurringPayment recurringPayment) {
 		return recurringPaymentRepository.findById(recurringPayment.getId()).map(payment -> {
 			if (recurringPayment.getDiscounts() != null) {
-				payment.setAmount(recurringPayment.getAmount());
+				payment.setBaseAmount(recurringPayment.getBaseAmount());
 			}
 			if(recurringPayment.getDescription() != null) {
 				payment.setDescription(recurringPayment.getDescription());
@@ -126,4 +125,8 @@ public class RecurringPaymentServiceImpl implements RecurringPaymentService {
 	}
 
 
+	@Override
+	public String search() {
+		return null;
+	}
 }
