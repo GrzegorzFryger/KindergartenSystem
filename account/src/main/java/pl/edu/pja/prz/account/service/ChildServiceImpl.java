@@ -18,6 +18,7 @@ import pl.edu.pja.prz.commons.model.Address;
 import pl.edu.pja.prz.commons.model.Address_;
 import pl.edu.pja.prz.commons.model.FullName;
 
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -37,6 +38,13 @@ class ChildServiceImpl implements ChildService {
 		this.boroughService = boroughService;
 	}
 
+	@Override
+	public Child getChildById(UUID id) {
+		return childRepository.findById(id).orElseThrow(
+				() -> {
+					throw new ElementNotFoundException(CHILD, id);
+				});
+	}
 
 	@Override
 	public Child createChild(Long boroughId, Address address, FullName fullName, String pesel,
@@ -62,39 +70,35 @@ class ChildServiceImpl implements ChildService {
 	}
 
 	@Override
-	public Child getChildById(UUID id) {
-		return childRepository.findById(id).orElseThrow(
-				() -> {
-					throw new ElementNotFoundException(CHILD, id);
+	public Child updateChild(Child child) {
+		return childRepository.findById(child.getId()).map(childToUpdate -> {
+					updateNotNullFields(childToUpdate, child);
+
+					return childRepository.save(childToUpdate);
+				}
+		).orElseThrow(() -> new ElementNotFoundException(CHILD, child.getId()));
+
+	}
+
+
+	private void updateNotNullFields(Child oldChild, Child newChild) {
+		Arrays.stream(newChild.getClass().getDeclaredFields())
+				.forEach(a -> {
+					a.setAccessible(true);
+					try {
+						Optional.ofNullable(a.get(newChild))
+								.ifPresent(value -> {
+									try {
+										a.set(oldChild, a.get(newChild));
+
+									} catch (IllegalAccessException e) {
+										e.printStackTrace();
+									}
+								});
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					}
 				});
-	}
-
-	private Child createChild(Address address, Borough borough, FullName fullName, String pesel,
-	                          StudyPeriod studyPeriod) {
-		return createChild(address,
-				new Age(peselService.extractDateOfBirth(pesel)),
-				borough,
-				fullName,
-				peselService.extractGender(pesel),
-				pesel,
-				studyPeriod
-		);
-	}
-
-	private Child createChild(Address address, Age age, Borough borough, FullName fullName, Gender gender,
-	                          String pesel,
-	                  StudyPeriod studyPeriod) {
-		var child = ChildBuilder.aChild()
-				.withAddress(address)
-				.withAge(age)
-				.withBorough(borough)
-				.withFullName(fullName)
-				.withGender(gender)
-				.withChildStatuses(Set.of(CHILDSTATUS))
-				.withPeselNumber(pesel)
-				.withStudyPeriod(studyPeriod).build();
-
-		return childRepository.save(child);
 	}
 
 	@Override
@@ -119,6 +123,34 @@ class ChildServiceImpl implements ChildService {
 						throw new IllegalStateException("More than one child found");
 					});
 		}
+	}
+
+
+	private Child createChild(Address address, Borough borough, FullName fullName, String pesel,
+	                          StudyPeriod studyPeriod) {
+		return createChild(address,
+				new Age(peselService.extractDateOfBirth(pesel)),
+				borough,
+				fullName,
+				peselService.extractGender(pesel),
+				pesel,
+				studyPeriod
+		);
+	}
+
+	private Child createChild(Address address, Age age, Borough borough, FullName fullName, Gender gender,
+	                          String pesel, StudyPeriod studyPeriod) {
+		var child = ChildBuilder.aChild()
+				.withAddress(address)
+				.withAge(age)
+				.withBorough(borough)
+				.withFullName(fullName)
+				.withGender(gender)
+				.withChildStatuses(Set.of(CHILDSTATUS))
+				.withPeselNumber(pesel)
+				.withStudyPeriod(studyPeriod).build();
+
+		return childRepository.save(child);
 	}
 
 
