@@ -1,28 +1,29 @@
 package pl.edu.pja.prz.receivables.service.impl;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
+import pl.edu.pja.prz.finances.facade.FinancesFacade;
 import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.repository.TransactionRepository;
 import pl.edu.pja.prz.receivables.service.TransactionService;
-import pl.edu.pja.prz.receivables.util.BigDecimalUtils;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+import static pl.edu.pja.prz.commons.util.BigDecimalUtils.isPositive;
+
 @Service
 public class TransactionServiceImpl implements TransactionService {
-    private static final Logger logger = LoggerFactory.getLogger(TransactionServiceImpl.class);
     private static final String TRANSACTION = "Transaction";
 
+    private final FinancesFacade facade;
     private final TransactionRepository repository;
 
     @Autowired
-    public TransactionServiceImpl(TransactionRepository repository) {
+    public TransactionServiceImpl(FinancesFacade facade, TransactionRepository repository) {
+        this.facade = facade;
         this.repository = repository;
     }
 
@@ -68,6 +69,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public void update(Transaction transaction) {
         //TODO: fix updating method
+        //TODO: find way of updating balance using facade (maybe new method in facade?)
         if (repository.findById(transaction.getId()).isEmpty()) {
             throw new ElementNotFoundException(TRANSACTION, transaction.getId());
         }
@@ -76,10 +78,11 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public void save(Transaction transaction) {
-        if (BigDecimalUtils.isPositive(transaction.getTransactionAmount())) {
-            logger.info("Saving transaction: " + transaction.getTitle() + " ["
-                    + transaction.getTransactionAmount() + " " + transaction.getTransactionCurrency() + "]");
+        if (isPositive(transaction.getTransactionAmount())) {
             repository.save(transaction);
+            facade.increaseBalance(transaction.getChildId(),
+                    transaction.getTransactionAmount(),
+                    transaction.getTitle());
         }
     }
 }

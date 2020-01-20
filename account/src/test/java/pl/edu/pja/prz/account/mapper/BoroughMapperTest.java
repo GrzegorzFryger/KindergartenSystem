@@ -8,8 +8,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pja.prz.account.facade.dto.BoroughDto;
 import pl.edu.pja.prz.account.facade.mapper.BoroughMapper;
 import pl.edu.pja.prz.account.model.Borough;
-import pl.edu.pja.prz.account.model.value.Address;
-import pl.edu.pja.prz.account.model.value.Phone;
+import pl.edu.pja.prz.commons.model.Address;
+import pl.edu.pja.prz.commons.model.Phone;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;

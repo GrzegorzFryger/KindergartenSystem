@@ -7,7 +7,7 @@ import pl.edu.pja.prz.account.facade.dto.ChildDto;
 import pl.edu.pja.prz.account.facade.dto.GuardianDto;
 import pl.edu.pja.prz.account.facade.mapper.ChildMapper;
 import pl.edu.pja.prz.account.facade.mapper.GuardianMapper;
-import pl.edu.pja.prz.account.model.value.FullName;
+import pl.edu.pja.prz.commons.model.FullName;
 import pl.edu.pja.prz.account.service.GuardianService;
 
 import java.util.List;

@@ -21,10 +21,6 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-text</artifactId>
         </dependency>
-             <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-jpamodelgen</artifactId>
-        </dependency>
     </dependencies>
     
     <build>
@@ -48,6 +44,22 @@
                     <compilerArgs>
                         <arg>-parameters</arg>
                     </compilerArgs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>**/pl/edu/pja/prz/account/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/account/model/value/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/account/model/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/account/configuration/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/account/repository/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/account/facade/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/account/facade/mapper/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/account/facade/dto/*</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
         </plugins>

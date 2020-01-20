@@ -18,6 +18,10 @@
             <artifactId>commons</artifactId>
         </dependency>
         <dependency>
+            <groupId>pl.edu.pja.prz</groupId>
+            <artifactId>finances</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-csv</artifactId>
         </dependency>
@@ -26,4 +30,21 @@
             <artifactId>commons-lang3</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>**/pl/edu/pja/prz/receivables/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/receivables/configuration/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/receivables/model/enums/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/receivables/mapper/*</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

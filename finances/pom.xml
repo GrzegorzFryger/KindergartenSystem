@@ -18,12 +18,24 @@
             <artifactId>commons</artifactId>
         </dependency>
         <dependency>
-            <groupId>pl.edu.pja.prz</groupId>
-            <artifactId>receivables</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>pl.edu.pja.prz</groupId>
-            <artifactId>payments</artifactId>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>**/pl/edu/pja/prz/finances/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/finances/configuration/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/finances/mapper/*</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

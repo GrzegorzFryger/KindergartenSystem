@@ -4,12 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import pl.edu.pja.prz.account.model.*;
-import pl.edu.pja.prz.account.model.value.Address;
-import pl.edu.pja.prz.account.model.value.Address_;
-import pl.edu.pja.prz.account.model.value.FullName;
-import pl.edu.pja.prz.account.model.value.Phone;
 import pl.edu.pja.prz.account.repository.GuardianRepository;
 import pl.edu.pja.prz.account.utilites.PasswordManager;
+import pl.edu.pja.prz.commons.model.Address;
+import pl.edu.pja.prz.commons.model.Address_;
+import pl.edu.pja.prz.commons.model.FullName;
+import pl.edu.pja.prz.commons.model.Phone;
 
 import java.util.List;
 import java.util.Optional;

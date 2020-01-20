@@ -4,9 +4,9 @@ import org.springframework.lang.Nullable;
 import pl.edu.pja.prz.account.model.Child;
 import pl.edu.pja.prz.account.model.Guardian;
 import pl.edu.pja.prz.account.model.Person;
-import pl.edu.pja.prz.account.model.value.Address;
-import pl.edu.pja.prz.account.model.value.FullName;
-import pl.edu.pja.prz.account.model.value.Phone;
+import pl.edu.pja.prz.commons.model.Address;
+import pl.edu.pja.prz.commons.model.FullName;
+import pl.edu.pja.prz.commons.model.Phone;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,28 +1,29 @@
 package pl.edu.pja.prz.receivables.service.impl;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
+import pl.edu.pja.prz.finances.facade.FinancesFacade;
 import pl.edu.pja.prz.receivables.model.CashPayment;
 import pl.edu.pja.prz.receivables.repository.CashPaymentRepository;
 import pl.edu.pja.prz.receivables.service.CashPaymentService;
-import pl.edu.pja.prz.receivables.util.BigDecimalUtils;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+import static pl.edu.pja.prz.commons.util.BigDecimalUtils.isPositive;
+
 @Service
 public class CashPaymentServiceImpl implements CashPaymentService {
-    private static final Logger logger = LoggerFactory.getLogger(CashPaymentServiceImpl.class);
     private static final String CASH_PAYMENT = "Cash Payment";
 
+    private final FinancesFacade facade;
     private final CashPaymentRepository repository;
 
     @Autowired
-    public CashPaymentServiceImpl(CashPaymentRepository repository) {
+    public CashPaymentServiceImpl(FinancesFacade facade, CashPaymentRepository repository) {
+        this.facade = facade;
         this.repository = repository;
     }
 
@@ -67,6 +68,7 @@ public class CashPaymentServiceImpl implements CashPaymentService {
     @Override
     public void update(CashPayment cashPayment) {
         //TODO: fix updating method
+        //TODO: find way of updating balance using facade (maybe new method in facade?)
         if (repository.findById(cashPayment.getId()).isEmpty()) {
             throw new ElementNotFoundException(CASH_PAYMENT, cashPayment.getId());
         }
@@ -75,10 +77,11 @@ public class CashPaymentServiceImpl implements CashPaymentService {
 
     @Override
     public void save(CashPayment cashPayment) {
-        if (BigDecimalUtils.isPositive(cashPayment.getTransactionAmount())) {
-            logger.info("Saving cash payment: " + cashPayment.getTitle() + " ["
-                    + cashPayment.getTransactionAmount() + " " + cashPayment.getTransactionCurrency() + "]");
+        if (isPositive(cashPayment.getTransactionAmount())) {
             repository.save(cashPayment);
+            facade.increaseBalance(cashPayment.getChildId(),
+                    cashPayment.getTransactionAmount(),
+                    cashPayment.getTitle());
         }
     }
 }
