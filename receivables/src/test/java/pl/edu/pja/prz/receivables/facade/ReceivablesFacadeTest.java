@@ -12,7 +12,6 @@ import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.model.dto.IncomingPaymentDto;
 import pl.edu.pja.prz.receivables.service.*;
 
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -166,20 +165,17 @@ class ReceivablesFacadeTest {
     public void Should_GetAllTransactionsFromCsv_When_EncodingHeaderIsProvided() throws IOException {
         //Given
         MultipartFile input = new MockMultipartFile("input.csv", new byte[10]);
-        File file = new File("SOME PATH");
         List<Transaction> transactionList = new ArrayList<>();
         transactionList.add(transaction);
 
         //When
-        when(csvParsingService.convertMultipartToFile(any(MultipartFile.class))).thenReturn(file);
-        when(csvParsingService.getTransactionListFromCsv(any(File.class), anyString())).thenReturn(transactionList);
+        when(csvParsingService.parseTransactionsFromCsvFile(any(MultipartFile.class), anyString())).thenReturn(transactionList);
         List<Transaction> result = facade.getTransactionListFromCsv(input, "UTF8");
 
         //Then
-        verify(csvParsingService, times(1)).getTransactionListFromCsv(any(File.class), anyString());
-        verify(csvParsingService, never()).getTransactionListFromCsv(any(File.class));
-        verify(csvParsingService, times(1)).cleanUpFile(any(File.class));
+        verify(csvParsingService, times(1)).parseTransactionsFromCsvFile(any(MultipartFile.class), anyString());
         verify(transactionService, times(1)).save(any(Transaction.class));
+        verify(transactionMappingService, times(1)).mapTransaction(any(Transaction.class));
         assertEquals(1, result.size());
     }
 
@@ -187,20 +183,17 @@ class ReceivablesFacadeTest {
     public void Should_GetAllTransactionsFromCsv_When_EncodingHeaderIsNotProvided() throws IOException {
         //Given
         MultipartFile input = new MockMultipartFile("input.csv", new byte[10]);
-        File file = new File("SOME PATH");
         List<Transaction> transactionList = new ArrayList<>();
         transactionList.add(transaction);
 
         //When
-        when(csvParsingService.convertMultipartToFile(any(MultipartFile.class))).thenReturn(file);
-        when(csvParsingService.getTransactionListFromCsv(any(File.class))).thenReturn(transactionList);
+        when(csvParsingService.parseTransactionsFromCsvFile(any(MultipartFile.class), anyString())).thenReturn(transactionList);
         List<Transaction> result = facade.getTransactionListFromCsv(input, "");
 
         //Then
-        verify(csvParsingService, times(1)).getTransactionListFromCsv(any(File.class));
-        verify(csvParsingService, never()).getTransactionListFromCsv(any(File.class), anyString());
-        verify(csvParsingService, times(1)).cleanUpFile(any(File.class));
+        verify(csvParsingService, times(1)).parseTransactionsFromCsvFile(any(MultipartFile.class), anyString());
         verify(transactionService, times(1)).save(any(Transaction.class));
+        verify(transactionMappingService, times(1)).mapTransaction(any(Transaction.class));
         assertEquals(1, result.size());
     }
 

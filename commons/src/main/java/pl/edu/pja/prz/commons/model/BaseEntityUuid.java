@@ -3,6 +3,7 @@ package pl.edu.pja.prz.commons.model;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.UUID;
 
 @MappedSuperclass
@@ -35,7 +36,7 @@ public class BaseEntityUuid implements BaseEntity<UUID> {
 		BaseEntityUuid that = (BaseEntityUuid) o;
 
 		if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) return false;
-		return version != null ? version.equals(that.version) : that.version == null;
+		return Objects.equals(version, that.version);
 	}
 
 	@Override

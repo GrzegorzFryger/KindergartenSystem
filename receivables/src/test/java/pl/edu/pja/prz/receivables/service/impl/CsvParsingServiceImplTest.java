@@ -1,9 +1,13 @@
 package pl.edu.pja.prz.receivables.service.impl;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.web.multipart.MultipartFile;
+import pl.edu.pja.prz.commons.exception.EmptyInputException;
 import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.service.CsvParsingService;
+import pl.edu.pja.prz.receivables.util.CharsetEncoding;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,5 +45,17 @@ class CsvParsingServiceImplTest {
         assertNotNull(transactions.get(0).getTransactionAmount());
         assertNotNull(transactions.get(0).getTitle());
         assertNotNull(transactions.get(0).getTransactionCurrency());
+    }
+
+    @Test
+    public void Should_ThrowException_When_InputIsEmpty() throws IOException {
+        //Given
+
+        //When
+        Assertions.assertThrows(EmptyInputException.class, () -> {
+            List<Transaction> result = service.parseTransactionsFromCsvFile(null, "CP1250");
+        });
+
+        //Then
     }
 }

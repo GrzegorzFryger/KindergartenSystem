@@ -63,6 +63,10 @@
             <groupId>pl.edu.pja.prz</groupId>
             <artifactId>receivables</artifactId>
         </dependency>
+        <dependency>
+            <groupId>pl.edu.pja.prz</groupId>
+            <artifactId>calendar</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -99,6 +103,7 @@
                         <exclude>**/pl/edu/pja/prz/core/exception/*</exclude>
                         <exclude>**/pl/edu/pja/prz/core/controller/payments/*</exclude>
                         <exclude>**/pl/edu/pja/prz/core/controller/accounts/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/core/controller/finances/*</exclude>
                         <exclude>**/pl/edu/pja/prz/core/controller/receivables/*</exclude>
                     </excludes>
                 </configuration>

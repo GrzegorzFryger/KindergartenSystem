@@ -1,19 +1,37 @@
+
 package pl.edu.pja.prz.finances.facade;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.finances.model.Balance;
+import pl.edu.pja.prz.finances.service.BalanceService;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
-public interface FinancesFacade {
-	Balance getBalance(UUID childId);
+@Service
+public class FinancesFacade {
+    private final BalanceService balanceService;
 
-	List<Balance> getBalances(UUID guardianId);
+    @Autowired
+    public FinancesFacade(BalanceService balanceService) {
+        this.balanceService = balanceService;
+    }
 
-	Balance increaseBalance(UUID childId, BigDecimal amount);
+    public Balance getBalance(UUID childId) {
+        return balanceService.getBalance(childId);
+    }
 
-	Balance decreaseBalance(UUID childId, BigDecimal amount);
+    public List<Balance> getBalances(UUID guardianId) {
+        return balanceService.getBalances(guardianId);
+    }
 
-	void saveBalanceInHistory(UUID childId, BigDecimal oldBalance, BigDecimal change);
+    public void increaseBalance(UUID childId, BigDecimal amount, String title) {
+        balanceService.increaseBalance(childId, amount, title);
+    }
+
+    public void decreaseBalance(UUID childId, BigDecimal amount, String title) {
+        balanceService.decreaseBalance(childId, amount, title);
+    }
 }
