@@ -2,11 +2,11 @@ package pl.edu.pja.prz.account.model;
 
 import pl.edu.pja.prz.account.model.enums.ChildStatus;
 import pl.edu.pja.prz.account.model.enums.Gender;
-import pl.edu.pja.prz.commons.model.Address;
 import pl.edu.pja.prz.account.model.value.Age;
-import pl.edu.pja.prz.commons.model.FullName;
 import pl.edu.pja.prz.account.model.value.StudyPeriod;
+import pl.edu.pja.prz.commons.model.Address;
 import pl.edu.pja.prz.commons.model.BaseEntityUuid;
+import pl.edu.pja.prz.commons.model.FullName;
 
 import javax.persistence.*;
 import java.util.Arrays;
@@ -170,5 +170,20 @@ public class Child extends BaseEntityUuid {
 		result = 31 * result + (getPeselNumber() != null ? getPeselNumber().hashCode() : 0);
 		result = 31 * result + (getStudyPeriod() != null ? getStudyPeriod().hashCode() : 0);
 		return result;
+	}
+
+	@Override
+	public String toString() {
+		return "Child{" +
+				"address=" + address +
+				", age=" + age +
+				", borough=" + borough +
+				", fullName=" + fullName +
+				", gender=" + gender +
+				", childStatuses=" + childStatuses +
+				", guardians=" + guardians +
+				", peselNumber='" + peselNumber + '\'' +
+				", studyPeriod=" + studyPeriod +
+				'}';
 	}
 }

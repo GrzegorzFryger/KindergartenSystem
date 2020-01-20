@@ -17,14 +17,19 @@ public class ChildController {
 		this.childFacade = childFacade;
 	}
 
-	@PostMapping("child")
-	public ResponseEntity<ChildDto> createChild(@RequestBody ChildDto accountDto) {
-		return new ResponseEntity<>(childFacade.createChild(accountDto), HttpStatus.OK);
-	}
-
 	@GetMapping("child/{id}")
 	public ResponseEntity<ChildDto> findChildById(@PathVariable UUID id) {
 		return new ResponseEntity<>(childFacade.createChild(childFacade.findChildById(id)), HttpStatus.OK);
+	}
+
+	@PutMapping("child")
+	public ResponseEntity<ChildDto> updateChild(@RequestBody ChildDto childDto) {
+		return new ResponseEntity<>(childFacade.updateChild(childDto), HttpStatus.OK);
+	}
+
+	@PostMapping("child")
+	public ResponseEntity<ChildDto> createChild(@RequestBody ChildDto childDto) {
+		return new ResponseEntity<>(childFacade.createChild(childDto), HttpStatus.OK);
 	}
 
 

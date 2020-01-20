@@ -8,7 +8,6 @@ import pl.edu.pja.prz.account.service.BoroughService;
 
 @Service
 public class BoroughFacadeImpl implements BoroughFacade {
-
     private final BoroughService boroughService;
     private final BoroughMapper boroughMapper;
 

@@ -1,15 +1,28 @@
 package pl.edu.pja.prz.account.facade.mapper;
 
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import pl.edu.pja.prz.account.facade.dto.AccountDto;
 import pl.edu.pja.prz.account.facade.dto.EmployeeDto;
 import pl.edu.pja.prz.account.model.Employee;
 import pl.edu.pja.prz.account.model.Person;
 
-
+@Mapper(componentModel = "spring")
 public interface EmployeeMapper {
-	EmployeeDto fromEmployee(Employee Employee);
+    @Mapping(source = "fullName.name", target = "name")
+    @Mapping(source = "fullName.surname", target = "surname")
+    @Mapping(source = "address.postalCode", target = "postalCode")
+    @Mapping(source = "address.city", target = "city")
+    @Mapping(source = "address.streetNumber", target = "streetNumber")
+    @Mapping(source = "phoneNumber.phone", target = "phone")
+    @Mapping(source = "accountStatus", target = "status")
+    EmployeeDto fromEmployee(Employee Employee);
 
-	Employee toEmployee(EmployeeDto employeeDto);
-
-	Person toPerson(AccountDto accountDto);
+    @Mapping(source = "phone", target = "phoneNumber.phone")
+    @Mapping(source = "name", target = "fullName.name")
+    @Mapping(source = "surname", target = "fullName.surname")
+    @Mapping(source = "postalCode", target = "address.postalCode")
+    @Mapping(source = "city", target = "address.city")
+    @Mapping(source = "streetNumber", target = "address.streetNumber")
+    Person toPerson(AccountDto accountDto);
 }
