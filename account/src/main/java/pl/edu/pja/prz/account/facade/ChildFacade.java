@@ -10,7 +10,9 @@ public interface ChildFacade {
 
     ChildDto createChild(ChildDto childDto);
 
-    ChildDto findChildById(UUID id);
+	ChildDto updateChild(ChildDto childDto);
+
+	ChildDto findChildById(UUID id);
 
     Optional<ChildDto> findByFullNameOrAddress(String name, String surname, @Nullable String street);
 }

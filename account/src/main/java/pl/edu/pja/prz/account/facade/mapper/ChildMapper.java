@@ -1,13 +1,14 @@
 package pl.edu.pja.prz.account.facade.mapper;
 
+import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import pl.edu.pja.prz.account.facade.dto.ChildDto;
 import pl.edu.pja.prz.account.model.Child;
-import pl.edu.pja.prz.commons.model.Address;
 import pl.edu.pja.prz.account.model.value.Age;
-import pl.edu.pja.prz.commons.model.FullName;
 import pl.edu.pja.prz.account.model.value.StudyPeriod;
+import pl.edu.pja.prz.commons.model.Address;
+import pl.edu.pja.prz.commons.model.FullName;
 
 @Mapper(componentModel = "spring")
 public interface ChildMapper {
@@ -33,4 +34,7 @@ public interface ChildMapper {
 	@Mapping(source = "borough.id", target = "boroughId")
 	@Mapping(source = "age.dateOfBirth", target = "dateOfBirth")
 	ChildDto fromChild(Child child);
+
+	@InheritInverseConfiguration
+	Child toChild(ChildDto childDto);
 }

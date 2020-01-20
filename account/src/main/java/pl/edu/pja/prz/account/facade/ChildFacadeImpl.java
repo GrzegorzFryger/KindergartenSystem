@@ -5,8 +5,8 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.account.facade.dto.ChildDto;
 import pl.edu.pja.prz.account.facade.mapper.ChildMapper;
-import pl.edu.pja.prz.commons.model.FullName;
 import pl.edu.pja.prz.account.service.ChildService;
+import pl.edu.pja.prz.commons.model.FullName;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -47,6 +47,15 @@ public class ChildFacadeImpl implements ChildFacade {
 			);
 		}
 
+	}
+
+	@Override
+	public ChildDto updateChild(ChildDto childDto) {
+		return childMapper.fromChild(
+				childService.updateChild(
+						childMapper.toChild(childDto)
+				)
+		);
 	}
 
 	public ChildDto findChildById(UUID id) {

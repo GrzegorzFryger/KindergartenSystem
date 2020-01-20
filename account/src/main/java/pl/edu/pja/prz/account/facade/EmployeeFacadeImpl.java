@@ -10,8 +10,8 @@ import pl.edu.pja.prz.account.service.EmployeeService;
 
 @Service
 public class EmployeeFacadeImpl implements EmployeeFacade {
-    private EmployeeMapper employeeMapper;
-    private EmployeeService employeeService;
+    private final EmployeeMapper employeeMapper;
+    private final EmployeeService employeeService;
 
     @Autowired
     public EmployeeFacadeImpl(EmployeeMapper employeeMapper, EmployeeService employeeService, AccountMapper accountMapper) {
