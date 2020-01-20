@@ -3,6 +3,7 @@ package pl.edu.pja.prz.account.mapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mapstruct.factory.Mappers;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pja.prz.account.facade.dto.AccountDto;
@@ -17,8 +18,6 @@ import pl.edu.pja.prz.commons.model.Phone;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class GuardianMapperTest {
@@ -38,6 +37,8 @@ public class GuardianMapperTest {
 
     @BeforeEach
     public void setUp() {
+
+        this.guardianMapper = Mappers.getMapper(GuardianMapper.class);
         accountDto = new AccountDto();
         guardian = new Guardian();
         guardianDto = new GuardianDto();
@@ -80,41 +81,34 @@ public class GuardianMapperTest {
 
     @Test
     public void Should_MapFromGuardian() {
-        //Given
-        when(guardianMapper.fromGuardian(any(Guardian.class))).thenReturn(guardianDto);
 
         //When
         GuardianDto newGuardianDto = guardianMapper.fromGuardian(guardian);
 
         //Then
         verifyDto(newGuardianDto);
-        verify(guardianMapper, times(1)).fromGuardian(any(Guardian.class));
+
     }
 
     @Test
     public void Should_MapToGuardian() {
-        //Given
-        when(guardianMapper.toGuardian(any(GuardianDto.class))).thenReturn(guardian);
 
         //When
         Guardian newGuardian = guardianMapper.toGuardian(guardianDto);
 
         //Then
         verifyGuardian(newGuardian);
-        verify(guardianMapper, times(1)).toGuardian(any(GuardianDto.class));
     }
 
     @Test
     public void Should_MapToPerson() {
-        //Given
-        when(guardianMapper.toPerson(any(AccountDto.class))).thenReturn(person);
 
         //When
         Person newPerson = guardianMapper.toPerson(accountDto);
 
         //Then
         verifyPerson(newPerson);
-        verify(guardianMapper, times(1)).toPerson(any(AccountDto.class));
+
     }
 
     private void verifyDto(GuardianDto guardianDto) {
