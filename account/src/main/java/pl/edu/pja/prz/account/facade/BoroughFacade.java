@@ -1,6 +1,10 @@
 package pl.edu.pja.prz.account.facade;
 
+import pl.edu.pja.prz.account.facade.dto.BoroughChildDto;
 import pl.edu.pja.prz.account.facade.dto.BoroughDto;
+import pl.edu.pja.prz.account.facade.dto.ChildDto;
+
+import java.util.Set;
 
 public interface BoroughFacade {
 
@@ -10,5 +14,9 @@ public interface BoroughFacade {
 
     BoroughDto updateBorough(BoroughDto boroughDto);
 
-    void deleteBorough(Long id);
+	BoroughDto appendChild(BoroughChildDto borough);
+
+	Set<ChildDto> findAllChildrenFrom(Long boroughId);
+
+	void deleteBorough(Long id);
 }
