@@ -25,11 +25,11 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public Group updateGroup(Group group, Long groupToUpdateId) {
-        if (groupRepository.findById(groupToUpdateId).isEmpty()) {
-            throw new ElementNotFoundException(GROUP, groupToUpdateId);
+    public Group updateGroup(Group group) {
+        if (groupRepository.findById(group.getId()).isEmpty()) {
+            throw new ElementNotFoundException(GROUP, group.getId());
         }
-        Group groupToUpdate = getGroup(groupToUpdateId);
+        Group groupToUpdate = getGroup(group.getId());
         if (groupToUpdate.getGroupName() != null) {
             groupToUpdate.setGroupName(group.getGroupName());
         }
