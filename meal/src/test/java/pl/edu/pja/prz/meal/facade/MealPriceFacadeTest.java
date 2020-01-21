@@ -28,7 +28,7 @@ public class MealPriceFacadeTest {
     @BeforeEach
     public void setUp() {
         mealPriceFacade = new MealPriceFacade(mealPriceService);
-        mealPrice = new MealPrice(1, MealType.BREAKFAST, BigDecimal.valueOf(22.22));
+        mealPrice = new MealPrice(MealType.BREAKFAST, BigDecimal.valueOf(22.22));
     }
 
     @Test

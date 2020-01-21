@@ -1,16 +1,14 @@
 package pl.edu.pja.prz.meal.model;
 
+import pl.edu.pja.prz.commons.model.BaseEntityLong;
 import pl.edu.pja.prz.meal.model.enums.MealType;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-public class MealPrice {
+public class MealPrice extends BaseEntityLong {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
     @Enumerated(EnumType.STRING)
     private MealType mealType;
     private BigDecimal mealPrice;
@@ -18,15 +16,11 @@ public class MealPrice {
     public MealPrice() {
     }
 
-    public MealPrice(long id,MealType mealType, BigDecimal mealPrice ) {
-        this.id = id;
+    public MealPrice(MealType mealType, BigDecimal mealPrice) {
         this.mealType = mealType;
         this.mealPrice = mealPrice;
     }
 
-    public long getId() {
-        return id;
-    }
 
     public MealType getMealType() {
         return mealType;

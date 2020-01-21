@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pl.edu.pja.prz.commons.exception.BusinessException;
+import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.meal.exception.MealPriceListAlreadyExistException;
 import pl.edu.pja.prz.meal.exception.NotFoundException;
 import pl.edu.pja.prz.meal.model.MealPrice;
@@ -37,7 +39,7 @@ class MealPriceServiceImplTest {
     @Test
     void ShouldCreatMealPrice_When_InputArgumentIsCorrect() throws MealPriceListAlreadyExistException {
         //given
-        MealPrice mealPrice = new MealPrice(1L, MealType.BREAKFAST, BigDecimal.ONE );
+        MealPrice mealPrice = new MealPrice(MealType.BREAKFAST, BigDecimal.ONE );
         when(mealPriceRepository.save(any())).thenReturn(mealPrice);
         //when
         MealPrice createdMealPrice = mealPriceService.creatMealPrice(mealPrice);
@@ -49,11 +51,11 @@ class MealPriceServiceImplTest {
     @Test
     void ShouldReturnMealPriceListAlreadyExistException_When_TriedToAddMealPriceButMealPriceListAlreadyExist() throws MealPriceListAlreadyExistException {
         //given
-        MealPrice mealPrice = new MealPrice(1L, MealType.BREAKFAST, BigDecimal.ONE );
+        MealPrice mealPrice = new MealPrice(MealType.BREAKFAST, BigDecimal.ONE );
         when(mealPriceRepository.findByMealType(MealType.BREAKFAST)).thenReturn(Optional.of(mealPrice));
 
         //then
-        assertThrows(MealPriceListAlreadyExistException.class, () -> {
+        assertThrows(BusinessException.class, () -> {
             mealPriceService.creatMealPrice(mealPrice);
         });
 
@@ -62,25 +64,25 @@ class MealPriceServiceImplTest {
     @Test
     void ShouldUpdateMealPrice_When_InputArgumentIsCorrect() throws NotFoundException {
         //given
-        MealPrice updatedMealPrice = new MealPrice(1L, MealType.BREAKFAST, BigDecimal.TEN );
-        MealPrice mealPrice = new MealPrice(2L, MealType.BREAKFAST, BigDecimal.ONE );
+        MealPrice updatedMealPrice = new MealPrice(MealType.BREAKFAST, BigDecimal.TEN );
+        MealPrice mealPrice = new MealPrice(MealType.BREAKFAST, BigDecimal.ONE );
         when(mealPriceRepository.findById(2L)).thenReturn(Optional.of(mealPrice));
 
         //when
         mealPriceService.updateMealPrice(updatedMealPrice, 2L);
 
         //then
-        assertEquals(mealPrice.getMealPrice(), BigDecimal.TEN);
+        assertEquals(BigDecimal.TEN, mealPrice.getMealPrice());
     }
 
     @Test
     void ShouldNotFoundException_When_MealPriceNotFound() {
         //given
         when(mealPriceRepository.findById(2L)).thenReturn(Optional.empty());
-        MealPrice updatedMealPrice = new MealPrice(1L, MealType.BREAKFAST, BigDecimal.TEN );
+        MealPrice updatedMealPrice = new MealPrice(MealType.BREAKFAST, BigDecimal.TEN );
 
         //then
-        assertThrows(NotFoundException.class, () -> {
+        assertThrows(ElementNotFoundException.class, () -> {
             mealPriceService.updateMealPrice(updatedMealPrice, 2L);
         });
 
@@ -90,7 +92,7 @@ class MealPriceServiceImplTest {
     void ShouldGetAllPrices_When_InputArgumentIsCorrect() {
         //given
         List<MealPrice> mealPriceList = new ArrayList<>();
-        mealPriceList.add(new MealPrice(1L, MealType.BREAKFAST, BigDecimal.TEN ));
+        mealPriceList.add(new MealPrice(MealType.BREAKFAST, BigDecimal.TEN ));
         when(mealPriceRepository.findAll()).thenReturn(mealPriceList);
 
         //when
@@ -105,7 +107,7 @@ class MealPriceServiceImplTest {
         //given
         when(mealPriceRepository.existsById(1L)).thenReturn(false);
         //then
-        assertThrows(NotFoundException.class, () -> {
+        assertThrows(ElementNotFoundException.class, () -> {
             mealPriceService.deleteMealPriceById(1L);
         });
     }

@@ -2,8 +2,6 @@ package pl.edu.pja.prz.core.controller.meal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pl.edu.pja.prz.meal.exception.MealPriceListAlreadyExistException;
-import pl.edu.pja.prz.meal.exception.NotFoundException;
 import pl.edu.pja.prz.meal.facade.MealPriceFacade;
 import pl.edu.pja.prz.meal.model.MealPrice;
 
@@ -21,12 +19,12 @@ public class MealPriceController {
     }
 
     @PostMapping
-    public MealPrice creatMealPrice(@RequestBody  MealPrice mealPrice) throws MealPriceListAlreadyExistException {
+    public MealPrice creatMealPrice(@RequestBody  MealPrice mealPrice)  {
         return mealPriceFacade.creatMealPrice(mealPrice);
     }
 
     @PutMapping()
-    public MealPrice updateMealPrice(@RequestBody MealPrice mealPrice, @RequestParam("id") long id) throws NotFoundException {
+    public MealPrice updateMealPrice(@RequestBody MealPrice mealPrice, @RequestParam("id") long id)  {
         return mealPriceFacade.updateMealPrice(mealPrice, id);
     }
 
@@ -36,7 +34,7 @@ public class MealPriceController {
     }
 
     @DeleteMapping
-    public void deleteMealPriceById(@RequestParam("id") long id) throws NotFoundException {
+    public void deleteMealPriceById(@RequestParam("id") long id) {
         mealPriceFacade.deleteMealPriceById(id);
     }
 

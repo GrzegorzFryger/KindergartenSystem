@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.edu.pja.prz.meal.exception.MealActivityStatusException;
 import pl.edu.pja.prz.meal.facade.MealFacade;
 import pl.edu.pja.prz.meal.model.Meal;
 import pl.edu.pja.prz.meal.model.dto.MealCreateUpdateDTO;
@@ -22,7 +21,7 @@ public class MealController {
     }
 
     @PostMapping
-    public Meal createMale(@RequestBody MealCreateUpdateDTO dto) throws MealActivityStatusException {
+    public Meal createMeal(@RequestBody MealCreateUpdateDTO dto) {
         return mealFacade.createMeal(dto);
     }
 }

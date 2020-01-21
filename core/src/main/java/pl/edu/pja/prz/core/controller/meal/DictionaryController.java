@@ -10,7 +10,7 @@ import pl.edu.pja.prz.meal.facade.MealDictionaryFacade;
 public class DictionaryController {
 
 
-    private MealDictionaryFacade mealDictionaryFacade;
+    private final MealDictionaryFacade mealDictionaryFacade;
 
     @Autowired
     public DictionaryController(MealDictionaryFacade mealDictionaryFacade) {

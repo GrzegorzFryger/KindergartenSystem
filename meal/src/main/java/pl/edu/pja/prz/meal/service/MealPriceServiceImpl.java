@@ -2,8 +2,8 @@ package pl.edu.pja.prz.meal.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.edu.pja.prz.meal.exception.MealPriceListAlreadyExistException;
-import pl.edu.pja.prz.meal.exception.NotFoundException;
+import pl.edu.pja.prz.commons.exception.BusinessException;
+import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.meal.model.MealPrice;
 import pl.edu.pja.prz.meal.model.enums.MealType;
 import pl.edu.pja.prz.meal.repository.MealPriceRepository;
@@ -16,24 +16,24 @@ import java.util.Optional;
 public class MealPriceServiceImpl {
 
 
-    private MealPriceRepository mealPriceRepository;
+    private final MealPriceRepository mealPriceRepository;
 
     @Autowired
     public MealPriceServiceImpl(MealPriceRepository mealPriceRepository) {
         this.mealPriceRepository = mealPriceRepository;
     }
 
-    public MealPrice creatMealPrice(MealPrice mealPrice) throws MealPriceListAlreadyExistException {
+    public MealPrice creatMealPrice(MealPrice mealPrice) {
         if (mealPriceRepository.findByMealType(mealPrice.getMealType()).isPresent()) {
-            throw new MealPriceListAlreadyExistException("Price list to " + mealPrice.getMealType() + " already exist");
+            throw new BusinessException("Price list to " + mealPrice.getMealType() + " already exist");
         }
         return mealPriceRepository.save(mealPrice);
     }
 
-    public MealPrice updateMealPrice(MealPrice mealPrice, long id) throws NotFoundException {
+    public MealPrice updateMealPrice(MealPrice mealPrice, long id) {
         Optional<MealPrice> mealPriceOptional = mealPriceRepository.findById(id);
         if (mealPriceOptional.isEmpty()) {
-            throw new NotFoundException("Price list with ID:" + id + " not found");
+            throw new ElementNotFoundException(id);
         }
 
         MealPrice priceToUpdate = mealPriceOptional.get();
@@ -45,9 +45,9 @@ public class MealPriceServiceImpl {
         return mealPriceRepository.findAll();
     }
 
-    public void deleteMealPriceById(long id) throws NotFoundException {
+    public void deleteMealPriceById(long id) {
         if (!mealPriceRepository.existsById(id)) {
-            throw new NotFoundException("Price list with ID:" + id + " not found");
+            throw new ElementNotFoundException(id);
         }
         mealPriceRepository.deleteById(id);
     }

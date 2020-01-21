@@ -1,6 +1,7 @@
 package pl.edu.pja.prz.meal.model;
 
 import org.hibernate.annotations.Type;
+import pl.edu.pja.prz.commons.model.BaseEntityLong;
 import pl.edu.pja.prz.meal.model.enums.MealStatus;
 import pl.edu.pja.prz.meal.model.enums.MealType;
 
@@ -10,11 +11,8 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-public class Meal {
+public class Meal extends BaseEntityLong {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private BigDecimal mealPrice;
     private LocalDateTime mealFromDate;
     private LocalDateTime mealToDate;
@@ -53,10 +51,6 @@ public class Meal {
 
     public void setMealTypes(MealType mealType) {
         this.mealType = mealType;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public BigDecimal getMealPrice() {
