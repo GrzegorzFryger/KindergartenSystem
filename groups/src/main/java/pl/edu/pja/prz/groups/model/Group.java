@@ -1,90 +1,79 @@
 package pl.edu.pja.prz.groups.model;
 
+import pl.edu.pja.prz.commons.model.BaseEntityLong;
+
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "classroom", schema = "classrooms")
-public class Group {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String groupName;
-    @ManyToMany
-    @JoinTable(name = "classroom_child",
-            joinColumns = {@JoinColumn(name = "group_id")},
-            inverseJoinColumns = {@JoinColumn(name = "child_id")})
-    private List<Child> children;
-    private String groupDescription;
+public class Group extends BaseEntityLong {
+	private String groupName;
+	@ManyToMany
+	@JoinTable(name = "classroom_child",
+			joinColumns = {@JoinColumn(name = "group_id")},
+			inverseJoinColumns = {@JoinColumn(name = "child_id")})
+	private Set<Child> children;
+	private String groupDescription;
 
 
-    public Group() {
+	public Group() {
 
-    }
+	}
 
-    public Group(String groupName, List<Child> children, String groupDescription) {
-        this.groupName = groupName;
-        this.children = children;
-        this.groupDescription = groupDescription;
-    }
+	public Group(String groupName, Set<Child> children, String groupDescription) {
+		this.groupName = groupName;
+		this.children = children;
+		this.groupDescription = groupDescription;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public String getGroupName() {
+		return groupName;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
+	}
 
-    public String getGroupName() {
-        return groupName;
-    }
+	public Set<Child> getChildren() {
+		return children;
+	}
 
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
-    }
+	public void setChildren(Set<Child> children) {
+		this.children = children;
+	}
 
-    public List<Child> getChildren() {
-        return children;
-    }
+	public String getGroupDescription() {
+		return groupDescription;
+	}
 
-    public void setChildren(List<Child> children) {
-        this.children = children;
-    }
+	public void setGroupDescription(String groupDescription) {
+		this.groupDescription = groupDescription;
+	}
 
-    public String getGroupDescription() {
-        return groupDescription;
-    }
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		if (!super.equals(o)) return false;
+		Group group = (Group) o;
+		return Objects.equals(groupName, group.groupName) &&
+				Objects.equals(children, group.children) &&
+				Objects.equals(groupDescription, group.groupDescription);
+	}
 
-    public void setGroupDescription(String groupDescription) {
-        this.groupDescription = groupDescription;
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hash(super.hashCode(), groupName, children, groupDescription);
+	}
 
-
-    @Override
-    public String toString() {
-        return "Group{" +
-                "id=" + id +
-                ", groupName='" + groupName + '\'' +
-                ", children=" + children +
-                ", groupDescription='" + groupDescription + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Group group = (Group) o;
-        return id.equals(group.id) &&
-                Objects.equals(groupName, group.groupName) &&
-                Objects.equals(children, group.children) &&
-                Objects.equals(groupDescription, group.groupDescription);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, groupName, children, groupDescription);
-    }
+	@Override
+	public String toString() {
+		return "Group{" +
+				"groupName='" + groupName + '\'' +
+				", children=" + children +
+				", groupDescription='" + groupDescription + '\'' +
+				'}';
+	}
 }
