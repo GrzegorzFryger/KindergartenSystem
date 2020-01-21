@@ -179,6 +179,64 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "/borough/{id}/children",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{ACCOUNT}}/borough/1/children",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{ACCOUNT}}",
+								"borough",
+								"1",
+								"children"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/borough/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{ACCOUNT}}/borough/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{ACCOUNT}}",
+								"borough",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/employee/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{ACCOUNT}}/employee/a7912412-12ce-40fe-b6a2-deb77ede555b",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{ACCOUNT}}",
+								"employee",
+								"a7912412-12ce-40fe-b6a2-deb77ede555b"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"description": "All requests from Account module.",
