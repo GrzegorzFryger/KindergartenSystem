@@ -76,4 +76,6 @@ public class BoroughDto {
     public void setNipNumber(String nipNumber) {
         this.nipNumber = nipNumber;
     }
+
+
 }

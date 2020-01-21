@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "36129465-c2f0-4193-93eb-fcad1e95f070",
+		"_postman_id": "59b2ad5f-d679-4214-8fb2-e9c6de072b6a",
 		"name": "KindergartenSystem",
 		"description": "This collection contains all API requests to backend system of our application.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -90,6 +90,223 @@
 							]
 						},
 						"description": "Create child"
+					},
+					"response": []
+				},
+				{
+					"name": "/employee",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"name\":\"Test Name \",\r\n\t\"surname\":\"Test surname\",\r\n\t\"postalCode\": \"test postalcode\",\r\n\t\"city\": \"test City\",\r\n\t\"streetNumber\": \"street Number 23\",\r\n\t\"phone\": \"123132132\",\r\n\t\"email\": \"test@test.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/{{ACCOUNT}}/employee",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{ACCOUNT}}",
+								"employee"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/child/{childId}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{ACCOUNT}}/child/986e9fdd-9bc5-4bd0-aedd-07d942db7c11",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{ACCOUNT}}",
+								"child",
+								"986e9fdd-9bc5-4bd0-aedd-07d942db7c11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/child",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"id\":\"3e09083b-9ded-4607-bcc7-8dfe67c1b99a\",\n\"name\": \"Update Name\",\n\"surname\": \"Update surname\",\n\"postalCode\": \"80-180\",\n\"city\": \"Update city\",\n\"streetNumber\": \"Update street\",\n\"pesel\": \"94071105694\",\n\"gender\" : \"MALE\",\n\"startDate\": \"2007-12-03\",\n\"endDate\": \"2007-12-03\",\n\"dateOfBirth\": \"2007-12-03\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/{{ACCOUNT}}/child",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{ACCOUNT}}",
+								"child"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/borough/{id}/children",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{ACCOUNT}}/borough/1/children",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{ACCOUNT}}",
+								"borough",
+								"1",
+								"children"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/borough/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{ACCOUNT}}/borough/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{ACCOUNT}}",
+								"borough",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/employee/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{ACCOUNT}}/employee/a7912412-12ce-40fe-b6a2-deb77ede555b",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{ACCOUNT}}",
+								"employee",
+								"a7912412-12ce-40fe-b6a2-deb77ede555b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/guardians",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{ACCOUNT}}/guardians",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{ACCOUNT}}",
+								"guardians"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/guardian/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{ACCOUNT}}/guardian/8a186e67-b796-406f-8e6a-3dc483143121",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{ACCOUNT}}",
+								"guardian",
+								"8a186e67-b796-406f-8e6a-3dc483143121"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/borough/child",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"boroughId\":1,\n\t\"childId\":\"3e09083b-9ded-4607-bcc7-8dfe67c1b99a\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/{{ACCOUNT}}/borough/child",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{ACCOUNT}}",
+								"borough",
+								"child"
+							]
+						}
 					},
 					"response": []
 				}
@@ -671,6 +888,28 @@
 			],
 			"description": "All requests from Receivables module.",
 			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "2907f77b-d427-4d84-a448-c3a1c0095030",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "c1f548be-00a8-4d0e-9d5a-92af81e6360f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	],
 	"protocolProfileBehavior": {}

@@ -1,5 +1,7 @@
 package pl.edu.pja.prz.commons.exception;
 
+import java.util.UUID;
+
 /**
  * Custom Exception, which is handled by Exception Advice from core module.<br><br>
  *
@@ -9,6 +11,10 @@ public class ElementNotFoundException extends RuntimeException {
     private final String message;
 
     public ElementNotFoundException(String element, Long id) {
+        message = buildErrorMessage(element, String.valueOf(id));
+    }
+
+    public ElementNotFoundException(String element, UUID id) {
         message = buildErrorMessage(element, String.valueOf(id));
     }
 
