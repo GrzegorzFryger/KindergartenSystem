@@ -8,7 +8,7 @@ public interface GroupFacade {
 
 	GroupDto createGroup(GroupDto groupDto);
 
-	GroupDto updateGroup(GroupDto groupDto, Long groupToUpdateId);
+	GroupDto updateGroup(GroupDto groupDto);
 
 	void deleteGroup(Long id);
 

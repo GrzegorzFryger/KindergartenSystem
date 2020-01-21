@@ -29,8 +29,12 @@ public class GroupFacadeImpl implements GroupFacade {
 	}
 
 	@Override
-	public GroupDto updateGroup(GroupDto groupDto, Long groupToUpdateId) {
-		return null;
+	public GroupDto updateGroup(GroupDto groupDto) {
+		return groupMapper.fromGroup(
+				groupService.updateGroup(
+						groupMapper.toGroup(groupDto)
+				)
+		);
 	}
 
 	@Override
