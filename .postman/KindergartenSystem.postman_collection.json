@@ -417,13 +417,13 @@
 							"raw": "{\n\t\"groupName\": \"Test Group\",\n\t\"groupDescription\": \"A test group description\"\n}"
 						},
 						"url": {
-							"raw": "{{HOST}}/{{GROUPS}}/group",
+							"raw": "{{HOST}}/{{GROUPS}}/",
 							"host": [
 								"{{HOST}}"
 							],
 							"path": [
 								"{{GROUPS}}",
-								"group"
+								""
 							]
 						}
 					},
@@ -481,13 +481,13 @@
 							"raw": "{\n\t\"id\": 1,\n\t\"groupName\": \"Updated test Group\",\n\t\"groupDescription\": \"An updated test group description\"\n}"
 						},
 						"url": {
-							"raw": "{{HOST}}/{{GROUPS}}/group",
+							"raw": "{{HOST}}/{{GROUPS}}/",
 							"host": [
 								"{{HOST}}"
 							],
 							"path": [
 								"{{GROUPS}}",
-								"group"
+								""
 							]
 						}
 					},

@@ -22,17 +22,17 @@ public class GroupsController {
 		return new ResponseEntity<>(groupFacade.getGroup(id), HttpStatus.OK);
 	}
 
-	@PostMapping("group")
+	@PostMapping("")
 	public ResponseEntity<GroupDto> createGroup(@RequestBody GroupDto groupDto) {
 		return new ResponseEntity<>(groupFacade.createGroup(groupDto), HttpStatus.OK);
 	}
 
-	@PutMapping("group")
+	@PutMapping("")
 	public ResponseEntity<GroupDto> updateGroup(@RequestBody GroupDto groupDto) {
 		return new ResponseEntity<>(groupFacade.updateGroup(groupDto), HttpStatus.OK);
 	}
 
-	@DeleteMapping({"{id}"})
+	@DeleteMapping("{id}")
 	public ResponseEntity<?> deleteGroup(@PathVariable Long id) {
 		groupFacade.deleteGroup(id);
 		return new ResponseEntity<>(HttpStatus.OK);
