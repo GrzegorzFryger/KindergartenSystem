@@ -61,7 +61,7 @@ public class ReceivablesController {
 
     @DeleteMapping("cash-payments/{id}")
     public void deleteCashPayment(@PathVariable Long id) {
-        receivablesFacade.deleteTransaction(id);
+        receivablesFacade.deleteCashPayment(id);
     }
 
     @PostMapping("cash-payments")
@@ -81,9 +81,11 @@ public class ReceivablesController {
 
     @GetMapping("payments/child/{childId}/{from}/{to}")
     public List<IncomingPaymentDto> getAllIncomingPaymentsForChild(@PathVariable UUID childId,
-                                                                   @PathVariable LocalDate from,
-                                                                   @PathVariable LocalDate to) {
-        return receivablesFacade.getAllIncomingPaymentsByChildId(childId, from, to);
+                                                                   @PathVariable String from,
+                                                                   @PathVariable String to) {
+        LocalDate fromDate = LocalDate.parse(from);
+        LocalDate toDate = LocalDate.parse(to);
+        return receivablesFacade.getAllIncomingPaymentsByChildId(childId, fromDate, toDate);
     }
 
     @GetMapping("payments/guardian/{guardianId}")
@@ -93,9 +95,11 @@ public class ReceivablesController {
 
     @GetMapping("payments/guardian/{guardianId}/{from}/{to}")
     public List<IncomingPaymentDto> getAllIncomingPaymentsForGuardian(@PathVariable UUID guardianId,
-                                                                      @PathVariable LocalDate from,
-                                                                      @PathVariable LocalDate to) {
-        return receivablesFacade.getAllIncomingPaymentsByGuardianId(guardianId, from, to);
+                                                                      @PathVariable String from,
+                                                                      @PathVariable String to) {
+        LocalDate fromDate = LocalDate.parse(from);
+        LocalDate toDate = LocalDate.parse(to);
+        return receivablesFacade.getAllIncomingPaymentsByGuardianId(guardianId, fromDate, toDate);
     }
 
     @PostMapping(value = "transactions/import", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

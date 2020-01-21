@@ -3,6 +3,7 @@ package pl.edu.pja.prz.account.service;
 import pl.edu.pja.prz.account.model.Account;
 import pl.edu.pja.prz.account.model.AccountFactory;
 import pl.edu.pja.prz.account.model.Person;
+import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.commons.model.Address;
 import pl.edu.pja.prz.commons.model.FullName;
 import pl.edu.pja.prz.account.model.value.Password;
@@ -14,6 +15,8 @@ import java.util.UUID;
 
 
 abstract class AccountService<T extends BasicAccountRepository<E>, E extends Account> {
+	private static final String ACCOUNT = "Account";
+	private static final String USER = "User";
 	private final T accountRepository;
 	protected final PasswordManager passwordManager;
 	protected final AccountFactory accountFactory;
@@ -31,7 +34,7 @@ abstract class AccountService<T extends BasicAccountRepository<E>, E extends Acc
 		return accountRepository.findByEmail(email)
 				.map(account -> passwordManager.matches(rawPassword, account.getPassword().getPassword()))
 				.orElseThrow(() -> {
-					throw new IllegalArgumentException("Not found account with email " + email);
+					throw new ElementNotFoundException(ACCOUNT, email);
 				});
 	}
 
@@ -41,7 +44,7 @@ abstract class AccountService<T extends BasicAccountRepository<E>, E extends Acc
 					updateNotEmptyPersonField(account, person);
 					return accountRepository.save(account);
 				}).orElseThrow(() -> {
-			throw new IllegalArgumentException("Not found user with id : ");
+			throw new ElementNotFoundException(USER, id);
 		});
 	}
 
@@ -53,7 +56,7 @@ abstract class AccountService<T extends BasicAccountRepository<E>, E extends Acc
 					return accountRepository.save(account);
 				}
 		).orElseThrow(() -> {
-			throw new IllegalArgumentException("Not found user with id : ");
+			throw new ElementNotFoundException(USER, id);
 		});
 	}
 
@@ -67,7 +70,7 @@ abstract class AccountService<T extends BasicAccountRepository<E>, E extends Acc
 					} else throw new IllegalArgumentException("password not match");
 				}
 		).orElseThrow(() -> {
-			throw new IllegalArgumentException("Not found user with id : ");
+			throw new ElementNotFoundException(USER, id);
 		});
 	}
 

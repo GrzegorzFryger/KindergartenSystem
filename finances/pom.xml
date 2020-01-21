@@ -18,12 +18,8 @@
             <artifactId>commons</artifactId>
         </dependency>
         <dependency>
-            <groupId>pl.edu.pja.prz</groupId>
-            <artifactId>receivables</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>pl.edu.pja.prz</groupId>
-            <artifactId>payments</artifactId>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
         </dependency>
     </dependencies>
 
@@ -35,12 +31,8 @@
                 <configuration>
                     <excludes>
                         <exclude>**/pl/edu/pja/prz/finances/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/finances/facade/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/finances/configuration/*</exclude>
                         <exclude>**/pl/edu/pja/prz/finances/mapper/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/finances/model/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/finances/repository/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/finances/service/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/finances/service/impl/*</exclude>
                     </excludes>
                 </configuration>
             </plugin>

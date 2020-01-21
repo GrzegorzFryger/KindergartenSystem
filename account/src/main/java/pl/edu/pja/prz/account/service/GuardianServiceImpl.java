@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import pl.edu.pja.prz.account.model.*;
 import pl.edu.pja.prz.account.repository.GuardianRepository;
 import pl.edu.pja.prz.account.utilites.PasswordManager;
+import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.commons.model.Address;
 import pl.edu.pja.prz.commons.model.Address_;
 import pl.edu.pja.prz.commons.model.FullName;
@@ -18,6 +19,7 @@ import java.util.UUID;
 
 @Component
 public class GuardianServiceImpl extends AccountService<GuardianRepository, Guardian> implements GuardianService {
+	private static final String USER = "User";
 	private final GuardianRepository guardianRepository;
 	private final ChildService childService;
 
@@ -45,7 +47,7 @@ public class GuardianServiceImpl extends AccountService<GuardianRepository, Guar
 	@Override
 	public Guardian getGuardianById(UUID id) {
 		return guardianRepository.findById(id).orElseThrow(() -> {
-					throw new IllegalArgumentException("Not found user with id: " + id);
+					throw new ElementNotFoundException(USER, id);
 				}
 		);
 	}

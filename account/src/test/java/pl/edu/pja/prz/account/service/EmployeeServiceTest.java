@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pja.prz.account.model.*;
+import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.commons.model.Address;
 import pl.edu.pja.prz.commons.model.FullName;
 import pl.edu.pja.prz.account.model.value.Password;
@@ -126,7 +127,7 @@ class EmployeeServiceTest {
 	}
 	@Test
 	void shouldThrowException_When_UserNotFoundInSignIn() {
-		assertThrows(IllegalArgumentException.class,() ->
+		assertThrows(ElementNotFoundException.class,() ->
 				employeeService.signIn("test@test.com", "newPassword")
 		);
 	}
@@ -158,7 +159,7 @@ class EmployeeServiceTest {
 				new Phone("888888888")
 		);
 
-		assertThrows(IllegalArgumentException.class,() ->
+		assertThrows(ElementNotFoundException.class,() ->
 				employeeService.updatePersonalData(new UUID(2,6),dataToUpdate)
 		);
 	}
@@ -181,7 +182,7 @@ class EmployeeServiceTest {
 	void shouldThrowException_When_UserNotFoundInUpdateEmail(){
 		var dataToUpdate = "updatedemail@test.com";
 
-		assertThrows(IllegalArgumentException.class,() ->
+		assertThrows(ElementNotFoundException.class,() ->
 				employeeService.updateEmail(new UUID(1,6),dataToUpdate)
 		);
 	}
@@ -208,7 +209,7 @@ class EmployeeServiceTest {
 		var rawOldPassword = "rawOldPassword";
 		var rawNewPassword = "newPassword";
 
-		assertThrows(IllegalArgumentException.class,() ->
+		assertThrows(ElementNotFoundException.class,() ->
 				employeeService.updatePassword(new UUID(2,6),rawOldPassword,rawNewPassword)
 		);
 	}

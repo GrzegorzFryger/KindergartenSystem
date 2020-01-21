@@ -21,5 +21,7 @@ public interface EmployeeService {
 	Employee createAdministratorAccount(Address address, FullName fullName, Phone phone,
 	                                    String email);
 
+	Employee findById(UUID uuid);
+
 	Set<Group> getIdGroups(UUID id);
 }

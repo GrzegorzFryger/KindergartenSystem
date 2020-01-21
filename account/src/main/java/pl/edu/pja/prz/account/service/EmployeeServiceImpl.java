@@ -6,12 +6,13 @@ import pl.edu.pja.prz.account.model.AccountFactory;
 import pl.edu.pja.prz.account.model.Employee;
 import pl.edu.pja.prz.account.model.Group;
 import pl.edu.pja.prz.account.model.Person;
-import pl.edu.pja.prz.commons.model.Address;
-import pl.edu.pja.prz.commons.model.FullName;
 import pl.edu.pja.prz.account.model.value.Password;
-import pl.edu.pja.prz.commons.model.Phone;
 import pl.edu.pja.prz.account.repository.EmployeeRepository;
 import pl.edu.pja.prz.account.utilites.PasswordManager;
+import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
+import pl.edu.pja.prz.commons.model.Address;
+import pl.edu.pja.prz.commons.model.FullName;
+import pl.edu.pja.prz.commons.model.Phone;
 
 import java.util.Set;
 import java.util.UUID;
@@ -61,11 +62,17 @@ public class EmployeeServiceImpl extends AccountService<EmployeeRepository, Empl
 	}
 
 	@Override
+	public Employee findById(UUID uuid) {
+		return employeeRepository.findById(uuid)
+				.orElseThrow(() -> new ElementNotFoundException("Employee", "Not found with id" + uuid));
+	}
+
+	@Override
 	public Set<Group> getIdGroups(UUID id) {
 		return employeeRepository.findById(id)
 				.map(Employee::getGroups)
 				.orElseThrow(() -> {
-					throw new IllegalArgumentException("Not found");
+					throw new ElementNotFoundException("Employee", "Not found with id" + id);
 				});
 	}
 }

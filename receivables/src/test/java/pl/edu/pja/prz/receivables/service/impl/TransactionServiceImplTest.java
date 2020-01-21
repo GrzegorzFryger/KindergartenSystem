@@ -7,6 +7,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
+import pl.edu.pja.prz.finances.facade.FinancesFacade;
 import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.model.builder.TransactionBuilder;
 import pl.edu.pja.prz.receivables.repository.TransactionRepository;
@@ -26,13 +27,15 @@ class TransactionServiceImplTest {
     private Transaction transaction;
 
     @Mock
+    private FinancesFacade facade;
+    @Mock
     private TransactionRepository repository;
 
     private TransactionServiceImpl service;
 
     @BeforeEach
     public void setUp() {
-        service = new TransactionServiceImpl(repository);
+        service = new TransactionServiceImpl(facade, repository);
 
         transaction = new TransactionBuilder()
                 .withTransactionDate(LocalDate.of(2020, 10, 10))
@@ -48,6 +51,7 @@ class TransactionServiceImplTest {
                 .build();
 
         transaction.setId(1L);
+        transaction.setChildId(UUID.randomUUID());
     }
 
     @Test
@@ -59,6 +63,8 @@ class TransactionServiceImplTest {
 
         //Then
         verify(repository, times(1)).save(any(Transaction.class));
+        verify(facade, times(1))
+                .increaseBalance(any(UUID.class), any(BigDecimal.class), anyString());
     }
 
     @Test
@@ -71,6 +77,8 @@ class TransactionServiceImplTest {
 
         //Then
         verify(repository, never()).save(any(Transaction.class));
+        verify(facade, never())
+                .increaseBalance(any(UUID.class), any(BigDecimal.class), anyString());
     }
 
     @Test
