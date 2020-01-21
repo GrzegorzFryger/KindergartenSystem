@@ -7,6 +7,8 @@ import pl.edu.pja.prz.account.facade.EmployeeFacade;
 import pl.edu.pja.prz.account.facade.dto.AccountDto;
 import pl.edu.pja.prz.account.facade.dto.EmployeeDto;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("api/account/")
 public class EmployeeController {
@@ -14,6 +16,11 @@ public class EmployeeController {
 
     public EmployeeController(EmployeeFacade employeeFacade) {
         this.employeeFacade = employeeFacade;
+    }
+
+    @GetMapping("employee/{id}")
+    public ResponseEntity<EmployeeDto> findEmployeeById(@PathVariable UUID id) {
+        return new ResponseEntity<>(employeeFacade.findById(id), HttpStatus.OK);
     }
 
     @PostMapping("employee")

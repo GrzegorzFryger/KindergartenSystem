@@ -8,33 +8,42 @@ import pl.edu.pja.prz.account.facade.mapper.AccountMapper;
 import pl.edu.pja.prz.account.facade.mapper.EmployeeMapper;
 import pl.edu.pja.prz.account.service.EmployeeService;
 
+import java.util.UUID;
+
 @Service
 public class EmployeeFacadeImpl implements EmployeeFacade {
-    private final EmployeeMapper employeeMapper;
-    private final EmployeeService employeeService;
+	private final EmployeeMapper employeeMapper;
+	private final EmployeeService employeeService;
 
-    @Autowired
-    public EmployeeFacadeImpl(EmployeeMapper employeeMapper, EmployeeService employeeService, AccountMapper accountMapper) {
-        this.employeeMapper = employeeMapper;
-        this.employeeService = employeeService;
-    }
+	@Autowired
+	public EmployeeFacadeImpl(EmployeeMapper employeeMapper, EmployeeService employeeService, AccountMapper accountMapper) {
+		this.employeeMapper = employeeMapper;
+		this.employeeService = employeeService;
+	}
 
-    public EmployeeDto createEmployee(AccountDto accountDto) {
-        return employeeMapper.fromEmployee(
-                employeeService.createEmployeeAccount(
-                        employeeMapper.toPerson(accountDto),
-                        accountDto.getEmail()
-                )
-        );
-    }
+	@Override
+	public EmployeeDto createEmployee(AccountDto accountDto) {
+		return employeeMapper.fromEmployee(
+				employeeService.createEmployeeAccount(
+						employeeMapper.toPerson(accountDto),
+						accountDto.getEmail()
+				)
+		);
+	}
 
-    public EmployeeDto createAdministratorAccount(AccountDto accountDto) {
-        return employeeMapper.fromEmployee(
-                employeeService.createAdministratorAccount(
-                        employeeMapper.toPerson(accountDto),
-                        accountDto.getEmail()
-                )
-        );
-    }
+	@Override
+	public EmployeeDto createAdministratorAccount(AccountDto accountDto) {
+		return employeeMapper.fromEmployee(
+				employeeService.createAdministratorAccount(
+						employeeMapper.toPerson(accountDto),
+						accountDto.getEmail()
+				)
+		);
+	}
+	@Override
+	public EmployeeDto findById(UUID id) {
+		return employeeMapper.fromEmployee(employeeService
+						.findById(id));
+	}
 
 }
