@@ -19,7 +19,7 @@ public class ChildController {
 
 	@GetMapping("child/{id}")
 	public ResponseEntity<ChildDto> findChildById(@PathVariable UUID id) {
-		return new ResponseEntity<>(childFacade.createChild(childFacade.findChildById(id)), HttpStatus.OK);
+		return new ResponseEntity<>(childFacade.findChildById(id), HttpStatus.OK);
 	}
 
 	@PutMapping("child")
