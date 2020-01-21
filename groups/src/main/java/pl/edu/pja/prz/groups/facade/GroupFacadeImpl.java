@@ -21,7 +21,11 @@ public class GroupFacadeImpl implements GroupFacade {
 
 	@Override
 	public GroupDto createGroup(GroupDto groupDto) {
-		return null;
+		return groupMapper.fromGroup(
+				groupService.createGroup(
+						groupMapper.toGroup(groupDto)
+				)
+		);
 	}
 
 	@Override
@@ -31,15 +35,19 @@ public class GroupFacadeImpl implements GroupFacade {
 
 	@Override
 	public void deleteGroup(Long id) {
+		groupService.deleteGroup(id);
 	}
 
 	@Override
 	public GroupDto getGroup(Long id) {
-		return null;
+		return groupMapper.fromGroup(
+				groupService.getGroup(id)
+		);
 	}
 
 	@Override
 	public List<GroupDto> getAllGroups() {
+		//TODO: Figure out if I need another mapper for this
 		return null;
 	}
 }
