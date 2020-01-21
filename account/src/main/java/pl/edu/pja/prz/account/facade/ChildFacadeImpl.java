@@ -26,7 +26,6 @@ public class ChildFacadeImpl implements ChildFacade {
 		if (childDto.getPesel() != null) {
 			return childMapper.fromChild(
 					childService.createChild(
-							childDto.getBoroughId(),
 							childMapper.toAddress(childDto),
 							childMapper.toFullName(childDto),
 							childDto.getPesel(),
@@ -37,7 +36,6 @@ public class ChildFacadeImpl implements ChildFacade {
 		} else {
 			return childMapper.fromChild(
 					childService.createChild(
-							childDto.getBoroughId(),
 							childMapper.toAddress(childDto),
 							childMapper.toAge(childDto),
 							childMapper.toFullName(childDto),

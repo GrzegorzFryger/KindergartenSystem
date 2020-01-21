@@ -12,13 +12,14 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface ChildService {
-	Child createChild(Long boroughId, Address address, FullName fullName, String pesel,
-	                  StudyPeriod studyPeriod);
 
-	Child createChild(Long boroughId, Address address, Age age, FullName fullName, Gender gender,
+	Child createChild(Address address, FullName fullName, String pesel,
 	                  StudyPeriod studyPeriod);
 
 	Child getChildById(UUID id);
+
+	Child createChild(Address address, Age age, FullName fullName, Gender gender,
+	                  StudyPeriod studyPeriod);
 
 	Child updateChild(Child child);
 

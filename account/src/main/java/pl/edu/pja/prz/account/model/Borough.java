@@ -1,10 +1,12 @@
 package pl.edu.pja.prz.account.model;
 
 import pl.edu.pja.prz.commons.model.Address;
-import pl.edu.pja.prz.commons.model.Phone;
 import pl.edu.pja.prz.commons.model.BaseEntityLong;
+import pl.edu.pja.prz.commons.model.Phone;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,7 +18,9 @@ public class Borough extends BaseEntityLong {
 	private Phone phone;
 	private String email;
 	private String nipNumber;
-	@OneToMany(mappedBy = "borough")
+
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "borough_id")
 	private Set<Child> children = new HashSet<>();
 
 	public Borough() {
@@ -85,12 +89,10 @@ public class Borough extends BaseEntityLong {
 	}
 
 	public boolean addChild(Child child) {
-		child.setBorough(this);
 		return children.add(child);
 	}
 
 	public boolean removeChild(Child child) {
-		child.setBorough(null);
 		return children.remove(child);
 	}
 
@@ -107,9 +109,7 @@ public class Borough extends BaseEntityLong {
 			return false;
 		if (getPhone() != null ? !getPhone().equals(borough.getPhone()) : borough.getPhone() != null) return false;
 		if (getEmail() != null ? !getEmail().equals(borough.getEmail()) : borough.getEmail() != null) return false;
-		if (getNipNumber() != null ? !getNipNumber().equals(borough.getNipNumber()) : borough.getNipNumber() != null)
-			return false;
-		return getChildren() != null ? getChildren().equals(borough.getChildren()) : borough.getChildren() == null;
+		return getNipNumber() != null ? getNipNumber().equals(borough.getNipNumber()) : borough.getNipNumber() == null;
 	}
 
 	@Override
@@ -120,7 +120,6 @@ public class Borough extends BaseEntityLong {
 		result = 31 * result + (getPhone() != null ? getPhone().hashCode() : 0);
 		result = 31 * result + (getEmail() != null ? getEmail().hashCode() : 0);
 		result = 31 * result + (getNipNumber() != null ? getNipNumber().hashCode() : 0);
-		result = 31 * result + (getChildren() != null ? getChildren().hashCode() : 0);
 		return result;
 	}
 }

@@ -2,10 +2,10 @@ package pl.edu.pja.prz.account.model;
 
 import pl.edu.pja.prz.account.model.enums.ChildStatus;
 import pl.edu.pja.prz.account.model.enums.Gender;
-import pl.edu.pja.prz.commons.model.Address;
 import pl.edu.pja.prz.account.model.value.Age;
-import pl.edu.pja.prz.commons.model.FullName;
 import pl.edu.pja.prz.account.model.value.StudyPeriod;
+import pl.edu.pja.prz.commons.model.Address;
+import pl.edu.pja.prz.commons.model.FullName;
 
 import java.util.Set;
 
@@ -34,11 +34,6 @@ public final class ChildBuilder {
 
 	public ChildBuilder withAge(Age age) {
 		this.age = age;
-		return this;
-	}
-
-	public ChildBuilder withBorough(Borough borough) {
-		this.borough = borough;
 		return this;
 	}
 
@@ -76,7 +71,6 @@ public final class ChildBuilder {
 		Child child = new Child();
 		child.setAddress(address);
 		child.setAge(age);
-		child.setBorough(borough);
 		child.setFullName(fullName);
 		child.setGender(gender);
 		child.setChildStatuses(childStatuses);

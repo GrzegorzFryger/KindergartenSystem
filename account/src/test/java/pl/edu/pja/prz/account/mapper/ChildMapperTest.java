@@ -56,7 +56,7 @@ public class ChildMapperTest {
 		child.setFullName(fullName);
 		child.setAddress(address);
 		child.setAge(ageGiven);
-		child.setBorough(borough);
+
 		child.setGender(gender);
 		child.setPeselNumber(pesel);
 		child.setStudyPeriod(studyPeriod);
@@ -71,7 +71,7 @@ public class ChildMapperTest {
 		childDto.setStartDate(studyPeriod.getAdditionDate());
 		childDto.setEndDate(studyPeriod.getEndingDate());
 		childDto.setDateOfBirth(ageGiven.getDateOfBirth());
-		childDto.setBoroughId(borough.getId());
+
 	}
 
 	@Test
@@ -134,7 +134,7 @@ public class ChildMapperTest {
 		assertEquals(studyPeriod.getAdditionDate(), childDto.getStartDate());
 		assertEquals(studyPeriod.getEndingDate(), childDto.getEndDate());
 		assertEquals(ageGiven.getDateOfBirth(), childDto.getDateOfBirth());
-		assertEquals(borough.getId(), childDto.getBoroughId());
+
 	}
 
 	private void verifyToAge(Age age) {

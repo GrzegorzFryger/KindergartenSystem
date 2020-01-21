@@ -3,7 +3,6 @@ package pl.edu.pja.prz.account.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
-import pl.edu.pja.prz.account.model.Borough;
 import pl.edu.pja.prz.account.model.Child;
 import pl.edu.pja.prz.account.model.ChildBuilder;
 import pl.edu.pja.prz.account.model.Child_;
@@ -47,26 +46,16 @@ class ChildServiceImpl implements ChildService {
 	}
 
 	@Override
-	public Child createChild(Long boroughId, Address address, FullName fullName, String pesel,
+	public Child createChild(Address address, FullName fullName, String pesel,
 	                         StudyPeriod studyPeriod) {
-		var borough = boroughService.findBorough(boroughId);
-
-		var child = createChild(address, borough, fullName, pesel, studyPeriod);
-		boroughService.addChildToBorough(child, borough);
-		return child;
-
+		return createChildPriv(address, fullName, pesel, studyPeriod);
 	}
 
 	@Override
-	public Child createChild(Long boroughId, Address address, Age age, FullName fullName, Gender gender,
+	public Child createChild(Address address, Age age, FullName fullName, Gender gender,
 	                         StudyPeriod studyPeriod) {
-		var borough = boroughService.findBorough(boroughId);
-
 		//todo write condition for children without pesel number
-		var child = createChild(address, age, borough, fullName, gender, "NOT_SET", studyPeriod);
-		boroughService.addChildToBorough(child, borough);
-		return child;
-
+		return createChildPriv(address, age, fullName, gender, "NOT_SET", studyPeriod);
 	}
 
 	@Override
@@ -126,11 +115,10 @@ class ChildServiceImpl implements ChildService {
 	}
 
 
-	private Child createChild(Address address, Borough borough, FullName fullName, String pesel,
-	                          StudyPeriod studyPeriod) {
-		return createChild(address,
+	private Child createChildPriv(Address address, FullName fullName, String pesel,
+	                              StudyPeriod studyPeriod) {
+		return createChildPriv(address,
 				new Age(peselService.extractDateOfBirth(pesel)),
-				borough,
 				fullName,
 				peselService.extractGender(pesel),
 				pesel,
@@ -138,12 +126,11 @@ class ChildServiceImpl implements ChildService {
 		);
 	}
 
-	private Child createChild(Address address, Age age, Borough borough, FullName fullName, Gender gender,
-	                          String pesel, StudyPeriod studyPeriod) {
+	private Child createChildPriv(Address address, Age age, FullName fullName, Gender gender,
+	                              String pesel, StudyPeriod studyPeriod) {
 		var child = ChildBuilder.aChild()
 				.withAddress(address)
 				.withAge(age)
-				.withBorough(borough)
 				.withFullName(fullName)
 				.withGender(gender)
 				.withChildStatuses(Set.of(CHILDSTATUS))

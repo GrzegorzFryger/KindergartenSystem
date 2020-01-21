@@ -31,7 +31,6 @@ public interface ChildMapper {
 	@Mapping(source = "peselNumber", target = "pesel")
 	@Mapping(source = "studyPeriod.additionDate", target = "startDate")
 	@Mapping(source = "studyPeriod.endingDate", target = "endDate")
-	@Mapping(source = "borough.id", target = "boroughId")
 	@Mapping(source = "age.dateOfBirth", target = "dateOfBirth")
 	ChildDto fromChild(Child child);
 

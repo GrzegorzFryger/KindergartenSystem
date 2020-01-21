@@ -8,7 +8,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pja.prz.account.model.Borough;
 import pl.edu.pja.prz.account.model.Child;
 import pl.edu.pja.prz.account.model.enums.Gender;
-import pl.edu.pja.prz.account.model.value.*;
+import pl.edu.pja.prz.account.model.value.Age;
+import pl.edu.pja.prz.account.model.value.StudyPeriod;
 import pl.edu.pja.prz.account.repository.BoroughRepository;
 import pl.edu.pja.prz.commons.model.Address;
 import pl.edu.pja.prz.commons.model.FullName;
@@ -64,12 +65,11 @@ class BoroughServiceTest {
 				"99576122623"
 		);
 
-		var child = new Child(Gender.MALE, borough, "97071105694",
+		var child = new Child(Gender.MALE, "97071105694",
 				new FullName("TestName", "TestSurname"),
 				new Age(LocalDate.now()),
 				new Address("70-700", "City", "Street 256"),
 				new StudyPeriod(LocalDate.MIN, LocalDate.MAX)
-
 		);
 
 		//when
