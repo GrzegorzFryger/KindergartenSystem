@@ -105,6 +105,7 @@
                         <exclude>**/pl/edu/pja/prz/core/controller/accounts/*</exclude>
                         <exclude>**/pl/edu/pja/prz/core/controller/finances/*</exclude>
                         <exclude>**/pl/edu/pja/prz/core/controller/receivables/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/core/controller/groups/*</exclude>
                     </excludes>
                 </configuration>
             </plugin>
