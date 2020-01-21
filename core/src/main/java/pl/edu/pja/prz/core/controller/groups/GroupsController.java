@@ -32,7 +32,7 @@ public class GroupsController {
 		return new ResponseEntity<>(groupFacade.updateGroup(groupDto), HttpStatus.OK);
 	}
 
-	@DeleteMapping({"id"})
+	@DeleteMapping({"{id}"})
 	public ResponseEntity<?> deleteGroup(@PathVariable Long id) {
 		groupFacade.deleteGroup(id);
 		return new ResponseEntity<>(HttpStatus.OK);
