@@ -45,7 +45,7 @@ class ChildServiceTest {
 		address = new Address("70-700", "City", "Street 256");
 		phone = new Phone("123132123");
 		fullName = new FullName("TestName", "TestSurname");
-		childService = new ChildServiceImpl(childRepository, peselService, boroughService);
+		childService = new ChildServiceImpl(childRepository, peselService);
 	}
 
 	@Test

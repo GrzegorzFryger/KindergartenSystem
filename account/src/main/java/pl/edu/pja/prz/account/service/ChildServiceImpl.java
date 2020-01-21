@@ -28,13 +28,11 @@ class ChildServiceImpl implements ChildService {
 	private static final ChildStatus CHILDSTATUS = ChildStatus.NEW;
 	private final ChildRepository childRepository;
 	private final PeselService peselService;
-	private final BoroughService boroughService;
 
 	@Autowired
-	public ChildServiceImpl(ChildRepository childRepository, PeselService peselService, BoroughService boroughService) {
+	public ChildServiceImpl(ChildRepository childRepository, PeselService peselService) {
 		this.childRepository = childRepository;
 		this.peselService = peselService;
-		this.boroughService = boroughService;
 	}
 
 	@Override
@@ -68,7 +66,6 @@ class ChildServiceImpl implements ChildService {
 		).orElseThrow(() -> new ElementNotFoundException(CHILD, child.getId()));
 
 	}
-
 
 	private void updateNotNullFields(Child oldChild, Child newChild) {
 		Arrays.stream(newChild.getClass().getDeclaredFields())
@@ -113,7 +110,6 @@ class ChildServiceImpl implements ChildService {
 					});
 		}
 	}
-
 
 	private Child createChildPriv(Address address, FullName fullName, String pesel,
 	                              StudyPeriod studyPeriod) {
