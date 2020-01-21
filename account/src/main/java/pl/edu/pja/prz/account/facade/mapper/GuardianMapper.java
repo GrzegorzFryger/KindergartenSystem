@@ -8,7 +8,7 @@ import pl.edu.pja.prz.account.facade.dto.GuardianDto;
 import pl.edu.pja.prz.account.model.Guardian;
 import pl.edu.pja.prz.account.model.Person;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = ChildMapper.class)
 public interface GuardianMapper {
 	@Mapping(source = "fullName.name", target = "name")
 	@Mapping(source = "fullName.surname", target = "surname")
@@ -17,6 +17,7 @@ public interface GuardianMapper {
 	@Mapping(source = "address.streetNumber", target = "streetNumber")
 	@Mapping(source = "phoneNumber.phone", target = "phone")
 	@Mapping(source = "accountStatus", target = "status")
+	@Mapping(source = "children", target = "children")
 	GuardianDto fromGuardian(Guardian guardian);
 
 	@InheritInverseConfiguration

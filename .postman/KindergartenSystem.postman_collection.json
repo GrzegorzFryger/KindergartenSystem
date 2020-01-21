@@ -237,6 +237,78 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "/guardians",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{ACCOUNT}}/guardians",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{ACCOUNT}}",
+								"guardians"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/guardian/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{ACCOUNT}}/guardian/8a186e67-b796-406f-8e6a-3dc483143121",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{ACCOUNT}}",
+								"guardian",
+								"8a186e67-b796-406f-8e6a-3dc483143121"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/borough/child",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"boroughId\":1,\n\t\"childId\":\"3e09083b-9ded-4607-bcc7-8dfe67c1b99a\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/{{ACCOUNT}}/borough/child",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{ACCOUNT}}",
+								"borough",
+								"child"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"description": "All requests from Account module.",
