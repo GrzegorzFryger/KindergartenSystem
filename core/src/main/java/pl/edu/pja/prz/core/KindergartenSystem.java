@@ -16,6 +16,7 @@ import pl.edu.pja.prz.receivables.ReceivablesConfiguration;
 		ReceivablesConfiguration.class, PaymentsConfiguration.class,
 		FinancesConfiguration.class, CommonsConfiguration.class,
 		MealConfiguration.class})
+
 public class KindergartenSystem {
 	public static void main(String[] args) {
 		SpringApplication.run(KindergartenSystem.class, args);

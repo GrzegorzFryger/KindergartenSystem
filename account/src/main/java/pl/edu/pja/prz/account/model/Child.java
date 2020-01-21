@@ -2,11 +2,11 @@ package pl.edu.pja.prz.account.model;
 
 import pl.edu.pja.prz.account.model.enums.ChildStatus;
 import pl.edu.pja.prz.account.model.enums.Gender;
-import pl.edu.pja.prz.commons.model.Address;
 import pl.edu.pja.prz.account.model.value.Age;
-import pl.edu.pja.prz.commons.model.FullName;
 import pl.edu.pja.prz.account.model.value.StudyPeriod;
+import pl.edu.pja.prz.commons.model.Address;
 import pl.edu.pja.prz.commons.model.BaseEntityUuid;
+import pl.edu.pja.prz.commons.model.FullName;
 
 import javax.persistence.*;
 import java.util.Arrays;
@@ -17,9 +17,6 @@ import java.util.Set;
 public class Child extends BaseEntityUuid {
 	private Address address;
 	private Age age;
-	@ManyToOne
-	@JoinColumn(name = "fk_borough")
-	private Borough borough;
 	private FullName fullName;
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
@@ -34,11 +31,10 @@ public class Child extends BaseEntityUuid {
 	public Child() {
 	}
 
-	public Child(Set<ChildStatus> childStatuses, Gender gender, Borough borough, Set<Guardian> guardians,
+	public Child(Set<ChildStatus> childStatuses, Gender gender, Set<Guardian> guardians,
 	             String peselNumber, FullName fullName, Age age, Address address, StudyPeriod studyPeriod) {
 		this.address = address;
 		this.age = age;
-		this.borough = borough;
 		this.childStatuses = childStatuses;
 		this.fullName = fullName;
 		this.gender = gender;
@@ -47,11 +43,10 @@ public class Child extends BaseEntityUuid {
 		this.studyPeriod = studyPeriod;
 	}
 
-	public Child(Gender gender, Borough borough, String peselNumber, FullName fullName, Age age, Address address,
+	public Child(Gender gender, String peselNumber, FullName fullName, Age age, Address address,
 	             StudyPeriod studyPeriod) {
 		this.address = address;
 		this.age = age;
-		this.borough = borough;
 		this.fullName = fullName;
 		this.gender = gender;
 		this.peselNumber = peselNumber;
@@ -72,14 +67,6 @@ public class Child extends BaseEntityUuid {
 
 	public void setAge(Age age) {
 		this.age = age;
-	}
-
-	public Borough getBorough() {
-		return borough;
-	}
-
-	public void setBorough(Borough borough) {
-		this.borough = borough;
 	}
 
 	public FullName getFullName() {
@@ -144,13 +131,10 @@ public class Child extends BaseEntityUuid {
 
 		if (getAddress() != null ? !getAddress().equals(child.getAddress()) : child.getAddress() != null) return false;
 		if (getAge() != null ? !getAge().equals(child.getAge()) : child.getAge() != null) return false;
-		if (getBorough() != null ? !getBorough().equals(child.getBorough()) : child.getBorough() != null) return false;
 		if (getFullName() != null ? !getFullName().equals(child.getFullName()) : child.getFullName() != null)
 			return false;
 		if (getGender() != child.getGender()) return false;
 		if (getChildStatuses() != null ? !getChildStatuses().equals(child.getChildStatuses()) : child.getChildStatuses() != null)
-			return false;
-		if (getGuardians() != null ? !getGuardians().equals(child.getGuardians()) : child.getGuardians() != null)
 			return false;
 		if (getPeselNumber() != null ? !getPeselNumber().equals(child.getPeselNumber()) : child.getPeselNumber() != null)
 			return false;
@@ -162,13 +146,26 @@ public class Child extends BaseEntityUuid {
 		int result = super.hashCode();
 		result = 31 * result + (getAddress() != null ? getAddress().hashCode() : 0);
 		result = 31 * result + (getAge() != null ? getAge().hashCode() : 0);
-		result = 31 * result + (getBorough() != null ? getBorough().hashCode() : 0);
 		result = 31 * result + (getFullName() != null ? getFullName().hashCode() : 0);
 		result = 31 * result + (getGender() != null ? getGender().hashCode() : 0);
 		result = 31 * result + (getChildStatuses() != null ? getChildStatuses().hashCode() : 0);
-		result = 31 * result + (getGuardians() != null ? getGuardians().hashCode() : 0);
 		result = 31 * result + (getPeselNumber() != null ? getPeselNumber().hashCode() : 0);
 		result = 31 * result + (getStudyPeriod() != null ? getStudyPeriod().hashCode() : 0);
 		return result;
+	}
+
+	@Override
+	public String toString() {
+		return "Child{" +
+				"address=" + address +
+				", age=" + age +
+				//", borough=" + borough +
+				", fullName=" + fullName +
+				", gender=" + gender +
+				", childStatuses=" + childStatuses +
+				", guardians=" + guardians +
+				", peselNumber='" + peselNumber + '\'' +
+				", studyPeriod=" + studyPeriod +
+				'}';
 	}
 }

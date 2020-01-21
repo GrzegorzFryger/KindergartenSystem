@@ -6,10 +6,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pja.prz.account.facade.dto.AccountDto;
-import pl.edu.pja.prz.account.facade.mapper.AccountMapper;
-import pl.edu.pja.prz.account.model.Account;
+import pl.edu.pja.prz.account.facade.dto.EmployeeDto;
+import pl.edu.pja.prz.account.facade.mapper.EmployeeMapper;
+import pl.edu.pja.prz.account.model.Employee;
 import pl.edu.pja.prz.account.model.Person;
 import pl.edu.pja.prz.account.model.enums.AccountStatus;
+import pl.edu.pja.prz.account.model.enums.EmployeeType;
+import pl.edu.pja.prz.account.model.value.Password;
 import pl.edu.pja.prz.commons.model.Address;
 import pl.edu.pja.prz.commons.model.FullName;
 import pl.edu.pja.prz.commons.model.Phone;
@@ -18,36 +21,40 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(MockitoExtension.class)
-public class AccountMapperTest {
+public class EmployeeMapperTest {
+	private EmployeeMapper employeeMapper;
 
-	private AccountMapper accountMapper;
-
-	private Account account;
 	private AccountDto accountDto;
+	private Employee employee;
+	private EmployeeDto employeeDto;
+	private Person person;
+
 	private FullName fullName;
 	private Address address;
 	private Phone phone;
 	private String email;
+	private Password password;
 	private AccountStatus status;
-	private Person person;
+	private EmployeeType type;
 
 	@BeforeEach
 	public void setUp() {
-		this.accountMapper = Mappers.getMapper( AccountMapper.class );
-		account = new Account();
+		this.employeeMapper = Mappers.getMapper(EmployeeMapper.class);
+
 		accountDto = new AccountDto();
-		person = new Person();
+
 		fullName = new FullName("TestName", "TestSurname");
 		address = new Address("70-700", "City", "Street 256");
 		phone = new Phone("123132123");
 		email = "test@test.com";
+		password = new Password("Password123");
+		type = EmployeeType.TEACHER;
 		status = AccountStatus.ACTIVE;
 
-		account.setFullName(fullName);
-		account.setAddress(address);
-		account.setPhoneNumber(phone);
-		account.setEmail(email);
-		account.setAccountStatus(status);
+
+		employee = new Employee(address, fullName, phone, password, email, type);
+		employeeDto = new EmployeeDto();
+		person = new Person();
 
 		accountDto.setName(fullName.getName());
 		accountDto.setSurname(fullName.getSurname());
@@ -61,54 +68,48 @@ public class AccountMapperTest {
 		person.setFullName(fullName);
 		person.setAddress(address);
 		person.setPhoneNumber(phone);
+
+		employeeDto.setName(fullName.getName());
+		employeeDto.setSurname(fullName.getSurname());
+		employeeDto.setPostalCode(address.getPostalCode());
+		employeeDto.setCity(address.getCity());
+		employeeDto.setStreetNumber(address.getStreetNumber());
+		employeeDto.setPhone(phone.getPhone());
+		employeeDto.setStatus(status);
+		employeeDto.setEmail(email);
+		employeeDto.setEmployeeType(type);
 	}
 
 	@Test
-	public void Should_MapAccount() {
+	public void Should_MapFromEmployee() {
+
 		//When
-		AccountDto newAccountDto = accountMapper.fromAccount(account);
+		EmployeeDto newEmployeeDto = employeeMapper.fromEmployee(employee);
 
 		//Then
-		verifyDto(newAccountDto);
+		verifyDto(newEmployeeDto);
+
 	}
 
 	@Test
-	public void Should_MapFromAccount() {
-		//When
-		Account newAccount = accountMapper.toAccount(accountDto);
+	public void Should_MapToPerson() {
 
-		//Then
-		verifyFromDto(newAccount);
-	}
-
-	@Test
-	public void Should_MapPerson() {
 		//When
-		Person newPerson = accountMapper.toPerson(accountDto);
+		Person newPerson = employeeMapper.toPerson(accountDto);
 
 		//Then
 		verifyPerson(newPerson);
 	}
 
-	private void verifyDto(AccountDto accountDto) {
-		assertNotNull(accountDto);
-		assertEquals("TestName", accountDto.getName());
-		assertEquals("TestSurname", accountDto.getSurname());
-		assertEquals("70-700", accountDto.getPostalCode());
-		assertEquals("City", accountDto.getCity());
-		assertEquals("Street 256", accountDto.getStreetNumber());
-		assertEquals("123132123", accountDto.getPhone());
-		assertEquals("test@test.com", accountDto.getEmail());
-		assertEquals(AccountStatus.ACTIVE, accountDto.getStatus());
-	}
-
-	private void verifyFromDto(Account account) {
-		assertNotNull(account);
-		assertEquals(fullName, account.getFullName());
-		assertEquals(address, account.getAddress());
-		assertEquals(phone, account.getPhoneNumber());
-		assertEquals(email, account.getEmail());
-		assertEquals(status, account.getAccountStatus());
+	private void verifyDto(EmployeeDto employeeDto) {
+		assertNotNull(employeeDto);
+		assertEquals("TestName", employeeDto.getName());
+		assertEquals("TestSurname", employeeDto.getSurname());
+		assertEquals("70-700", employeeDto.getPostalCode());
+		assertEquals("City", employeeDto.getCity());
+		assertEquals("Street 256", employeeDto.getStreetNumber());
+		assertEquals("123132123", employeeDto.getPhone());
+		assertEquals("test@test.com", employeeDto.getEmail());
 	}
 
 	private void verifyPerson(Person person) {
