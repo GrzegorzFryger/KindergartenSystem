@@ -8,7 +8,7 @@ public interface GroupService {
 
     Group createGroup(Group group);
 
-    Group updateGroup(Group group, Long groupToUpdateId);
+    Group updateGroup(Group group);
 
     void deleteGroup(Long id);
 
