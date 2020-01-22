@@ -11,6 +11,13 @@
 
     <artifactId>calendar</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>pl.edu.pja.prz</groupId>
+            <artifactId>commons</artifactId>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>
@@ -20,6 +27,8 @@
                     <excludes>
                         <exclude>**/pl/edu/pja/prz/calendar/*</exclude>
                         <exclude>**/pl/edu/pja/prz/calendar/configuration/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/calendar/model/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/calendar/model/enums/*</exclude>
                     </excludes>
                 </configuration>
             </plugin>
