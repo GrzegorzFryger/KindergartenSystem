@@ -35,8 +35,6 @@
                 <configuration>
                     <excludes>
                         <exclude>**/pl/edu/pja/prz/commons/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/commons/model/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/commons/exception/*</exclude>
                     </excludes>
                 </configuration>
             </plugin>
