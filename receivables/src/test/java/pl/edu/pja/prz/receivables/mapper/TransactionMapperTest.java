@@ -3,7 +3,6 @@ package pl.edu.pja.prz.receivables.mapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.model.dto.IncomingPaymentDto;
@@ -15,12 +14,9 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class TransactionMapperTest {
-    @Mock
     private TransactionMapper transactionMapper;
 
     private Transaction transaction;
@@ -32,6 +28,8 @@ public class TransactionMapperTest {
 
     @BeforeEach
     public void setUp() {
+        transactionMapper = new TransactionMapperImpl();
+
         transaction = new Transaction();
         dto = new IncomingPaymentDto();
         guardianId = UUID.randomUUID();
@@ -59,7 +57,6 @@ public class TransactionMapperTest {
     public void Should_MapTransaction() {
         //Given
         dto.setPaymentType(PaymentType.TRANSFER);
-        when(transactionMapper.transactionToDto(any(Transaction.class))).thenReturn(dto);
 
         //When
         IncomingPaymentDto incomingPaymentDto = transactionMapper.transactionToDto(transaction);
@@ -67,7 +64,6 @@ public class TransactionMapperTest {
         //Then
         verifyDto(incomingPaymentDto);
         assertEquals(PaymentType.TRANSFER, incomingPaymentDto.getPaymentType());
-        verify(transactionMapper, times(1)).transactionToDto(any(Transaction.class));
     }
 
     private void verifyDto(IncomingPaymentDto dto) {

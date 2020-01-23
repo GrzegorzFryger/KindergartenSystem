@@ -3,7 +3,6 @@ package pl.edu.pja.prz.receivables.mapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pja.prz.receivables.model.CashPayment;
 import pl.edu.pja.prz.receivables.model.dto.IncomingPaymentDto;
@@ -15,12 +14,9 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class CashPaymentMapperTest {
-    @Mock
     private CashPaymentMapper cashPaymentMapper;
     private CashPayment cashPayment;
     private IncomingPaymentDto dto;
@@ -31,6 +27,7 @@ class CashPaymentMapperTest {
 
     @BeforeEach
     public void setUp() {
+        cashPaymentMapper = new CashPaymentMapperImpl();
         cashPayment = new CashPayment();
         dto = new IncomingPaymentDto();
         guardianId = UUID.randomUUID();
@@ -58,7 +55,6 @@ class CashPaymentMapperTest {
     public void Should_MapCashPayment() {
         //Given
         dto.setPaymentType(PaymentType.CASH);
-        when(cashPaymentMapper.cashPaymentToDto(any(CashPayment.class))).thenReturn(dto);
 
         //When
         IncomingPaymentDto incomingPaymentDto = cashPaymentMapper.cashPaymentToDto(cashPayment);
@@ -66,7 +62,6 @@ class CashPaymentMapperTest {
         //Then
         verifyDto(incomingPaymentDto);
         assertEquals(PaymentType.CASH, incomingPaymentDto.getPaymentType());
-        verify(cashPaymentMapper, times(1)).cashPaymentToDto(any(CashPayment.class));
     }
 
     private void verifyDto(IncomingPaymentDto dto) {
