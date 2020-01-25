@@ -1,8 +1,8 @@
 package pl.edu.pja.prz.meal.service;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pja.prz.meal.model.dto.DictionaryObjectDTO;
 
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
 import static org.junit.Assert.assertNotNull;
 
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class MealDictionaryServiceTest {
 
     private MealDictionaryService mealDictionaryService = new MealDictionaryService();
