@@ -20,6 +20,8 @@
                     <excludes>
                         <exclude>**/pl/edu/pja/prz/mail/*</exclude>
                         <exclude>**/pl/edu/pja/prz/mail/configuration/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/mail/facade/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/mail/model/*</exclude>
                     </excludes>
                 </configuration>
             </plugin>
