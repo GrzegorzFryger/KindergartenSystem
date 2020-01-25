@@ -26,6 +26,7 @@
         <module>groups</module>
         <module>finances</module>
         <module>calendar</module>
+        <module>mail</module>
     </modules>
 
     <properties>
@@ -44,6 +45,7 @@
         <payments-module.version>1.0-SNAPSHOT</payments-module.version>
         <receivables-module.version>1.0-SNAPSHOT</receivables-module.version>
         <calendar-module.version>1.0-SNAPSHOT</calendar-module.version>
+        <mail-module.version>1.0-SNAPSHOT</mail-module.version>
 
         <!-- Optional Shared libraries (these can be included in child modules) -->
         <commons-csv.version>1.7</commons-csv.version>
@@ -119,6 +121,11 @@
                 <groupId>pl.edu.pja.prz</groupId>
                 <artifactId>calendar</artifactId>
                 <version>${calendar-module.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>pl.edu.pja.prz</groupId>
+                <artifactId>mail</artifactId>
+                <version>${mail-module.version}</version>
             </dependency>
 
             <!-- Optional Shared libraries (these can be included in child modules) -->

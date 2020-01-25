@@ -15,4 +15,5 @@ DROP USER IF EXISTS 'meal'@'localhost';
 DROP USER IF EXISTS 'payments'@'localhost';
 DROP USER IF EXISTS 'receivables'@'localhost';
 DROP USER IF EXISTS 'finances'@'localhost';
+DROP USER IF EXISTS 'mail'@'localhost';
 COMMIT;

@@ -15,6 +15,7 @@ CREATE USER IF NOT EXISTS 'meal'@'localhost' IDENTIFIED BY 'meal01';
 CREATE USER IF NOT EXISTS 'payments'@'localhost' IDENTIFIED BY 'payments01';
 CREATE USER IF NOT EXISTS 'receivables'@'localhost' IDENTIFIED BY 'receivables01';
 CREATE USER IF NOT EXISTS 'finances'@'localhost' IDENTIFIED BY 'finances01';
+CREATE USER IF NOT EXISTS 'mail'@'localhost' IDENTIFIED BY 'mail01';
 
 GRANT ALL PRIVILEGES ON account.* TO 'account'@'localhost';
 GRANT ALL PRIVILEGES ON core.* TO 'core'@'localhost';
@@ -24,4 +25,5 @@ GRANT ALL PRIVILEGES ON meal.* TO 'meal'@'localhost';
 GRANT ALL PRIVILEGES ON payments.* TO 'payments'@'localhost';
 GRANT ALL PRIVILEGES ON receivables.* TO 'receivables'@'localhost';
 GRANT ALL PRIVILEGES ON finances.* TO 'finances'@'localhost';
+GRANT SELECT ON account.* TO 'mail'@'localhost';
 COMMIT;
