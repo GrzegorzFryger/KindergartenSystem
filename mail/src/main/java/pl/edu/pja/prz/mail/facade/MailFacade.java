@@ -1,30 +1,21 @@
 package pl.edu.pja.prz.mail.facade;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.mail.model.BaseMailDTO;
-
-import static pl.edu.pja.prz.mail.validator.EmailValidator.validateEmail;
+import pl.edu.pja.prz.mail.service.impl.MailServiceImpl;
 
 @Service
 public class MailFacade {
-    private static final Logger logger = LoggerFactory.getLogger(MailFacade.class);
+    private final MailServiceImpl mailService;
+
+    @Autowired
+    public MailFacade(MailServiceImpl mailService) {
+        this.mailService = mailService;
+    }
 
     public boolean sendEmail(String email, BaseMailDTO dto) {
-        if (!validate(email)) {
-            return false;
-        }
-        return false;
+        return mailService.sendEmail(email, dto);
     }
 
-    private boolean validate(String email) {
-        if (validateEmail(email)) {
-            return true;
-        } else {
-            logger.warn("Email validation failure! Incorrect email: " + email);
-            logger.warn("Aborting sending emails. Please verify their correctness");
-            return false;
-        }
-    }
 }

@@ -11,6 +11,18 @@
 
     <artifactId>mail</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+            <version>2.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>
@@ -21,6 +33,8 @@
                         <exclude>**/pl/edu/pja/prz/mail/*</exclude>
                         <exclude>**/pl/edu/pja/prz/mail/configuration/*</exclude>
                         <exclude>**/pl/edu/pja/prz/mail/facade/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/mail/service/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/mail/service/impl/*</exclude>
                         <exclude>**/pl/edu/pja/prz/mail/model/*</exclude>
                     </excludes>
                 </configuration>
