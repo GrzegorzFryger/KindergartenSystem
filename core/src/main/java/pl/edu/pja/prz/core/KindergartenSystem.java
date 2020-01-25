@@ -8,6 +8,7 @@ import pl.edu.pja.prz.commons.CommonsConfiguration;
 import pl.edu.pja.prz.finances.FinancesConfiguration;
 import pl.edu.pja.prz.groups.GroupsConfiguration;
 import pl.edu.pja.prz.meal.MealConfiguration;
+import pl.edu.pja.prz.mail.MailConfiguration;
 import pl.edu.pja.prz.payments.PaymentsConfiguration;
 import pl.edu.pja.prz.receivables.ReceivablesConfiguration;
 
@@ -15,7 +16,7 @@ import pl.edu.pja.prz.receivables.ReceivablesConfiguration;
 @Import({AccountConfiguration.class, GroupsConfiguration.class,
 		ReceivablesConfiguration.class, PaymentsConfiguration.class,
 		FinancesConfiguration.class, CommonsConfiguration.class,
-		MealConfiguration.class})
+		MealConfiguration.class, MailConfiguration.class})
 
 public class KindergartenSystem {
 	public static void main(String[] args) {

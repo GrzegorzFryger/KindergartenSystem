@@ -7,18 +7,19 @@
         <groupId>pl.edu.pja.prz</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>meal</artifactId>
+    <artifactId>mail</artifactId>
+
     <dependencies>
         <dependency>
-            <groupId>pl.edu.pja.prz</groupId>
-            <artifactId>commons</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+            <version>2.2.0.RELEASE</version>
         </dependency>
         <dependency>
-            <groupId>pl.edu.pja.prz</groupId>
-            <artifactId>mail</artifactId>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
         </dependency>
     </dependencies>
 
@@ -29,16 +30,16 @@
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <configuration>
                     <excludes>
-                        <exclude>**/pl/edu/pja/prz/meal/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/meal/exception/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/meal/model/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/meal/model/dto/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/meal/model/enums/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/meal/service/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/meal/configuration/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/mail/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/mail/configuration/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/mail/facade/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/mail/service/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/mail/service/impl/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/mail/model/*</exclude>
                     </excludes>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
 </project>
