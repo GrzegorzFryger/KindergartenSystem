@@ -18,6 +18,10 @@
             <artifactId>commons</artifactId>
         </dependency>
         <dependency>
+            <groupId>pl.edu.pja.prz</groupId>
+            <artifactId>receivables</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>

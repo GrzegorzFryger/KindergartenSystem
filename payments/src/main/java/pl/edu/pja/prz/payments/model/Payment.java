@@ -4,6 +4,7 @@ import pl.edu.pja.prz.commons.model.BaseEntityLong;
 
 import java.math.BigDecimal;
 
+
 public class Payment extends BaseEntityLong {
 	private BigDecimal amount;
 	private String description;
@@ -12,18 +13,18 @@ public class Payment extends BaseEntityLong {
 		super();
 	}
 
-	public Payment(BigDecimal amount, String description) {
+	public Payment(BigDecimal baseAmount, String description) {
 		super();
-		this.amount = amount;
+		this.baseAmount = baseAmount;
 		this.description = description;
 	}
 
-	public BigDecimal getAmount() {
-		return amount;
+	public BigDecimal getBaseAmount() {
+		return baseAmount;
 	}
 
-	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
+	public void setBaseAmount(BigDecimal baseAmount) {
+		this.baseAmount = baseAmount;
 	}
 
 	public String getDescription() {
