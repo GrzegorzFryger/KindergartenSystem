@@ -27,6 +27,7 @@
         <module>finances</module>
         <module>calendar</module>
         <module>mail</module>
+        <module>scheduler</module>
     </modules>
 
     <properties>
