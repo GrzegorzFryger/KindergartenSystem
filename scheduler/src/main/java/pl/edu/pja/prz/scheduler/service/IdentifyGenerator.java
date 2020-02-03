@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.payments.utilites;
+package pl.edu.pja.prz.scheduler.service;
 
 public interface IdentifyGenerator {
 	String generateId();

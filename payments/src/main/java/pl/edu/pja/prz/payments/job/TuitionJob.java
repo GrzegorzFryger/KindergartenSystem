@@ -4,6 +4,7 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.edu.pja.prz.scheduler.annotation.QuartzJob;
 
 @QuartzJob(name="tuition", description = "responsible for execute tuition payemnts")
 public class TuitionJob extends RecurringPaymentJob {

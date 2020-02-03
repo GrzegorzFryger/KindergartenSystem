@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.payments.model;
+package pl.edu.pja.prz.scheduler.model;
 
 import org.quartz.Job;
 

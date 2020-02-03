@@ -3,7 +3,6 @@ package pl.edu.pja.prz.finances.facade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.finances.model.Balance;
-import pl.edu.pja.prz.finances.service.BalanceHistoryService;
 import pl.edu.pja.prz.finances.service.BalanceService;
 
 import java.math.BigDecimal;
@@ -13,12 +12,10 @@ import java.util.UUID;
 @Service
 public class FinancesFacadeImpl implements FinancesFacade {
     private final BalanceService balanceService;
-    private final BalanceHistoryService balanceHistoryService;
 
     @Autowired
-    public FinancesFacadeImpl(BalanceService balanceService, BalanceHistoryService balanceHistoryService) {
+    public FinancesFacadeImpl(BalanceService balanceService) {
         this.balanceService = balanceService;
-        this.balanceHistoryService = balanceHistoryService;
     }
 
     @Override
@@ -32,17 +29,12 @@ public class FinancesFacadeImpl implements FinancesFacade {
     }
 
     @Override
-    public Balance increaseBalance(UUID childId, BigDecimal amount) {
-        return balanceService.increaseBalance(childId, amount);
+    public void increaseBalance(UUID childId, BigDecimal amount, String title) {
+        balanceService.increaseBalance(childId, amount, title);
     }
 
     @Override
-    public Balance decreaseBalance(UUID childId, BigDecimal amount) {
-        return balanceService.decreaseBalance(childId, amount);
-    }
-
-    @Override
-    public void saveBalanceInHistory(UUID childId, BigDecimal oldBalance, BigDecimal change) {
-        balanceHistoryService.saveBalanceInHistory(childId, oldBalance, change);
+    public void decreaseBalance(UUID childId, BigDecimal amount, String title) {
+        balanceService.decreaseBalance(childId, amount, title);
     }
 }

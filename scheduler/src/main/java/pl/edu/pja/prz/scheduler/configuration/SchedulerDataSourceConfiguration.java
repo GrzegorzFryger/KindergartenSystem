@@ -1,4 +1,4 @@
-package configuration;
+package pl.edu.pja.prz.scheduler.configuration;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
@@ -11,6 +11,7 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import pl.edu.pja.prz.scheduler.model.JobInfo;
 
 import javax.sql.DataSource;
 
@@ -27,7 +28,7 @@ public class SchedulerDataSourceConfiguration {
 		return new DataSourceProperties();
 	}
 
-	@Bean
+	@Bean("schedulerDataSource")
 	@ConfigurationProperties("app.datasource.scheduler-module.configuration")
 	public DataSource schedulerModuleDataSource() {
 		return schedulerDataModuleSourceProperties().initializeDataSourceBuilder().build();
@@ -35,7 +36,7 @@ public class SchedulerDataSourceConfiguration {
 
 	@Bean("schedulerModuleEntityManagerFactory")
 	public LocalContainerEntityManagerFactoryBean createSchedulerModuleEntityManagerFactory(EntityManagerFactoryBuilder builder) {
-		return builder.dataSource(schedulerModuleDataSource()).packages(SchedulerDataSourceConfiguration.class).build();
+		return builder.dataSource(schedulerModuleDataSource()).packages(JobInfo.class).build();
 	}
 
 	@Bean

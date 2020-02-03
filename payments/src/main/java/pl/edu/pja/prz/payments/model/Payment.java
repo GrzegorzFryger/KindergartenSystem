@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 
 
 public class Payment extends BaseEntityLong {
-	private BigDecimal amount;
+	private BigDecimal baseAmount;
 	private String description;
 
 	Payment() {

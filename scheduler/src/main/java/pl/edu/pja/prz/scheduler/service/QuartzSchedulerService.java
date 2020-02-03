@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.payments.service;
+package pl.edu.pja.prz.scheduler.service;
 
 import org.quartz.JobDetail;
 import org.quartz.JobKey;
@@ -8,9 +8,8 @@ import org.quartz.impl.matchers.GroupMatcher;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.commons.exception.BusinessException;
-import pl.edu.pja.prz.payments.model.JobInfo;
-import pl.edu.pja.prz.payments.model.ScheduleJobInfo;
-import pl.edu.pja.prz.payments.utilites.QuartzFactory;
+import pl.edu.pja.prz.scheduler.model.JobInfo;
+import pl.edu.pja.prz.scheduler.model.ScheduleJobInfo;
 
 import java.util.ArrayList;
 import java.util.List;

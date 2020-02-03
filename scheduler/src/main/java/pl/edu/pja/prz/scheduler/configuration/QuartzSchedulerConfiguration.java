@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.payments.configuration;
+package pl.edu.pja.prz.scheduler.configuration;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.quartz.QuartzProperties;
@@ -6,13 +6,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
-import pl.edu.pja.prz.payments.service.JobService;
+import pl.edu.pja.prz.scheduler.service.JobService;
 
 import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-public class SchedulerConfiguration {
+public class QuartzSchedulerConfiguration {
 
 	/**
 	 * Spring offers a SchedulerFactoryBean that exposes triggers to be set as properties.
@@ -40,7 +40,7 @@ public class SchedulerConfiguration {
 	@Bean("schedulerFactory")
 	public SchedulerFactoryBean createSchedulerFactory(final ApplicationContext applicationContext,
 	                                                   @Qualifier("schedulerProperties") Properties properties,
-	                                                   @Qualifier("paymentDataSource") DataSource dataSource) {
+	                                                   @Qualifier("schedulerDataSource") DataSource dataSource) {
 		CustomSpringBeanJobFactory jobFactory = new CustomSpringBeanJobFactory();
 		jobFactory.setApplicationContext(applicationContext);
 
@@ -65,7 +65,7 @@ public class SchedulerConfiguration {
 
 	@Bean
 	public JobService createJobService(){
-		return new JobService("pl.edu.pja.prz.payments");
+		return new JobService("pl.edu.pja.prz");
 	}
 
 }

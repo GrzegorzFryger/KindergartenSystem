@@ -12,4 +12,12 @@
     <artifactId>scheduler</artifactId>
 
 
+    <dependencies>
+        <dependency>
+            <groupId>pl.edu.pja.prz</groupId>
+            <artifactId>commons</artifactId>
+        </dependency>
+    </dependencies>
+
+
 </project>

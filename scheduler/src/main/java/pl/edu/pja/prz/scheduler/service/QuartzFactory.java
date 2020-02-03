@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.payments.utilites;
+package pl.edu.pja.prz.scheduler.service;
 
 import org.quartz.CronTrigger;
 import org.quartz.Job;

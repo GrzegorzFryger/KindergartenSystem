@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.payments.service;
+package pl.edu.pja.prz.scheduler.service;
 
 import org.quartz.Job;
 import org.slf4j.Logger;
@@ -7,9 +7,9 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import pl.edu.pja.prz.commons.exception.BusinessException;
-import pl.edu.pja.prz.commons.exception.IncorrectInputException;
-import pl.edu.pja.prz.payments.job.QuartzJob;
-import pl.edu.pja.prz.payments.model.JobInfo;
+import pl.edu.pja.prz.commons.exception.IncorrectInputTypeException;
+import pl.edu.pja.prz.scheduler.annotation.QuartzJob;
+import pl.edu.pja.prz.scheduler.model.JobInfo;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,7 +37,7 @@ public class JobService {
 				.stream()
 				.filter(jobInfo -> jobInfo.getName().equals(name))
 				.reduce((u, v) -> {
-					throw new IncorrectInputException("More than one found");
+					throw new IncorrectInputTypeException("More than one found");
 				});
 	}
 

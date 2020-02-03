@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.payments.configuration;
+package pl.edu.pja.prz.scheduler.configuration;
 
 import org.quartz.spi.TriggerFiredBundle;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
