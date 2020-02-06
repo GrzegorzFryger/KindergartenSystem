@@ -64,7 +64,7 @@ public class QuartzSchedulerConfiguration {
 	}
 
 	@Bean
-	public JobService createJobService(){
+	public JobService createJobService() {
 		return new JobService("pl.edu.pja.prz");
 	}
 

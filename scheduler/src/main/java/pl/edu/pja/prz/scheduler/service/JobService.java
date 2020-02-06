@@ -59,6 +59,7 @@ public class JobService {
 			throw new BusinessException("Can not create class form Job annotation");
 		}
 	}
+
 	@SuppressWarnings("unchecked")
 	private ClassPathScanningCandidateComponentProvider createComponentScanner() {
 		var provider = new ClassPathScanningCandidateComponentProvider(false);

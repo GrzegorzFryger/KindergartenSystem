@@ -17,7 +17,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class QuartzSchedulerService {
+public class QuartzSchedulerService implements SchedulerService {
 	private final SchedulerFactoryBean schedulerFactory;
 	private final QuartzFactory quartzFactory;
 	private final JobService jobService;
@@ -29,10 +29,12 @@ public class QuartzSchedulerService {
 		this.jobService = jobService;
 	}
 
+	@Override
 	public List<JobInfo> getAllDetailsAvailableJobs() {
 		return jobService.getAllExistingJobs();
 	}
 
+	@Override
 	public List<ScheduleJobInfo> getAllActiveScheduleJobs() {
 		return getScheduler().map(scheduler -> {
 			try {
@@ -75,7 +77,9 @@ public class QuartzSchedulerService {
 	}
 
 
-	public ScheduleJobInfo scheduleCronJob(String jobName, String triggerDescription, String cronExpression, boolean durability) {
+	@Override
+	public ScheduleJobInfo scheduleCronJob(String jobName, String triggerDescription, String cronExpression,
+	                                       boolean durability) {
 
 		var jobInfo = jobService.getJobInfoByName(jobName)
 				.orElseThrow(() -> new BusinessException("Can not get JobInfo"));
@@ -111,6 +115,7 @@ public class QuartzSchedulerService {
 		);
 	}
 
+	@Override
 	public void unScheduleAllJobs() {
 		getScheduler().ifPresentOrElse(scheduler -> {
 					try {
@@ -125,6 +130,7 @@ public class QuartzSchedulerService {
 		);
 	}
 
+	@Override
 	public void startJob(String jobKey) {
 		getScheduler().ifPresentOrElse(scheduler -> {
 			try {
@@ -135,6 +141,7 @@ public class QuartzSchedulerService {
 		}, () -> new BusinessException("Can not get Scheduler"));
 	}
 
+	@Override
 	public void pauseJob(String jobKey) {
 		getScheduler().ifPresentOrElse(scheduler -> {
 			try {
@@ -145,6 +152,7 @@ public class QuartzSchedulerService {
 		}, () -> new BusinessException("Can not get Scheduler"));
 	}
 
+	@Override
 	public void resumeJob(String jobKey) {
 		getScheduler().ifPresentOrElse(scheduler -> {
 			try {
@@ -155,6 +163,7 @@ public class QuartzSchedulerService {
 		}, () -> new BusinessException("Can not get Scheduler"));
 	}
 
+	@Override
 	public void removeJob(String jobKey) {
 		getScheduler().ifPresentOrElse(scheduler -> {
 			try {
