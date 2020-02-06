@@ -36,12 +36,6 @@ public class SchedulerFacade {
 				.collect(Collectors.toList());
 	}
 
-	public List<JobInfoDto> schedulerCronJob() {
-		return schedulerService.getAllDetailsAvailableJobs()
-				.stream()
-				.map(this.schedulerMapper::fromJobInfo)
-				.collect(Collectors.toList());
-	}
 
 	public ScheduleJobInfoDto scheduleCronJob(CronScheduleDto scheduleDto) {
 		return schedulerMapper.fromScheduleJobInfo(

@@ -177,7 +177,7 @@ public class QuartzSchedulerService implements SchedulerService {
 
 	private JobKey createJobKey(String key) {
 		String[] arr = key.split("[.]");
-		return new JobKey(arr[0], arr[1]);
+		return new JobKey(arr[1], arr[0]);
 	}
 
 	private Optional<Scheduler> getScheduler() {

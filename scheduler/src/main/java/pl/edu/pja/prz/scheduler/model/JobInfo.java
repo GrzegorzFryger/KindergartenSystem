@@ -8,6 +8,9 @@ public class JobInfo {
 	private String classFullName;
 	private Class<? extends Job> classType;
 
+	public JobInfo() {
+	}
+
 	public JobInfo(String name, String description, String classFullName, Class<? extends Job> classType) {
 		this.name = name;
 		this.description = description;
