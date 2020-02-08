@@ -17,6 +17,7 @@ public class GuardianDto {
 	private AccountStatus status;
 	private String email;
 	private Set<ChildDto> children;
+	private Set<RoleDto> roles;
 
 	public GuardianDto() {
 	}
@@ -99,5 +100,13 @@ public class GuardianDto {
 
 	public void setChildren(Set<ChildDto> children) {
 		this.children = children;
+	}
+
+	public Set<RoleDto> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<RoleDto> roles) {
+		this.roles = roles;
 	}
 }
