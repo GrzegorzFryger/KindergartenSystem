@@ -18,4 +18,5 @@ public class MailConfiguration {
     public void postConstruct() {
         logger.info("Loaded module: MAIL");
     }
+
 }
