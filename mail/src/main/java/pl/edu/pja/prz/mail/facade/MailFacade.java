@@ -2,8 +2,8 @@ package pl.edu.pja.prz.mail.facade;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.edu.pja.prz.mail.model.BaseMailDTO;
-import pl.edu.pja.prz.mail.service.impl.MailServiceImpl;
+import pl.edu.pja.prz.mail.model.BaseMail;
+import pl.edu.pja.prz.mail.service.MailServiceImpl;
 
 @Service
 public class MailFacade {
@@ -14,8 +14,8 @@ public class MailFacade {
         this.mailService = mailService;
     }
 
-    public boolean sendEmail(String email, BaseMailDTO dto) {
-        return mailService.sendEmail(email, dto);
+    public boolean sendEmail(String email, BaseMail dto) {
+        return false;
     }
 
 }
