@@ -12,7 +12,8 @@ import java.util.Set;
 @Entity
 public class Role extends BaseEntityLong {
 	private String name;
-	@ElementCollection @Enumerated(EnumType.STRING)
+	@ElementCollection
+	@Enumerated(EnumType.STRING)
 	private Set<PrivilegeType> privileges = new HashSet<>();
 	@ManyToMany
 	@JoinTable(name = "role_account",
@@ -20,7 +21,7 @@ public class Role extends BaseEntityLong {
 			inverseJoinColumns = {@JoinColumn(name = "fk_account")})
 	private Set<Account> accounts = new HashSet<>();
 
-	Role() { }
+	public Role() { }
 
 	public Role(String name) {
 		this.name = name;

@@ -7,7 +7,7 @@ import pl.edu.pja.prz.account.facade.dto.EmployeeDto;
 import pl.edu.pja.prz.account.model.Employee;
 import pl.edu.pja.prz.account.model.Person;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = RoleMapper.class)
 public interface EmployeeMapper {
     @Mapping(source = "fullName.name", target = "name")
     @Mapping(source = "fullName.surname", target = "surname")
