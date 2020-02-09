@@ -1,9 +1,8 @@
 package pl.edu.pja.prz.mail.service;
 
-import pl.edu.pja.prz.mail.model.BaseMailDTO;
+import pl.edu.pja.prz.mail.model.BaseMail;
 
 public interface MailService {
 
-    boolean sendEmail(String email, BaseMailDTO dto);
-
+	void sendEmail(BaseMail dto);
 }
