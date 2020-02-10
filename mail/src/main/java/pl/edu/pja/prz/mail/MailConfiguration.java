@@ -5,12 +5,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import javax.annotation.PostConstruct;
 
 @Configuration
 @ComponentScan
 @PropertySource("classpath:application-mail.properties")
+@EnableAsync
 public class MailConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(MailConfiguration.class);
 
