@@ -13,12 +13,12 @@ public class MailProperties {
     private String username;
     @Value("${spring.mail.password}")
     private String password;
-    @Value("${spring.mail.transport.protocol}")
+    @Value("${spring.mail.protocol}")
     private String protocol;
     @Value("${spring.mail.properties.mail.smtp.auth}")
     private boolean smtpAuth;
     @Value("${spring.mail.properties.mail.smtp.starttls.enable}")
-    private boolean smtpStarttls;
+    private boolean smtpStartTls;
     @Value("${spring.mail.properties.mail.debug}")
     private boolean debug;
 
@@ -73,12 +73,12 @@ public class MailProperties {
         this.smtpAuth = smtpAuth;
     }
 
-    public boolean isSmtpStarttls() {
-        return smtpStarttls;
+    public boolean isSmtpStartTls() {
+        return smtpStartTls;
     }
 
-    public void setSmtpStarttls(boolean smtpStarttls) {
-        this.smtpStarttls = smtpStarttls;
+    public void setSmtpStartTls(boolean smtpStartTls) {
+        this.smtpStartTls = smtpStartTls;
     }
 
     public boolean isDebug() {
@@ -98,7 +98,7 @@ public class MailProperties {
                 ", password='" + password + '\'' +
                 ", protocol='" + protocol + '\'' +
                 ", smtpAuth=" + smtpAuth +
-                ", smtpStarttls=" + smtpStarttls +
+                ", smtpStarttls=" + smtpStartTls +
                 ", debug=" + debug +
                 '}';
     }

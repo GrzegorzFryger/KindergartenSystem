@@ -1,13 +1,18 @@
 package pl.edu.pja.prz.mail.service;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailAuthenticationException;
+import org.springframework.mail.MailException;
+import org.springframework.mail.MailSendException;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.mail.model.BaseMail;
+import pl.edu.pja.prz.mail.util.EmailUtils;
 import pl.edu.pja.prz.mail.util.JavaMailSenderFactory;
 
 import javax.mail.MessagingException;
@@ -24,35 +29,64 @@ public class MailServiceImpl implements MailService {
     }
 
     /**
-     * Sending email from a default email account
-     * @param baseMail -
+     * Sending email from a default email account.<br>
+     * Mail is taken from configuration method. For most cases this is recommended method.
+     *
+     * @param baseMail contains information about recipient
+     * @throws MailAuthenticationException in case of authentication failure
+     * @throws MailSendException           in case of failure when sending a message
+     * @throws MailException               as a general exception type
      */
-
     @Async
     @Override
-    public void sendEmail(BaseMail baseMail) {
-        //todo handle with this exceptions
-        //MailAuthenticationException - in case of authentication failure
-        //MailSendException - in case of failure when sending a message
-        //MailException
+    public boolean sendEmail(BaseMail baseMail) {
+        //TODO handle above exceptions
+        if (!validateInput(baseMail)) {
+            return false;
+        }
+
         emailSenderFactory.getSender().send(prepareMimeMessage(baseMail));
+        return true;
     }
 
     /**
-     * Sending email from a other account in the same domain
-     * @param email
-     * @param password
-     * @param baseMail
+     * Sending email from a other account in the same domain.
+     *
+     * @param email    email, which you want to use to send email
+     * @param password password to email, which you want to use to send email
+     * @param baseMail contains information about recipient
+     * @throws MailAuthenticationException in case of authentication failure
+     * @throws MailSendException           in case of failure when sending a message
+     * @throws MailException               as a general exception type
      */
-
     @Async
     @Override
-    public void sendEmail(String email, String password, BaseMail baseMail) {
-        //todo handle with this exceptions
-        //MailAuthenticationException - in case of authentication failure
-        //MailSendException - in case of failure when sending a message
-        //MailException
-        emailSenderFactory.getSender(email, password).send(prepareMimeMessage(baseMail));
+    public boolean sendEmail(String email, String password, BaseMail baseMail) {
+        //TODO handle above exceptions
+        if (!validateInput(baseMail)) {
+            return false;
+        }
+
+        if (EmailUtils.validateEmail(email)) {
+            emailSenderFactory.getSender(email, password).send(prepareMimeMessage(baseMail));
+        } else {
+            logger.warn("Failed to send email. Following email address is incorrect: {}", email);
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean validateInput(BaseMail baseMail) {
+        if (!EmailUtils.validateEmail(baseMail.getTo())) {
+            logger.warn("Input validation failure. Recipient email address is incorrect: {}", baseMail.getTo());
+            return false;
+        }
+        if (StringUtils.isEmpty(baseMail.getSubject())) {
+            logger.warn("Input validation failure. Subject is empty");
+            return false;
+        }
+        return true;
     }
 
     private MimeMessagePreparator prepareMimeMessage(BaseMail dto) {
@@ -65,18 +99,15 @@ public class MailServiceImpl implements MailService {
 
             if (dto.getAttachments().size() > 0) {
                 dto.getAttachments().forEach((key, attachment) -> {
-                            try {
-                                message.addAttachment(key, attachment);
-                            } catch (MessagingException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                );
+                    try {
+                        message.addAttachment(key, attachment);
+                    } catch (MessagingException e) {
+                        e.printStackTrace();
+                    }
+                });
             }
         };
     }
-
 
 }
 

@@ -42,4 +42,13 @@ public class BaseMail {
     public void setAttachments(Map<String, InputStreamSource> attachments) {
         this.attachments = attachments;
     }
+
+    @Override
+    public String toString() {
+        return "BaseMail{" +
+                "to='" + to + '\'' +
+                ", subject='" + subject + '\'' +
+                ", content='" + content + '\'' +
+                '}';
+    }
 }

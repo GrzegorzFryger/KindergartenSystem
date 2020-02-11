@@ -19,8 +19,6 @@ import java.util.Locale;
 public class MailConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(MailConfiguration.class);
 
-    private Locale LOCALE = Locale.ENGLISH;
-
     @PostConstruct
     public void postConstruct() {
         logger.info("Loaded module: MAIL");
@@ -28,7 +26,7 @@ public class MailConfiguration {
 
     @Bean
     public Context createThymeleafContext() {
-        return new Context(LOCALE);
+        return new Context(Locale.ENGLISH);
     }
 
 }

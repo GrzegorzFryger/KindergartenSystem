@@ -29,6 +29,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            <version>2.2.0.RELEASE</version>
         </dependency>
     </dependencies>
 
@@ -40,11 +41,10 @@
                 <configuration>
                     <excludes>
                         <exclude>**/pl/edu/pja/prz/mail/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/mail/configuration/*</exclude>
                         <exclude>**/pl/edu/pja/prz/mail/facade/*</exclude>
                         <exclude>**/pl/edu/pja/prz/mail/service/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/mail/service/impl/*</exclude>
                         <exclude>**/pl/edu/pja/prz/mail/model/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/mail/util/*</exclude>
                     </excludes>
                 </configuration>
             </plugin>
