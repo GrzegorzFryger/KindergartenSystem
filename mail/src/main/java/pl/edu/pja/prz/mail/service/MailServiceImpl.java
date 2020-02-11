@@ -5,7 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailAuthenticationException;
-import org.springframework.mail.MailException;
+import org.springframework.mail.MailParseException;
+import org.springframework.mail.MailPreparationException;
 import org.springframework.mail.MailSendException;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
@@ -33,17 +34,21 @@ public class MailServiceImpl implements MailService {
      * Mail is taken from configuration method. For most cases this is recommended method.
      *
      * @param baseMail contains information about recipient
+     * @throws MailPreparationException    in case of failure when preparing the message
+     * @throws MailParseException          in case of failure when parsing the message
      * @throws MailAuthenticationException in case of authentication failure
-     * @throws MailSendException           in case of failure when sending a message
-     * @throws MailException               as a general exception type
+     * @throws MailSendException           in case of failure when sending the message
      */
     @Async
     @Override
     public void sendEmail(BaseMail baseMail) {
-        //TODO handle above exceptions
         if (!validateInput(baseMail)) {
-            logger.info("Sending email to: " + baseMail.getTo());
-            emailSenderFactory.getSender().send(prepareMimeMessage(baseMail));
+            try {
+                logger.info("Sending email to: " + baseMail.getTo());
+                emailSenderFactory.getSender().send(prepareMimeMessage(baseMail));
+            } catch (MailSendException mse) {
+                logger.error("Failed to send email to: " + baseMail.getTo(), mse);
+            }
         }
     }
 
@@ -53,18 +58,22 @@ public class MailServiceImpl implements MailService {
      * @param email    email, which you want to use to send email
      * @param password password to email, which you want to use to send email
      * @param baseMail contains information about recipient
+     * @throws MailPreparationException    in case of failure when preparing the message
+     * @throws MailParseException          in case of failure when parsing the message
      * @throws MailAuthenticationException in case of authentication failure
-     * @throws MailSendException           in case of failure when sending a message
-     * @throws MailException               as a general exception type
+     * @throws MailSendException           in case of failure when sending the message
      */
     @Async
     @Override
     public void sendEmail(String email, String password, BaseMail baseMail) {
-        //TODO handle above exceptions
         if (validateInput(baseMail)) {
             if (EmailUtils.validateEmail(email)) {
-                logger.info("Sending email to: " + baseMail.getTo());
-                emailSenderFactory.getSender(email, password).send(prepareMimeMessage(baseMail));
+                try {
+                    logger.info("Sending email to: " + baseMail.getTo());
+                    emailSenderFactory.getSender(email, password).send(prepareMimeMessage(baseMail));
+                } catch (MailSendException mse) {
+                    logger.error("Failed to send email to: " + baseMail.getTo(), mse);
+                }
             } else {
                 logger.warn("Failed to send email. Following email address is incorrect: {}", email);
             }
