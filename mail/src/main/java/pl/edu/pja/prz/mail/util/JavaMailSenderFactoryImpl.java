@@ -1,5 +1,6 @@
 package pl.edu.pja.prz.mail.util;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Component;
@@ -10,6 +11,7 @@ import java.util.Properties;
 public class JavaMailSenderFactoryImpl implements JavaMailSenderFactory {
 	private final MailProperties mailProperties;
 
+	@Autowired
 	public JavaMailSenderFactoryImpl(MailProperties mailProperties) {
 		this.mailProperties = mailProperties;
 	}
@@ -40,7 +42,7 @@ public class JavaMailSenderFactoryImpl implements JavaMailSenderFactory {
 
 	private Properties getProperties() {
 		var props = new Properties();
-		props.put("mail.transport.protocol", "smtp");
+		props.put("spring.mail.protocol", mailProperties.getProtocol());
 		props.put("mail.smtp.auth", mailProperties.isSmtpAuth());
 		props.put("mail.smtp.starttls.enable", mailProperties.isSmtpStarttls());
 		return props;

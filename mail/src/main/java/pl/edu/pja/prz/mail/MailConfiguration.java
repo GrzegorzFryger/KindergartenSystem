@@ -2,12 +2,15 @@ package pl.edu.pja.prz.mail;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.thymeleaf.context.Context;
 
 import javax.annotation.PostConstruct;
+import java.util.Locale;
 
 @Configuration
 @ComponentScan
@@ -16,9 +19,16 @@ import javax.annotation.PostConstruct;
 public class MailConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(MailConfiguration.class);
 
+    private Locale LOCALE = Locale.ENGLISH;
+
     @PostConstruct
     public void postConstruct() {
         logger.info("Loaded module: MAIL");
+    }
+
+    @Bean
+    public Context createThymeleafContext() {
+        return new Context(LOCALE);
     }
 
 }

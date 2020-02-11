@@ -14,57 +14,68 @@ import javax.mail.MessagingException;
 
 @Service
 public class MailServiceImpl implements MailService {
-	private static final Logger logger = LoggerFactory.getLogger(MailServiceImpl.class);
-	private JavaMailSenderFactory emailSenderFactory;
+    private static final Logger logger = LoggerFactory.getLogger(MailServiceImpl.class);
+    private static final String ENCODING = "UTF-8";
+    private final JavaMailSenderFactory emailSenderFactory;
 
-	@Autowired
-	public MailServiceImpl(JavaMailSenderFactory emailSenderFactory) {
-		this.emailSenderFactory = emailSenderFactory;
-	}
+    @Autowired
+    public MailServiceImpl(JavaMailSenderFactory emailSenderFactory) {
+        this.emailSenderFactory = emailSenderFactory;
+    }
 
-	@Async
-	@Override
-	public void sendEmail(BaseMail dto) {
+    /**
+     * Sending email from a default email account
+     * @param baseMail -
+     */
 
-		//Throws:
-		//MailAuthenticationException - in case of authentication failure
-		//MailSendException - in case of failure when sending a message
-		//MailException
-		emailSenderFactory.getSender().send(prepareMimeMessage(dto));
-	}
+    @Async
+    @Override
+    public void sendEmail(BaseMail baseMail) {
+        //todo handle with this exceptions
+        //MailAuthenticationException - in case of authentication failure
+        //MailSendException - in case of failure when sending a message
+        //MailException
+        emailSenderFactory.getSender().send(prepareMimeMessage(baseMail));
+    }
 
-	@Async
-	@Override
-	public void sendEmail(String email, String password, BaseMail dto) {
-		//Throws:
-		//MailAuthenticationException - in case of authentication failure
-		//MailSendException - in case of failure when sending a message
-		//MailException
-		emailSenderFactory.getSender(email, password).send(prepareMimeMessage(dto));
-	}
+    /**
+     * Sending email from a other account in the same domain
+     * @param email
+     * @param password
+     * @param baseMail
+     */
 
-	private MimeMessagePreparator prepareMimeMessage(BaseMail dto) {
-		return mimeMessage -> {
-			MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+    @Async
+    @Override
+    public void sendEmail(String email, String password, BaseMail baseMail) {
+        //todo handle with this exceptions
+        //MailAuthenticationException - in case of authentication failure
+        //MailSendException - in case of failure when sending a message
+        //MailException
+        emailSenderFactory.getSender(email, password).send(prepareMimeMessage(baseMail));
+    }
 
-			message.setTo(dto.getTo());
-			message.setSubject(dto.getSubject());
-			message.setText(dto.getContent(), true);
+    private MimeMessagePreparator prepareMimeMessage(BaseMail dto) {
+        return mimeMessage -> {
+            MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, ENCODING);
 
-			if (dto.getAttachments().size() > 0) {
-				dto.getAttachments()
-						.forEach((key, attachment) -> {
-									try {
-										message.addAttachment(key, attachment);
-									} catch (MessagingException e) {
-										e.printStackTrace();
-									}
-								}
+            message.setTo(dto.getTo());
+            message.setSubject(dto.getSubject());
+            message.setText(dto.getContent(), true);
 
-						);
-			}
-		};
-	}
+            if (dto.getAttachments().size() > 0) {
+                dto.getAttachments().forEach((key, attachment) -> {
+                            try {
+                                message.addAttachment(key, attachment);
+                            } catch (MessagingException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                );
+            }
+        };
+    }
 
 
 }
