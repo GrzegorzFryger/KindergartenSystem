@@ -14,11 +14,11 @@ public class MailFacade {
         this.mailService = mailService;
     }
 
-    public boolean sendEmail(BaseMail baseMail) {
-        return mailService.sendEmail(baseMail);
+    public void sendEmail(BaseMail baseMail) {
+        mailService.sendEmail(baseMail);
     }
 
-    public boolean sendEmail(String email, String password, BaseMail baseMail) {
-        return mailService.sendEmail(email, password, baseMail);
+    public void sendEmail(String email, String password, BaseMail baseMail) {
+        mailService.sendEmail(email, password, baseMail);
     }
 }

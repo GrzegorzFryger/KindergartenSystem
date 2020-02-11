@@ -21,6 +21,12 @@ public class MailProperties {
     private boolean smtpStartTls;
     @Value("${spring.mail.properties.mail.debug}")
     private boolean debug;
+    @Value("${spring.mail.properties.mail.smtp.connectiontimeout}")
+    private String smtpConnectionTimeout;
+    @Value("${spring.mail.properties.mail.smtp.timeout}")
+    private String smtpTimeout;
+    @Value("${spring.mail.properties.mail.smtp.writetimeout}")
+    private String smtpwWitetimeout;
 
     public MailProperties() {
     }
@@ -89,6 +95,30 @@ public class MailProperties {
         this.debug = debug;
     }
 
+    public String getSmtpConnectionTimeout() {
+        return smtpConnectionTimeout;
+    }
+
+    public void setSmtpConnectionTimeout(String smtpConnectionTimeout) {
+        this.smtpConnectionTimeout = smtpConnectionTimeout;
+    }
+
+    public String getSmtpTimeout() {
+        return smtpTimeout;
+    }
+
+    public void setSmtpTimeout(String smtpTimeout) {
+        this.smtpTimeout = smtpTimeout;
+    }
+
+    public String getSmtpwWitetimeout() {
+        return smtpwWitetimeout;
+    }
+
+    public void setSmtpwWitetimeout(String smtpwWitetimeout) {
+        this.smtpwWitetimeout = smtpwWitetimeout;
+    }
+
     @Override
     public String toString() {
         return "MailProperties{" +
@@ -98,8 +128,11 @@ public class MailProperties {
                 ", password='" + password + '\'' +
                 ", protocol='" + protocol + '\'' +
                 ", smtpAuth=" + smtpAuth +
-                ", smtpStarttls=" + smtpStartTls +
+                ", smtpStartTls=" + smtpStartTls +
                 ", debug=" + debug +
+                ", smtpConnectionTimeout='" + smtpConnectionTimeout + '\'' +
+                ", smtpTimeout='" + smtpTimeout + '\'' +
+                ", smtpwWitetimeout='" + smtpwWitetimeout + '\'' +
                 '}';
     }
 }

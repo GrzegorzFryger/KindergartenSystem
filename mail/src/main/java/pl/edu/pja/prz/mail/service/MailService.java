@@ -4,9 +4,9 @@ import pl.edu.pja.prz.mail.model.BaseMail;
 
 public interface MailService {
 
-	boolean sendEmail(BaseMail baseMail);
+	void sendEmail(BaseMail baseMail);
 
-	boolean sendEmail(String email, String password, BaseMail baseMail);
+	void sendEmail(String email, String password, BaseMail baseMail);
 
 	boolean validateInput(BaseMail baseMail);
 }

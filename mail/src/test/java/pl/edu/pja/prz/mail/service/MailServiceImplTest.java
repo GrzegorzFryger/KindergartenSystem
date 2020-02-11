@@ -65,11 +65,26 @@ class MailServiceImplTest {
     }
 
     @Test
+    public void Should_ReturnFalse_When_ContentIsEmpty() {
+        //Given
+        BaseMail baseMail = new BaseMail();
+        baseMail.setTo("correct@email.com");
+        baseMail.setSubject("Hello there");
+
+        //When
+        boolean result = service.validateInput(baseMail);
+
+        //Then
+        assertFalse(result);
+    }
+
+    @Test
     public void Should_ReturnTrue_When_BaseMailIsCorrect() {
         //Given
         BaseMail baseMail = new BaseMail();
         baseMail.setTo("correct@email.com");
         baseMail.setSubject("Hello there");
+        baseMail.setContent("Some text, which I want to show in email");
 
         //When
         boolean result = service.validateInput(baseMail);

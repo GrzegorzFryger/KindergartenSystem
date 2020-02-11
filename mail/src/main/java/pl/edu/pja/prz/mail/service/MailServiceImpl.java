@@ -39,14 +39,12 @@ public class MailServiceImpl implements MailService {
      */
     @Async
     @Override
-    public boolean sendEmail(BaseMail baseMail) {
+    public void sendEmail(BaseMail baseMail) {
         //TODO handle above exceptions
         if (!validateInput(baseMail)) {
-            return false;
+            logger.info("Sending email to: " + baseMail.getTo());
+            emailSenderFactory.getSender().send(prepareMimeMessage(baseMail));
         }
-
-        emailSenderFactory.getSender().send(prepareMimeMessage(baseMail));
-        return true;
     }
 
     /**
@@ -61,19 +59,16 @@ public class MailServiceImpl implements MailService {
      */
     @Async
     @Override
-    public boolean sendEmail(String email, String password, BaseMail baseMail) {
+    public void sendEmail(String email, String password, BaseMail baseMail) {
         //TODO handle above exceptions
-        if (!validateInput(baseMail)) {
-            return false;
+        if (validateInput(baseMail)) {
+            if (EmailUtils.validateEmail(email)) {
+                logger.info("Sending email to: " + baseMail.getTo());
+                emailSenderFactory.getSender(email, password).send(prepareMimeMessage(baseMail));
+            } else {
+                logger.warn("Failed to send email. Following email address is incorrect: {}", email);
+            }
         }
-
-        if (EmailUtils.validateEmail(email)) {
-            emailSenderFactory.getSender(email, password).send(prepareMimeMessage(baseMail));
-        } else {
-            logger.warn("Failed to send email. Following email address is incorrect: {}", email);
-            return false;
-        }
-        return true;
     }
 
     @Override
@@ -83,7 +78,11 @@ public class MailServiceImpl implements MailService {
             return false;
         }
         if (StringUtils.isEmpty(baseMail.getSubject())) {
-            logger.warn("Input validation failure. Subject is empty");
+            logger.warn("Input validation failure. Subject is empty!");
+            return false;
+        }
+        if (StringUtils.isEmpty(baseMail.getContent())) {
+            logger.warn("Input validation failure. Content is empty!");
             return false;
         }
         return true;

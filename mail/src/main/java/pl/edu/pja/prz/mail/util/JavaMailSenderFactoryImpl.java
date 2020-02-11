@@ -49,6 +49,9 @@ public class JavaMailSenderFactoryImpl implements JavaMailSenderFactory {
         props.put("spring.mail.protocol", mailProperties.getProtocol());
         props.put("mail.smtp.auth", mailProperties.isSmtpAuth());
         props.put("mail.smtp.starttls.enable", mailProperties.isSmtpStartTls());
+        props.put("mail.smtp.timeout", mailProperties.getSmtpTimeout());
+        props.put("mail.smtp.connectiontimeout", mailProperties.getSmtpConnectionTimeout());
+        props.put("mail.smtp.writetimeout", mailProperties.getSmtpwWitetimeout());
         return props;
     }
 
