@@ -41,6 +41,7 @@ public class MailConfiguration {
         emailTemplateResolver.setSuffix(".html");
         emailTemplateResolver.setTemplateMode(TemplateMode.HTML);
         emailTemplateResolver.setCharacterEncoding(UTF_8);
+        emailTemplateResolver.setCacheable(true);
         return emailTemplateResolver;
     }
 

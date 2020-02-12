@@ -21,8 +21,8 @@ import pl.edu.pja.prz.mail.util.JavaMailSenderFactory;
 import javax.mail.MessagingException;
 
 import static org.apache.commons.lang.CharEncoding.UTF_8;
-import static pl.edu.pja.prz.commons.constants.i18nConstants.POLISH_LOCALE;
-import static pl.edu.pja.prz.mail.model.BaseMail.CONTENT;
+import static pl.edu.pja.prz.commons.constants.LocaleConstants.POLISH_LOCALE;
+import static pl.edu.pja.prz.mail.model.BaseMail.CONTENT_KEY;
 
 @Service
 public class MailServiceImpl implements MailService {
@@ -52,7 +52,7 @@ public class MailServiceImpl implements MailService {
     public void sendEmail(BaseMail baseMail) {
         if (validateInput(baseMail)) {
             try {
-                logger.info("Sending email to: " + baseMail.getTo());
+                logger.info("Sending email to: {}", baseMail.getTo());
                 emailSenderFactory.getSender().send(prepareMimeMessage(baseMail));
             } catch (MailSendException mse) {
                 logger.error("Failed to send email to: " + baseMail.getTo(), mse);
@@ -77,7 +77,7 @@ public class MailServiceImpl implements MailService {
         if (validateInput(baseMail)) {
             if (EmailUtils.validateEmail(email)) {
                 try {
-                    logger.info("Sending email to: " + baseMail.getTo());
+                    logger.info("Sending email to: {}", baseMail.getTo());
                     emailSenderFactory.getSender(email, password).send(prepareMimeMessage(baseMail));
                 } catch (MailSendException mse) {
                     logger.error("Failed to send email to: " + baseMail.getTo(), mse);
@@ -113,9 +113,7 @@ public class MailServiceImpl implements MailService {
         return mimeMessage -> {
             MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, UTF_8);
 
-            Context context = new Context(POLISH_LOCALE);
-            context.setVariable(CONTENT, dto.getContent());
-            context.setVariables(dto.getVariables());
+            Context context = initializeContext(dto);
             String html = templateEngine.process(dto.getEmailTemplate().toString(), context);
 
             message.setTo(dto.getTo());
@@ -126,12 +124,19 @@ public class MailServiceImpl implements MailService {
                 dto.getAttachments().forEach((key, attachment) -> {
                     try {
                         message.addAttachment(key, attachment);
-                    } catch (MessagingException e) {
-                        e.printStackTrace();
+                    } catch (MessagingException me) {
+                        logger.error("Failed to add attachments to email!", me);
                     }
                 });
             }
         };
+    }
+
+    private Context initializeContext(BaseMail dto) {
+        Context context = new Context(POLISH_LOCALE);
+        context.setVariable(CONTENT_KEY, dto.getContent());
+        context.setVariables(dto.getVariables());
+        return context;
     }
 
 }

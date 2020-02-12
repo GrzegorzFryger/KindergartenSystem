@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BaseMail {
-    public static final String CONTENT = "content";
+    public static final String CONTENT_KEY = "content";
 
     private String to;
     private String subject;
