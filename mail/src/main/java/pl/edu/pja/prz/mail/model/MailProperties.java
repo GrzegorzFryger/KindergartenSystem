@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.mail.util;
+package pl.edu.pja.prz.mail.model;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

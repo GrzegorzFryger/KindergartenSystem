@@ -18,7 +18,7 @@ public class MailFacade {
         mailService.sendEmail(baseMail);
     }
 
-    public void sendEmail(String email, String password, BaseMail baseMail) {
-        mailService.sendEmail(email, password, baseMail);
+    public void sendEmail(BaseMail baseMail, String email, String password) {
+        mailService.sendEmail(baseMail, email, password);
     }
 }

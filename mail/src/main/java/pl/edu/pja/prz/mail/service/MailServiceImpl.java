@@ -1,6 +1,5 @@
 package pl.edu.pja.prz.mail.service;
 
-import org.apache.commons.codec.language.bm.Languages;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,8 +19,6 @@ import pl.edu.pja.prz.mail.util.EmailUtils;
 import pl.edu.pja.prz.mail.util.JavaMailSenderFactory;
 
 import javax.mail.MessagingException;
-
-import java.util.Locale;
 
 import static org.apache.commons.lang.CharEncoding.UTF_8;
 import static pl.edu.pja.prz.commons.constants.i18nConstants.POLISH_LOCALE;
@@ -76,7 +73,7 @@ public class MailServiceImpl implements MailService {
      */
     @Async
     @Override
-    public void sendEmail(String email, String password, BaseMail baseMail) {
+    public void sendEmail(BaseMail baseMail, String email, String password) {
         if (validateInput(baseMail)) {
             if (EmailUtils.validateEmail(email)) {
                 try {
@@ -103,6 +100,10 @@ public class MailServiceImpl implements MailService {
         }
         if (StringUtils.isEmpty(baseMail.getContent())) {
             logger.warn("Input validation failure. Content is empty!");
+            return false;
+        }
+        if (baseMail.getEmailTemplate() == null) {
+            logger.warn("Input validation failure. Email template is empty!");
             return false;
         }
         return true;

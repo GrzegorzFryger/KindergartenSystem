@@ -6,7 +6,7 @@ public interface MailService {
 
 	void sendEmail(BaseMail baseMail);
 
-	void sendEmail(String email, String password, BaseMail baseMail);
+	void sendEmail(BaseMail baseMail, String email, String password);
 
 	boolean validateInput(BaseMail baseMail);
 }
