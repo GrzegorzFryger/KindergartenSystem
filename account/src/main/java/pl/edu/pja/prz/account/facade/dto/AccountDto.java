@@ -2,6 +2,7 @@ package pl.edu.pja.prz.account.facade.dto;
 
 import pl.edu.pja.prz.account.model.enums.AccountStatus;
 
+import java.util.Set;
 import java.util.UUID;
 
 public class AccountDto {
@@ -14,9 +15,7 @@ public class AccountDto {
 	private String phone;
 	private AccountStatus status;
 	private String email;
-
-	public AccountDto() {
-	}
+	private Set<RoleDto> roles;
 
 	public UUID getId() {
 		return id;
@@ -88,5 +87,13 @@ public class AccountDto {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Set<RoleDto> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<RoleDto> roles) {
+		this.roles = roles;
 	}
 }

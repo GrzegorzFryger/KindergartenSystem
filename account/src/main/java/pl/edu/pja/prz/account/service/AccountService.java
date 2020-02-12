@@ -3,13 +3,13 @@ package pl.edu.pja.prz.account.service;
 import pl.edu.pja.prz.account.model.Account;
 import pl.edu.pja.prz.account.model.AccountFactory;
 import pl.edu.pja.prz.account.model.Person;
+import pl.edu.pja.prz.account.model.value.Password;
+import pl.edu.pja.prz.account.repository.BasicAccountRepository;
+import pl.edu.pja.prz.account.utilites.PasswordManager;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.commons.model.Address;
 import pl.edu.pja.prz.commons.model.FullName;
-import pl.edu.pja.prz.account.model.value.Password;
 import pl.edu.pja.prz.commons.model.Phone;
-import pl.edu.pja.prz.account.repository.BasicAccountRepository;
-import pl.edu.pja.prz.account.utilites.PasswordManager;
 
 import java.util.UUID;
 
@@ -90,7 +90,7 @@ abstract class AccountService<T extends BasicAccountRepository<E>, E extends Acc
 	                                                       String email, BasicAccountRepository<T> repository,
 	                                                       Class<T> tClass) {
 		repository.findByEmailAndFullName(email, fullName).ifPresent((account) -> {
-			throw new IllegalArgumentException("Person exist with email: " + account.getId());
+			throw new IllegalArgumentException("Person exist with id: " + account.getId());
 		});
 
 		var result = repository.save(
