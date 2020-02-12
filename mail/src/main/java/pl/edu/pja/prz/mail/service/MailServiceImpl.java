@@ -1,5 +1,6 @@
 package pl.edu.pja.prz.mail.service;
 
+import org.apache.commons.codec.language.bm.Languages;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,21 +13,31 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring5.SpringTemplateEngine;
 import pl.edu.pja.prz.mail.model.BaseMail;
 import pl.edu.pja.prz.mail.util.EmailUtils;
 import pl.edu.pja.prz.mail.util.JavaMailSenderFactory;
 
 import javax.mail.MessagingException;
 
+import java.util.Locale;
+
+import static org.apache.commons.lang.CharEncoding.UTF_8;
+import static pl.edu.pja.prz.commons.constants.i18nConstants.POLISH_LOCALE;
+import static pl.edu.pja.prz.mail.model.BaseMail.CONTENT;
+
 @Service
 public class MailServiceImpl implements MailService {
     private static final Logger logger = LoggerFactory.getLogger(MailServiceImpl.class);
-    private static final String ENCODING = "UTF-8";
+
     private final JavaMailSenderFactory emailSenderFactory;
+    private final SpringTemplateEngine templateEngine;
 
     @Autowired
-    public MailServiceImpl(JavaMailSenderFactory emailSenderFactory) {
+    public MailServiceImpl(JavaMailSenderFactory emailSenderFactory, SpringTemplateEngine templateEngine) {
         this.emailSenderFactory = emailSenderFactory;
+        this.templateEngine = templateEngine;
     }
 
     /**
@@ -99,11 +110,16 @@ public class MailServiceImpl implements MailService {
 
     private MimeMessagePreparator prepareMimeMessage(BaseMail dto) {
         return mimeMessage -> {
-            MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, ENCODING);
+            MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, UTF_8);
+
+            Context context = new Context(POLISH_LOCALE);
+            context.setVariable(CONTENT, dto.getContent());
+            context.setVariables(dto.getVariables());
+            String html = templateEngine.process(dto.getEmailTemplate().toString(), context);
 
             message.setTo(dto.getTo());
             message.setSubject(dto.getSubject());
-            message.setText(dto.getContent(), true);
+            message.setText(html, true);
 
             if (dto.getAttachments().size() > 0) {
                 dto.getAttachments().forEach((key, attachment) -> {

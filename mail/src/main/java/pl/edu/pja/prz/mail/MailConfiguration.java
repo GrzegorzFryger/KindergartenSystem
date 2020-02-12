@@ -7,10 +7,13 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.EnableAsync;
-import org.thymeleaf.context.Context;
+import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.templatemode.TemplateMode;
 
 import javax.annotation.PostConstruct;
-import java.util.Locale;
+
+import static org.apache.commons.lang.CharEncoding.UTF_8;
 
 @Configuration
 @ComponentScan
@@ -25,8 +28,20 @@ public class MailConfiguration {
     }
 
     @Bean
-    public Context createThymeleafContext() {
-        return new Context(Locale.ENGLISH);
+    public SpringTemplateEngine emailTemplateEngine() {
+        final SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+        templateEngine.addTemplateResolver(htmlTemplateResolver());
+        return templateEngine;
+    }
+
+    @Bean
+    public SpringResourceTemplateResolver htmlTemplateResolver() {
+        SpringResourceTemplateResolver emailTemplateResolver = new SpringResourceTemplateResolver();
+        emailTemplateResolver.setPrefix("classpath:/email-templates/");
+        emailTemplateResolver.setSuffix(".html");
+        emailTemplateResolver.setTemplateMode(TemplateMode.HTML);
+        emailTemplateResolver.setCharacterEncoding(UTF_8);
+        return emailTemplateResolver;
     }
 
 }
