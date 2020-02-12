@@ -3,6 +3,7 @@ package pl.edu.pja.prz.account.facade.dto;
 import pl.edu.pja.prz.account.model.enums.AccountStatus;
 import pl.edu.pja.prz.account.model.enums.EmployeeType;
 
+import java.util.Set;
 import java.util.UUID;
 
 public class EmployeeDto {
@@ -16,6 +17,7 @@ public class EmployeeDto {
 	private AccountStatus status;
 	private String email;
 	private EmployeeType employeeType;
+	private Set<RoleDto> roles;
 
 	public EmployeeDto() {
 	}
@@ -98,5 +100,13 @@ public class EmployeeDto {
 
 	public void setEmployeeType(EmployeeType employeeType) {
 		this.employeeType = employeeType;
+	}
+
+	public Set<RoleDto> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<RoleDto> roles) {
+		this.roles = roles;
 	}
 }

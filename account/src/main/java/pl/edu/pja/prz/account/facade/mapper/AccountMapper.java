@@ -7,7 +7,7 @@ import pl.edu.pja.prz.account.facade.dto.AccountDto;
 import pl.edu.pja.prz.account.model.Account;
 import pl.edu.pja.prz.account.model.Person;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = RoleMapper.class)
 public interface AccountMapper {
 
 	@Mapping(source = "id", target = "id")
@@ -19,6 +19,7 @@ public interface AccountMapper {
 	@Mapping(source = "phone", target = "phoneNumber.phone")
 	@Mapping(source = "status", target = "accountStatus")
 	@Mapping(source = "email", target = "email")
+	@Mapping(source = "roles", target =  "roles")
 	Account toAccount(AccountDto accountDto);
 
 	@Mapping(source = "id", target = "id")
