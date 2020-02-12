@@ -5,11 +5,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import pl.edu.pja.prz.commons.constants.Profiles;
 
 import javax.servlet.http.HttpServletResponse;
 
-@Profile(Profiles.PRODUCTION)
+import static pl.edu.pja.prz.commons.constants.Profiles.PRODUCTION;
+
+@Profile(PRODUCTION)
 @RestController
 public class DisableSwaggerUiController {
 

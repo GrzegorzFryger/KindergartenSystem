@@ -42,7 +42,7 @@ public class MailServiceImpl implements MailService {
     @Async
     @Override
     public void sendEmail(BaseMail baseMail) {
-        if (!validateInput(baseMail)) {
+        if (validateInput(baseMail)) {
             try {
                 logger.info("Sending email to: " + baseMail.getTo());
                 emailSenderFactory.getSender().send(prepareMimeMessage(baseMail));
