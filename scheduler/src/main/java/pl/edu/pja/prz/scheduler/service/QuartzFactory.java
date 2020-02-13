@@ -20,28 +20,42 @@ public class QuartzFactory {
 	private final IdentifyGenerator identifyGenerator;
 	private transient ApplicationContext applicationContext;
 
+//	public String getGroupName() {
+//		return groupName;
+//	}
+//
+//	public void setGroupName(String groupName) {
+//		this.groupName = groupName;
+//	}
+
 	@Autowired
 	public QuartzFactory(IdentifyGenerator identifyGenerator, ApplicationContext applicationContext) {
 		this.identifyGenerator = identifyGenerator;
 		this.applicationContext = applicationContext;
 	}
 
-	public String getGroupName() {
-		return groupName;
-	}
+	/**
+	 * @param jobClassName
+	 * @param description
+	 * @param durability
+	 * @param groupName
+	 * @param dataToJob
+	 * @return
+	 */
 
-	public void setGroupName(String groupName) {
-		this.groupName = groupName;
-	}
-
-	public Optional<JobDetail> createJobDetail(Class<? extends Job> jobClassName, String description, boolean durability,
+	public Optional<JobDetail> createJobDetail(Class<? extends Job> jobClassName, String description,
+	                                           boolean durability, @Nullable String groupName,
 	                                           @Nullable Map<String, ?> dataToJob) {
 
 		var jobFactory = new JobDetailFactoryBean();
 
 		jobFactory.setJobClass(jobClassName);
 		jobFactory.setName(identifyGenerator.generateId());
-		jobFactory.setGroup(groupName);
+
+		if (groupName != null) {
+			jobFactory.setGroup(groupName);
+		} else jobFactory.setGroup(this.groupName);
+
 		jobFactory.setDescription(description);
 		jobFactory.setDurability(durability);
 
@@ -56,12 +70,24 @@ public class QuartzFactory {
 		return Optional.ofNullable(jobFactory.getObject());
 	}
 
-	public Optional<CronTrigger> createCronTrigger(String description, String cronExpression) {
+	/**
+	 * @param description
+	 * @param cronExpression
+	 * @param groupName
+	 * @return
+	 */
+
+	public Optional<CronTrigger> createCronTrigger(String description, String cronExpression,
+	                                               @Nullable String groupName) {
 		var cronTriggerFactory = new CronTriggerFactoryBean();
 
 		try {
 			cronTriggerFactory.setBeanName(identifyGenerator.generateId());
-			cronTriggerFactory.setGroup(groupName);
+
+			if (groupName != null) {
+				cronTriggerFactory.setGroup(groupName);
+			} else cronTriggerFactory.setGroup(this.groupName);
+
 			cronTriggerFactory.setDescription(description);
 			cronTriggerFactory.setCronExpression(cronExpression);
 			cronTriggerFactory.afterPropertiesSet();

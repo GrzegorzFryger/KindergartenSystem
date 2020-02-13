@@ -1,6 +1,7 @@
-package pl.edu.pja.prz.core.controller.scheduler;
+package pl.edu.pja.prz.core.controller.technical;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,8 +12,11 @@ import pl.edu.pja.prz.scheduler.facade.dto.ScheduleJobInfoDto;
 
 import java.util.List;
 
+import static pl.edu.pja.prz.commons.constants.Profiles.DEVELOPMENT;
+
 @RestController
 @RequestMapping("api/scheduler/")
+@Profile(DEVELOPMENT)
 public class SchedulerController {
 	private final SchedulerFacade schedulerFacade;
 
@@ -29,7 +33,7 @@ public class SchedulerController {
 	@PutMapping("all")
 	public ResponseEntity<?> unScheduleAllJobs() {
 		schedulerFacade.unScheduleAllJobs();
-		return new ResponseEntity<>( HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@GetMapping("active")
@@ -43,26 +47,27 @@ public class SchedulerController {
 	}
 
 	@PutMapping("start/{jobKey}")
-	public ResponseEntity<?> startJob(@PathVariable String jobKey ) {
+	public ResponseEntity<?> startJob(@PathVariable String jobKey) {
 		schedulerFacade.startJob(jobKey);
-		return new ResponseEntity<>( HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
+
 	@PutMapping("pause/{jobKey}")
-	public ResponseEntity<?> pauseJob(@PathVariable String jobKey ) {
+	public ResponseEntity<?> pauseJob(@PathVariable String jobKey) {
 		schedulerFacade.pauseJob(jobKey);
-		return new ResponseEntity<>( HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@PutMapping("resume/{jobKey}")
-	public ResponseEntity<Object> resumeJob(@PathVariable String jobKey ) {
+	public ResponseEntity<Object> resumeJob(@PathVariable String jobKey) {
 		schedulerFacade.resumeJob(jobKey);
-		return new ResponseEntity<>( HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@PutMapping("remove/{jobKey}")
-	public ResponseEntity<?> removeJob(@PathVariable String jobKey ) {
+	public ResponseEntity<?> removeJob(@PathVariable String jobKey) {
 		schedulerFacade.removeJob(jobKey);
-		return new ResponseEntity<>( HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 }
