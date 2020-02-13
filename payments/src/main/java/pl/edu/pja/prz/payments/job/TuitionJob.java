@@ -8,7 +8,7 @@ import pl.edu.pja.prz.scheduler.annotation.QuartzJob;
 
 @QuartzJob(name="tuition", description = "responsible for execute tuition payemnts")
 public class TuitionJob extends RecurringPaymentJob {
-	private Logger logger = LoggerFactory.getLogger(getClass());
+	private final static Logger logger = LoggerFactory.getLogger(TuitionJob.class);
 
 	public TuitionJob() {
 		super();
