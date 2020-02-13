@@ -36,18 +36,31 @@ public class SchedulerFacade {
 				.collect(Collectors.toList());
 	}
 
+	public List<ScheduleJobInfoDto> findActiveJobsByGroupName(String groupName) {
+		return this.schedulerService.getAllActiveScheduleJobsByGroupName(groupName)
+				.stream()
+				.map(this.schedulerMapper::fromScheduleJobInfo)
+				.collect(Collectors.toList());
+	}
+
 
 	public ScheduleJobInfoDto scheduleCronJob(CronScheduleDto scheduleDto) {
 		return schedulerMapper.fromScheduleJobInfo(
 				this.schedulerService.scheduleCronJob(scheduleDto.getJobName(),
 						scheduleDto.getTriggerDescription(),
 						scheduleDto.getCronExpression(),
-						scheduleDto.isDurability()
+						scheduleDto.isDurability(),
+						scheduleDto.getGroupName(),
+						scheduleDto.getDataForJob()
 				));
 	}
 
 	public void unScheduleAllJobs() {
 		this.schedulerService.unScheduleAllJobs();
+	}
+
+	public void unScheduleAllJobsByGroupName(String groupName) {
+		this.schedulerService.unScheduleAllJobsByGroup(groupName);
 	}
 
 	public void startJob(String jobKey) {
