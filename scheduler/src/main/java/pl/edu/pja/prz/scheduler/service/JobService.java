@@ -16,8 +16,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class JobService {
-	private Logger logger = LoggerFactory.getLogger(getClass());
-	private Class ANNOTATION_CLASS = QuartzJob.class;
+	private final static Logger logger = LoggerFactory.getLogger(JobService.class);
+	private final Class ANNOTATION_CLASS = QuartzJob.class;
 	private String basePackage;
 
 	public JobService(String basePackage) {

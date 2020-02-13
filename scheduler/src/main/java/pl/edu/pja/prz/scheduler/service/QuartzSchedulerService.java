@@ -5,6 +5,7 @@ import org.quartz.JobKey;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.impl.matchers.GroupMatcher;
+import org.springframework.lang.Nullable;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.commons.exception.BusinessException;
@@ -13,6 +14,7 @@ import pl.edu.pja.prz.scheduler.model.ScheduleJobInfo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -38,36 +40,10 @@ public class QuartzSchedulerService implements SchedulerService {
 	public List<ScheduleJobInfo> getAllActiveScheduleJobs() {
 		return getScheduler().map(scheduler -> {
 			try {
-				return scheduler.getTriggerKeys(GroupMatcher.groupEquals(quartzFactory.getGroupName()))
+				return scheduler.getTriggerGroupNames()
 						.stream()
-						.map(triggerKey -> {
-
-							try {
-								return scheduler.getTrigger(triggerKey);
-							} catch (SchedulerException e) {
-								throw new BusinessException("Can not get Trigger");
-							}
-
-						})
-						.map(trigger -> {
-							JobDetail jobFromTrigger;
-
-							try {
-								jobFromTrigger = scheduler.getJobDetail(trigger.getJobKey());
-							} catch (SchedulerException e) {
-								throw new BusinessException("Can not get JobDetail from scheduler");
-							}
-
-							return new ScheduleJobInfo(
-									jobFromTrigger.getKey().toString(),
-									jobFromTrigger.getDescription(),
-									String.valueOf(jobFromTrigger.isDurable()),
-									trigger.getKey().toString(),
-									trigger.getDescription(),
-									trigger.getStartTime(),
-									trigger.getEndTime()
-							);
-						})
+						.map(this::getAllActiveScheduleJobsByGroupName)
+						.flatMap(List::stream)
 						.collect(Collectors.toList());
 			} catch (SchedulerException e) {
 				throw new BusinessException("Can not get TriggersKeys form scheduler");
@@ -76,20 +52,67 @@ public class QuartzSchedulerService implements SchedulerService {
 
 	}
 
+	@Override
+	public List<ScheduleJobInfo> getAllActiveScheduleJobsByGroupName(String groupName) {
+		return getScheduler().map(scheduler -> {
+			try {
+				return scheduler.getTriggerKeys(
+						GroupMatcher.groupEquals(groupName)
+				).stream().map(triggerKey -> {
+					try {
+						return scheduler.getTrigger(triggerKey);
+					} catch (SchedulerException e) {
+						throw new BusinessException("Can not get Trigger");
+					}
+				}).map(trigger -> {
+					JobDetail jobFromTrigger;
+					try {
+						jobFromTrigger = scheduler.getJobDetail(trigger.getJobKey());
+					} catch (SchedulerException e) {
+						throw new BusinessException("Can not get JobDetail from scheduler");
+					}
+					return new ScheduleJobInfo(
+							jobFromTrigger.getKey().toString(),
+							jobFromTrigger.getDescription(),
+							String.valueOf(jobFromTrigger.isDurable()),
+							trigger.getKey().toString(),
+							trigger.getDescription(),
+							trigger.getStartTime(),
+							trigger.getEndTime()
+					);
+				}).collect(Collectors.toList());
+			} catch (SchedulerException e) {
+				throw new BusinessException("Can not get TriggersKeys form scheduler");
+			}
+		}).orElseThrow(() -> new BusinessException("Can not get Scheduler"));
+
+	}
+
+	/**
+	 *
+	 * @param jobName
+	 * @param triggerDescription
+	 * @param cronExpression
+	 * @param durability
+	 * @param groupName
+	 * @param dataToJob
+	 * @return
+	 */
 
 	@Override
 	public ScheduleJobInfo scheduleCronJob(String jobName, String triggerDescription, String cronExpression,
-	                                       boolean durability) {
+	                                       boolean durability, @Nullable String groupName,
+	                                       @Nullable Map<String, ?> dataToJob) {
+
 
 		var jobInfo = jobService.getJobInfoByName(jobName)
 				.orElseThrow(() -> new BusinessException("Can not get JobInfo"));
 
-		var trigger = quartzFactory.createCronTrigger(triggerDescription, cronExpression)
+		var trigger = quartzFactory.createCronTrigger(triggerDescription, cronExpression, groupName)
 				.orElseThrow(() -> new BusinessException("Can not get Trigger"));
 
-		var jobDetails = quartzFactory.createJobDetail(jobInfo.getClassType(), jobInfo.getDescription(),
-				durability, null)
-				.orElseThrow(() -> new BusinessException("Can not get JobDetails"));
+		var jobDetails = quartzFactory.createJobDetail(jobInfo.getClassType(), jobInfo.getDescription(), durability,
+				groupName, dataToJob).orElseThrow(() -> new BusinessException("Can not get JobDetails"));
 
 		getScheduler().ifPresentOrElse(
 				scheduler -> {
@@ -118,16 +141,27 @@ public class QuartzSchedulerService implements SchedulerService {
 	@Override
 	public void unScheduleAllJobs() {
 		getScheduler().ifPresentOrElse(scheduler -> {
-					try {
-						scheduler.unscheduleJobs(new ArrayList<>(
-								scheduler.getTriggerKeys(GroupMatcher.groupEquals(quartzFactory.getGroupName()))
-						));
-					} catch (SchedulerException e) {
-						throw new BusinessException("Can not get Trigger form scheduler");
-					}
-				},
-				() -> new BusinessException("Can not get Trigger Scheduler")
-		);
+			try {
+				scheduler.getTriggerGroupNames().forEach(this::unScheduleAllJobsByGroup);
+			} catch (SchedulerException e) {
+				new BusinessException("Can not get Trigger Scheduler");
+			}
+		}, () -> new BusinessException("Can not get Trigger Scheduler"));
+	}
+
+	@Override
+	public void unScheduleAllJobsByGroup(String groupName) {
+		getScheduler().ifPresentOrElse(scheduler -> {
+			try {
+				scheduler.unscheduleJobs(
+						new ArrayList<>(scheduler.getTriggerKeys(
+								GroupMatcher.groupEquals(groupName))
+						)
+				);
+			} catch (SchedulerException e) {
+				throw new BusinessException("Can not get Trigger form scheduler");
+			}
+		}, () -> new BusinessException("Can not get Trigger Scheduler"));
 	}
 
 	@Override
