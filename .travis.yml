@@ -32,3 +32,4 @@ before_install:
   - mysql -u root -e "GRANT ALL PRIVILEGES ON finances.* TO 'finances'@'localhost';"
   - mysql -u root -e "GRANT ALL PRIVILEGES ON scheduler.* TO 'scheduler'@'localhost';"
   - mysql -u root -e "GRANT SELECT ON account.* TO 'mail'@'localhost';"
+  - mysql -u root --default-character-set=utf8 scheduler < .database/install/insert_quartz_1_0.sql
