@@ -28,6 +28,10 @@ Hibernate will create all necessary tables.
 * run `insert_1_0.sql` script  
 This script will insert some test data.   
 
+## 2.4 Scheduler
+* run `insert_quartz_1_0.sql` script  
+This script will initialize all objects, which are required by scheduler in order to work properly
+
 # 3. Uninstall procedure
 All uninstall scripts are placed in `uninstall` directory.  
 ## 3.1 Schema
