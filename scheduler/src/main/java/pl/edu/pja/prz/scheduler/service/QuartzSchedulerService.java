@@ -1,10 +1,10 @@
 package pl.edu.pja.prz.scheduler.service;
 
-import org.quartz.JobDetail;
-import org.quartz.JobKey;
-import org.quartz.Scheduler;
-import org.quartz.SchedulerException;
+import org.hibernate.annotations.common.util.impl.LoggerFactory;
+import org.jboss.logging.Logger;
+import org.quartz.*;
 import org.quartz.impl.matchers.GroupMatcher;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Service;
@@ -20,10 +20,13 @@ import java.util.stream.Collectors;
 
 @Service
 public class QuartzSchedulerService implements SchedulerService {
+	private static final Logger logger = LoggerFactory.logger(QuartzSchedulerService.class);
+
 	private final SchedulerFactoryBean schedulerFactory;
 	private final QuartzFactory quartzFactory;
 	private final JobService jobService;
 
+	@Autowired
 	public QuartzSchedulerService(SchedulerFactoryBean schedulerFactory, QuartzFactory quartzFactory,
 	                              JobService jobService) {
 		this.schedulerFactory = schedulerFactory;
@@ -71,21 +74,12 @@ public class QuartzSchedulerService implements SchedulerService {
 					} catch (SchedulerException e) {
 						throw new BusinessException("Can not get JobDetail from scheduler");
 					}
-					return new ScheduleJobInfo(
-							jobFromTrigger.getKey().toString(),
-							jobFromTrigger.getDescription(),
-							String.valueOf(jobFromTrigger.isDurable()),
-							trigger.getKey().toString(),
-							trigger.getDescription(),
-							trigger.getStartTime(),
-							trigger.getEndTime()
-					);
+					return buildScheduleJobInfo(jobFromTrigger, trigger);
 				}).collect(Collectors.toList());
 			} catch (SchedulerException e) {
 				throw new BusinessException("Can not get TriggersKeys form scheduler");
 			}
 		}).orElseThrow(() -> new BusinessException("Can not get Scheduler"));
-
 	}
 
 	/**
@@ -98,7 +92,6 @@ public class QuartzSchedulerService implements SchedulerService {
 	 * @param dataToJob
 	 * @return
 	 */
-
 	@Override
 	public ScheduleJobInfo scheduleCronJob(String jobName, String triggerDescription, String cronExpression,
 	                                       boolean durability, @Nullable String groupName,
@@ -119,7 +112,7 @@ public class QuartzSchedulerService implements SchedulerService {
 					try {
 						scheduler.scheduleJob(jobDetails, trigger);
 					} catch (SchedulerException e) {
-						e.printStackTrace();
+						logger.error("Failed to schedule a job", e);
 					}
 				},
 				() -> {
@@ -127,86 +120,108 @@ public class QuartzSchedulerService implements SchedulerService {
 				}
 		);
 
-		return new ScheduleJobInfo(
-				jobDetails.getKey().toString(),
-				jobDetails.getDescription(),
-				String.valueOf(jobDetails.isDurable()),
-				trigger.getKey().toString(),
-				trigger.getDescription(),
-				trigger.getStartTime(),
-				trigger.getEndTime()
-		);
+		return buildScheduleJobInfo(jobDetails, trigger);
 	}
 
-	@Override
-	public void unScheduleAllJobs() {
-		getScheduler().ifPresentOrElse(scheduler -> {
-			try {
-				scheduler.getTriggerGroupNames().forEach(this::unScheduleAllJobsByGroup);
-			} catch (SchedulerException e) {
-				new BusinessException("Can not get Trigger Scheduler");
-			}
-		}, () -> new BusinessException("Can not get Trigger Scheduler"));
-	}
+    @Override
+    public void unScheduleAllJobs() {
+        getScheduler().ifPresentOrElse(
+                scheduler -> {
+                    try {
+                        scheduler.getTriggerGroupNames().forEach(this::unScheduleAllJobsByGroup);
+                    } catch (SchedulerException e) {
+                        throw new BusinessException("Failed to unschedule jobs for all groups");
+                    }
+                },
+                () -> {
+                    throw new BusinessException("Can not get Trigger Scheduler");
+                }
+        );
+    }
 
-	@Override
-	public void unScheduleAllJobsByGroup(String groupName) {
-		getScheduler().ifPresentOrElse(scheduler -> {
-			try {
-				scheduler.unscheduleJobs(
-						new ArrayList<>(scheduler.getTriggerKeys(
-								GroupMatcher.groupEquals(groupName))
-						)
-				);
-			} catch (SchedulerException e) {
-				throw new BusinessException("Can not get Trigger form scheduler");
-			}
-		}, () -> new BusinessException("Can not get Trigger Scheduler"));
-	}
+    @Override
+    public void unScheduleAllJobsByGroup(String groupName) {
+        getScheduler().ifPresentOrElse(
+                scheduler -> {
+                    try {
+                        scheduler.unscheduleJobs(
+                                new ArrayList<>(scheduler.getTriggerKeys(
+                                        GroupMatcher.groupEquals(groupName))
+                                )
+                        );
+                    } catch (SchedulerException e) {
+                        throw new BusinessException("Failed to unschedule jobs for group: " + groupName);
+                    }
+                },
+                () -> {
+                    throw new BusinessException("Can not get Trigger Scheduler");
+                }
+        );
+    }
 
-	@Override
-	public void startJob(String jobKey) {
-		getScheduler().ifPresentOrElse(scheduler -> {
-			try {
-				scheduler.triggerJob(createJobKey(jobKey));
-			} catch (SchedulerException e) {
-				e.printStackTrace();
-			}
-		}, () -> new BusinessException("Can not get Scheduler"));
-	}
+    @Override
+    public void startJob(String jobKey) {
+        getScheduler().ifPresentOrElse(
+                scheduler -> {
+                    try {
+                        scheduler.triggerJob(createJobKey(jobKey));
+                    } catch (SchedulerException e) {
+                        throw new BusinessException("Failed to start job: " + jobKey);
+                    }
+                },
+                () -> {
+                    throw new BusinessException("Can not get Scheduler");
+                }
+        );
+    }
 
-	@Override
-	public void pauseJob(String jobKey) {
-		getScheduler().ifPresentOrElse(scheduler -> {
-			try {
-				scheduler.pauseJob(createJobKey(jobKey));
-			} catch (SchedulerException e) {
-				throw new BusinessException("Can not pauseJob");
-			}
-		}, () -> new BusinessException("Can not get Scheduler"));
-	}
+    @Override
+    public void pauseJob(String jobKey) {
+        getScheduler().ifPresentOrElse(
+                scheduler -> {
+                    try {
+                        scheduler.pauseJob(createJobKey(jobKey));
+                    } catch (SchedulerException e) {
+                        throw new BusinessException("Failed to pause job: " + jobKey);
+                    }
+                },
+                () -> {
+                    throw new BusinessException("Can not get Scheduler");
+                }
+        );
+    }
 
-	@Override
-	public void resumeJob(String jobKey) {
-		getScheduler().ifPresentOrElse(scheduler -> {
-			try {
-				scheduler.resumeJob(createJobKey(jobKey));
-			} catch (SchedulerException e) {
-				throw new BusinessException("Can not resumeJob");
-			}
-		}, () -> new BusinessException("Can not get Scheduler"));
-	}
+    @Override
+    public void resumeJob(String jobKey) {
+        getScheduler().ifPresentOrElse(
+                scheduler -> {
+                    try {
+                        scheduler.resumeJob(createJobKey(jobKey));
+                    } catch (SchedulerException e) {
+                        throw new BusinessException("Failed to resume job: " + jobKey);
+                    }
+                },
+                () -> {
+                    throw new BusinessException("Can not get Scheduler");
+                }
+        );
+    }
 
-	@Override
-	public void removeJob(String jobKey) {
-		getScheduler().ifPresentOrElse(scheduler -> {
-			try {
-				scheduler.deleteJob(createJobKey(jobKey));
-			} catch (SchedulerException e) {
-				throw new BusinessException("Can not deleteJob");
-			}
-		}, () -> new BusinessException("Can not get Scheduler"));
-	}
+    @Override
+    public void removeJob(String jobKey) {
+        getScheduler().ifPresentOrElse(
+                scheduler -> {
+                    try {
+                        scheduler.deleteJob(createJobKey(jobKey));
+                    } catch (SchedulerException e) {
+                        throw new BusinessException("Failed to delete job: " + jobKey);
+                    }
+                },
+                () -> {
+                    throw new BusinessException("Can not get Scheduler");
+                }
+        );
+    }
 
 
 	private JobKey createJobKey(String key) {
@@ -216,5 +231,17 @@ public class QuartzSchedulerService implements SchedulerService {
 
 	private Optional<Scheduler> getScheduler() {
 		return Optional.ofNullable(schedulerFactory.getObject());
+	}
+
+	private ScheduleJobInfo buildScheduleJobInfo(JobDetail jobDetails, Trigger trigger) {
+		return new ScheduleJobInfo(
+				jobDetails.getKey().toString(),
+				jobDetails.getDescription(),
+				String.valueOf(jobDetails.isDurable()),
+				trigger.getKey().toString(),
+				trigger.getDescription(),
+				trigger.getStartTime(),
+				trigger.getEndTime()
+		);
 	}
 }

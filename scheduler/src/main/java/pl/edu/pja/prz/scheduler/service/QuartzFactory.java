@@ -3,6 +3,8 @@ package pl.edu.pja.prz.scheduler.service;
 import org.quartz.CronTrigger;
 import org.quartz.Job;
 import org.quartz.JobDetail;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.lang.Nullable;
@@ -16,6 +18,8 @@ import java.util.Optional;
 
 @Component
 public class QuartzFactory {
+	private static final Logger logger = LoggerFactory.getLogger(QuartzFactory.class);
+
 	private String groupName = "DEFAULT";
 	private final IdentifyGenerator identifyGenerator;
 	private transient ApplicationContext applicationContext;
@@ -42,7 +46,6 @@ public class QuartzFactory {
 	 * @param dataToJob
 	 * @return
 	 */
-
 	public Optional<JobDetail> createJobDetail(Class<? extends Job> jobClassName, String description,
 	                                           boolean durability, @Nullable String groupName,
 	                                           @Nullable Map<String, ?> dataToJob) {
@@ -54,7 +57,9 @@ public class QuartzFactory {
 
 		if (groupName != null) {
 			jobFactory.setGroup(groupName);
-		} else jobFactory.setGroup(this.groupName);
+		} else {
+			jobFactory.setGroup(this.groupName);
+		}
 
 		jobFactory.setDescription(description);
 		jobFactory.setDurability(durability);
@@ -76,7 +81,6 @@ public class QuartzFactory {
 	 * @param groupName
 	 * @return
 	 */
-
 	public Optional<CronTrigger> createCronTrigger(String description, String cronExpression,
 	                                               @Nullable String groupName) {
 		var cronTriggerFactory = new CronTriggerFactoryBean();
@@ -86,14 +90,16 @@ public class QuartzFactory {
 
 			if (groupName != null) {
 				cronTriggerFactory.setGroup(groupName);
-			} else cronTriggerFactory.setGroup(this.groupName);
+			} else {
+				cronTriggerFactory.setGroup(this.groupName);
+			}
 
 			cronTriggerFactory.setDescription(description);
 			cronTriggerFactory.setCronExpression(cronExpression);
 			cronTriggerFactory.afterPropertiesSet();
-		} catch (ParseException e) {
+		} catch (ParseException pe) {
 			//todo throw common exception
-			e.printStackTrace();
+			logger.error("Failed to create cron trigger",  pe);
 		}
 		//todo handle with exceptions, and check isSingleton
 		return Optional.ofNullable(cronTriggerFactory.getObject());
