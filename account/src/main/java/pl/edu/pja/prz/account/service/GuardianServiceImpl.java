@@ -55,8 +55,6 @@ public class GuardianServiceImpl extends AccountService<GuardianRepository, Guar
 	@Override
 	public List<Guardian> getAllGuardians() {
 		//todo in the future will be add paging
-		var a = guardianRepository.findAll().get(0).getChildren();
-
 		return guardianRepository.findAll();
 	}
 
