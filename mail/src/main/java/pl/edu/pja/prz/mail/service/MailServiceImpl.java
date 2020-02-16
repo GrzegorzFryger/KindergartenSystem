@@ -52,7 +52,7 @@ public class MailServiceImpl implements MailService {
     public void sendEmail(BaseMail baseMail) {
         if (validateInput(baseMail)) {
             try {
-                logger.info("Sending email to: {}", baseMail.getTo());
+                logger.info("Sending email: {}", baseMail);
                 emailSenderFactory.getSender().send(prepareMimeMessage(baseMail));
             } catch (MailSendException mse) {
                 logger.error("Failed to send email to: " + baseMail.getTo(), mse);
@@ -77,7 +77,7 @@ public class MailServiceImpl implements MailService {
         if (validateInput(baseMail)) {
             if (EmailUtils.validateEmail(email)) {
                 try {
-                    logger.info("Sending email to: {}", baseMail.getTo());
+                    logger.info("Sending email: {}", baseMail);
                     emailSenderFactory.getSender(email, password).send(prepareMimeMessage(baseMail));
                 } catch (MailSendException mse) {
                     logger.error("Failed to send email to: " + baseMail.getTo(), mse);
@@ -98,8 +98,8 @@ public class MailServiceImpl implements MailService {
             logger.warn("Input validation failure. Subject is empty!");
             return false;
         }
-        if (StringUtils.isEmpty(baseMail.getContent())) {
-            logger.warn("Input validation failure. Content is empty!");
+        if (StringUtils.isEmpty(baseMail.getContent()) && baseMail.getVariables().isEmpty()) {
+            logger.warn("Input validation failure. Content and variables map are empty!");
             return false;
         }
         if (baseMail.getEmailTemplate() == null) {
@@ -113,30 +113,33 @@ public class MailServiceImpl implements MailService {
         return mimeMessage -> {
             MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, UTF_8);
 
-            Context context = initializeContext(dto);
-            String html = templateEngine.process(dto.getEmailTemplate().toString(), context);
+            String html = generateHtmlContent(dto);
 
             message.setTo(dto.getTo());
             message.setSubject(dto.getSubject());
             message.setText(html, true);
 
-            if (dto.getAttachments().size() > 0) {
-                dto.getAttachments().forEach((key, attachment) -> {
-                    try {
-                        message.addAttachment(key, attachment);
-                    } catch (MessagingException me) {
-                        logger.error("Failed to add attachments to email!", me);
-                    }
-                });
-            }
+            addAttachments(dto, message);
         };
     }
 
-    private Context initializeContext(BaseMail dto) {
+    private String generateHtmlContent(BaseMail dto) {
         Context context = new Context(POLISH_LOCALE);
         context.setVariable(CONTENT_KEY, dto.getContent());
         context.setVariables(dto.getVariables());
-        return context;
+        return templateEngine.process(dto.getEmailTemplate().toString(), context);
+    }
+
+    private void addAttachments(BaseMail dto, MimeMessageHelper message) {
+        if (dto.getAttachments().size() > 0) {
+            dto.getAttachments().forEach((key, attachment) -> {
+                try {
+                    message.addAttachment(key, attachment);
+                } catch (MessagingException me) {
+                    logger.error("Failed to add attachments to email!", me);
+                }
+            });
+        }
     }
 
 }

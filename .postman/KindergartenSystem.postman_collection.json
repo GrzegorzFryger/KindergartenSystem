@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "59b2ad5f-d679-4214-8fb2-e9c6de072b6a",
+		"_postman_id": "bb8a5ddd-d070-4a4f-abfa-24b148f6e76c",
 		"name": "KindergartenSystem",
 		"description": "This collection contains all API requests to backend system of our application.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -1001,6 +1001,46 @@
 								"{{SCHEDULER}}",
 								"remove",
 								"DEFAULT.mT1LAInwTc-Z2IlpHptqdQ"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Mail",
+			"item": [
+				{
+					"name": "/send",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"to\": \"testowyodbiorca123@gmail.com\",\n\t\"subject\": \"Test mail\",\n\t\"content\": \"Witam serdecznie, jest to testowy email\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/{{MAIL}}/send",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{MAIL}}",
+								"send"
 							]
 						}
 					},
