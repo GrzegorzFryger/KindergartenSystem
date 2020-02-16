@@ -40,7 +40,7 @@ public class SchedulerController {
 	public ResponseEntity<List<ScheduleJobInfoDto>> findActiveJobs() {
 		return new ResponseEntity<>(schedulerFacade.findActiveJobs(), HttpStatus.OK);
 	}
-
+	//todo  to remove in production mode
 	@PostMapping("cron")
 	public ResponseEntity<ScheduleJobInfoDto> scheduleCronJob(@RequestBody CronScheduleDto cronScheduleDto) {
 		return new ResponseEntity<>(schedulerFacade.scheduleCronJob(cronScheduleDto), HttpStatus.OK);
