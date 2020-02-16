@@ -8,20 +8,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Service;
-import pl.edu.pja.prz.commons.exception.BusinessException;
 import pl.edu.pja.prz.scheduler.model.JobInfo;
 import pl.edu.pja.prz.scheduler.model.ScheduleJobInfo;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 @Service
 public class QuartzSchedulerService implements SchedulerService {
 	private static final Logger logger = LoggerFactory.logger(QuartzSchedulerService.class);
-
+	private static final String SCHEDULER_ERROR = "Can not get instance of QuartzScheduler" + " from application context in method: ";
 	private final SchedulerFactoryBean schedulerFactory;
 	private final QuartzFactory quartzFactory;
 	private final JobService jobService;
@@ -49,9 +50,9 @@ public class QuartzSchedulerService implements SchedulerService {
 						.flatMap(List::stream)
 						.collect(Collectors.toList());
 			} catch (SchedulerException e) {
-				throw new BusinessException("Can not get TriggersKeys form scheduler");
+				throw new IllegalArgumentException("Can not get TriggersKeys form scheduler");
 			}
-		}).orElseThrow(() -> new BusinessException("Can not get Scheduler"));
+		}).orElseThrow(() -> new NullPointerException(SCHEDULER_ERROR + "ActiveScheduleJobs"));
 
 	}
 
@@ -65,25 +66,26 @@ public class QuartzSchedulerService implements SchedulerService {
 					try {
 						return scheduler.getTrigger(triggerKey);
 					} catch (SchedulerException e) {
-						throw new BusinessException("Can not get Trigger");
+						logger.error("Failed get trigger with key - {}", triggerKey, e);
+						throw new IllegalArgumentException("Can not get Trigger");
 					}
 				}).map(trigger -> {
 					JobDetail jobFromTrigger;
 					try {
 						jobFromTrigger = scheduler.getJobDetail(trigger.getJobKey());
 					} catch (SchedulerException e) {
-						throw new BusinessException("Can not get JobDetail from scheduler");
+						logger.error("Failed get job from trigger with key - {}", trigger.getJobKey(), e);
+						throw new IllegalArgumentException("Can not get JobDetail from scheduler");
 					}
 					return buildScheduleJobInfo(jobFromTrigger, trigger);
 				}).collect(Collectors.toList());
 			} catch (SchedulerException e) {
-				throw new BusinessException("Can not get TriggersKeys form scheduler");
+				throw new IllegalArgumentException("Can not get TriggersKeys form scheduler");
 			}
-		}).orElseThrow(() -> new BusinessException("Can not get Scheduler"));
+		}).orElseThrow(() -> new NullPointerException(SCHEDULER_ERROR + "ActiveScheduleJobsByGroupName"));
 	}
 
 	/**
-	 *
 	 * @param jobName
 	 * @param triggerDescription
 	 * @param cronExpression
@@ -92,137 +94,176 @@ public class QuartzSchedulerService implements SchedulerService {
 	 * @param dataToJob
 	 * @return
 	 */
+
 	@Override
 	public ScheduleJobInfo scheduleCronJob(String jobName, String triggerDescription, String cronExpression,
 	                                       boolean durability, @Nullable String groupName,
 	                                       @Nullable Map<String, ?> dataToJob) {
-
-
 		var jobInfo = jobService.getJobInfoByName(jobName)
-				.orElseThrow(() -> new BusinessException("Can not get JobInfo"));
+				.orElseThrow(() -> new IllegalArgumentException("Can not get JobInfo"));
 
 		var trigger = quartzFactory.createCronTrigger(triggerDescription, cronExpression, groupName)
-				.orElseThrow(() -> new BusinessException("Can not get Trigger"));
+				.orElseThrow(() -> new IllegalArgumentException("Can not get Trigger"));
 
 		var jobDetails = quartzFactory.createJobDetail(jobInfo.getClassType(), jobInfo.getDescription(), durability,
-				groupName, dataToJob).orElseThrow(() -> new BusinessException("Can not get JobDetails"));
+				groupName, dataToJob).orElseThrow(() -> new IllegalArgumentException("Can not get JobDetails"));
 
 		getScheduler().ifPresentOrElse(
 				scheduler -> {
 					try {
 						scheduler.scheduleJob(jobDetails, trigger);
 					} catch (SchedulerException e) {
-						logger.error("Failed to schedule a job", e);
+						logger.error("Failed to schedule cron a job with name - {}", jobName, e);
 					}
 				},
 				() -> {
-					throw new BusinessException("Can not get JobDetails");
+					throw new NullPointerException(SCHEDULER_ERROR + "scheduleCronJob");
 				}
 		);
 
 		return buildScheduleJobInfo(jobDetails, trigger);
 	}
 
-    @Override
-    public void unScheduleAllJobs() {
-        getScheduler().ifPresentOrElse(
-                scheduler -> {
-                    try {
-                        scheduler.getTriggerGroupNames().forEach(this::unScheduleAllJobsByGroup);
-                    } catch (SchedulerException e) {
-                        throw new BusinessException("Failed to unschedule jobs for all groups");
-                    }
-                },
-                () -> {
-                    throw new BusinessException("Can not get Trigger Scheduler");
-                }
-        );
-    }
+	@Override
+	public ScheduleJobInfo scheduleSimpleJob(String jobName, String triggerDescription, LocalDateTime startDate,
+	                                         int repeatCount, @Nullable String groupName,
+	                                         @Nullable Map<String, ?> dataToJob) {
+		var jobInfo = jobService.getJobInfoByName(jobName)
+				.orElseThrow(() -> new IllegalArgumentException("Can not get JobInfo"));
 
-    @Override
-    public void unScheduleAllJobsByGroup(String groupName) {
-        getScheduler().ifPresentOrElse(
-                scheduler -> {
-                    try {
-                        scheduler.unscheduleJobs(
-                                new ArrayList<>(scheduler.getTriggerKeys(
-                                        GroupMatcher.groupEquals(groupName))
-                                )
-                        );
-                    } catch (SchedulerException e) {
-                        throw new BusinessException("Failed to unschedule jobs for group: " + groupName);
-                    }
-                },
-                () -> {
-                    throw new BusinessException("Can not get Trigger Scheduler");
-                }
-        );
-    }
+		var trigger = quartzFactory.createSimpleTrigger(triggerDescription, startDate, repeatCount, groupName)
+				.orElseThrow(() -> new IllegalArgumentException("Can not get Trigger"));
 
-    @Override
-    public void startJob(String jobKey) {
-        getScheduler().ifPresentOrElse(
-                scheduler -> {
-                    try {
-                        scheduler.triggerJob(createJobKey(jobKey));
-                    } catch (SchedulerException e) {
-                        throw new BusinessException("Failed to start job: " + jobKey);
-                    }
-                },
-                () -> {
-                    throw new BusinessException("Can not get Scheduler");
-                }
-        );
-    }
+		var jobDetails = quartzFactory.createJobDetail(jobInfo.getClassType(), jobInfo.getDescription(), false,
+				groupName, dataToJob).orElseThrow(() -> new IllegalArgumentException("Can not get JobDetails"));
 
-    @Override
-    public void pauseJob(String jobKey) {
-        getScheduler().ifPresentOrElse(
-                scheduler -> {
-                    try {
-                        scheduler.pauseJob(createJobKey(jobKey));
-                    } catch (SchedulerException e) {
-                        throw new BusinessException("Failed to pause job: " + jobKey);
-                    }
-                },
-                () -> {
-                    throw new BusinessException("Can not get Scheduler");
-                }
-        );
-    }
+		getScheduler().ifPresentOrElse(
+				scheduler -> {
+					try {
+						scheduler.scheduleJob(jobDetails, trigger);
+					} catch (SchedulerException e) {
+						logger.error("Failed to schedule a job with name - {}", jobName, e);
+					}
+				},
+				() -> {
+					throw new NullPointerException(SCHEDULER_ERROR + "scheduleSimpleJob");
+				}
+		);
 
-    @Override
-    public void resumeJob(String jobKey) {
-        getScheduler().ifPresentOrElse(
-                scheduler -> {
-                    try {
-                        scheduler.resumeJob(createJobKey(jobKey));
-                    } catch (SchedulerException e) {
-                        throw new BusinessException("Failed to resume job: " + jobKey);
-                    }
-                },
-                () -> {
-                    throw new BusinessException("Can not get Scheduler");
-                }
-        );
-    }
+		return buildScheduleJobInfo(jobDetails, trigger);
+	}
 
-    @Override
-    public void removeJob(String jobKey) {
-        getScheduler().ifPresentOrElse(
-                scheduler -> {
-                    try {
-                        scheduler.deleteJob(createJobKey(jobKey));
-                    } catch (SchedulerException e) {
-                        throw new BusinessException("Failed to delete job: " + jobKey);
-                    }
-                },
-                () -> {
-                    throw new BusinessException("Can not get Scheduler");
-                }
-        );
-    }
+	@Override
+	public void unScheduleAllJobs() {
+		getScheduler().ifPresentOrElse(
+				scheduler -> {
+					try {
+						scheduler.getTriggerGroupNames().forEach(this::unScheduleAllJobsByGroup);
+					} catch (SchedulerException e) {
+						logger.error("Failed unSchedule all Jobs  ", e);
+					}
+				},
+				() -> {
+					throw new NullPointerException(SCHEDULER_ERROR + "unScheduleAllJobs");
+				}
+		);
+	}
 
+	@Override
+	public void unScheduleAllJobsByGroup(String groupName) {
+		getScheduler().ifPresentOrElse(
+				scheduler -> {
+					try {
+						scheduler.unscheduleJobs(
+								new ArrayList<>(scheduler.getTriggerKeys(
+										GroupMatcher.groupEquals(groupName))
+								)
+						);
+					} catch (SchedulerException e) {
+						logger.error("Failed unSchedule all Jobs in group - {} ", groupName, e);
+					}
+				},
+				() -> {
+					throw new NullPointerException(SCHEDULER_ERROR + "unScheduleAllJobsByGroup");
+				}
+		);
+	}
+
+	@Override
+	public boolean startJob(String jobKey) {
+		AtomicBoolean success = new AtomicBoolean(false);
+		getScheduler().ifPresentOrElse(
+				scheduler -> {
+					try {
+						scheduler.triggerJob(createJobKey(jobKey));
+					} catch (SchedulerException e) {
+						logger.error("Failed start job - {}, ", jobKey, e);
+					}
+				},
+				() -> {
+					throw new NullPointerException(SCHEDULER_ERROR + "start job");
+				}
+		);
+
+		return success.get();
+	}
+
+	@Override
+	public boolean pauseJob(String jobKey) {
+		AtomicBoolean success = new AtomicBoolean(false);
+		getScheduler().ifPresentOrElse(
+				scheduler -> {
+					try {
+						scheduler.pauseJob(createJobKey(jobKey));
+					} catch (SchedulerException e) {
+						logger.error("Failed pause job - {}, ", jobKey, e);
+					}
+				},
+				() -> {
+					throw new NullPointerException(SCHEDULER_ERROR + "pause job");
+				}
+		);
+
+		return success.get();
+	}
+
+	@Override
+	public boolean resumeJob(String jobKey) {
+		AtomicBoolean success = new AtomicBoolean(false);
+		getScheduler().ifPresentOrElse(
+				scheduler -> {
+					try {
+						scheduler.resumeJob(createJobKey(jobKey));
+					} catch (SchedulerException e) {
+						logger.error("Failed resume job - {}, ", jobKey, e);
+					}
+				}, () -> {
+					throw new NullPointerException(SCHEDULER_ERROR + "resume job");
+				});
+
+		return success.get();
+	}
+
+	@Override
+	public boolean removeJob(String jobKey) {
+
+		AtomicBoolean success = new AtomicBoolean(false);
+
+		getScheduler().ifPresentOrElse(
+				scheduler -> {
+					try {
+						scheduler.deleteJob(createJobKey(jobKey));
+						success.set(true);
+					} catch (SchedulerException e) {
+						logger.error("Failed remove job - {}, ", jobKey, e);
+					}
+				},
+				() -> {
+					throw new NullPointerException(SCHEDULER_ERROR + "remove job");
+				}
+		);
+		return success.get();
+	}
 
 	private JobKey createJobKey(String key) {
 		String[] arr = key.split("[.]");
