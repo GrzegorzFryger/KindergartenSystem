@@ -9,11 +9,15 @@ In order to send email, you need to initialize `BaseMail.java` object, which sto
 be send in email, including:
 * `String to` - email recipient **[required]**
 * `String subject` - subject of email **[required]**
-* `String content` - text, which will be send to recipient **[required]**  
+* `String content` - text, which will be send to recipient **[required] (only in case if variables map is empty)**  
+This text can be replaced with variables. Basically it's used for emails, which don't require any special templates.  
 * `Map<String, InputStreamSource> attachments` - list of attachments
-* `Map<String, Object> variables` - list of variables. These can be used in customized templates.
+* `Map<String, Object> variables` - list of variables. These can be used in customized templates to store information
+that you want to provide to your recipient. You can add as many of these as you like 
+and reference them in .html template.
 * `EmailTemplate emailTemplate` - template, which will be used in email.
-By default `BASE_TEMPLATE` is used to send email - but you are free to add your own template, that suits your needs.
+By default `BASE_TEMPLATE` is used to send email - but you are free to add your own template, that suits your needs.  
+In case you add new template - make sure that `BaseMail.java` that you use has this template set.
 
 Then you simply have to use `sendEmail()` method from `MailFacade.java`.  
 

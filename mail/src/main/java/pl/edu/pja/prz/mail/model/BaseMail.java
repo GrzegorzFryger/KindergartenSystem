@@ -11,6 +11,10 @@ public class BaseMail {
 
     private String to;
     private String subject;
+    /**
+     * This variable is used in basic template.<br>
+     * If you have any specific needs - you should add fields with text to {@link #variables} map
+     */
     private String content;
     private Map<String, InputStreamSource> attachments = new HashMap<>();
     private Map<String, Object> variables = new HashMap<>();
@@ -80,10 +84,9 @@ public class BaseMail {
 
     @Override
     public String toString() {
-        return "BaseMail{" +
+        return "{" +
                 "to='" + to + '\'' +
                 ", subject='" + subject + '\'' +
-                ", content='" + content + '\'' +
                 '}';
     }
 }
