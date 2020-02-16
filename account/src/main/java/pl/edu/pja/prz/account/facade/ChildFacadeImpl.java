@@ -62,8 +62,7 @@ public class ChildFacadeImpl implements ChildFacade {
 		);
 	}
 
-	public Optional<ChildDto> findByFullNameOrAddress(String name, String surname, @Nullable String street)
-			throws IllegalStateException {
+	public Optional<ChildDto> findByFullNameOrAddress(String name, String surname, @Nullable String street) {
 		return childService
 				.findByFullNameOrAddressReadOnly(new FullName(name.toLowerCase(), surname.toLowerCase()), street)
 				.map(childMapper::fromChild)

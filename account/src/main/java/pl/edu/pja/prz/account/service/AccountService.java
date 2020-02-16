@@ -89,7 +89,7 @@ abstract class AccountService<T extends BasicAccountRepository<E>, E extends Acc
 	protected <T extends Account> T persistStandardAccount(Address address, FullName fullName, Phone phone,
 	                                                       String email, BasicAccountRepository<T> repository,
 	                                                       Class<T> tClass) {
-		repository.findByEmailAndFullName(email, fullName).ifPresent((account) -> {
+		repository.findByEmailAndFullName(email, fullName).ifPresent(account -> {
 			throw new IllegalArgumentException("Person exist with id: " + account.getId());
 		});
 

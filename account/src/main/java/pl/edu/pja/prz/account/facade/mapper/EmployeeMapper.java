@@ -16,7 +16,7 @@ public interface EmployeeMapper {
     @Mapping(source = "address.streetNumber", target = "streetNumber")
     @Mapping(source = "phoneNumber.phone", target = "phone")
     @Mapping(source = "accountStatus", target = "status")
-    EmployeeDto fromEmployee(Employee Employee);
+    EmployeeDto fromEmployee(Employee employee);
 
     @Mapping(source = "phone", target = "phoneNumber.phone")
     @Mapping(source = "name", target = "fullName.name")
