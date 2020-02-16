@@ -10,7 +10,7 @@ import pl.edu.pja.prz.payments.model.RecurringPayment;
 public interface RecurringMapper {
 
 	@Mapping(source = "id", target = "id")
-	@Mapping(source = "amount", target = "amount")
+	@Mapping(source = "amount", target = "baseAmount")
 	@Mapping(source = "description", target = "description")
 	@Mapping(source = "child", target = "child.childId")
 	@Mapping(source = "guardian", target = "child.guardianId")

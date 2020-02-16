@@ -80,7 +80,7 @@ class RecurringPaymentServiceImplTest {
 		var payment = new RecurringPayment();
 		payment.setId(1L);
 		payment.setStatus(Status.ACTIVE);
-		payment.setAmount(new BigDecimal("50.0"));
+		payment.setBaseAmount(new BigDecimal("50.0"));
 		payment.setDescription( "Test payment");
 		payment.setPeriodValidity(periodValidity);
 
@@ -97,7 +97,7 @@ class RecurringPaymentServiceImplTest {
 		var payment = new RecurringPayment();
 		payment.setId(1L);
 		payment.setStatus(Status.ACTIVE);
-		payment.setAmount(new BigDecimal("50.0"));
+		payment.setBaseAmount(new BigDecimal("50.0"));
 		payment.setDescription( "Test payment");
 		payment.setPeriodValidity(periodValidity);
 
@@ -110,7 +110,7 @@ class RecurringPaymentServiceImplTest {
 		//then
 		verify(recurringPaymentRepository, times(1)).save(mockPayment);
 		verify(recurringPaymentRepository, times(1)).findById(1L);
-		verify(mockPayment, times(1)).setAmount(any());
+		verify(mockPayment, times(1)).setBaseAmount(any());
 		verify(mockPayment, times(1)).setDescription(any());
 		verify(mockPayment, times(1)).setPeriodValidity(any());
 		verify(mockPayment, times(1)).setStatus(any());
@@ -121,7 +121,7 @@ class RecurringPaymentServiceImplTest {
 		//given
 		var payment = new RecurringPayment();
 		payment.setId(1L);
-		payment.setAmount(new BigDecimal("50.0"));
+		payment.setBaseAmount(new BigDecimal("50.0"));
 		payment.setDescription( "Test payment");
 		payment.setPeriodValidity(periodValidity);
 

@@ -28,7 +28,7 @@ class FinancesFacadeTest {
 
     @BeforeEach
     public void setUp() {
-        facade = new FinancesFacade(balanceService);
+        facade = new FinancesFacadeImpl(balanceService);
 
         balance = new Balance();
         balance.setAmount(new BigDecimal("50.00"));

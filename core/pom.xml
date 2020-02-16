@@ -89,6 +89,10 @@
             <artifactId>gson</artifactId>
         </dependency>
         <dependency>
+            <groupId>pl.edu.pja.prz</groupId>
+            <artifactId>scheduler</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
         </dependency>

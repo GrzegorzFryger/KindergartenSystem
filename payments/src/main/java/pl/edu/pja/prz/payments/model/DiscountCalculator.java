@@ -7,20 +7,20 @@ import java.math.RoundingMode;
 import java.util.Set;
 
 public interface DiscountCalculator {
-	BigDecimal getAmount();
+	BigDecimal getBaseAmount();
 
 	Set<Discount> getDiscounts();
 
 	default BigDecimal calculateAmountWithDiscount() {
 		if (getDiscounts().isEmpty()) {
-			return getAmount();
+			return getBaseAmount();
 		} else {
 			return getDiscounts()
 					.stream()
 					.map(discount -> {
 						BigDecimal valueOfDiscount;
 						if (TypeDiscount.PERCENTAGE == discount.getTypeDiscount()) {
-							valueOfDiscount = getAmount().multiply(
+							valueOfDiscount = getBaseAmount().multiply(
 									discount.getValue().divide(BigDecimal.valueOf(100))
 							).setScale(2, RoundingMode.CEILING);
 						} else {
@@ -29,7 +29,7 @@ public interface DiscountCalculator {
 						}
 						return valueOfDiscount;
 					})
-					.reduce(getAmount(), BigDecimal::subtract);
+					.reduce(getBaseAmount(), BigDecimal::subtract);
 		}
 	}
 }

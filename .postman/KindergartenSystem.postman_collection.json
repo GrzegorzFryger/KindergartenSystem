@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "9177c4d5-56f3-4ba2-a33c-b9b16d9cd5b5",
+		"_postman_id": "59b2ad5f-d679-4214-8fb2-e9c6de072b6a",
 		"name": "KindergartenSystem",
 		"description": "This collection contains all API requests to backend system of our application.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -400,100 +400,7 @@
 		},
 		{
 			"name": "Groups",
-			"item": [
-				{
-					"name": "/groups",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"groupName\": \"Test Group\",\n\t\"groupDescription\": \"A test group description\"\n}"
-						},
-						"url": {
-							"raw": "{{HOST}}/{{GROUPS}}/",
-							"host": [
-								"{{HOST}}"
-							],
-							"path": [
-								"{{GROUPS}}",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/groups/{id}",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{HOST}}/{{GROUPS}}/1",
-							"host": [
-								"{{HOST}}"
-							],
-							"path": [
-								"{{GROUPS}}",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/groups/{id}",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{HOST}}/{{GROUPS}}/1",
-							"host": [
-								"{{HOST}}"
-							],
-							"path": [
-								"{{GROUPS}}",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/groups",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"id\": 1,\n\t\"groupName\": \"Updated test Group\",\n\t\"groupDescription\": \"An updated test group description\"\n}"
-						},
-						"url": {
-							"raw": "{{HOST}}/{{GROUPS}}/",
-							"host": [
-								"{{HOST}}"
-							],
-							"path": [
-								"{{GROUPS}}",
-								""
-							]
-						}
-					},
-					"response": []
-				}
-			],
+			"item": [],
 			"description": "All requests from Groups module.",
 			"protocolProfileBehavior": {}
 		},
@@ -512,6 +419,12 @@
 		{
 			"name": "Receivables",
 			"item": [
+				{
+					"name": "SCHEDULER",
+					"item": [],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
 				{
 					"name": "/transactions/{id}",
 					"event": [
@@ -980,6 +893,120 @@
 				}
 			],
 			"description": "All requests from Receivables module.",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Scheduler",
+			"item": [
+				{
+					"name": "/all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{SCHEDULER}}/all",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{SCHEDULER}}",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/active",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{SCHEDULER}}/active",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{SCHEDULER}}",
+								"active"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/cron",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"jobName\":\"tuition\",\n\t\"triggerDescription\":\"test scheduler\",\n\t\"cronExpression\":\"* 0 0 ? * * *\",\n\t\"durability\": \"true\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/{{SCHEDULER}}/cron",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{SCHEDULER}}",
+								"cron"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/pause/id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{SCHEDULER}}/pause/DEFAULT.BcNVmLWBTTaTtECg7agwtg",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{SCHEDULER}}",
+								"pause",
+								"DEFAULT.BcNVmLWBTTaTtECg7agwtg"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/remove/{id}",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{SCHEDULER}}/remove/DEFAULT.mT1LAInwTc-Z2IlpHptqdQ",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{SCHEDULER}}",
+								"remove",
+								"DEFAULT.mT1LAInwTc-Z2IlpHptqdQ"
+							]
+						}
+					},
+					"response": []
+				}
+			],
 			"protocolProfileBehavior": {}
 		}
 	],

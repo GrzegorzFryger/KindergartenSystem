@@ -27,6 +27,7 @@
         <module>finances</module>
         <module>calendar</module>
         <module>mail</module>
+        <module>scheduler</module>
     </modules>
 
     <properties>
@@ -46,12 +47,15 @@
         <receivables-module.version>1.0-SNAPSHOT</receivables-module.version>
         <calendar-module.version>1.0-SNAPSHOT</calendar-module.version>
         <mail-module.version>1.0-SNAPSHOT</mail-module.version>
+        <scheduler-module.version>1.0-SNAPSHOT</scheduler-module.version>
 
         <!-- Optional Shared libraries (these can be included in child modules) -->
         <commons-csv.version>1.7</commons-csv.version>
         <commons-lang3.version>3.9</commons-lang3.version>
         <commons-text.version>1.8</commons-text.version>
         <commons-validator.version>1.6</commons-validator.version>
+        <springboot-starter-quartz.version>2.2.2.RELEASE</springboot-starter-quartz.version>
+        <spring-boot-devtools.version>2.2.2.RELEASE</spring-boot-devtools.version>
 
         <!-- Mandatory Shared libraries (these are included child modules by default)  -->
         <spring-boot-starter.version>2.2.0.RELEASE</spring-boot-starter.version>
@@ -127,6 +131,11 @@
                 <groupId>pl.edu.pja.prz</groupId>
                 <artifactId>mail</artifactId>
                 <version>${mail-module.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>pl.edu.pja.prz</groupId>
+                <artifactId>scheduler</artifactId>
+                <version>${scheduler-module.version}</version>
             </dependency>
 
             <!-- Optional Shared libraries (these can be included in child modules) -->
