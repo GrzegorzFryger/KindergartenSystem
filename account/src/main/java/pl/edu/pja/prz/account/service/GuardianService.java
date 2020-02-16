@@ -27,5 +27,5 @@ public interface GuardianService {
 
 	Set<Child> getAllChildren(UUID id);
 
-	Optional<Guardian> findByFullNameOrAddressReadOnly(FullName fullName, @Nullable String street) throws IllegalStateException;
+	Optional<Guardian> findByFullNameOrAddressReadOnly(FullName fullName, @Nullable String street);
 }

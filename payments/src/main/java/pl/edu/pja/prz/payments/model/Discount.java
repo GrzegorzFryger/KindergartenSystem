@@ -52,4 +52,29 @@ public class Discount extends BaseEntityLong {
 	public void setRecurringPayments(Set<RecurringPayment> recurringPayments) {
 		this.recurringPayments = recurringPayments;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Discount)) return false;
+		if (!super.equals(o)) return false;
+
+		Discount discount = (Discount) o;
+
+		if (getDescription() != null ? !getDescription().equals(discount.getDescription()) : discount.getDescription() != null)
+			return false;
+		if (getValue() != null ? !getValue().equals(discount.getValue()) : discount.getValue() != null) return false;
+		if (getTypeDiscount() != discount.getTypeDiscount()) return false;
+		return getRecurringPayments() != null ? getRecurringPayments().equals(discount.getRecurringPayments()) : discount.getRecurringPayments() == null;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = super.hashCode();
+		result = 31 * result + (getDescription() != null ? getDescription().hashCode() : 0);
+		result = 31 * result + (getValue() != null ? getValue().hashCode() : 0);
+		result = 31 * result + (getTypeDiscount() != null ? getTypeDiscount().hashCode() : 0);
+		result = 31 * result + (getRecurringPayments() != null ? getRecurringPayments().hashCode() : 0);
+		return result;
+	}
 }
