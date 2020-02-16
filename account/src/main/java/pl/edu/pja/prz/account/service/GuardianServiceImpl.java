@@ -81,8 +81,7 @@ public class GuardianServiceImpl extends AccountService<GuardianRepository, Guar
 
 
 	@Override
-	public Optional<Guardian> findByFullNameOrAddressReadOnly(FullName fullName, @Nullable String street)
-			throws IllegalStateException {
+	public Optional<Guardian> findByFullNameOrAddressReadOnly(FullName fullName, @Nullable String street) {
 		if (street == null) {
 			return guardianRepository.findReadOnly((root, query, cb) ->
 					cb.equal(root.get(Guardian_.fullName), fullName), Guardian.class)

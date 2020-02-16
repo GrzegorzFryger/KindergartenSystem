@@ -1,5 +1,7 @@
 package pl.edu.pja.prz.account.service;
 
+import org.hibernate.annotations.common.util.impl.LoggerFactory;
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,7 @@ import java.util.UUID;
 
 @Service
 class ChildServiceImpl implements ChildService {
+	private static final Logger logger = LoggerFactory.logger(ChildService.class);
 	private static final String CHILD = "Child";
 	private static final ChildStatus CHILDSTATUS = ChildStatus.NEW;
 	private final ChildRepository childRepository;
@@ -69,27 +72,26 @@ class ChildServiceImpl implements ChildService {
 
 	private void updateNotNullFields(Child oldChild, Child newChild) {
 		Arrays.stream(newChild.getClass().getDeclaredFields())
-				.forEach(a -> {
-					a.setAccessible(true);
+				.forEach(field -> {
+					field.setAccessible(true);
 					try {
-						Optional.ofNullable(a.get(newChild))
+						Optional.ofNullable(field.get(newChild))
 								.ifPresent(value -> {
 									try {
-										a.set(oldChild, a.get(newChild));
+										field.set(oldChild, field.get(newChild));
 
 									} catch (IllegalAccessException e) {
-										e.printStackTrace();
+										logger.error("Fail set property - {}", field , e);
 									}
 								});
 					} catch (IllegalAccessException e) {
-						e.printStackTrace();
+						logger.error("Fail set property - {}", field , e);
 					}
 				});
 	}
 
 	@Override
-	public Optional<Child> findByFullNameOrAddressReadOnly(FullName fullName, @Nullable String street)
-			throws IllegalStateException {
+	public Optional<Child> findByFullNameOrAddressReadOnly(FullName fullName, @Nullable String street) {
 		if (street == null) {
 			return childRepository.findReadOnly((root, query, cb) ->
 					cb.equal(root.get(Child_.fullName), fullName), Child.class)

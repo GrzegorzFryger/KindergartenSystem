@@ -1,15 +1,14 @@
 package pl.edu.pja.prz.account.facade;
 
 import org.springframework.lang.Nullable;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.account.facade.dto.AccountDto;
 import pl.edu.pja.prz.account.facade.dto.ChildDto;
 import pl.edu.pja.prz.account.facade.dto.GuardianDto;
 import pl.edu.pja.prz.account.facade.mapper.ChildMapper;
 import pl.edu.pja.prz.account.facade.mapper.GuardianMapper;
-import pl.edu.pja.prz.commons.model.FullName;
 import pl.edu.pja.prz.account.service.GuardianService;
+import pl.edu.pja.prz.commons.model.FullName;
 
 import java.util.List;
 import java.util.Optional;
@@ -59,8 +58,7 @@ public class GuardianFacadeImpl implements GuardianFacade {
                 .collect(Collectors.toSet());
     }
 
-    public Optional<GuardianDto> findByFullNameOrAddress(String name, String surname, @Nullable String street)
-            throws IllegalStateException {
+    public Optional<GuardianDto> findByFullNameOrAddress(String name, String surname, @Nullable String street) {
         return guardianService
                 .findByFullNameOrAddressReadOnly(new FullName(name.toLowerCase(), surname.toLowerCase()), street)
                 .map(guardianMapper::fromGuardian)
