@@ -5,15 +5,20 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import pl.edu.pja.prz.mail.model.BaseMail;
 import pl.edu.pja.prz.mail.util.JavaMailSenderFactory;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class MailServiceImplTest {
+
+    @Mock
+    private JavaMailSenderImpl javaMailSender;
 
     @Mock
     private JavaMailSenderFactory factory;
@@ -102,5 +107,65 @@ class MailServiceImplTest {
         //Then
         assertTrue(result);
     }
+
+    @Test
+    public void Should_ReturnTrue_When_ContentIsEmptyButOtherVariablesAreSet() {
+        //Given
+        BaseMail baseMail = new BaseMail("correct@email.com", "Hello there",
+                null);
+        baseMail.addVariable("TEST_VAR", "TEST_VALUE");
+
+        //When
+        boolean result = service.validateInput(baseMail);
+
+        //Then
+        assertTrue(result);
+    }
+
+    @Test
+    public void Should_SendEmail_When_BaseMailIsCorrect() {
+        //Given
+        BaseMail baseMail = new BaseMail("correct@email.com", "Hello there",
+                "Some text, which I want to show in email");
+
+        //When
+        when(factory.getSender()).thenReturn(javaMailSender);
+        service.sendEmail(baseMail);
+
+        //When
+        verify(factory, only()).getSender();
+    }
+
+    @Test
+    public void Should_SendEmail_When_BaseMailAndCredentialsAreCorrect() {
+        //Given
+        BaseMail baseMail = new BaseMail("correct@email.com", "Hello there",
+                "Some text, which I want to show in email");
+        String email = "somemail@domain.com";
+        String password = "pass";
+
+        //When
+        when(factory.getSender(anyString(), anyString())).thenReturn(javaMailSender);
+        service.sendEmail(baseMail, email, password);
+
+        //When
+        verify(factory, only()).getSender(anyString(), anyString());
+    }
+
+    @Test
+    public void ShouldNot_SendEmail_When_BaseMailIsCorrectAndCredentialsAreWrong() {
+        //Given
+        BaseMail baseMail = new BaseMail("correct@email.com", "Hello there",
+                "Some text, which I want to show in email");
+        String email = "BAD_EMAIL";
+        String password = "pass";
+
+        //When
+        service.sendEmail(baseMail, email, password);
+
+        //When
+        verify(factory, never()).getSender(anyString(), anyString());
+    }
+
 
 }
