@@ -6,8 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
-import pl.edu.pja.prz.commons.exception.BusinessException;
-import pl.edu.pja.prz.commons.exception.IncorrectInputTypeException;
 import pl.edu.pja.prz.scheduler.annotation.QuartzJob;
 import pl.edu.pja.prz.scheduler.model.JobInfo;
 
@@ -29,6 +27,7 @@ public class JobService {
 				.findCandidateComponents(basePackage)
 				.stream()
 				.map(this::createJobInfoFromAnnotation)
+				.flatMap(Optional::stream)
 				.collect(Collectors.toList());
 	}
 
@@ -37,26 +36,21 @@ public class JobService {
 				.stream()
 				.filter(jobInfo -> jobInfo.getName().equals(name))
 				.reduce((u, v) -> {
-					throw new IncorrectInputTypeException("More than one found");
+					logger.error("Failed job service: find more than one element with name - {}", name);
+					throw new IllegalArgumentException("Job service: find more than one element with name = " + name);
 				});
 	}
 
 	@SuppressWarnings("unchecked")
-	private JobInfo createJobInfoFromAnnotation(BeanDefinition beanDef) {
+	private Optional<JobInfo> createJobInfoFromAnnotation(BeanDefinition beanDef) {
 		try {
-			Class<? extends Job> cl =
-					(Class<? extends Job>) Class.forName(beanDef.getBeanClassName());
+			Class<? extends Job> cl = (Class<? extends Job>) Class.forName(beanDef.getBeanClassName());
 			QuartzJob job = (QuartzJob) cl.getAnnotation(ANNOTATION_CLASS);
 
-			return new JobInfo(
-					job.name(),
-					job.description(),
-					cl.getName(),
-					cl
-			);
+			return Optional.of(new JobInfo(job.name(), job.description(), cl.getName(), cl));
 		} catch (Exception e) {
-			logger.warn("Can not assign job class");
-			throw new BusinessException("Can not create class form Job annotation");
+			logger.error("Failed job service: can not create JobInfo from - {}", beanDef.getBeanClassName());
+			return Optional.empty();
 		}
 	}
 

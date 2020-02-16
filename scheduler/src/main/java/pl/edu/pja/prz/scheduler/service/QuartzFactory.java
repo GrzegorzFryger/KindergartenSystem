@@ -3,6 +3,7 @@ package pl.edu.pja.prz.scheduler.service;
 import org.quartz.CronTrigger;
 import org.quartz.Job;
 import org.quartz.JobDetail;
+import org.quartz.SimpleTrigger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,27 +11,22 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.lang.Nullable;
 import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
 import org.springframework.scheduling.quartz.JobDetailFactoryBean;
+import org.springframework.scheduling.quartz.SimpleTriggerFactoryBean;
 import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
 
 @Component
 public class QuartzFactory {
 	private static final Logger logger = LoggerFactory.getLogger(QuartzFactory.class);
-
 	private String groupName = "DEFAULT";
 	private final IdentifyGenerator identifyGenerator;
-	private transient ApplicationContext applicationContext;
-
-//	public String getGroupName() {
-//		return groupName;
-//	}
-//
-//	public void setGroupName(String groupName) {
-//		this.groupName = groupName;
-//	}
+	private final ApplicationContext applicationContext;
 
 	@Autowired
 	public QuartzFactory(IdentifyGenerator identifyGenerator, ApplicationContext applicationContext) {
@@ -99,9 +95,43 @@ public class QuartzFactory {
 			cronTriggerFactory.afterPropertiesSet();
 		} catch (ParseException pe) {
 			//todo throw common exception
-			logger.error("Failed to create cron trigger",  pe);
+			logger.error("Failed to create cron trigger", pe);
 		}
 		//todo handle with exceptions, and check isSingleton
 		return Optional.ofNullable(cronTriggerFactory.getObject());
 	}
+
+	public Optional<SimpleTrigger> createSimpleTrigger(String description, LocalDateTime startDate,
+	                                                   int repeatCount, @Nullable String groupName) {
+		var simpleTriggerFactoryBean = new SimpleTriggerFactoryBean();
+
+		simpleTriggerFactoryBean.setBeanName(identifyGenerator.generateId());
+
+		if (groupName != null) {
+			simpleTriggerFactoryBean.setGroup(groupName);
+		} else {
+			simpleTriggerFactoryBean.setGroup(this.groupName);
+		}
+		simpleTriggerFactoryBean.setDescription(description);
+		simpleTriggerFactoryBean.afterPropertiesSet();
+		simpleTriggerFactoryBean.setStartTime(convertToDate(startDate));
+
+		if (repeatCount > 0) {
+			simpleTriggerFactoryBean.setRepeatCount(repeatCount);
+		}
+
+		return Optional.ofNullable(simpleTriggerFactoryBean.getObject());
+	}
+
+	private LocalDateTime convertToLocalDateTime(Date dateToConvert) {
+		return LocalDateTime.ofInstant(
+				dateToConvert.toInstant(), ZoneId.systemDefault());
+	}
+
+	private Date convertToDate(LocalDateTime dateToConvert) {
+		return java.util.Date
+				.from(dateToConvert.atZone(ZoneId.systemDefault())
+						.toInstant());
+	}
+
 }
