@@ -8,9 +8,9 @@ import java.util.UUID;
 
 public interface AbsenceService {
 
-	Absence createAbsence(Absence Absence);
+	Absence createAbsence(Absence absence);
 
-	Absence updateAbsence(Absence Absence);
+	Absence updateAbsence(Absence absence);
 
 	void deleteAbsence(Long id);
 
