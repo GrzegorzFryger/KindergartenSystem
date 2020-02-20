@@ -1,80 +1,66 @@
 -- ACCOUNT MODULE --
-LOCK TABLES `account` WRITE;
-/*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES ('8a186e67-b796-406f-8e6a-3dc483143121',0,'test City','80-264','street Number 23','Test Name','Test surname','123132132','NOT_ACTIVE','test1@test.com','2020-01-20','$2a$10$6Ex4TJuKwju/zqr15A7Bv.2DLg3kGobThW0JhKNrtpnu6gNNv54ZC'),('8a186e67-b796-406f-8e6a-3dc483143122',0,'test City','80-284','street Number 456','Guardian1','Guardian2','123132132','ACTIVE','test3@test.com','2020-01-20','$2a$10$6Ex4TJuKwju/zqr15A7Bv.2DLg3kGobThW0JhKNrtpnu6gNNv54ZC'),('a7912412-12ce-40fe-b6a2-deb77ede555b',0,'test City','10-100','street Number 23','Test Name ','Test surname','123132132','ACTIVE','test2@test.com','2020-01-20','$2a$10$ssO8y2Ll4HRZtyBrEM.FA.nCGYy01LWi1PBs5UhCXgsu90.bxOANy');
-/*!40000 ALTER TABLE `account` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO account.account (id, version, city, postalCode, streetNumber, name, surname, phone, accountStatus, email, createDate, password)
+VALUES ('2a5c0cad-4de6-45a0-aebe-2a71cf06232b', 0, 'test City', 'test postalcode', 'street Number 23', 'Test Name ', 'Test surname', '123132132', 'ACTIVE', 'test@test.com', '2020-02-06', '$2a$10$29SWVndzaD3yaN4Dnc1nxOVDk3l1ecrulU./lJy6hIIBR3ae5jk1.');
+INSERT INTO account.account (id, version, city, postalCode, streetNumber, name, surname, phone, accountStatus, email, createDate, password)
+VALUES ('8a186e67-b796-406f-8e6a-3dc483143121', 0, 'test City', '80-264', 'street Number 23', 'Test Name', 'Test surname', '123132132', 'NOT_ACTIVE', 'test1@test.com', '2020-01-20', '$2a$10$6Ex4TJuKwju/zqr15A7Bv.2DLg3kGobThW0JhKNrtpnu6gNNv54ZC');
+INSERT INTO account.account (id, version, city, postalCode, streetNumber, name, surname, phone, accountStatus, email, createDate, password)
+VALUES ('8a186e67-b796-406f-8e6a-3dc483143122', 0, 'test City', '80-284', 'street Number 456', 'Guardian1', 'Guardian2', '123132132', 'ACTIVE', 'test3@test.com', '2020-01-20', '$2a$10$6Ex4TJuKwju/zqr15A7Bv.2DLg3kGobThW0JhKNrtpnu6gNNv54ZC');
+INSERT INTO account.account (id, version, city, postalCode, streetNumber, name, surname, phone, accountStatus, email, createDate, password)
+VALUES ('a7912412-12ce-40fe-b6a2-deb77ede555b', 0, 'test City', '10-100', 'street Number 23', 'Test Name ', 'Test surname', '123132132', 'ACTIVE', 'test2@test.com', '2020-01-20', '$2a$10$ssO8y2Ll4HRZtyBrEM.FA.nCGYy01LWi1PBs5UhCXgsu90.bxOANy');
+INSERT INTO account.account (id, version, city, postalCode, streetNumber, name, surname, phone, accountStatus, email, createDate, password)
+VALUES ('c4029244-e8ff-4328-8658-28964dda3c4e', 0, 'test City', 'test postalcode', 'street Number 23', 'Test Name', 'Test surname', '123132132', 'NOT_ACTIVE', 'test@test.com', '2020-02-06', '$2a$10$N.HbRP6eyzLlNaJvd4wMfOvgI56btTUeaMqG1We1Sz4O94ERZGYEW');
 
-LOCK TABLES `borough` WRITE;
-/*!40000 ALTER TABLE `borough` DISABLE KEYS */;
-INSERT INTO `borough` VALUES (1,1,'test','80-164','Test Street','brak@wp.pl','New ','957010564','123123123');
-/*!40000 ALTER TABLE `borough` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO account.borough (id, version, city, postalCode, streetNumber, email, name, nipNumber, phone)
+VALUES (1, 1, 'test', '80-164', 'Test Street', 'brak@wp.pl', 'New ', '957010564', '123123123');
 
-LOCK TABLES `child` WRITE;
-/*!40000 ALTER TABLE `child` DISABLE KEYS */;
-INSERT INTO `child` VALUES ('3e09083b-9ded-4607-bcc7-8dfe67c1b99a',3,'Update city','80-180','Update street','2007-12-02','Update Name','Update surname','MALE','94071105694','2007-12-02','2007-12-02',1),('7a64bff6-d8e1-4250-a5bd-78deaa0dff76',0,'Update city','80-180','Update street','1994-07-10','Update Name','Update surname','MALE','94071105694','2007-12-01','2007-12-01',NULL);
-/*!40000 ALTER TABLE `child` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO account.child (id, version, city, postalCode, streetNumber, dateOfBirth, name, surname, gender, peselNumber, additionDate, endingDate, borough_id)
+VALUES ('0560d77d-e0db-4914-ae4a-4f39690ecb2d', 0, 'city4', '80-174', 'Street 174', '1994-07-10', 'Name3', 'surname4', 'MALE', '94071105694', '2007-12-02', '2007-12-02', null);
+INSERT INTO account.child (id, version, city, postalCode, streetNumber, dateOfBirth, name, surname, gender, peselNumber, additionDate, endingDate, borough_id)
+VALUES ('067b5db4-de4e-401e-9cac-7f6289e96c19', 0, 'city4', '80-174', 'Street 174', '1994-07-10', 'Name3', 'surname4', 'MALE', '94071105694', '2007-12-02', '2007-12-02', null);
+INSERT INTO account.child (id, version, city, postalCode, streetNumber, dateOfBirth, name, surname, gender, peselNumber, additionDate, endingDate, borough_id)
+VALUES ('15ad869b-14c4-4be1-8456-d7f5fea6b557', 0, 'city4', '80-174', 'Street 174', '1994-07-10', 'Name3', 'surname4', 'MALE', '94071105694', '2007-12-01', '2007-12-01', null);
+INSERT INTO account.child (id, version, city, postalCode, streetNumber, dateOfBirth, name, surname, gender, peselNumber, additionDate, endingDate, borough_id)
+VALUES ('1c7fe144-f71a-4599-b8bf-04aa92d7ab6d', 0, 'city4', '80-174', 'Street 174', '1994-07-10', 'Name3', 'surname4', 'MALE', '94071105694', '2007-12-01', '2007-12-01', null);
+INSERT INTO account.child (id, version, city, postalCode, streetNumber, dateOfBirth, name, surname, gender, peselNumber, additionDate, endingDate, borough_id)
+VALUES ('1cb1e3fc-e0c9-45f4-861d-24884a4f64ad', 0, 'city4', '80-174', 'Street 174', '1994-07-10', 'Name3', 'surname4', 'MALE', '94071105694', '2007-12-01', '2007-12-01', null);
+INSERT INTO account.child (id, version, city, postalCode, streetNumber, dateOfBirth, name, surname, gender, peselNumber, additionDate, endingDate, borough_id)
+VALUES ('45034cab-c252-4b2b-9887-59b7ad7431cd', 0, 'city4', '80-174', 'Street 174', '1994-07-10', 'Name3', 'surname4', 'MALE', '94071105694', '2007-12-02', '2007-12-02', null);
+INSERT INTO account.child (id, version, city, postalCode, streetNumber, dateOfBirth, name, surname, gender, peselNumber, additionDate, endingDate, borough_id)
+VALUES ('fec1b907-c9ce-4327-8bc6-abe353a76ba2', 0, 'city4', '80-174', 'Street 174', '1994-07-10', 'Name3', 'surname4', 'MALE', '94071105694', '2007-12-02', '2007-12-02', null);
 
-LOCK TABLES `children_group` WRITE;
-/*!40000 ALTER TABLE `children_group` DISABLE KEYS */;
-/*!40000 ALTER TABLE `children_group` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO account.child_childstatuses (Child_id, childStatuses) VALUES ('45034cab-c252-4b2b-9887-59b7ad7431cd', 'NEW');
+INSERT INTO account.child_childstatuses (Child_id, childStatuses) VALUES ('0560d77d-e0db-4914-ae4a-4f39690ecb2d', 'NEW');
+INSERT INTO account.child_childstatuses (Child_id, childStatuses) VALUES ('067b5db4-de4e-401e-9cac-7f6289e96c19', 'NEW');
+INSERT INTO account.child_childstatuses (Child_id, childStatuses) VALUES ('fec1b907-c9ce-4327-8bc6-abe353a76ba2', 'NEW');
+INSERT INTO account.child_childstatuses (Child_id, childStatuses) VALUES ('15ad869b-14c4-4be1-8456-d7f5fea6b557', 'NEW');
+INSERT INTO account.child_childstatuses (Child_id, childStatuses) VALUES ('1cb1e3fc-e0c9-45f4-861d-24884a4f64ad', 'NEW');
+INSERT INTO account.child_childstatuses (Child_id, childStatuses) VALUES ('1c7fe144-f71a-4599-b8bf-04aa92d7ab6d', 'NEW');
 
-LOCK TABLES `employee` WRITE;
-/*!40000 ALTER TABLE `employee` DISABLE KEYS */;
-INSERT INTO `employee` VALUES ('TEACHER','a7912412-12ce-40fe-b6a2-deb77ede555b');
-/*!40000 ALTER TABLE `employee` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO account.employee (employeeType, id) VALUES ('TEACHER', '2a5c0cad-4de6-45a0-aebe-2a71cf06232b');
 
+INSERT INTO account.guardian (id) VALUES ('c4029244-e8ff-4328-8658-28964dda3c4e');
 
-LOCK TABLES `child_childstatuses` WRITE;
-/*!40000 ALTER TABLE `child_childstatuses` DISABLE KEYS */;
-INSERT INTO `child_childstatuses` VALUES ('7a64bff6-d8e1-4250-a5bd-78deaa0dff76','NEW');
-/*!40000 ALTER TABLE `child_childstatuses` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO account.role (id, version, name) VALUES (1, 0, 'USER');
+INSERT INTO account.role (id, version, name) VALUES (2, 0, 'TEACHER');
 
-LOCK TABLES `guardian` WRITE;
-/*!40000 ALTER TABLE `guardian` DISABLE KEYS */;
-INSERT INTO `guardian` VALUES ('8a186e67-b796-406f-8e6a-3dc483143121'),('8a186e67-b796-406f-8e6a-3dc483143122');
-/*!40000 ALTER TABLE `guardian` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO account.role_account (fk_role, fk_account) VALUES (2, '2a5c0cad-4de6-45a0-aebe-2a71cf06232b');
+INSERT INTO account.role_account (fk_role, fk_account) VALUES (1, 'c4029244-e8ff-4328-8658-28964dda3c4e');
+INSERT INTO account.role_account (fk_role, fk_account) VALUES (2, 'c4029244-e8ff-4328-8658-28964dda3c4e');
 
-LOCK TABLES `guardian_child` WRITE;
-/*!40000 ALTER TABLE `guardian_child` DISABLE KEYS */;
-INSERT INTO `guardian_child` VALUES ('8a186e67-b796-406f-8e6a-3dc483143121','3e09083b-9ded-4607-bcc7-8dfe67c1b99a'),('8a186e67-b796-406f-8e6a-3dc483143121','7a64bff6-d8e1-4250-a5bd-78deaa0dff76');
-/*!40000 ALTER TABLE `guardian_child` ENABLE KEYS */;
-UNLOCK TABLES;
-
-LOCK TABLES `role` WRITE;
-/*!40000 ALTER TABLE `role` DISABLE KEYS */;
-INSERT INTO `role` VALUES (1,0,'TEACHER'),(2,0,'USER');
-/*!40000 ALTER TABLE `role` ENABLE KEYS */;
-UNLOCK TABLES;
-
-LOCK TABLES `role_account` WRITE;
-/*!40000 ALTER TABLE `role_account` DISABLE KEYS */;
-INSERT INTO `role_account` VALUES (2,'8a186e67-b796-406f-8e6a-3dc483143121'),(1,'a7912412-12ce-40fe-b6a2-deb77ede555b');
-/*!40000 ALTER TABLE `role_account` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO account.role_privileges (Role_id, privileges) VALUES (1, 'USER');
+INSERT INTO account.role_privileges (Role_id, privileges) VALUES (2, 'TEACHER');
 
 
-LOCK TABLES `role_privileges` WRITE;
-/*!40000 ALTER TABLE `role_privileges` DISABLE KEYS */;
-INSERT INTO `role_privileges` VALUES (1,'TEACHER'),(2,'USER');
-/*!40000 ALTER TABLE `role_privileges` ENABLE KEYS */;
-UNLOCK TABLES;
 
 -- CALENDAR MODULE --
 -- CORE MODULE --
 -- FINANCES MODULE --
 INSERT INTO finances.balance (`version`,`amount`, `childId`, `guardianId`)
-VALUES (0,0.00, '7767d645-5408-4e79-9e4e-173b1fb23274', '25e7d80a-a38e-496c-afc2-dd5733fdf8ac');
+VALUES (0, 0.00, '7767d645-5408-4e79-9e4e-173b1fb23274', '25e7d80a-a38e-496c-afc2-dd5733fdf8ac');
 INSERT INTO finances.balance (`version`,`amount`, `childId`, `guardianId`)
-VALUES (0,0.00, 'bd73f070-cac9-48db-8037-7c1d34596584', '43750616-5f5d-4f34-9df8-d7759c180f72');
+VALUES (0, 0.00, 'bd73f070-cac9-48db-8037-7c1d34596584', '43750616-5f5d-4f34-9df8-d7759c180f72');
 INSERT INTO finances.balance (`version`,`amount`, `childId`, `guardianId`)
-VALUES (0,0.00, 'cb34b97c-bbe9-4719-9091-0e0939804426', '25e7d80a-a38e-496c-afc2-dd5733fdf8ac');
+VALUES (0, 0.00, 'cb34b97c-bbe9-4719-9091-0e0939804426', '25e7d80a-a38e-496c-afc2-dd5733fdf8ac');
 -- GROUPS MODULE --
 -- MEAL MODULE --
 -- PAYMENTS MODULE --
