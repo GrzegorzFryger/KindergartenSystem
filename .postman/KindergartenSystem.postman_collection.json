@@ -7,6 +7,67 @@
 	},
 	"item": [
 		{
+			"name": "Authorization",
+			"item": [
+				{
+					"name": "/api/authenticate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6e59e09f-6a64-46a5-a991-26f3848f76fa",
+								"exec": [
+									"pm.test(\"Save token in environment variable for future requests\", function() {\r",
+									"    let bearerToken = pm.response.headers.get(\"Authorization\").substring(7);\r",
+									"    pm.environment.set(\"token\", bearerToken);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "testjwtclientid",
+								"value": "XY7kmzoNzl100",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{HOST}}/api/authenticate?username=user&password=password",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"authenticate"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "user"
+								},
+								{
+									"key": "password",
+									"value": "password"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
 			"name": "Account",
 			"item": [
 				{
@@ -1050,6 +1111,16 @@
 			"protocolProfileBehavior": {}
 		}
 	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
 	"event": [
 		{
 			"listen": "prerequest",
