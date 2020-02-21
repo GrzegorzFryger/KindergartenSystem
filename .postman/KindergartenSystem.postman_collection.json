@@ -41,24 +41,34 @@
 								"type": "text"
 							}
 						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{HOST}}/api/authenticate?username=user&password=password",
+							"raw": "{{HOST}}/api/authenticate",
 							"host": [
 								"{{HOST}}"
 							],
 							"path": [
 								"api",
 								"authenticate"
-							],
-							"query": [
-								{
-									"key": "username",
-									"value": "user"
-								},
-								{
-									"key": "password",
-									"value": "password"
-								}
 							]
 						}
 					},
