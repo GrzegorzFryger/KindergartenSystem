@@ -2,6 +2,8 @@ package pl.edu.pja.prz.core.filter;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,7 +19,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static io.jsonwebtoken.SignatureAlgorithm.HS512;
+import static org.springframework.http.HttpMethod.POST;
 import static pl.edu.pja.prz.core.configuration.SecurityConstants.*;
+import static pl.edu.pja.prz.core.filter.FilterUtils.addErrorToResponse;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -31,6 +35,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) {
+        if (!POST.name().equals(request.getMethod())) {
+            addErrorToResponse("Authentication method not supported. Request method: " + request.getMethod(),
+                    response);
+            return null;
+        }
         var username = request.getParameter("username");
         var password = request.getParameter("password");
         var authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
