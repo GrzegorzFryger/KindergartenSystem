@@ -20,8 +20,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static pl.edu.pja.prz.core.configuration.SecurityConstants.JWT_SECRET;
-import static pl.edu.pja.prz.core.configuration.SecurityConstants.TOKEN_PREFIX;
+import static pl.edu.pja.prz.core.configuration.SecurityConstants.*;
 
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
@@ -45,7 +44,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
-        var token = request.getHeader(SecurityConstants.TOKEN_HEADER);
+        var token = request.getHeader(TOKEN_HEADER);
         if (StringUtils.isNotEmpty(token) && token.startsWith(TOKEN_PREFIX)) {
             try {
                 var parsedToken = parseToken(token);
