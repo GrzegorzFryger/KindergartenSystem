@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.core.filter;
+package pl.edu.pja.prz.core.jwt;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.SignatureException;

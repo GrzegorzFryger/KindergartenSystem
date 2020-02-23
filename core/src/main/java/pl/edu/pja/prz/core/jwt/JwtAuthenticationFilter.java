@@ -1,9 +1,5 @@
-package pl.edu.pja.prz.core.filter;
+package pl.edu.pja.prz.core.jwt;
 
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -14,21 +10,20 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
-import java.util.List;
 import java.util.stream.Collectors;
 
-import static io.jsonwebtoken.SignatureAlgorithm.HS512;
 import static org.springframework.http.HttpMethod.POST;
 import static pl.edu.pja.prz.core.configuration.SecurityConstants.*;
-import static pl.edu.pja.prz.core.filter.FilterUtils.addErrorToResponse;
+import static pl.edu.pja.prz.core.jwt.JwtFilterUtils.addErrorToResponse;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
+    private final JwtTokenProvider jwtTokenProvider;
 
-    public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider) {
         this.authenticationManager = authenticationManager;
+        this.jwtTokenProvider = jwtTokenProvider;
 
         setFilterProcessesUrl(AUTH_LOGIN_URL);
     }
@@ -57,22 +52,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
-        String token = buildToken(user, roles);
+        String token = jwtTokenProvider.buildToken(user, roles);
 
         response.addHeader(TOKEN_HEADER, TOKEN_PREFIX + token);
-    }
-
-    private String buildToken(User user, List<String> roles) {
-        var signingKey = JWT_SECRET.getBytes();
-
-        return Jwts.builder()
-                .signWith(Keys.hmacShaKeyFor(signingKey), HS512)
-                .setHeaderParam("typ", TOKEN_TYPE)
-                .setIssuer(TOKEN_ISSUER)
-                .setAudience(TOKEN_AUDIENCE)
-                .setSubject(user.getUsername())
-                .setExpiration(new Date(System.currentTimeMillis() + TOKEN_EXPIRATION_TIME))
-                .claim("rol", roles)
-                .compact();
     }
 }

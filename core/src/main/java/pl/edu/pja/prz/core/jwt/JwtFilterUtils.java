@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.core.filter;
+package pl.edu.pja.prz.core.jwt;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,10 +10,10 @@ import pl.edu.pja.prz.core.exception.Error;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class FilterUtils {
+public class JwtFilterUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
 
-    private FilterUtils() {
+    private JwtFilterUtils() {
 
     }
 

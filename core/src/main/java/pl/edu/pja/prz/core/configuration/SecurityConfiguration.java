@@ -11,8 +11,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import pl.edu.pja.prz.core.filter.JwtAuthenticationFilter;
-import pl.edu.pja.prz.core.filter.JwtAuthorizationFilter;
+import pl.edu.pja.prz.core.jwt.JwtAuthenticationFilter;
+import pl.edu.pja.prz.core.jwt.JwtAuthorizationFilter;
+import pl.edu.pja.prz.core.jwt.JwtTokenProvider;
 
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 import static pl.edu.pja.prz.core.configuration.SecurityConstants.AUTH_LOGIN_URL;
@@ -30,7 +31,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .requiresChannel().anyRequest().requiresSecure()
                 .and()
-                .addFilter(new JwtAuthenticationFilter(authenticationManager()))
+                .addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtTokenProvider()))
                 .addFilter(new JwtAuthorizationFilter(authenticationManager()))
                 .sessionManagement()
                 .sessionCreationPolicy(STATELESS)
@@ -50,6 +51,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .roles("USER", "ADMIN");
     }
 
+    @Bean
+    public JwtTokenProvider jwtTokenProvider() {
+        return new JwtTokenProvider();
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

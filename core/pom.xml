@@ -125,7 +125,7 @@
                     <excludes>
                         <exclude>**/pl/edu/pja/prz/core/*</exclude>
                         <exclude>**/pl/edu/pja/prz/core/exception/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/core/filter/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/core/jwt/*</exclude>
                         <exclude>**/pl/edu/pja/prz/core/controller/payments/*</exclude>
                         <exclude>**/pl/edu/pja/prz/core/controller/accounts/*</exclude>
                         <exclude>**/pl/edu/pja/prz/core/controller/calendar/*</exclude>
