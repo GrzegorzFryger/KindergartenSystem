@@ -44,7 +44,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
         var token = request.getHeader(TOKEN_HEADER);
-        if (StringUtils.isNotEmpty(token) && token.startsWith(TOKEN_PREFIX)) {
+        if (validateToken(token)) {
             try {
                 var parsedToken = parseToken(token);
                 var username = parseUsername(parsedToken);
@@ -67,6 +67,10 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         }
 
         return null;
+    }
+
+    private boolean validateToken(String token) {
+        return StringUtils.isNotEmpty(token) && token.startsWith(TOKEN_PREFIX);
     }
 
     private Jws<Claims> parseToken(String token) {
