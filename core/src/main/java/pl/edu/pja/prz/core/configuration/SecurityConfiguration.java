@@ -2,6 +2,7 @@ package pl.edu.pja.prz.core.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -17,6 +18,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 import static pl.edu.pja.prz.core.configuration.SecurityConstants.AUTH_LOGIN_URL;
 
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
@@ -41,7 +43,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .withUser("user")
                 .password(passwordEncoder().encode("password"))
-                .authorities("ROLE_USER");
+                .roles("USER")
+                .and()
+                .withUser("admin")
+                .password(passwordEncoder().encode("password"))
+                .roles("USER", "ADMIN");
     }
 
 

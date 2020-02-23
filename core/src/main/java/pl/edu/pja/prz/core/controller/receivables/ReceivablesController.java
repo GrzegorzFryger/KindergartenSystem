@@ -16,6 +16,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("api/receivables/")
+//TODO: ADD @PreAuthorize annotation with proper roles from Roles.java class
 public class ReceivablesController {
     private final ReceivablesFacade receivablesFacade;
 

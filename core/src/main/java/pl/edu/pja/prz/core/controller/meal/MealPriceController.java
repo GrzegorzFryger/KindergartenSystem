@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/meal/price")
+//TODO: ADD @PreAuthorize annotation with proper roles from Roles.java class
 public class MealPriceController {
 
     private final MealPriceFacade mealPriceFacade;
