@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.core.jwt;
+package pl.edu.pja.prz.core.utilites;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import pl.edu.pja.prz.core.exception.Error;
+import pl.edu.pja.prz.core.security.JwtAuthenticationFilter;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

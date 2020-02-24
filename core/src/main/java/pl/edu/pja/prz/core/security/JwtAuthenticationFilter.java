@@ -1,10 +1,9 @@
-package pl.edu.pja.prz.core.jwt;
+package pl.edu.pja.prz.core.security;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -14,17 +13,14 @@ import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpMethod.POST;
 import static pl.edu.pja.prz.core.configuration.SecurityConstants.*;
-import static pl.edu.pja.prz.core.jwt.JwtFilterUtils.addErrorToResponse;
+import static pl.edu.pja.prz.core.utilites.JwtFilterUtils.addErrorToResponse;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-
-    private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider) {
-        this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
-
+        setAuthenticationManager(authenticationManager);
         setFilterProcessesUrl(AUTH_LOGIN_URL);
     }
 
@@ -38,14 +34,14 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         var username = request.getParameter("username");
         var password = request.getParameter("password");
         var authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
-
-        return authenticationManager.authenticate(authenticationToken);
+        this.setDetails(request, authenticationToken);
+        return super.getAuthenticationManager().authenticate(authenticationToken);
     }
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                             FilterChain filterChain, Authentication authentication) {
-        var user = ((User) authentication.getPrincipal());
+        var user = ((JwtUserDetails) authentication.getPrincipal());
 
         var roles = user.getAuthorities()
                 .stream()
@@ -53,7 +49,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .collect(Collectors.toList());
 
         String token = jwtTokenProvider.buildToken(user, roles);
-
         response.addHeader(TOKEN_HEADER, TOKEN_PREFIX + token);
     }
+
+
 }

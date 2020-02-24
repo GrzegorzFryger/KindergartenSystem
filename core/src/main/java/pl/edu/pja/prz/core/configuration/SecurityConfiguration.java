@@ -1,73 +1,64 @@
 package pl.edu.pja.prz.core.configuration;
 
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import pl.edu.pja.prz.core.jwt.JwtAuthenticationFilter;
-import pl.edu.pja.prz.core.jwt.JwtAuthorizationFilter;
-import pl.edu.pja.prz.core.jwt.JwtTokenProvider;
+import pl.edu.pja.prz.core.security.JwtAuthenticationFilter;
+import pl.edu.pja.prz.core.security.JwtAuthorizationFilter;
+import pl.edu.pja.prz.core.security.JwtTokenProvider;
 
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 import static pl.edu.pja.prz.core.configuration.SecurityConstants.AUTH_LOGIN_URL;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(
+        securedEnabled = true,
+        jsr250Enabled = true,
+        prePostEnabled = true
+)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+    private AuthenticationProvider authenticationProvider;
+    private JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
+    public void setJwtTokenProvider(JwtTokenProvider jwtTokenProvider) {
+        this.jwtTokenProvider = jwtTokenProvider;
+    }
+
+    @Autowired
+    @Qualifier("daoAuthenticationProvider")
+    public void setAuthenticationProvider(AuthenticationProvider authenticationProvider){
+        this.authenticationProvider = authenticationProvider;
+    }
+
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authenticationProvider);
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and()
+        http.cors()
+                .and()
                 .authorizeRequests()
                 .antMatchers(AUTH_LOGIN_URL).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .requiresChannel().anyRequest().requiresSecure()
                 .and()
-                .addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtTokenProvider()))
-                .addFilter(new JwtAuthorizationFilter(authenticationManager()))
+                .addFilter(new JwtAuthenticationFilter(super.authenticationManagerBean(), jwtTokenProvider))
+                .addFilter(new JwtAuthorizationFilter(super.authenticationManagerBean(), jwtTokenProvider))
                 .sessionManagement()
                 .sessionCreationPolicy(STATELESS)
                 .and()
                 .csrf().disable();
     }
 
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("user")
-                .password(passwordEncoder().encode("password"))
-                .roles("USER")
-                .and()
-                .withUser("admin")
-                .password(passwordEncoder().encode("password"))
-                .roles("USER", "ADMIN");
-    }
-
-    @Bean
-    public JwtTokenProvider jwtTokenProvider() {
-        return new JwtTokenProvider();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
-
-        return source;
-    }
 }
