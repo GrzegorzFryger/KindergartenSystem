@@ -128,7 +128,6 @@
                         <exclude>**/pl/edu/pja/prz/core/controller/payments/*</exclude>
                         <exclude>**/pl/edu/pja/prz/core/controller/accounts/*</exclude>
                         <exclude>**/pl/edu/pja/prz/core/controller/calendar/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/core/controller/finances/*</exclude>
                         <exclude>**/pl/edu/pja/prz/core/controller/groups/*</exclude>
                         <exclude>**/pl/edu/pja/prz/core/controller/technical/*</exclude>
                     </excludes>
