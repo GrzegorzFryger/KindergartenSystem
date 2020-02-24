@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import pl.edu.pja.prz.core.security.JwtAuthenticationEntryPoint;
 import pl.edu.pja.prz.core.security.JwtAuthenticationFilter;
 import pl.edu.pja.prz.core.security.JwtAuthorizationFilter;
 import pl.edu.pja.prz.core.security.JwtTokenProvider;
@@ -26,6 +27,7 @@ import static pl.edu.pja.prz.core.configuration.SecurityConstants.AUTH_LOGIN_URL
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private AuthenticationProvider authenticationProvider;
     private JwtTokenProvider jwtTokenProvider;
+    private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     @Autowired
     public void setJwtTokenProvider(JwtTokenProvider jwtTokenProvider) {
@@ -36,6 +38,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Qualifier("daoAuthenticationProvider")
     public void setAuthenticationProvider(AuthenticationProvider authenticationProvider){
         this.authenticationProvider = authenticationProvider;
+    }
+
+    @Autowired
+    public void setJwtAuthenticationEntryPoint(JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint) {
+        this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
     }
 
     @Override
@@ -59,6 +66,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(STATELESS)
                 .and()
                 .csrf().disable();
+
+        http.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint);
     }
 
 }

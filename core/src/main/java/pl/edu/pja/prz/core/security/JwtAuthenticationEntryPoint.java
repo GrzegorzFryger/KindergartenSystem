@@ -8,9 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static pl.edu.pja.prz.core.configuration.SecurityConstants.AUTH_LOGIN_URL;
+
 public class JwtAuthenticationEntryPoint extends LoginUrlAuthenticationEntryPoint {
-	public JwtAuthenticationEntryPoint(String loginUrl)  {
-		super(loginUrl);
+	public JwtAuthenticationEntryPoint()  {
+		super(AUTH_LOGIN_URL);
 	}
 
 	@Override
