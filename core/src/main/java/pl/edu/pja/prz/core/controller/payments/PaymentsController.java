@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/payments/")
+//TODO: ADD @PreAuthorize annotation with proper roles from Roles.java class
 public class PaymentsController {
 	private final RecurringPaymentFacade paymentFacade;
 

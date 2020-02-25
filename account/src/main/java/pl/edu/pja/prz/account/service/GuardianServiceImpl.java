@@ -18,7 +18,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Component
-public class GuardianServiceImpl extends AccountService<GuardianRepository, Guardian> implements GuardianService {
+public class GuardianServiceImpl extends BasicAccountService<GuardianRepository, Guardian> implements GuardianService {
 	private static final String USER = "User";
 	private final GuardianRepository guardianRepository;
 	private final ChildService childService;

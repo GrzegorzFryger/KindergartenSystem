@@ -11,6 +11,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("api/calendar/")
+//TODO: ADD @PreAuthorize annotation with proper roles from Roles.java class
 public class CalendarController {
     //TODO - change method signatures are you need.
     // Below are just examples of expected method that calendar should deliver

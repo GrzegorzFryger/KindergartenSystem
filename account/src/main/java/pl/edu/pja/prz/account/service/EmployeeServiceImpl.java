@@ -18,7 +18,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Service
-public class EmployeeServiceImpl extends AccountService<EmployeeRepository, Employee> implements EmployeeService {
+public class EmployeeServiceImpl extends BasicAccountService<EmployeeRepository, Employee> implements EmployeeService {
 	private final EmployeeRepository employeeRepository;
 
 	@Autowired
