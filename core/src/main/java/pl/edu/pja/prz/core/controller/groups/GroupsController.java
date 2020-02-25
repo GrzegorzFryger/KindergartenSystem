@@ -9,6 +9,7 @@ import pl.edu.pja.prz.groups.facade.dto.GroupDto;
 
 @RestController
 @RequestMapping("api/groups/")
+//TODO: ADD @PreAuthorize annotation with proper roles from Roles.java class
 public class GroupsController {
 	private final GroupFacade groupFacade;
 

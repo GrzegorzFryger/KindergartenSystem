@@ -7,6 +7,7 @@ import pl.edu.pja.prz.meal.facade.MealDictionaryFacade;
 
 @RestController
 @RequestMapping("api/dictionary/meal/")
+//TODO: ADD @PreAuthorize annotation with proper roles from Roles.java class
 public class DictionaryController {
 
 

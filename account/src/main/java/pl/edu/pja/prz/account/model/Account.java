@@ -2,9 +2,9 @@ package pl.edu.pja.prz.account.model;
 
 
 import pl.edu.pja.prz.account.model.enums.AccountStatus;
+import pl.edu.pja.prz.account.model.value.Password;
 import pl.edu.pja.prz.commons.model.Address;
 import pl.edu.pja.prz.commons.model.FullName;
-import pl.edu.pja.prz.account.model.value.Password;
 import pl.edu.pja.prz.commons.model.Phone;
 
 import javax.persistence.*;
@@ -17,7 +17,7 @@ public class Account extends Person {
 	@Enumerated(EnumType.STRING)
 	private AccountStatus accountStatus;
 	private Password password;
-	@ManyToMany(mappedBy = "accounts", fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "accounts", fetch = FetchType.EAGER)
 	private Set<Role> roles = new HashSet<>();
 	private String email;
 

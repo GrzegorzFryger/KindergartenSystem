@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.pja.prz.scheduler.facade.SchedulerFacade;
 import pl.edu.pja.prz.scheduler.facade.dto.CronScheduleDto;
@@ -13,10 +14,12 @@ import pl.edu.pja.prz.scheduler.facade.dto.ScheduleJobInfoDto;
 import java.util.List;
 
 import static pl.edu.pja.prz.commons.constants.Profiles.DEVELOPMENT;
+import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_ADMINISTRATOR;
 
 @RestController
 @RequestMapping("api/scheduler/")
 @Profile(DEVELOPMENT)
+@PreAuthorize(HAS_ROLE_ADMINISTRATOR)
 public class SchedulerController {
 	private final SchedulerFacade schedulerFacade;
 
