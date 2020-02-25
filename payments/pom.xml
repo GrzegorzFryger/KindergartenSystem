@@ -16,6 +16,14 @@
             <groupId>pl.edu.pja.prz</groupId>
             <artifactId>commons</artifactId>
         </dependency>
+        <dependency>
+            <groupId>pl.edu.pja.prz</groupId>
+            <artifactId>finances</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>pl.edu.pja.prz</groupId>
+            <artifactId>scheduler</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -45,6 +53,7 @@
                         <exclude>**/pl/edu/pja/prz/payments/model/value/*</exclude>
                         <exclude>**/pl/edu/pja/prz/payments/facade/mapper/*</exclude>
                         <exclude>**/pl/edu/pja/prz/payments/facade/dto/*</exclude>>
+                        <exclude>**/pl/edu/pja/prz/payments/job/*</exclude>>
                     </excludes>
                 </configuration>
             </plugin>

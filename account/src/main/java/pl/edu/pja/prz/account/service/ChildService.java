@@ -23,6 +23,6 @@ public interface ChildService {
 
 	Child updateChild(Child child);
 
-	Optional<Child> findByFullNameOrAddressReadOnly(FullName fullName, @Nullable String street)
-			throws IllegalStateException;
+	Optional<Child> findByFullNameOrAddressReadOnly(FullName fullName, @Nullable String street);
+
 }

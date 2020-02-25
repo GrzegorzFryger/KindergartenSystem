@@ -31,13 +31,13 @@ public class Child extends BaseEntityUuid {
 	public Child() {
 	}
 
-	public Child(Set<ChildStatus> childStatuses, Gender gender, Set<Guardian> guardians,
-	             String peselNumber, FullName fullName, Age age, Address address, StudyPeriod studyPeriod) {
+	public Child(Address address, Age age, FullName fullName, Gender gender, Set<ChildStatus> childStatuses,
+	             Set<Guardian> guardians, String peselNumber, StudyPeriod studyPeriod) {
 		this.address = address;
 		this.age = age;
-		this.childStatuses = childStatuses;
 		this.fullName = fullName;
 		this.gender = gender;
+		this.childStatuses = childStatuses;
 		this.guardians = guardians;
 		this.peselNumber = peselNumber;
 		this.studyPeriod = studyPeriod;

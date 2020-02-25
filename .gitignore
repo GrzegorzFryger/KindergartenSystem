@@ -31,3 +31,8 @@ out/
 *.zip
 *.tar.gz
 *.rar
+
+# PKCS12
+*.p12
+# JKS
+*.jks

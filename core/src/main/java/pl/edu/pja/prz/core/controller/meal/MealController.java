@@ -11,6 +11,7 @@ import pl.edu.pja.prz.meal.model.dto.MealCreateUpdateDTO;
 
 @RestController
 @RequestMapping("api/meal")
+//TODO: ADD @PreAuthorize annotation with proper roles from Roles.java class
 public class MealController {
 
     private final MealFacade mealFacade;

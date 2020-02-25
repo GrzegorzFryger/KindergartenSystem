@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.edu.pja.prz.account.facade.EmployeeFacade;
 import pl.edu.pja.prz.account.facade.GuardianFacade;
 import pl.edu.pja.prz.account.facade.dto.AccountDto;
 import pl.edu.pja.prz.account.facade.dto.ChildDto;
@@ -16,14 +15,13 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("api/account/")
+//TODO: ADD @PreAuthorize annotation with proper roles from Roles.java class
 public class GuardianController {
 	private final GuardianFacade guardianFacade;
-	private final EmployeeFacade employeeFacade;
 
 	@Autowired
-	public GuardianController(GuardianFacade guardianFacade, EmployeeFacade employeeFacade) {
+	public GuardianController(GuardianFacade guardianFacade) {
 		this.guardianFacade = guardianFacade;
-		this.employeeFacade = employeeFacade;
 	}
 
 	@GetMapping("guardian/{id}")

@@ -18,7 +18,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Component
-public class GuardianServiceImpl extends AccountService<GuardianRepository, Guardian> implements GuardianService {
+public class GuardianServiceImpl extends BasicAccountService<GuardianRepository, Guardian> implements GuardianService {
 	private static final String USER = "User";
 	private final GuardianRepository guardianRepository;
 	private final ChildService childService;
@@ -55,8 +55,6 @@ public class GuardianServiceImpl extends AccountService<GuardianRepository, Guar
 	@Override
 	public List<Guardian> getAllGuardians() {
 		//todo in the future will be add paging
-		var a = guardianRepository.findAll().get(0).getChildren();
-
 		return guardianRepository.findAll();
 	}
 
@@ -81,8 +79,7 @@ public class GuardianServiceImpl extends AccountService<GuardianRepository, Guar
 
 
 	@Override
-	public Optional<Guardian> findByFullNameOrAddressReadOnly(FullName fullName, @Nullable String street)
-			throws IllegalStateException {
+	public Optional<Guardian> findByFullNameOrAddressReadOnly(FullName fullName, @Nullable String street) {
 		if (street == null) {
 			return guardianRepository.findReadOnly((root, query, cb) ->
 					cb.equal(root.get(Guardian_.fullName), fullName), Guardian.class)
