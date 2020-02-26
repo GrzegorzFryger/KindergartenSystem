@@ -1,5 +1,7 @@
 package pl.edu.pja.prz.calendar.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.calendar.model.Absence;
 import pl.edu.pja.prz.calendar.repository.AbsenceRepository;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
@@ -8,11 +10,13 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+@Service
 public class AbsenceServiceImpl implements AbsenceService {
 	private static final String ABSENCE = "Absence";
 
 	private final AbsenceRepository absenceRepository;
 
+	@Autowired
 	public AbsenceServiceImpl(AbsenceRepository absenceRepository) {
 		this.absenceRepository = absenceRepository;
 	}

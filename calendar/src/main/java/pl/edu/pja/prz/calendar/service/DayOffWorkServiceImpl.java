@@ -1,16 +1,20 @@
 package pl.edu.pja.prz.calendar.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.calendar.model.DayOffWork;
 import pl.edu.pja.prz.calendar.repository.DayOffWorkRepository;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 
 import java.util.List;
 
+@Service
 public class DayOffWorkServiceImpl implements DayOffWorkService {
 	private static final String DAYOFF = "Day off";
 
 	private final DayOffWorkRepository dayOffWorkRepository;
 
+	@Autowired
 	public DayOffWorkServiceImpl(DayOffWorkRepository dayOffWorkRepository) {
 		this.dayOffWorkRepository = dayOffWorkRepository;
 	}

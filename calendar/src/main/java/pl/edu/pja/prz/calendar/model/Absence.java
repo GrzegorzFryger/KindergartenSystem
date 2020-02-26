@@ -4,6 +4,7 @@ import pl.edu.pja.prz.commons.model.BaseEntityLong;
 
 import javax.persistence.Entity;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -34,5 +35,30 @@ public class Absence extends BaseEntityLong {
 
     public void setReason(String reason) {
         this.reason = reason;
+    }
+
+    @Override
+    public String toString() {
+        return "Absence{" +
+                "childId=" + childId +
+                ", date=" + date +
+                ", reason='" + reason + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Absence absence = (Absence) o;
+        return Objects.equals(childId, absence.childId) &&
+                Objects.equals(date, absence.date) &&
+                Objects.equals(reason, absence.reason);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), childId, date, reason);
     }
 }
