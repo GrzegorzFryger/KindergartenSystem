@@ -2,7 +2,6 @@ package pl.edu.pja.prz.account.service;
 
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.jboss.logging.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.account.model.Child;
@@ -19,26 +18,25 @@ import pl.edu.pja.prz.commons.model.Address;
 import pl.edu.pja.prz.commons.model.Address_;
 import pl.edu.pja.prz.commons.model.FullName;
 
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
 @Service
-class ChildServiceImpl implements ChildService {
+class ChildServiceImpl extends GenericService<ChildRepository,Child,UUID> {
 	private static final Logger logger = LoggerFactory.logger(ChildService.class);
 	private static final String CHILD = "Child";
 	private static final ChildStatus CHILDSTATUS = ChildStatus.NEW;
 	private final ChildRepository childRepository;
 	private final PeselService peselService;
 
-	@Autowired
-	public ChildServiceImpl(ChildRepository childRepository, PeselService peselService) {
+	public ChildServiceImpl(ChildRepository repository, ChildRepository childRepository, PeselService peselService) {
+		super(repository);
 		this.childRepository = childRepository;
 		this.peselService = peselService;
 	}
 
-	@Override
+
 	public Child getChildById(UUID id) {
 		return childRepository.findById(id).orElseThrow(
 				() -> {
@@ -46,51 +44,20 @@ class ChildServiceImpl implements ChildService {
 				});
 	}
 
-	@Override
+
 	public Child createChild(Address address, FullName fullName, String pesel,
 	                         StudyPeriod studyPeriod) {
 		return createChildPriv(address, fullName, pesel, studyPeriod);
 	}
 
-	@Override
+
 	public Child createChild(Address address, Age age, FullName fullName, Gender gender,
 	                         StudyPeriod studyPeriod) {
 		//todo write condition for children without pesel number
 		return createChildPriv(address, age, fullName, gender, "NOT_SET", studyPeriod);
 	}
 
-	@Override
-	public Child updateChild(Child child) {
-		return childRepository.findById(child.getId()).map(childToUpdate -> {
-					updateNotNullFields(childToUpdate, child);
 
-					return childRepository.save(childToUpdate);
-				}
-		).orElseThrow(() -> new ElementNotFoundException(CHILD, child.getId()));
-
-	}
-
-	private void updateNotNullFields(Child oldChild, Child newChild) {
-		Arrays.stream(newChild.getClass().getDeclaredFields())
-				.forEach(field -> {
-					field.setAccessible(true);
-					try {
-						Optional.ofNullable(field.get(newChild))
-								.ifPresent(value -> {
-									try {
-										field.set(oldChild, field.get(newChild));
-
-									} catch (IllegalAccessException e) {
-										logger.error("Fail set property - {}", field , e);
-									}
-								});
-					} catch (IllegalAccessException e) {
-						logger.error("Fail set property - {}", field , e);
-					}
-				});
-	}
-
-	@Override
 	public Optional<Child> findByFullNameOrAddressReadOnly(FullName fullName, @Nullable String street) {
 		if (street == null) {
 			return childRepository.findReadOnly((root, query, cb) ->

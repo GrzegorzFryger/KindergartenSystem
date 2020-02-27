@@ -1,6 +1,5 @@
 package pl.edu.pja.prz.account.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.account.model.AccountFactory;
 import pl.edu.pja.prz.account.model.Employee;
@@ -18,40 +17,34 @@ import java.util.Set;
 import java.util.UUID;
 
 @Service
-public class EmployeeServiceImpl extends BasicAccountService<EmployeeRepository, Employee> implements EmployeeService {
-	private final EmployeeRepository employeeRepository;
+public class EmployeeServiceImpl extends BasicAccountService<EmployeeRepository, Employee, UUID> {
 
-	@Autowired
-	public EmployeeServiceImpl(EmployeeRepository employeeRepository, PasswordManager passwordManager,
-	                           AccountFactory accountFactory, RoleService roleService) {
-		super(employeeRepository, passwordManager, accountFactory, roleService);
-		this.employeeRepository = employeeRepository;
+	public EmployeeServiceImpl(EmployeeRepository repository, AccountFactory accountFactory, PasswordManager passwordManager,
+	                           RoleService roleService) {
+		super(repository, accountFactory, passwordManager, roleService);
+
 	}
 
-	@Override
 	public Employee createEmployeeAccount(Person person, String email) {
 		return this.createEmployeeAccount(person.getAddress(), person.getFullName(), person.getPhoneNumber(), email);
 	}
 
-	@Override
 	public Employee createEmployeeAccount(Address address, FullName fullName, Phone phone,
 	                                      String email) {
-		return persistStandardAccount(address, fullName, phone, email, employeeRepository, Employee.class);
+		return persistStandardAccount(address, fullName, phone, email, Employee.class);
 	}
 
-	@Override
 	public Employee createAdministratorAccount(Person person, String email) {
 		return this.createAdministratorAccount(person.getAddress(), person.getFullName(), person.getPhoneNumber(), email);
 	}
 
-	@Override
 	public Employee createAdministratorAccount(Address address, FullName fullName, Phone phone,
 	                                           String email) {
-		employeeRepository.findByEmailAndFullName(email, fullName).ifPresent((account) -> {
+		repository.findByEmailAndFullName(email, fullName).ifPresent((account) -> {
 			throw new IllegalArgumentException("Person exist with email: " + account.getId());
 		});
 
-		var result = employeeRepository.save(
+		var result = repository.save(
 				accountFactory.createAdministrator(new Person(address, fullName, phone),
 						new Password(passwordManager.generateEncodeRandomPassword()),
 						email
@@ -61,15 +54,8 @@ public class EmployeeServiceImpl extends BasicAccountService<EmployeeRepository,
 		return result;
 	}
 
-	@Override
-	public Employee findById(UUID uuid) {
-		return employeeRepository.findById(uuid)
-				.orElseThrow(() -> new ElementNotFoundException("Employee", "Not found with id" + uuid));
-	}
-
-	@Override
 	public Set<Group> getIdGroups(UUID id) {
-		return employeeRepository.findById(id)
+		return repository.findById(id)
 				.map(Employee::getGroups)
 				.orElseThrow(() -> {
 					throw new ElementNotFoundException("Employee", "Not found with id" + id);
