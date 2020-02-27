@@ -28,7 +28,7 @@ public class DictionaryController {
         return mealDictionaryFacade.getAllMealTypes();
     }
 
-    @GetMapping("dieType")
+    @GetMapping("dietType")
     public List<DictionaryObjectDTO> getAllDietType() {
         return mealDictionaryFacade.getAllDietType();
     }
