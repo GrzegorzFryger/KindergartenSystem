@@ -5,7 +5,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.account.facade.dto.ChildDto;
 import pl.edu.pja.prz.account.facade.mapper.ChildMapper;
-import pl.edu.pja.prz.account.service.ChildService;
+import pl.edu.pja.prz.account.service.ChildServiceImpl;
 import pl.edu.pja.prz.commons.model.FullName;
 
 import java.util.Optional;
@@ -14,10 +14,10 @@ import java.util.UUID;
 @Service
 public class ChildFacadeImpl implements ChildFacade {
 	private final ChildMapper childMapper;
-	private final ChildService childService;
+	private final ChildServiceImpl childService;
 
 	@Autowired
-	public ChildFacadeImpl(ChildMapper childMapper, ChildService childService) {
+	public ChildFacadeImpl(ChildMapper childMapper, ChildServiceImpl childService) {
 		this.childMapper = childMapper;
 		this.childService = childService;
 	}
@@ -50,7 +50,8 @@ public class ChildFacadeImpl implements ChildFacade {
 	@Override
 	public ChildDto updateChild(ChildDto childDto) {
 		return childMapper.fromChild(
-				childService.updateChild(
+				childService.update(
+
 						childMapper.toChild(childDto)
 				)
 		);
@@ -58,7 +59,7 @@ public class ChildFacadeImpl implements ChildFacade {
 
 	public ChildDto findChildById(UUID id) {
 		return childMapper.fromChild(
-				childService.getChildById(id)
+				childService.getById(id)
 		);
 	}
 

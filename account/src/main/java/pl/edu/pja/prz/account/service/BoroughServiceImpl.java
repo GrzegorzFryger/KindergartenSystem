@@ -15,10 +15,10 @@ public class BoroughServiceImpl implements BoroughService {
 	private static final String BOROUGH = "Borough";
 	private final BoroughRepository boroughRepository;
 
-	private final ChildService childService;
+	private final ChildServiceImpl childService;
 
 	@Autowired
-	public BoroughServiceImpl(BoroughRepository boroughRepository, ChildService childService) {
+	public BoroughServiceImpl(BoroughRepository boroughRepository, ChildServiceImpl childService) {
 		this.boroughRepository = boroughRepository;
 		this.childService = childService;
 	}
@@ -26,7 +26,7 @@ public class BoroughServiceImpl implements BoroughService {
 	@Override
 	public Borough addChildToBorough(Long boroughId, UUID childId) {
 		return boroughRepository.findById(boroughId).map(borough -> {
-					var child = childService.getChildById(childId);
+					var child = childService.getById(childId);
 					borough.addChild(child);
 					return boroughRepository.save(borough);
 				}

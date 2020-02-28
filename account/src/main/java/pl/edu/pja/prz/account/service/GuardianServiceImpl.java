@@ -17,10 +17,10 @@ import java.util.UUID;
 @Component
 public class GuardianServiceImpl extends BasicAccountService<GuardianRepository,Guardian,UUID>  {
 	private static final String USER = "User";
-	private final ChildService childService;
+	private final ChildServiceImpl childService;
 
 	public GuardianServiceImpl(GuardianRepository repository, AccountFactory accountFactory, PasswordManager passwordManager,
-	                           RoleService roleService, ChildService childService) {
+	                           RoleService roleService, ChildServiceImpl childService) {
 		super(repository, accountFactory, passwordManager, roleService);
 		this.childService = childService;
 	}
@@ -38,7 +38,7 @@ public class GuardianServiceImpl extends BasicAccountService<GuardianRepository,
 
 
 	public void appendChildrenToGuardian(UUID childId, Set<UUID> setGuardianId) {
-		var child = childService.getChildById(childId);
+		var child = childService.getById(childId);
 
 		repository.findAllById(setGuardianId).forEach(guardian -> {
 			guardian.addChild(child);

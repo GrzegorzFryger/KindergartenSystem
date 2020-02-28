@@ -3,13 +3,15 @@ package pl.edu.pja.prz.account.service;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.jboss.logging.Logger;
 import org.springframework.data.repository.CrudRepository;
+import pl.edu.pja.prz.commons.exception.BusinessException;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
+import pl.edu.pja.prz.commons.model.BaseEntity;
 
 import java.util.Arrays;
 import java.util.Optional;
 
 
-public class GenericService<T extends CrudRepository<E, ID>, E, ID> {
+public class GenericService<T extends CrudRepository<E, ID>, E extends BaseEntity<ID>, ID> {
 	protected final Logger logger = LoggerFactory.logger(GenericService.class);
 	protected final T repository;
 
@@ -17,24 +19,23 @@ public class GenericService<T extends CrudRepository<E, ID>, E, ID> {
 		this.repository = repository;
 	}
 
-	public E getByIg(ID id) {
+	public E getById(ID id) {
 		return repository.findById(id).orElseThrow(() -> new ElementNotFoundException(id));
 	}
 
-	public E update(ID toUpdate, E updated) {
-		return repository.findById(toUpdate).map(childToUpdate -> {
+	public E update(E updated) {
+		return repository.findById(updated.getId()).map(childToUpdate -> {
 					updateNotNullFields(childToUpdate, updated);
 
 					return repository.save(childToUpdate);
 				}
-		).orElseThrow(() -> new ElementNotFoundException(toUpdate));
+		).orElseThrow(() -> new ElementNotFoundException(updated.getId()));
 
 	}
 
 	public E save(E toSave) {
 		return repository.save(toSave);
 	}
-
 
 	private void updateNotNullFields(E toUpdate, E updated) {
 		Arrays.stream(updated.getClass().getDeclaredFields())
@@ -48,10 +49,12 @@ public class GenericService<T extends CrudRepository<E, ID>, E, ID> {
 
 									} catch (IllegalAccessException e) {
 										logger.error("Fail set property - {}", field, e);
+										throw new BusinessException("Fail set property" + field.toString());
 									}
 								});
 					} catch (IllegalAccessException e) {
 						logger.error("Fail set property - {}", field, e);
+						throw new BusinessException("Fail set property" + field.toString());
 					}
 				});
 	}

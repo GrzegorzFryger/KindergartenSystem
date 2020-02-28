@@ -13,7 +13,6 @@ import pl.edu.pja.prz.account.model.value.Age;
 import pl.edu.pja.prz.account.model.value.StudyPeriod;
 import pl.edu.pja.prz.account.repository.ChildRepository;
 import pl.edu.pja.prz.account.utilites.PeselService;
-import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.commons.model.Address;
 import pl.edu.pja.prz.commons.model.Address_;
 import pl.edu.pja.prz.commons.model.FullName;
@@ -23,8 +22,8 @@ import java.util.Set;
 import java.util.UUID;
 
 @Service
-class ChildServiceImpl extends GenericService<ChildRepository,Child,UUID> {
-	private static final Logger logger = LoggerFactory.logger(ChildService.class);
+public class ChildServiceImpl extends GenericService<ChildRepository,Child,UUID> {
+	private static final Logger logger = LoggerFactory.logger(ChildServiceImpl.class);
 	private static final String CHILD = "Child";
 	private static final ChildStatus CHILDSTATUS = ChildStatus.NEW;
 	private final ChildRepository childRepository;
@@ -35,15 +34,6 @@ class ChildServiceImpl extends GenericService<ChildRepository,Child,UUID> {
 		this.childRepository = childRepository;
 		this.peselService = peselService;
 	}
-
-
-	public Child getChildById(UUID id) {
-		return childRepository.findById(id).orElseThrow(
-				() -> {
-					throw new ElementNotFoundException(CHILD, id);
-				});
-	}
-
 
 	public Child createChild(Address address, FullName fullName, String pesel,
 	                         StudyPeriod studyPeriod) {

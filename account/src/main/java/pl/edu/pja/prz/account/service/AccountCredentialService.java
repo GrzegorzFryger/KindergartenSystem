@@ -7,24 +7,25 @@ import pl.edu.pja.prz.account.repository.AccountRepository;
 import pl.edu.pja.prz.account.utilites.PasswordManager;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class AccountCredentialsService {
+public class AccountCredentialService {
 	private static final String ACCOUNT = "Account";
 	private static final String USER = "User";
 	private final AccountRepository accountRepository;
 	protected final PasswordManager passwordManager;
 	protected final RoleService roleService;
 
-	public AccountCredentialsService(AccountRepository accountRepository, PasswordManager passwordManager, RoleService roleService) {
+	public AccountCredentialService(AccountRepository accountRepository, PasswordManager passwordManager, RoleService roleService) {
 		this.accountRepository = accountRepository;
 		this.passwordManager = passwordManager;
 		this.roleService = roleService;
 	}
 
-	public Account findByEmail(String email) {
-		return accountRepository.findByEmail(email).orElseThrow(() -> new ElementNotFoundException(ACCOUNT, email));
+	public Optional<Account> findByEmail(String email) {
+		return accountRepository.findByEmail(email);
 	}
 
 
