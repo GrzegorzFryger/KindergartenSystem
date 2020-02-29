@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.*;
 import pl.edu.pja.prz.calendar.facade.AbsenceFacade;
 import pl.edu.pja.prz.calendar.facade.dto.AbsenceDto;
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.UUID;
+
 @RestController
 @RequestMapping("api/absence/")
 public class AbsenceController {
@@ -37,4 +41,16 @@ public class AbsenceController {
 		absenceFacade.deleteAbsence(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
+
+	@GetMapping("child/{childId}")
+	public ResponseEntity<List<AbsenceDto>> getAllAbsencesByChildId(@PathVariable UUID childId) {
+		return new ResponseEntity<>(absenceFacade.getAllAbsencesByChildId(childId), HttpStatus.OK);
+	}
+
+	@GetMapping("child/{date}")
+	public ResponseEntity<List<AbsenceDto>> getAllAbsencesByDate(@PathVariable String date) {
+		LocalDate dateToCheck = LocalDate.parse(date);
+		return new ResponseEntity<>(absenceFacade.getAllAbsencesByDate(dateToCheck), HttpStatus.OK);
+	}
+
 }

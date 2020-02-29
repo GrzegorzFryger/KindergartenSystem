@@ -5,10 +5,14 @@ import org.mapstruct.Mapper;
 import pl.edu.pja.prz.calendar.facade.dto.AbsenceDto;
 import pl.edu.pja.prz.calendar.model.Absence;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface AbsenceMapper {
 	Absence toAbsence(AbsenceDto absenceDto);
 
 	@InheritInverseConfiguration
 	AbsenceDto fromAbsence(Absence absence);
+
+	List<AbsenceDto> absenceListToDtoList(List<Absence> absenceList);
 }

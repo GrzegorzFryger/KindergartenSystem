@@ -62,11 +62,11 @@ public class AbsenceServiceImpl implements AbsenceService {
 
 	@Override
 	public List<Absence> getAllAbsencesByDate(LocalDate date) {
-		return null;
+		return absenceRepository.findAllByDate(date);
 	}
 
 	@Override
 	public List<Absence> getAllAbsencesByChildId(UUID id) {
-		return null;
+		return absenceRepository.findAllByChildId(id);
 	}
 }
