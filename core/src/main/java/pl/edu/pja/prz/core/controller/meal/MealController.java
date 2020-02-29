@@ -34,4 +34,9 @@ public class MealController {
     public Meal getMealByID(@RequestParam("id") Long id) {
         return mealFacade.getMealById(id);
     }
+
+    @PutMapping
+    public Meal updateMeal(@RequestBody MealCreateUpdateDTO meal, @RequestParam("id") Long mealToUpdateID) {
+        return mealFacade.updateMeal(meal,mealToUpdateID);
+    }
 }

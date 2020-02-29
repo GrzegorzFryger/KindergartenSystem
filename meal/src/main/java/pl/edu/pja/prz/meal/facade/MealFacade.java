@@ -29,4 +29,8 @@ public class MealFacade {
     public Meal getMealById(Long id) {
         return mealService.getMealByID(id);
     }
+
+    public Meal updateMeal(MealCreateUpdateDTO meal, Long mealToUpdateID) {
+        return mealService.updateMeal(meal, mealToUpdateID);
+    }
 }
