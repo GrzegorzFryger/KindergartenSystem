@@ -33,4 +33,28 @@ class MealFacadeTest {
         //then
         verify(mealService, times(1)).createMeal(mealCreateUpdateDTO);
     }
+
+    @Test
+    void getAllMeals() {
+        //when
+        mealFacade.getAllMeals();
+        //then
+        verify(mealService, times(1)).getAllMeals();
+    }
+
+    @Test
+    void getMealById() {
+        //when
+        mealFacade.getMealById(1L);
+        //then
+        verify(mealService, times(1)).getMealByID(1L);
+    }
+
+    @Test
+    void updateMeal() {
+        //when
+        mealFacade.updateMeal(mealCreateUpdateDTO, 1L);
+        //then
+        verify(mealService, times(1)).updateMeal(mealCreateUpdateDTO, 1L);
+    }
 }
