@@ -25,4 +25,8 @@ public class MealFacade {
     public List<Meal> getAllMeals() {
         return mealService.getAllMeals();
     }
+
+    public Meal getMealById(Long id) {
+        return mealService.getMealByID(id);
+    }
 }
