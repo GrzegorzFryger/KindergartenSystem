@@ -20,6 +20,7 @@ public interface AccountMapper {
 	@Mapping(source = "status", target = "accountStatus")
 	@Mapping(source = "email", target = "email")
 	@Mapping(source = "roles", target =  "roles")
+	@Mapping(source = "password", target =  "password.password")
 	Account toAccount(AccountDto accountDto);
 
 	@Mapping(source = "id", target = "id")

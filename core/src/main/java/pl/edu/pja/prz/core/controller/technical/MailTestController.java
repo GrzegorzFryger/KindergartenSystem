@@ -2,6 +2,7 @@ package pl.edu.pja.prz.core.controller.technical;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,10 +12,12 @@ import pl.edu.pja.prz.mail.model.BaseMail;
 import pl.edu.pja.prz.mail.model.test.BaseMailTestDto;
 
 import static pl.edu.pja.prz.commons.constants.Profiles.DEVELOPMENT;
+import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_ADMINISTRATOR;
 
 @RestController
 @RequestMapping("api/mail/")
 @Profile(DEVELOPMENT)
+@PreAuthorize(HAS_ROLE_ADMINISTRATOR)
 public class MailTestController {
 
     private final MailFacade mailFacade;

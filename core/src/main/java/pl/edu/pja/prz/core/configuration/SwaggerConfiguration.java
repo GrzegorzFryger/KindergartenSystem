@@ -15,8 +15,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import static pl.edu.pja.prz.commons.constants.Profiles.DEVELOPMENT;
 
-@Profile(DEVELOPMENT)
 @Configuration
+@Profile(DEVELOPMENT)
 @EnableSwagger2
 public class SwaggerConfiguration {
     @Bean

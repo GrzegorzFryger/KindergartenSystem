@@ -10,6 +10,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("api/account/")
+//TODO: ADD @PreAuthorize annotation with proper roles from Roles.java class
 public class ChildController {
 	private final ChildFacade childFacade;
 

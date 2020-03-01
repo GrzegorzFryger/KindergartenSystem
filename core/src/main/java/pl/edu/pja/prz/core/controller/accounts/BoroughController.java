@@ -13,6 +13,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("api/account/")
+//TODO: ADD @PreAuthorize annotation with proper roles from Roles.java class
 public class BoroughController {
     private final BoroughFacade boroughFacade;
 

@@ -43,7 +43,7 @@ This script will delete all schemas will all data.
 ## 3.2 Test data
 In case you only need to reset state of test data:
 * run `delete_1_0.sql`  
-* run `insert_1_0.sql` (see: 2.2 Tables)  
+* run `insert_1_0.sql`
 
 # 4. Implementation details
 Each module has got own DB user, which is granted with all privileges related to his schema.

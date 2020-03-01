@@ -12,6 +12,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("api/finances/")
+//TODO: ADD @PreAuthorize annotation with proper roles from Roles.java class
 public class FinancesController {
     private final FinancesFacade facade;
 
