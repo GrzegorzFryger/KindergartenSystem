@@ -27,13 +27,21 @@ public class AccountService{
 		this.roleService = roleService;
 	}
 
-	public Account updatePersonalData(UUID id, Person person) {
-		return accountRepository.findById(id).map(
+	public Account findById(UUID uuid) {
+		return accountRepository.findById(uuid).orElseThrow(() -> new ElementNotFoundException(uuid));
+	}
+
+	public Account findByEmail(String email) {
+		return accountRepository.findByEmail(email).orElseThrow(() -> new ElementNotFoundException(email));
+	}
+
+	public Account updatePersonalData(Person person) {
+		return accountRepository.findById(person.getId()).map(
 				account -> {
 					updateNotEmptyPersonField(account, person);
 					return accountRepository.save(account);
 				}).orElseThrow(() -> {
-			throw new ElementNotFoundException(USER, id);
+			throw new ElementNotFoundException(USER, person.getId());
 		});
 	}
 

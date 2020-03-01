@@ -9,9 +9,9 @@ import pl.edu.pja.prz.account.model.Account;
 public interface AccountCredentialMapper {
 
 	@Mapping(source = "id", target = "id")
-	@Mapping(source = "status", target = "accountStatus")
+	@Mapping(source = "accountStatus", target = "status")
 	@Mapping(source = "email", target = "email")
 	@Mapping(source = "roles", target =  "roles")
-	@Mapping(source = "password", target =  "password.password")
+	@Mapping(source = "password.password", target =  "password")
 	AccountCredentialDto fromAccount(Account account);
 }

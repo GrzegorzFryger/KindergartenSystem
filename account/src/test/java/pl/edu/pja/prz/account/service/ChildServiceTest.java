@@ -38,7 +38,7 @@ class ChildServiceTest {
 	@Mock
 	private PeselService peselService;
 
-	private ChildService childService;
+	private ChildServiceImpl childService;
 
 	@BeforeEach
 	void setUp() {
@@ -84,7 +84,7 @@ class ChildServiceTest {
 
 		//when
 		when(childRepository.findById(id)).thenReturn(Optional.ofNullable(child));
-		var returnedObj = childService.getChildById(id);
+		var returnedObj = childService.getById(id);
 
 		//then
 		verify(childRepository, times(1)).findById(id);
@@ -115,7 +115,7 @@ class ChildServiceTest {
 		when(childRepository.findById(id)).thenReturn(Optional.of(childSpy));
 		when(childRepository.save(any())).thenReturn(childOld);
 
-		childService.updateChild(newChild);
+		childService.update(newChild);
 
 		//then
 		assertEquals(newChild, childSpy);

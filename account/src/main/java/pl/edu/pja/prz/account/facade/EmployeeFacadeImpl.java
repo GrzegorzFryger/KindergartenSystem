@@ -43,7 +43,7 @@ public class EmployeeFacadeImpl implements EmployeeFacade {
 	@Override
 	public EmployeeDto findById(UUID id) {
 		return employeeMapper.fromEmployee(employeeService
-						.findById(id));
+						.getById(id));
 	}
 
 }

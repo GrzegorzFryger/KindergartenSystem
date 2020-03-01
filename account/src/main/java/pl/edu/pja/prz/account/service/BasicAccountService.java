@@ -7,12 +7,15 @@ import pl.edu.pja.prz.account.model.value.Password;
 import pl.edu.pja.prz.account.repository.BasicAccountRepository;
 import pl.edu.pja.prz.account.utilites.PasswordManager;
 import pl.edu.pja.prz.commons.model.Address;
+import pl.edu.pja.prz.commons.model.BaseEntity;
 import pl.edu.pja.prz.commons.model.FullName;
 import pl.edu.pja.prz.commons.model.Phone;
 
+import java.util.UUID;
 
-public abstract class BasicAccountService<T extends BasicAccountRepository<E, ID>, E extends Account, ID>
-		extends GenericService<T, E, ID> {
+
+public abstract class BasicAccountService<T extends BasicAccountRepository<E, UUID>, E extends Account & BaseEntity<UUID>>
+		extends GenericService<T, E, UUID> {
 	protected final AccountFactory accountFactory;
 	protected final PasswordManager passwordManager;
 	protected final RoleService roleService;

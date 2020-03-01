@@ -40,12 +40,12 @@ public class GuardianFacadeImpl implements GuardianFacade {
 
     public GuardianDto findGuardianById(UUID id) {
         return guardianMapper.fromGuardian(
-                guardianService.getGuardianById(id)
+                guardianService.getById(id)
         );
     }
 
     public List<GuardianDto> findAllGuardians() {
-        return guardianService.getAllGuardians()
+        return guardianService.getAll()
                 .stream()
                 .map(guardianMapper::fromGuardian)
                 .collect(Collectors.toList());

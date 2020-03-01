@@ -29,11 +29,12 @@ public class ChildServiceImpl extends GenericService<ChildRepository,Child,UUID>
 	private final ChildRepository childRepository;
 	private final PeselService peselService;
 
-	public ChildServiceImpl(ChildRepository repository, ChildRepository childRepository, PeselService peselService) {
+	public ChildServiceImpl(ChildRepository repository, PeselService peselService) {
 		super(repository);
-		this.childRepository = childRepository;
+		this.childRepository = repository;
 		this.peselService = peselService;
 	}
+
 
 	public Child createChild(Address address, FullName fullName, String pesel,
 	                         StudyPeriod studyPeriod) {
