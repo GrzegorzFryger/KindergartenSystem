@@ -1,5 +1,7 @@
 -- ACCOUNT MODULE --
 -- CALENDAR MODULE --
+DELETE FROM calendar.absence;
+DELETE FROM calendar.dayoffwork;
 -- CORE MODULE --
 -- FINANCES MODULE --
 DELETE FROM finances.balance;

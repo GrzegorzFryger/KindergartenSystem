@@ -4,13 +4,20 @@ import pl.edu.pja.prz.calendar.model.enums.EventType;
 import pl.edu.pja.prz.commons.model.BaseEntityLong;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
 public class DayOffWork extends BaseEntityLong {
+	@NotNull
 	private LocalDate date;
+	@NotNull
 	private String name;
+	@NotNull
+	@Enumerated(EnumType.STRING)
 	private EventType eventType;
 
 	public LocalDate getDate() {
@@ -52,8 +59,8 @@ public class DayOffWork extends BaseEntityLong {
 		if (o == null || getClass() != o.getClass()) return false;
 		if (!super.equals(o)) return false;
 		DayOffWork that = (DayOffWork) o;
-		return Objects.equals(date, that.date) &&
-				Objects.equals(name, that.name) &&
+		return date.equals(that.date) &&
+				name.equals(that.name) &&
 				eventType == that.eventType;
 	}
 
