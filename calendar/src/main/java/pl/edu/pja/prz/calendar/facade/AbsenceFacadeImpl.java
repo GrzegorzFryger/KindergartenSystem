@@ -64,4 +64,11 @@ public class AbsenceFacadeImpl implements AbsenceFacade {
 				absenceService.getAllAbsencesByChildId(id)
 		);
 	}
+
+	@Override
+	public List<AbsenceDto> getAllAbsencesForChildBetweenDates(UUID id, LocalDate startDate, LocalDate endDate) {
+		return absenceMapper.absenceListToDtoList(
+				absenceService.getAllAbsencesForChildBetweenDates(id, startDate, endDate)
+		);
+	}
 }

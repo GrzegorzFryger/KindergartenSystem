@@ -69,4 +69,9 @@ public class AbsenceServiceImpl implements AbsenceService {
 	public List<Absence> getAllAbsencesByChildId(UUID id) {
 		return absenceRepository.findAllByChildId(id);
 	}
+
+	@Override
+	public List<Absence> getAllAbsencesForChildBetweenDates(UUID id, LocalDate startDate, LocalDate endDate) {
+		return absenceRepository.findAllByChildIdBetweenDates(id, startDate, endDate);
+	}
 }
