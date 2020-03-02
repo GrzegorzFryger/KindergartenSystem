@@ -10,7 +10,7 @@ import pl.edu.pja.prz.calendar.facade.dto.DayOffWorkDto;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/dayoff/")
+@RequestMapping("api/calendar/")
 public class DayOffWorkController {
 	private final DayOffWorkFacade dayOffWorkFacade;
 
@@ -19,27 +19,27 @@ public class DayOffWorkController {
 		this.dayOffWorkFacade = dayOffWorkFacade;
 	}
 
-	@GetMapping("{id}")
+	@GetMapping("dayoff/{id}")
 	public ResponseEntity<DayOffWorkDto> findDayOffWork(@PathVariable Long id) {
 		return new ResponseEntity<>(dayOffWorkFacade.getDayOffWork(id), HttpStatus.OK);
 	}
 
-	@GetMapping
+	@GetMapping("daysoff")
 	public ResponseEntity<List<DayOffWorkDto>> findAllDaysOffWork() {
 		return new ResponseEntity<>(dayOffWorkFacade.getAllDaysOff(), HttpStatus.OK);
 	}
 
-	@PostMapping("")
+	@PostMapping("dayoff")
 	public ResponseEntity<DayOffWorkDto> createDayOffWork(@RequestBody DayOffWorkDto dayOffWorkDto) {
 		return new ResponseEntity<>(dayOffWorkFacade.createDayOffWork(dayOffWorkDto), HttpStatus.OK);
 	}
 
-	@PutMapping("")
+	@PutMapping("dayoff")
 	public ResponseEntity<DayOffWorkDto> updateDayOffWork(@RequestBody DayOffWorkDto dayOffWorkDto) {
 		return new ResponseEntity<>(dayOffWorkFacade.updateDayOffWork(dayOffWorkDto), HttpStatus.OK);
 	}
 
-	@DeleteMapping("")
+	@DeleteMapping("dayoff/{id}")
 	public ResponseEntity<?> deleteDayOffWork(@PathVariable Long id) {
 		dayOffWorkFacade.deleteDayOffWork(id);
 		return new ResponseEntity<>(HttpStatus.OK);
