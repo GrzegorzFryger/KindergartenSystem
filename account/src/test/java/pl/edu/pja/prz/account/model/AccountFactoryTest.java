@@ -4,9 +4,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pl.edu.pja.prz.account.model.enums.EmployeeType;
 import pl.edu.pja.prz.account.model.enums.PrivilegeType;
+import pl.edu.pja.prz.account.model.value.Password;
+import pl.edu.pja.prz.account.utilites.AccountFactoryImpl;
 import pl.edu.pja.prz.commons.model.Address;
 import pl.edu.pja.prz.commons.model.FullName;
-import pl.edu.pja.prz.account.model.value.Password;
 import pl.edu.pja.prz.commons.model.Phone;
 
 import java.util.Collections;

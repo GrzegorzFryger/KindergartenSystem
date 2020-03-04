@@ -1,12 +1,12 @@
 package pl.edu.pja.prz.account.service;
 
 import org.springframework.stereotype.Service;
-import pl.edu.pja.prz.account.model.AccountFactory;
 import pl.edu.pja.prz.account.model.Employee;
 import pl.edu.pja.prz.account.model.Group;
 import pl.edu.pja.prz.account.model.Person;
 import pl.edu.pja.prz.account.model.value.Password;
 import pl.edu.pja.prz.account.repository.EmployeeRepository;
+import pl.edu.pja.prz.account.utilites.AccountFactory;
 import pl.edu.pja.prz.account.utilites.PasswordManager;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.commons.model.Address;

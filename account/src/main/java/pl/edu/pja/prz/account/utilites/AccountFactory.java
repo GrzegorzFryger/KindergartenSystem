@@ -1,5 +1,6 @@
-package pl.edu.pja.prz.account.model;
+package pl.edu.pja.prz.account.utilites;
 
+import pl.edu.pja.prz.account.model.*;
 import pl.edu.pja.prz.account.model.value.Password;
 
 public interface AccountFactory {

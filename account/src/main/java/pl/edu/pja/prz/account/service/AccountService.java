@@ -1,5 +1,7 @@
 package pl.edu.pja.prz.account.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.account.model.Account;
 import pl.edu.pja.prz.account.model.Person;
@@ -9,7 +11,8 @@ import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import java.util.UUID;
 
 @Service
-public class AccountService{
+public class AccountService {
+	private static final Logger logger = LoggerFactory.getLogger(AccountService.class);
 	private static final String ACCOUNT = "Account";
 	private static final String USER = "User";
 	private final AccountRepository accountRepository;
@@ -36,6 +39,7 @@ public class AccountService{
 		});
 	}
 
+
 	protected void updateNotEmptyPersonField(Person oldPerson, Person newPerson) {
 		if (newPerson.getAddress() != null) {
 			oldPerson.setAddress(newPerson.getAddress());
@@ -48,4 +52,5 @@ public class AccountService{
 			oldPerson.setPhoneNumber(newPerson.getPhoneNumber());
 		}
 	}
+
 }
