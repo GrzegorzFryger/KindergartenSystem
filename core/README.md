@@ -3,7 +3,7 @@
 This is main module of application - with runnable class `KindergartenSystem.java`.
 ## PKCS12 certificate generation
 Run `generate_PKCS12_certificate.sh` script in `src/resources/keystore` directory.  
-Make sure to copy generated password into `application.properties` configuration file.  
+Script will automatically update `application-cert.properties` configuration file with generated password.  
 Property name: `server.ssl.key-store-password`.  
 
 Generated certificate is valid for 90 days.  
