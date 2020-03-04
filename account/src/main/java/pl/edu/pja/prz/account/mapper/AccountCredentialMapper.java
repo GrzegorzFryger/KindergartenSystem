@@ -2,7 +2,7 @@ package pl.edu.pja.prz.account.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import pl.edu.pja.prz.account.facade.dto.AccountCredentialDto;
+import pl.edu.pja.prz.account.model.dto.AccountCredentialDto;
 import pl.edu.pja.prz.account.model.Account;
 
 @Mapper(componentModel = "spring", uses = RoleMapper.class)

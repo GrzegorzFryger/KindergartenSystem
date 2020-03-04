@@ -1,8 +1,8 @@
 package pl.edu.pja.prz.account.facade;
 
 import org.springframework.stereotype.Service;
-import pl.edu.pja.prz.account.facade.dto.AccountActivateDto;
-import pl.edu.pja.prz.account.facade.dto.AccountCredentialDto;
+import pl.edu.pja.prz.account.model.dto.AccountActivateDto;
+import pl.edu.pja.prz.account.model.dto.AccountCredentialDto;
 import pl.edu.pja.prz.account.mapper.AccountCredentialMapper;
 import pl.edu.pja.prz.account.service.AccountCredentialService;
 

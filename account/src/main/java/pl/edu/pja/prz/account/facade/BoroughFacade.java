@@ -1,8 +1,8 @@
 package pl.edu.pja.prz.account.facade;
 
-import pl.edu.pja.prz.account.facade.dto.BoroughChildDto;
-import pl.edu.pja.prz.account.facade.dto.BoroughDto;
-import pl.edu.pja.prz.account.facade.dto.ChildDto;
+import pl.edu.pja.prz.account.model.dto.BoroughChildDto;
+import pl.edu.pja.prz.account.model.dto.BoroughDto;
+import pl.edu.pja.prz.account.model.dto.ChildDto;
 
 import java.util.Set;
 

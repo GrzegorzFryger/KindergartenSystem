@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pl.edu.pja.prz.account.facade.dto.BoroughDto;
+import pl.edu.pja.prz.account.model.dto.BoroughDto;
 import pl.edu.pja.prz.account.model.Borough;
 import pl.edu.pja.prz.commons.model.Address;
 import pl.edu.pja.prz.commons.model.Phone;

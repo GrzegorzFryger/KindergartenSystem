@@ -1,7 +1,7 @@
 package pl.edu.pja.prz.account.facade;
 
-import pl.edu.pja.prz.account.facade.dto.AccountActivateDto;
-import pl.edu.pja.prz.account.facade.dto.AccountCredentialDto;
+import pl.edu.pja.prz.account.model.dto.AccountActivateDto;
+import pl.edu.pja.prz.account.model.dto.AccountCredentialDto;
 
 import java.util.Optional;
 

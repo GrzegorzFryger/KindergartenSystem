@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.account.facade.AccountCredentialFacade;
-import pl.edu.pja.prz.account.facade.dto.AccountCredentialDto;
+import pl.edu.pja.prz.account.model.dto.AccountCredentialDto;
 import pl.edu.pja.prz.account.model.enums.AccountStatus;
 
 import java.util.ArrayList;

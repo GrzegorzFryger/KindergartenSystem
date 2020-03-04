@@ -2,8 +2,8 @@ package pl.edu.pja.prz.account.facade;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.edu.pja.prz.account.facade.dto.AccountDto;
-import pl.edu.pja.prz.account.facade.dto.EmployeeDto;
+import pl.edu.pja.prz.account.model.dto.AccountDto;
+import pl.edu.pja.prz.account.model.dto.EmployeeDto;
 import pl.edu.pja.prz.account.mapper.AccountMapper;
 import pl.edu.pja.prz.account.mapper.EmployeeMapper;
 import pl.edu.pja.prz.account.service.EmployeeService;

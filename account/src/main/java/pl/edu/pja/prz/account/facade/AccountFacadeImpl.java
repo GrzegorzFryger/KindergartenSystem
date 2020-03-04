@@ -2,7 +2,7 @@ package pl.edu.pja.prz.account.facade;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import pl.edu.pja.prz.account.facade.dto.AccountDto;
+import pl.edu.pja.prz.account.model.dto.AccountDto;
 import pl.edu.pja.prz.account.mapper.AccountMapper;
 import pl.edu.pja.prz.account.service.AccountService;
 
