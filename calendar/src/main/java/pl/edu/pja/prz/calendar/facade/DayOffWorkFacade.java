@@ -1,6 +1,6 @@
 package pl.edu.pja.prz.calendar.facade;
 
-import pl.edu.pja.prz.calendar.facade.dto.DayOffWorkDto;
+import pl.edu.pja.prz.calendar.model.dto.DayOffWorkDto;
 
 import java.util.List;
 

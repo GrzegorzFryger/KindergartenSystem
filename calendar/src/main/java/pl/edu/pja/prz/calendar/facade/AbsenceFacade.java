@@ -1,6 +1,6 @@
 package pl.edu.pja.prz.calendar.facade;
 
-import pl.edu.pja.prz.calendar.facade.dto.AbsenceDto;
+import pl.edu.pja.prz.calendar.model.dto.AbsenceDto;
 
 import java.time.LocalDate;
 import java.util.List;

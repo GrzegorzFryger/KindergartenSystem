@@ -2,7 +2,7 @@ package pl.edu.pja.prz.calendar.facade;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.edu.pja.prz.calendar.facade.dto.AbsenceDto;
+import pl.edu.pja.prz.calendar.model.dto.AbsenceDto;
 import pl.edu.pja.prz.calendar.facade.mapper.AbsenceMapper;
 import pl.edu.pja.prz.calendar.service.AbsenceService;
 

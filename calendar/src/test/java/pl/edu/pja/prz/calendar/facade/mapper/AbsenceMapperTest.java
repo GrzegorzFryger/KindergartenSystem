@@ -5,12 +5,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pl.edu.pja.prz.calendar.facade.dto.AbsenceDto;
+import pl.edu.pja.prz.calendar.model.dto.AbsenceDto;
 import pl.edu.pja.prz.calendar.model.Absence;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.AbstractMap;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

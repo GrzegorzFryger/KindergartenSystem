@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.calendar.facade.dto;
+package pl.edu.pja.prz.calendar.model.dto;
 
 import pl.edu.pja.prz.calendar.model.enums.EventType;
 

@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pl.edu.pja.prz.calendar.facade.dto.DayOffWorkDto;
+import pl.edu.pja.prz.calendar.model.dto.DayOffWorkDto;
 import pl.edu.pja.prz.calendar.model.DayOffWork;
 import pl.edu.pja.prz.calendar.model.enums.EventType;
 

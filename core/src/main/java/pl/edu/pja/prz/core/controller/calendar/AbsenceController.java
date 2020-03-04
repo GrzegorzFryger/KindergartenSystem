@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.pja.prz.calendar.facade.AbsenceFacade;
-import pl.edu.pja.prz.calendar.facade.dto.AbsenceDto;
+import pl.edu.pja.prz.calendar.model.dto.AbsenceDto;
 
 import java.time.LocalDate;
 import java.util.List;

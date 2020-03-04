@@ -2,7 +2,7 @@ package pl.edu.pja.prz.calendar.facade.mapper;
 
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
-import pl.edu.pja.prz.calendar.facade.dto.AbsenceDto;
+import pl.edu.pja.prz.calendar.model.dto.AbsenceDto;
 import pl.edu.pja.prz.calendar.model.Absence;
 
 import java.util.List;
