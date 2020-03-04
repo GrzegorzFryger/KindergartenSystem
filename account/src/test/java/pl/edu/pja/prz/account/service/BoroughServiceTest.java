@@ -21,7 +21,7 @@ class BoroughServiceTest {
 	@Mock
 	private BoroughRepository boroughRepository;
 	@Mock
-	private ChildServiceImpl childService;
+	private ChildService childService;
 	@Mock
 	private Borough borough;
 

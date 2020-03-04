@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.account.facade.dto.BoroughChildDto;
 import pl.edu.pja.prz.account.facade.dto.BoroughDto;
 import pl.edu.pja.prz.account.facade.dto.ChildDto;
-import pl.edu.pja.prz.account.facade.mapper.BoroughMapper;
-import pl.edu.pja.prz.account.facade.mapper.ChildMapper;
+import pl.edu.pja.prz.account.mapper.BoroughMapper;
+import pl.edu.pja.prz.account.mapper.ChildMapper;
 import pl.edu.pja.prz.account.service.BoroughService;
 
 import java.util.Set;

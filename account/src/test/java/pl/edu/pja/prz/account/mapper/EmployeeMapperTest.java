@@ -7,7 +7,6 @@ import org.mapstruct.factory.Mappers;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pja.prz.account.facade.dto.AccountDto;
 import pl.edu.pja.prz.account.facade.dto.EmployeeDto;
-import pl.edu.pja.prz.account.facade.mapper.EmployeeMapper;
 import pl.edu.pja.prz.account.model.Employee;
 import pl.edu.pja.prz.account.model.Person;
 import pl.edu.pja.prz.account.model.enums.AccountStatus;

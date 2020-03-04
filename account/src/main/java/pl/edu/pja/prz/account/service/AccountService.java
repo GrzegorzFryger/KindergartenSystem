@@ -2,10 +2,8 @@ package pl.edu.pja.prz.account.service;
 
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.account.model.Account;
-import pl.edu.pja.prz.account.model.AccountFactory;
 import pl.edu.pja.prz.account.model.Person;
 import pl.edu.pja.prz.account.repository.AccountRepository;
-import pl.edu.pja.prz.account.utilites.PasswordManager;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 
 import java.util.UUID;
@@ -15,16 +13,9 @@ public class AccountService{
 	private static final String ACCOUNT = "Account";
 	private static final String USER = "User";
 	private final AccountRepository accountRepository;
-	protected final PasswordManager passwordManager;
-	protected final AccountFactory accountFactory;
-	protected final RoleService roleService;
 
-	public AccountService(AccountRepository accountRepository, PasswordManager passwordManager,
-	                      AccountFactory accountFactory, RoleService roleService) {
+	public AccountService(AccountRepository accountRepository) {
 		this.accountRepository = accountRepository;
-		this.passwordManager = passwordManager;
-		this.accountFactory = accountFactory;
-		this.roleService = roleService;
 	}
 
 	public Account findById(UUID uuid) {

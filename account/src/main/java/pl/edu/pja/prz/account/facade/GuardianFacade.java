@@ -20,5 +20,5 @@ public interface GuardianFacade {
 
     Set<ChildDto> findAllGuardianChildren(UUID id);
 
-    Optional<GuardianDto> findByFullNameOrAddress(String name, String surname, @Nullable String street);
+    Optional<GuardianDto> findByFullNameOrAddress(String name, String surname, @Nullable String street) throws Exception;
 }

@@ -26,12 +26,13 @@ public class EmployeeService extends BasicAccountService<EmployeeRepository, Emp
 	}
 
 	public Employee createEmployeeAccount(Person person, String email) {
-		return this.createEmployeeAccount(person.getAddress(), person.getFullName(), person.getPhoneNumber(), email);
-	}
-
-	public Employee createEmployeeAccount(Address address, FullName fullName, Phone phone,
-	                                      String email) {
-		return persistStandardAccount(address, fullName, phone, email, Employee.class);
+		return persistStandardAccount(
+				person.getAddress(),
+				person.getFullName(),
+				person.getPhoneNumber(),
+				email,
+				Employee.class
+		);
 	}
 
 	public Employee createAdministratorAccount(Person person, String email) {

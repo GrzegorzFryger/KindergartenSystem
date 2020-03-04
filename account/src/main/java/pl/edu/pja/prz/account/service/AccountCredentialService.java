@@ -28,7 +28,6 @@ public class AccountCredentialService {
 		return accountRepository.findByEmail(email);
 	}
 
-
 	public Account updateEmail(UUID id, String email) {
 		return accountRepository.findById(id).map(
 				account -> {

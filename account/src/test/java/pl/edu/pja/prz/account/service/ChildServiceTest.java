@@ -12,7 +12,6 @@ import pl.edu.pja.prz.account.model.ChildBuilder;
 import pl.edu.pja.prz.account.model.enums.Gender;
 import pl.edu.pja.prz.account.model.value.StudyPeriod;
 import pl.edu.pja.prz.account.repository.ChildRepository;
-import pl.edu.pja.prz.account.utilites.PeselService;
 import pl.edu.pja.prz.commons.model.Address;
 import pl.edu.pja.prz.commons.model.FullName;
 import pl.edu.pja.prz.commons.model.Phone;
@@ -38,14 +37,14 @@ class ChildServiceTest {
 	@Mock
 	private PeselService peselService;
 
-	private ChildServiceImpl childService;
+	private ChildService childService;
 
 	@BeforeEach
 	void setUp() {
 		address = new Address("70-700", "City", "Street 256");
 		phone = new Phone("123132123");
 		fullName = new FullName("TestName", "TestSurname");
-		childService = new ChildServiceImpl(childRepository, peselService);
+		childService = new ChildService(childRepository, peselService);
 	}
 
 	@Test

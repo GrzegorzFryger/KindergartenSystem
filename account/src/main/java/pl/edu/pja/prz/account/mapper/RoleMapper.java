@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.account.facade.mapper;
+package pl.edu.pja.prz.account.mapper;
 
 import org.mapstruct.Mapper;
 import pl.edu.pja.prz.account.facade.dto.RoleDto;

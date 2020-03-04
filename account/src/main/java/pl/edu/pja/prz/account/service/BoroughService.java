@@ -15,10 +15,10 @@ public class BoroughService {
 	private static final String BOROUGH = "Borough";
 	private final BoroughRepository boroughRepository;
 
-	private final ChildServiceImpl childService;
+	private final ChildService childService;
 
 	@Autowired
-	public BoroughService(BoroughRepository boroughRepository, ChildServiceImpl childService) {
+	public BoroughService(BoroughRepository boroughRepository, ChildService childService) {
 		this.boroughRepository = boroughRepository;
 		this.childService = childService;
 	}
@@ -31,7 +31,6 @@ public class BoroughService {
 				}
 		).orElseThrow(() -> new ElementNotFoundException(BOROUGH, boroughId));
 	}
-
 
 	public Borough createBorough(Borough borough) {
 		return boroughRepository.save(borough);
