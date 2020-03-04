@@ -29,8 +29,6 @@
                         <exclude>**/pl/edu/pja/prz/calendar/configuration/*</exclude>
                         <exclude>**/pl/edu/pja/prz/calendar/model/*</exclude>
                         <exclude>**/pl/edu/pja/prz/calendar/model/enums/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/calendar/facade/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/calendar/facade/dto/*</exclude>
                         <exclude>**/pl/edu/pja/prz/calendar/repository/*</exclude>
                     </excludes>
                 </configuration>
