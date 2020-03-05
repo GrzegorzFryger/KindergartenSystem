@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "bb8a5ddd-d070-4a4f-abfa-24b148f6e76c",
+		"_postman_id": "7bd2ae5b-a9d0-4c72-8528-f6d555a0b7d3",
 		"name": "KindergartenSystem",
 		"description": "This collection contains all API requests to backend system of our application.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -376,7 +376,276 @@
 		},
 		{
 			"name": "Calendar",
-			"item": [],
+			"item": [
+				{
+					"name": "/daysoff",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{CALENDAR}}/daysoff",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{CALENDAR}}",
+								"daysoff"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/dayoff/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{CALENDAR}}/dayoff/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{CALENDAR}}",
+								"dayoff",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/dayoff/{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{CALENDAR}}/dayoff/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{CALENDAR}}",
+								"dayoff",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/absence/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{CALENDAR}}/absence/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{CALENDAR}}",
+								"absence",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/absence/{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{CALENDAR}}/absence/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{CALENDAR}}",
+								"absence",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/absence/child/{childId}/{startDate}/{endDate}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{CALENDAR}}/absence/child/bd73f070-cac9-48db-8037-7c1d34596584/2015-10-10/2019-10-26",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{CALENDAR}}",
+								"absence",
+								"child",
+								"bd73f070-cac9-48db-8037-7c1d34596584",
+								"2015-10-10",
+								"2019-10-26"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/absence/childById/{childId}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{CALENDAR}}/absence/childById/bd73f070-cac9-48db-8037-7c1d34596584",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{CALENDAR}}",
+								"absence",
+								"childById",
+								"bd73f070-cac9-48db-8037-7c1d34596584"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/absence/childByDate/{date}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{CALENDAR}}/absence/childById/bd73f070-cac9-48db-8037-7c1d34596584",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{CALENDAR}}",
+								"absence",
+								"childById",
+								"bd73f070-cac9-48db-8037-7c1d34596584"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/absence",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"childId\":\"cb34b97c-bbe9-4719-9091-0e0939804426\",\r\n\t\"date\":\"2020-01-05\",\r\n\t\"reason\": \"Choroba\"\r\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}/{{CALENDAR}}/absence",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{CALENDAR}}",
+								"absence"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/absence",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"id\":\"1\",\r\n\t\"date\":\"2020-06-06\",\r\n\t\"reason\": \"Uaktualniony powod\"\r\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}/{{CALENDAR}}/absence",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{CALENDAR}}",
+								"absence"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/dayoff",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"eventType\":\"HOLIDAY\",\r\n\t\"date\":\"2020-04-12\",\r\n\t\"name\": \"Wielkanoc\"\r\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}/{{CALENDAR}}/dayoff",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{CALENDAR}}",
+								"dayoff"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/dayoff",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"id\":\"2\",\r\n\t\"eventType\":\"WEEKEND\",\r\n\t\"date\":\"2020-03-12\",\r\n\t\"name\": \"Dlugi weekend\"\r\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}/{{CALENDAR}}/dayoff",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{CALENDAR}}",
+								"dayoff"
+							]
+						}
+					},
+					"response": []
+				}
+			],
 			"protocolProfileBehavior": {}
 		},
 		{

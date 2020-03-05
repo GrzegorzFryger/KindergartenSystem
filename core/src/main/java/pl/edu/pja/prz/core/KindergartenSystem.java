@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 import pl.edu.pja.prz.account.AccountConfiguration;
+import pl.edu.pja.prz.calendar.CalendarConfiguration;
 import pl.edu.pja.prz.commons.CommonsConfiguration;
 import pl.edu.pja.prz.finances.FinancesConfiguration;
 import pl.edu.pja.prz.groups.GroupsConfiguration;
@@ -14,7 +15,7 @@ import pl.edu.pja.prz.receivables.ReceivablesConfiguration;
 import pl.edu.pja.prz.scheduler.SchedulerConfiguration;
 
 @SpringBootApplication
-@Import({AccountConfiguration.class, GroupsConfiguration.class,
+@Import({AccountConfiguration.class, CalendarConfiguration.class, GroupsConfiguration.class,
 		ReceivablesConfiguration.class, PaymentsConfiguration.class,
 		FinancesConfiguration.class, CommonsConfiguration.class,
 		MealConfiguration.class, MailConfiguration.class, SchedulerConfiguration.class})

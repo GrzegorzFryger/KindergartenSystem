@@ -31,6 +31,24 @@ INSERT INTO account.role_privileges (Role_id, privileges) VALUES (2, 'TEACHER');
 
 
 -- CALENDAR MODULE --
+INSERT INTO calendar.absence (`version`, `childId`, `date`, `reason`)
+VALUES (0, 'bd73f070-cac9-48db-8037-7c1d34596584', '2019-11-12', 'Choroba');
+INSERT INTO calendar.absence (`version`, `childId`, `date`, `reason`)
+VALUES (0, 'bd73f070-cac9-48db-8037-7c1d34596584', '2019-10-25', 'Wyjazd');
+INSERT INTO calendar.absence (`version`, `childId`, `date`, `reason`)
+VALUES (0, 'cb34b97c-bbe9-4719-9091-0e0939804426', '2018-10-25', 'Choroba');
+
+INSERT INTO calendar.dayoffwork (`version`, `date`, `eventType`, `name`)
+VALUES (0, '2020-12-24', 'HOLIDAY', 'Wigilia');
+INSERT INTO calendar.dayoffwork (`version`, `date`, `eventType`, `name`)
+VALUES (0, '2020-12-25', 'HOLIDAY', 'Boze narodzenie');
+INSERT INTO calendar.dayoffwork (`version`, `date`, `eventType`, `name`)
+VALUES (0, '2020-12-26', 'HOLIDAY', 'Boze narodzenie');
+INSERT INTO calendar.dayoffwork (`version`, `date`, `eventType`, `name`)
+VALUES (0, '2020-05-12', 'INTERNAL_EVENT', 'Remont');
+
+
+
 -- CORE MODULE --
 -- FINANCES MODULE --
 INSERT INTO finances.balance (`version`,`amount`, `childId`, `guardianId`)
