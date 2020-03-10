@@ -62,7 +62,14 @@ public class CashPaymentServiceImpl implements CashPaymentService {
         if (repository.findById(id).isEmpty()) {
             throw new ElementNotFoundException(CASH_PAYMENT, id);
         }
+
+        CashPayment cashPayment = repository.findById(id).get();
+
         repository.deleteById(id);
+
+        facade.decreaseBalance(cashPayment.getChildId(),
+                cashPayment.getTransactionAmount(),
+                "Removed cash payment" + cashPayment.getTitle());
     }
 
     @Override
@@ -81,7 +88,7 @@ public class CashPaymentServiceImpl implements CashPaymentService {
             repository.save(cashPayment);
             facade.increaseBalance(cashPayment.getChildId(),
                     cashPayment.getTransactionAmount(),
-                    cashPayment.getTitle());
+                    "Saved cash payment" + cashPayment.getTitle());
         }
     }
 }

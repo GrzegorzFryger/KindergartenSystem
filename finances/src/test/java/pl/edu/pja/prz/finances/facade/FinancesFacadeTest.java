@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pl.edu.pja.prz.finances.model.Balance;
+import pl.edu.pja.prz.finances.model.dto.Balance;
 import pl.edu.pja.prz.finances.service.BalanceService;
 
 import java.math.BigDecimal;
@@ -32,8 +32,6 @@ class FinancesFacadeTest {
 
         balance = new Balance();
         balance.setAmount(new BigDecimal("50.00"));
-        balance.setChildId(UUID.randomUUID());
-        balance.setGuardianId(UUID.randomUUID());
     }
 
     @Test
@@ -50,27 +48,11 @@ class FinancesFacadeTest {
     }
 
     @Test
-    public void Should_GetBalanceList() {
-        //Given
-        List<Balance> balanceList = new ArrayList();
-        balanceList.add(balance);
-
-        //When
-        when(balanceService.getBalances(any(UUID.class))).thenReturn(balanceList);
-        List<Balance> result = facade.getBalances(UUID.randomUUID());
-
-        //Then
-        assertNotNull(result);
-        assertEquals(1, result.size());
-        verify(balanceService, times(1)).getBalances(any(UUID.class));
-    }
-
-    @Test
     public void Should_IncreaseBalance() {
         //Given
 
         //When
-        facade.increaseBalance(UUID.randomUUID(), new BigDecimal("50.00"),"PAYMENT");
+        facade.increaseBalance(UUID.randomUUID(), new BigDecimal("50.00"), "PAYMENT");
 
         //Then
         verify(balanceService, times(1))
@@ -82,7 +64,7 @@ class FinancesFacadeTest {
         //Given
 
         //When
-        facade.decreaseBalance(UUID.randomUUID(), new BigDecimal("-50.00"),"PAYMENT");
+        facade.decreaseBalance(UUID.randomUUID(), new BigDecimal("-50.00"), "PAYMENT");
 
         //Then
         verify(balanceService, times(1))

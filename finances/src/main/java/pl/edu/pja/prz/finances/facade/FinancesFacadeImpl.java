@@ -2,11 +2,10 @@ package pl.edu.pja.prz.finances.facade;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.edu.pja.prz.finances.model.Balance;
+import pl.edu.pja.prz.finances.model.dto.Balance;
 import pl.edu.pja.prz.finances.service.BalanceService;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -21,11 +20,6 @@ public class FinancesFacadeImpl implements FinancesFacade {
     @Override
     public Balance getBalance(UUID childId) {
         return balanceService.getBalance(childId);
-    }
-
-    @Override
-    public List<Balance> getBalances(UUID guardianId) {
-        return balanceService.getBalances(guardianId);
     }
 
     @Override

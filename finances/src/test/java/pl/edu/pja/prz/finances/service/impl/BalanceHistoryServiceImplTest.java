@@ -33,7 +33,6 @@ class BalanceHistoryServiceImplTest {
 
         record = new BalanceHistoryBuilder()
                 .withAmountOfChange(new BigDecimal("-200.50"))
-                .withBalanceBeforeChange(new BigDecimal("100.23"))
                 .withChildId(UUID.randomUUID())
                 .withTitle("PAYMENT")
                 .build();
@@ -62,7 +61,6 @@ class BalanceHistoryServiceImplTest {
         //When
         service.saveBalanceInHistory(UUID.randomUUID(),
                 new BigDecimal("200.10"),
-                new BigDecimal("100.20"),
                 "PAYMENT");
 
         //Then

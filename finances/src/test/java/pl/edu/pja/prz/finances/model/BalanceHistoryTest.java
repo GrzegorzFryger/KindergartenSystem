@@ -19,7 +19,6 @@ class BalanceHistoryTest {
 
         balanceHistory = builder
                 .withAmountOfChange(new BigDecimal("-200.50"))
-                .withBalanceBeforeChange(new BigDecimal("100.23"))
                 .withChildId(UUID.randomUUID())
                 .withTitle("PAYMENT")
                 .build();
@@ -33,7 +32,7 @@ class BalanceHistoryTest {
         int beforeChange = balanceHistory.hashCode();
 
         //When
-        balanceHistory.setBalanceBeforeChange(new BigDecimal("25.00"));
+        balanceHistory.setTitle("New title");
         int afterChange = balanceHistory.hashCode();
 
         //Then

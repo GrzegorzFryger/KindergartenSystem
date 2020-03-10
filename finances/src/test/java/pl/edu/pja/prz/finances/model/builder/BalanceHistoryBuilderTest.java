@@ -50,7 +50,6 @@ class BalanceHistoryBuilderTest {
         Assertions.assertThrows(EmptyInputException.class, () -> {
             BalanceHistory result = new BalanceHistoryBuilder()
                     .withChildId(UUID.randomUUID())
-                    .withBalanceBeforeChange(new BigDecimal("100.23"))
                     .build();
         });
 
@@ -65,7 +64,6 @@ class BalanceHistoryBuilderTest {
         Assertions.assertThrows(EmptyInputException.class, () -> {
             BalanceHistory result = new BalanceHistoryBuilder()
                     .withChildId(UUID.randomUUID())
-                    .withBalanceBeforeChange(new BigDecimal("100.23"))
                     .withAmountOfChange(new BigDecimal("50.00"))
                     .build();
         });
@@ -77,14 +75,12 @@ class BalanceHistoryBuilderTest {
     public void Should_BuildBalanceHistory_When_AllRequiredFieldsAreInitialized() {
         //Given
         BigDecimal amountOfChange = new BigDecimal("-200.50");
-        BigDecimal balanceBeforeChange = new BigDecimal("100.23");
         UUID childId = UUID.randomUUID();
         String title = "PAYMENT";
 
         //When
         BalanceHistory result = new BalanceHistoryBuilder()
                 .withAmountOfChange(amountOfChange)
-                .withBalanceBeforeChange(balanceBeforeChange)
                 .withChildId(childId)
                 .withTitle(title)
                 .build();
@@ -93,7 +89,6 @@ class BalanceHistoryBuilderTest {
         assertNotNull(result);
         assertNotNull(result.getDate());
         assertEquals(amountOfChange, result.getAmountOfChange());
-        assertEquals(balanceBeforeChange, result.getBalanceBeforeChange());
         assertEquals(childId, result.getChildId());
         assertEquals(title, result.getTitle());
     }
