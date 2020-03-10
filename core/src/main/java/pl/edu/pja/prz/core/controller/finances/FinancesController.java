@@ -10,8 +10,10 @@ import pl.edu.pja.prz.finances.model.Balance;
 import java.util.List;
 import java.util.UUID;
 
+import static pl.edu.pja.prz.core.controller.RequestMappings.API_FINANCES;
+
 @RestController
-@RequestMapping("api/finances/")
+@RequestMapping(API_FINANCES)
 //TODO: ADD @PreAuthorize annotation with proper roles from Roles.java class
 public class FinancesController {
     private final FinancesFacade facade;
