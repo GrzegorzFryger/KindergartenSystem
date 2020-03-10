@@ -26,8 +26,6 @@ public class BalanceHistory extends BaseEntityLong implements Serializable {
     @NotNull
     private LocalDate date;
     @NotNull
-    private BigDecimal balanceBeforeChange;
-    @NotNull
     private BigDecimal amountOfChange;
     @NotNull
     private String title;
@@ -46,14 +44,6 @@ public class BalanceHistory extends BaseEntityLong implements Serializable {
 
     public void setDate(LocalDate date) {
         this.date = date;
-    }
-
-    public BigDecimal getBalanceBeforeChange() {
-        return balanceBeforeChange;
-    }
-
-    public void setBalanceBeforeChange(BigDecimal balanceBeforeChange) {
-        this.balanceBeforeChange = balanceBeforeChange;
     }
 
     public BigDecimal getAmountOfChange() {
@@ -80,19 +70,18 @@ public class BalanceHistory extends BaseEntityLong implements Serializable {
         BalanceHistory that = (BalanceHistory) o;
         return childId.equals(that.childId) &&
                 date.equals(that.date) &&
-                balanceBeforeChange.equals(that.balanceBeforeChange) &&
                 amountOfChange.equals(that.amountOfChange) &&
                 title.equals(that.title);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), childId, date, balanceBeforeChange, amountOfChange, title);
+        return Objects.hash(super.hashCode(), childId, date, amountOfChange, title);
     }
 
     @Override
     public String toString() {
-        return "[" + childId + "] - from: " + balanceBeforeChange + " (" + amountOfChange + ")";
+        return "[" + childId + "] - Balance changed by: (" + amountOfChange + ")";
     }
 
     @PostPersist

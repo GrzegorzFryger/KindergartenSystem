@@ -51,12 +51,6 @@ VALUES (0, '2020-05-12', 'INTERNAL_EVENT', 'Remont');
 
 -- CORE MODULE --
 -- FINANCES MODULE --
-INSERT INTO finances.balance (`version`,`amount`, `childId`, `guardianId`)
-VALUES (0, 0.00, '7767d645-5408-4e79-9e4e-173b1fb23274', '25e7d80a-a38e-496c-afc2-dd5733fdf8ac');
-INSERT INTO finances.balance (`version`,`amount`, `childId`, `guardianId`)
-VALUES (0, 0.00, 'bd73f070-cac9-48db-8037-7c1d34596584', '43750616-5f5d-4f34-9df8-d7759c180f72');
-INSERT INTO finances.balance (`version`,`amount`, `childId`, `guardianId`)
-VALUES (0, 0.00, 'cb34b97c-bbe9-4719-9091-0e0939804426', '25e7d80a-a38e-496c-afc2-dd5733fdf8ac');
 -- GROUPS MODULE --
 -- MEAL MODULE --
 -- PAYMENTS MODULE --
