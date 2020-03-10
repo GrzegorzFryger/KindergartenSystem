@@ -6,6 +6,7 @@ import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.finances.facade.FinancesFacade;
 import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.repository.TransactionRepository;
+import pl.edu.pja.prz.receivables.service.TransactionMappingService;
 import pl.edu.pja.prz.receivables.service.TransactionService;
 
 import java.time.LocalDate;
@@ -20,11 +21,14 @@ public class TransactionServiceImpl implements TransactionService {
 
     private final FinancesFacade facade;
     private final TransactionRepository repository;
+    private final TransactionMappingService mappingService;
 
     @Autowired
-    public TransactionServiceImpl(FinancesFacade facade, TransactionRepository repository) {
+    public TransactionServiceImpl(FinancesFacade facade, TransactionRepository repository,
+                                  TransactionMappingService mappingService) {
         this.facade = facade;
         this.repository = repository;
+        this.mappingService = mappingService;
     }
 
     @Override
@@ -79,6 +83,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public void save(Transaction transaction) {
         if (isPositive(transaction.getTransactionAmount())) {
+            mappingService.mapTransaction(transaction);
             repository.save(transaction);
             facade.increaseBalance(transaction.getChildId(),
                     transaction.getTransactionAmount(),
