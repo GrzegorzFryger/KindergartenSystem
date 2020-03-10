@@ -67,7 +67,13 @@ public class TransactionServiceImpl implements TransactionService {
         if (repository.findById(id).isEmpty()) {
             throw new ElementNotFoundException(TRANSACTION, id);
         }
+        Transaction transaction = repository.findById(id).get();
+
         repository.deleteById(id);
+
+        facade.decreaseBalance(transaction.getChildId(),
+                transaction.getTransactionAmount(),
+                "Removed transaction: " + transaction.getTitle());
     }
 
     @Override
@@ -87,7 +93,7 @@ public class TransactionServiceImpl implements TransactionService {
             repository.save(transaction);
             facade.increaseBalance(transaction.getChildId(),
                     transaction.getTransactionAmount(),
-                    transaction.getTitle());
+                    "Saved transaction: " + transaction.getTitle());
         }
     }
 }

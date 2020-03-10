@@ -49,7 +49,7 @@ public class BalanceServiceImpl implements BalanceService {
         if (isNegative(amount)) {
             historyService.saveBalanceInHistory(childId, amount, title);
         } else {
-            throw new BusinessException("Attempt was made to decrease balance when providing positive amount: " + amount);
+            historyService.saveBalanceInHistory(childId, amount.negate(), title);
         }
     }
 

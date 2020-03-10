@@ -113,14 +113,14 @@ class BalanceServiceImplTest {
     }
 
     @Test
-    public void Should_ThrowException_When_AmountToDecreaseIsPositive() {
+    public void Should_DecreaseBalance_When_AmountIsPositive() {
         //Given
 
         //When
-        Assertions.assertThrows(BusinessException.class, () -> {
-            balanceService.decreaseBalance(UUID.randomUUID(), new BigDecimal("50.00"), "PAYMENT");
-        });
+        balanceService.decreaseBalance(UUID.randomUUID(), new BigDecimal("50.00"), "PAYMENT");
 
         //Then
+        verify(historyService, times(1))
+                .saveBalanceInHistory(any(UUID.class), any(BigDecimal.class), anyString());
     }
 }
