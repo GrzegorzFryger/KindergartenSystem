@@ -1,1 +1,35 @@
 language: java
+script: mvn verify -B
+services:
+  - mysql
+before_install:
+  - mysql -u root -e 'CREATE SCHEMA IF NOT EXISTS account;'
+  - mysql -u root -e 'CREATE SCHEMA IF NOT EXISTS calendar;'
+  - mysql -u root -e 'CREATE SCHEMA IF NOT EXISTS core;'
+  - mysql -u root -e 'CREATE SCHEMA IF NOT EXISTS classrooms;'
+  - mysql -u root -e 'CREATE SCHEMA IF NOT EXISTS meal;'
+  - mysql -u root -e 'CREATE SCHEMA IF NOT EXISTS payments;'
+  - mysql -u root -e 'CREATE SCHEMA IF NOT EXISTS receivables;'
+  - mysql -u root -e 'CREATE SCHEMA IF NOT EXISTS finances;'
+  - mysql -u root -e 'CREATE SCHEMA IF NOT EXISTS scheduler;'
+  - mysql -u root -e "CREATE USER IF NOT EXISTS 'account'@'localhost' IDENTIFIED BY 'account01';"
+  - mysql -u root -e "CREATE USER IF NOT EXISTS 'calendar'@'localhost' IDENTIFIED BY 'calendar01';"
+  - mysql -u root -e "CREATE USER IF NOT EXISTS 'core'@'localhost' IDENTIFIED BY 'core01';"
+  - mysql -u root -e "CREATE USER IF NOT EXISTS 'classrooms'@'localhost' IDENTIFIED BY 'classrooms01';"
+  - mysql -u root -e "CREATE USER IF NOT EXISTS 'meal'@'localhost' IDENTIFIED BY 'meal01';"
+  - mysql -u root -e "CREATE USER IF NOT EXISTS 'payments'@'localhost' IDENTIFIED BY 'payments01';"
+  - mysql -u root -e "CREATE USER IF NOT EXISTS 'receivables'@'localhost' IDENTIFIED BY 'receivables01';"
+  - mysql -u root -e "CREATE USER IF NOT EXISTS 'finances'@'localhost' IDENTIFIED BY 'finances01';"
+  - mysql -u root -e "CREATE USER IF NOT EXISTS 'mail'@'localhost' IDENTIFIED BY 'mail01';"
+  - mysql -u root -e "CREATE USER IF NOT EXISTS 'scheduler'@'localhost' IDENTIFIED BY 'scheduler01';"
+  - mysql -u root -e "GRANT ALL PRIVILEGES ON account.* TO 'account'@'localhost';"
+  - mysql -u root -e "GRANT ALL PRIVILEGES ON calendar.* TO 'calendar'@'localhost';"
+  - mysql -u root -e "GRANT ALL PRIVILEGES ON core.* TO 'core'@'localhost';"
+  - mysql -u root -e "GRANT ALL PRIVILEGES ON classrooms.* TO 'classrooms'@'localhost';"
+  - mysql -u root -e "GRANT ALL PRIVILEGES ON meal.* TO 'meal'@'localhost';"
+  - mysql -u root -e "GRANT ALL PRIVILEGES ON payments.* TO 'payments'@'localhost';"
+  - mysql -u root -e "GRANT ALL PRIVILEGES ON receivables.* TO 'receivables'@'localhost';"
+  - mysql -u root -e "GRANT ALL PRIVILEGES ON finances.* TO 'finances'@'localhost';"
+  - mysql -u root -e "GRANT ALL PRIVILEGES ON scheduler.* TO 'scheduler'@'localhost';"
+  - mysql -u root -e "GRANT SELECT ON account.* TO 'mail'@'localhost';"
+  - mysql -u root --default-character-set=utf8 scheduler < .database/install/insert_quartz_1_0.sql

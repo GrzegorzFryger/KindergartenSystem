@@ -1,0 +1,1415 @@
+{
+	"info": {
+		"_postman_id": "7bd2ae5b-a9d0-4c72-8528-f6d555a0b7d3",
+		"name": "KindergartenSystem",
+		"description": "This collection contains all API requests to backend system of our application.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authorization",
+			"item": [
+				{
+					"name": "/api/authenticate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6e59e09f-6a64-46a5-a991-26f3848f76fa",
+								"exec": [
+									"pm.test(\"Save token in environment variable for future requests\", function() {\r",
+									"    let bearerToken = pm.response.headers.get(\"Authorization\").substring(7);\r",
+									"    pm.environment.set(\"token\", bearerToken);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "testjwtclientid",
+								"value": "XY7kmzoNzl100",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"{{username}}\",\n\t\"password\": \"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/authenticate",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Account",
+			"item": [
+				{
+					"name": "/guardian",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"name\":\"Test Name\",\r\n\t\"surname\":\"Test surname\",\r\n\t\"postalCode\": \"test postalcode\",\r\n\t\"city\": \"test City\",\r\n\t\"streetNumber\": \"street Number 23\",\r\n\t\"phone\": \"123132132\",\r\n\t\"email\": \"test@test.com\"\r\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}/{{ACCOUNT}}/guardian",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{ACCOUNT}}",
+								"guardian"
+							]
+						},
+						"description": "Created guardian"
+					},
+					"response": []
+				},
+				{
+					"name": "/borough",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"name\": \"test\",\n\"email\": \"email\",\n\"nipNumber\": \"97545456\"\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}/{{ACCOUNT}}/borough",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{ACCOUNT}}",
+								"borough"
+							]
+						},
+						"description": "Create borough"
+					},
+					"response": []
+				},
+				{
+					"name": "/child",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n\"name\": \"Name\",\n\"surname\": \"surname\",\n\"postalCode\": \"80-170\",\n\"city\": \"city\",\n\"streetNumber\": \"Street 17\",\n\"pesel\": \"94071105694\",\n\"gender\" : \"MALE\",\n\"startDate\": \"2007-12-03\",\n\"endDate\": \"2007-12-03\",\n\"dateOfBirth\": \"2007-12-03\",\n\"boroughId\": \"1\"\n\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}/{{ACCOUNT}}/child",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{ACCOUNT}}",
+								"child"
+							]
+						},
+						"description": "Create child"
+					},
+					"response": []
+				},
+				{
+					"name": "/employee",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"name\":\"Test Name \",\r\n\t\"surname\":\"Test surname\",\r\n\t\"postalCode\": \"test postalcode\",\r\n\t\"city\": \"test City\",\r\n\t\"streetNumber\": \"street Number 23\",\r\n\t\"phone\": \"123132132\",\r\n\t\"email\": \"test@test.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/{{ACCOUNT}}/employee",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{ACCOUNT}}",
+								"employee"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/child/{childId}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{ACCOUNT}}/child/986e9fdd-9bc5-4bd0-aedd-07d942db7c11",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{ACCOUNT}}",
+								"child",
+								"986e9fdd-9bc5-4bd0-aedd-07d942db7c11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/child",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"id\":\"3e09083b-9ded-4607-bcc7-8dfe67c1b99a\",\n\"name\": \"Update Name\",\n\"surname\": \"Update surname\",\n\"postalCode\": \"80-180\",\n\"city\": \"Update city\",\n\"streetNumber\": \"Update street\",\n\"pesel\": \"94071105694\",\n\"gender\" : \"MALE\",\n\"startDate\": \"2007-12-03\",\n\"endDate\": \"2007-12-03\",\n\"dateOfBirth\": \"2007-12-03\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/{{ACCOUNT}}/child",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{ACCOUNT}}",
+								"child"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/borough/{id}/children",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{ACCOUNT}}/borough/1/children",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{ACCOUNT}}",
+								"borough",
+								"1",
+								"children"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/borough/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{ACCOUNT}}/borough/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{ACCOUNT}}",
+								"borough",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/employee/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{ACCOUNT}}/employee/a7912412-12ce-40fe-b6a2-deb77ede555b",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{ACCOUNT}}",
+								"employee",
+								"a7912412-12ce-40fe-b6a2-deb77ede555b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/guardians",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{ACCOUNT}}/guardians",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{ACCOUNT}}",
+								"guardians"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/guardian/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{ACCOUNT}}/guardian/8a186e67-b796-406f-8e6a-3dc483143121",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{ACCOUNT}}",
+								"guardian",
+								"8a186e67-b796-406f-8e6a-3dc483143121"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/borough/child",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"boroughId\":1,\n\t\"childId\":\"3e09083b-9ded-4607-bcc7-8dfe67c1b99a\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/{{ACCOUNT}}/borough/child",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{ACCOUNT}}",
+								"borough",
+								"child"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "All requests from Account module.",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Calendar",
+			"item": [
+				{
+					"name": "/daysoff",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{CALENDAR}}/daysoff",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{CALENDAR}}",
+								"daysoff"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/dayoff/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{CALENDAR}}/dayoff/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{CALENDAR}}",
+								"dayoff",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/dayoff/{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{CALENDAR}}/dayoff/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{CALENDAR}}",
+								"dayoff",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/absence/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{CALENDAR}}/absence/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{CALENDAR}}",
+								"absence",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/absence/{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{CALENDAR}}/absence/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{CALENDAR}}",
+								"absence",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/absence/child/{childId}/{startDate}/{endDate}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{CALENDAR}}/absence/child/bd73f070-cac9-48db-8037-7c1d34596584/2015-10-10/2019-10-26",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{CALENDAR}}",
+								"absence",
+								"child",
+								"bd73f070-cac9-48db-8037-7c1d34596584",
+								"2015-10-10",
+								"2019-10-26"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/absence/childById/{childId}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{CALENDAR}}/absence/childById/bd73f070-cac9-48db-8037-7c1d34596584",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{CALENDAR}}",
+								"absence",
+								"childById",
+								"bd73f070-cac9-48db-8037-7c1d34596584"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/absence/childByDate/{date}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{CALENDAR}}/absence/childById/bd73f070-cac9-48db-8037-7c1d34596584",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{CALENDAR}}",
+								"absence",
+								"childById",
+								"bd73f070-cac9-48db-8037-7c1d34596584"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/absence",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"childId\":\"cb34b97c-bbe9-4719-9091-0e0939804426\",\r\n\t\"date\":\"2020-01-05\",\r\n\t\"reason\": \"Choroba\"\r\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}/{{CALENDAR}}/absence",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{CALENDAR}}",
+								"absence"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/absence",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"id\":\"1\",\r\n\t\"date\":\"2020-06-06\",\r\n\t\"reason\": \"Uaktualniony powod\"\r\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}/{{CALENDAR}}/absence",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{CALENDAR}}",
+								"absence"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/dayoff",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"eventType\":\"HOLIDAY\",\r\n\t\"date\":\"2020-04-12\",\r\n\t\"name\": \"Wielkanoc\"\r\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}/{{CALENDAR}}/dayoff",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{CALENDAR}}",
+								"dayoff"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/dayoff",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"id\":\"2\",\r\n\t\"eventType\":\"WEEKEND\",\r\n\t\"date\":\"2020-03-12\",\r\n\t\"name\": \"Dlugi weekend\"\r\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}/{{CALENDAR}}/dayoff",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{CALENDAR}}",
+								"dayoff"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Core",
+			"item": [],
+			"description": "All requests from Core module.",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Finances",
+			"item": [
+				{
+					"name": "/balance/{childId}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dfa25d81-00dd-429c-ad43-5841159a1b51",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{FINCANCES}}/balance/{{childId}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{FINCANCES}}",
+								"balance",
+								"{{childId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/balance-list/{guardianId}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dfa25d81-00dd-429c-ad43-5841159a1b51",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{FINCANCES}}/balance-list/{{guardianId}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{FINCANCES}}",
+								"balance-list",
+								"{{guardianId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "All requests from Finances module.",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Groups",
+			"item": [],
+			"description": "All requests from Groups module.",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Meal",
+			"item": [],
+			"description": "All requests from Meal module.",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Payments",
+			"item": [],
+			"description": "All requests from Payments module.",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Receivables",
+			"item": [
+				{
+					"name": "SCHEDULER",
+					"item": [],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "/transactions/{id}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/transactions/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"transactions",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/transactions/{id}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/transactions/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"transactions",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/transactions",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/transactions",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/transactions",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0399eec6-8890-4359-aab2-3d6a5158d673",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"transactionDate\": \"2019-10-15\",\n\t\"bookingDate\": \"2019-10-15\",\n\t\"contractorDetails\": \"Andrzej Małysz\",\n\t\"title\": \"429630192312\",\n\t\"accountNumber\": \"61 1090 1014 0000 0712 1981 2874\",\n\t\"bankName\": \"ING Bank\",\n\t\"details\": \"Za dziecko XYZ\",\n\t\"transactionNumber\": \"201967193405359451\",\n\t\"transactionAmount\": \"390.50\",\n\t\"transactionCurrency\": \"PLN\"\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/transactions",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/transactions",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 2,\n\t\"transactionDate\": \"2019-10-15\",\n\t\"bookingDate\": \"2019-10-15\",\n\t\"contractorDetails\": \"Rodzic #001\",\n\t\"title\": \"Czesne\",\n\t\"accountNumber\": \"1234123412341234\",\n\t\"bankName\": \"ING Bank\",\n\t\"details\": \"Za dziecko XYZ\",\n\t\"transactionNumber\": \"XYZ-123456\",\n\t\"transactionAmount\": \"20.50\",\n\t\"transactionCurrency\": \"PLN\"\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/transactions",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/transactions/input",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"type": "text"
+							},
+							{
+								"key": "Input-Encoding",
+								"value": "UTF8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "input",
+									"type": "file",
+									"src": "/C:/Repo/KindergartenSystem/.postman/input_files/test_transactions.csv"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/transactions/import",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"transactions",
+								"import"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/payments/child/{id}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dfa25d81-00dd-429c-ad43-5841159a1b51",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/payments/child/{{childId}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"payments",
+								"child",
+								"{{childId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/payments/child/{id}/{from}/{to}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dfa25d81-00dd-429c-ad43-5841159a1b51",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/payments/child/{{childId}}/2019-10-14/2019-10-15",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"payments",
+								"child",
+								"{{childId}}",
+								"2019-10-14",
+								"2019-10-15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/payments/guardian/{id}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dfa25d81-00dd-429c-ad43-5841159a1b51",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/payments/guardian/{{guardianId}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"payments",
+								"guardian",
+								"{{guardianId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/payments/guardian/{id}/{from}/{to}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dfa25d81-00dd-429c-ad43-5841159a1b51",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/payments/guardian/{{guardianId}}/2019-10-14/2019-10-15",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"payments",
+								"guardian",
+								"{{guardianId}}",
+								"2019-10-14",
+								"2019-10-15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/cash-payments/{id}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "439902e7-0603-4100-be96-7365485aec2d",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/cash-payments/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"cash-payments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/cash-payments",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "439902e7-0603-4100-be96-7365485aec2d",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/cash-payments",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"cash-payments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/cash-payments/{id}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e8883706-ea69-4fb2-9bd6-b126d6dee217",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/cash-payments/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"cash-payments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "All requests from Receivables module.",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Scheduler",
+			"item": [
+				{
+					"name": "/all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{SCHEDULER}}/all",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{SCHEDULER}}",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/active",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{SCHEDULER}}/active",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{SCHEDULER}}",
+								"active"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/cron",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"jobName\":\"tuition\",\n\t\"triggerDescription\":\"test scheduler\",\n\t\"cronExpression\":\"* 0 0 ? * * *\",\n\t\"durability\": \"true\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/{{SCHEDULER}}/cron",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{SCHEDULER}}",
+								"cron"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/pause/id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{SCHEDULER}}/pause/DEFAULT.BcNVmLWBTTaTtECg7agwtg",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{SCHEDULER}}",
+								"pause",
+								"DEFAULT.BcNVmLWBTTaTtECg7agwtg"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/remove/{id}",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{SCHEDULER}}/remove/DEFAULT.mT1LAInwTc-Z2IlpHptqdQ",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{SCHEDULER}}",
+								"remove",
+								"DEFAULT.mT1LAInwTc-Z2IlpHptqdQ"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Mail",
+			"item": [
+				{
+					"name": "/send",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"to\": \"testowyodbiorca123@gmail.com\",\n\t\"subject\": \"Test mail\",\n\t\"content\": \"Witam serdecznie, jest to testowy email\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/{{MAIL}}/send",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{MAIL}}",
+								"send"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "2907f77b-d427-4d84-a448-c3a1c0095030",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "c1f548be-00a8-4d0e-9d5a-92af81e6360f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
