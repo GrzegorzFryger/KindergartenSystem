@@ -18,6 +18,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 public class AccountCredentialService {
+
 	private static final String ACCOUNT = "Account";
 	private static final String USER = "User";
 
@@ -56,7 +57,7 @@ public class AccountCredentialService {
 				account -> {
 					//todo send verification email
 					if (passwordManager.matches(rawOldPassword, account.getPassword().getPassword())) {
-						account.setPassword(new Password(passwordManager.encode(rawNewPassword)));
+						account.setPassword(createHashPassword(rawNewPassword));
 						return true;
 					} else throw new IllegalArgumentException("password not match");
 				}
@@ -65,7 +66,9 @@ public class AccountCredentialService {
 		});
 	}
 
-	public boolean activateAccount(String token, String newPassword, String repeatNewPassword) {
+
+
+	public boolean activateAccount(String token, CharSequence newPassword, CharSequence repeatNewPassword) {
 
 		AtomicBoolean success = new AtomicBoolean(false);
 
@@ -80,8 +83,8 @@ public class AccountCredentialService {
 				.findByEmailAndAccountStatus(authentication.getEmail(), AccountStatus.NOT_ACTIVE).map(account -> {
 
 			if (isEquals(authentication, account.getPassword())) {
-				var hashPassword = passwordManager.encode(newPassword);
-				account.setPassword(new Password(hashPassword));
+				var hashPassword = createHashPassword(newPassword);
+				account.setPassword(hashPassword);
 				return accountRepository.save(account);
 			} else {
 				logger.warn("Hash password form token not match : {}", authentication.getHasPassword());
@@ -98,5 +101,10 @@ public class AccountCredentialService {
 
 	private boolean isEquals(ActivateTokenData token, Password password) {
 		return token.getHasPassword().equals(password.getPassword());
+	}
+
+	private Password createHashPassword(CharSequence password) {
+		var hashPassword = passwordManager.encode(password);
+		return new Password(hashPassword);
 	}
 }
