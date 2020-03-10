@@ -13,7 +13,7 @@ import java.util.Set;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Account extends Person {
+public class Account extends Person  {
 	@Enumerated(EnumType.STRING)
 	private AccountStatus accountStatus;
 	private Password password;

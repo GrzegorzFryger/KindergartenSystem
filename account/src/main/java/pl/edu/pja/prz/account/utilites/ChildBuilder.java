@@ -1,5 +1,8 @@
-package pl.edu.pja.prz.account.model;
+package pl.edu.pja.prz.account.utilites;
 
+import pl.edu.pja.prz.account.model.Borough;
+import pl.edu.pja.prz.account.model.Child;
+import pl.edu.pja.prz.account.model.Guardian;
 import pl.edu.pja.prz.account.model.enums.ChildStatus;
 import pl.edu.pja.prz.account.model.enums.Gender;
 import pl.edu.pja.prz.account.model.value.Age;

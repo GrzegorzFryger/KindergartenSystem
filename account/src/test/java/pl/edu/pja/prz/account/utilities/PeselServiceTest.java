@@ -3,8 +3,8 @@ package pl.edu.pja.prz.account.utilities;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pl.edu.pja.prz.account.model.enums.Gender;
-import pl.edu.pja.prz.account.utilites.PeselService;
-import pl.edu.pja.prz.account.utilites.PeselServiceImpl;
+import pl.edu.pja.prz.account.service.PeselService;
+import pl.edu.pja.prz.account.service.PeselServiceImpl;
 
 import java.time.LocalDate;
 

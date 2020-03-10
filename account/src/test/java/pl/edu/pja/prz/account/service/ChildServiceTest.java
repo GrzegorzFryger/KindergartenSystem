@@ -8,11 +8,10 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pja.prz.account.model.Borough;
 import pl.edu.pja.prz.account.model.Child;
-import pl.edu.pja.prz.account.model.ChildBuilder;
 import pl.edu.pja.prz.account.model.enums.Gender;
 import pl.edu.pja.prz.account.model.value.StudyPeriod;
 import pl.edu.pja.prz.account.repository.ChildRepository;
-import pl.edu.pja.prz.account.utilites.PeselService;
+import pl.edu.pja.prz.account.utilites.ChildBuilder;
 import pl.edu.pja.prz.commons.model.Address;
 import pl.edu.pja.prz.commons.model.FullName;
 import pl.edu.pja.prz.commons.model.Phone;
@@ -45,7 +44,7 @@ class ChildServiceTest {
 		address = new Address("70-700", "City", "Street 256");
 		phone = new Phone("123132123");
 		fullName = new FullName("TestName", "TestSurname");
-		childService = new ChildServiceImpl(childRepository, peselService);
+		childService = new ChildService(childRepository, peselService);
 	}
 
 	@Test
@@ -84,7 +83,7 @@ class ChildServiceTest {
 
 		//when
 		when(childRepository.findById(id)).thenReturn(Optional.ofNullable(child));
-		var returnedObj = childService.getChildById(id);
+		var returnedObj = childService.getById(id);
 
 		//then
 		verify(childRepository, times(1)).findById(id);
@@ -115,7 +114,7 @@ class ChildServiceTest {
 		when(childRepository.findById(id)).thenReturn(Optional.of(childSpy));
 		when(childRepository.save(any())).thenReturn(childOld);
 
-		childService.updateChild(newChild);
+		childService.update(newChild);
 
 		//then
 		assertEquals(newChild, childSpy);

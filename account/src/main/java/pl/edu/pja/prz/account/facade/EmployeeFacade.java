@@ -1,7 +1,7 @@
 package pl.edu.pja.prz.account.facade;
 
-import pl.edu.pja.prz.account.facade.dto.AccountDto;
-import pl.edu.pja.prz.account.facade.dto.EmployeeDto;
+import pl.edu.pja.prz.account.model.dto.AccountDto;
+import pl.edu.pja.prz.account.model.dto.EmployeeDto;
 
 import java.util.UUID;
 

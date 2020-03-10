@@ -25,6 +25,11 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-text</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jool</artifactId>
+            <version>0.9.14</version>
+        </dependency>
     </dependencies>
     
     <build>
@@ -58,11 +63,13 @@
                         <exclude>**/pl/edu/pja/prz/account/*</exclude>
                         <exclude>**/pl/edu/pja/prz/account/model/value/*</exclude>
                         <exclude>**/pl/edu/pja/prz/account/model/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/account/exception/*</exclude>
                         <exclude>**/pl/edu/pja/prz/account/configuration/*</exclude>
                         <exclude>**/pl/edu/pja/prz/account/repository/*</exclude>
                         <exclude>**/pl/edu/pja/prz/account/facade/*</exclude>
                         <exclude>**/pl/edu/pja/prz/account/facade/mapper/*</exclude>
                         <exclude>**/pl/edu/pja/prz/account/facade/dto/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/account/service/*</exclude>
                     </excludes>
                 </configuration>
             </plugin>

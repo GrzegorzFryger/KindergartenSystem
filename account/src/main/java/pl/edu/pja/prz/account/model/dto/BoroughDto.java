@@ -1,32 +1,23 @@
-package pl.edu.pja.prz.account.facade.dto;
+package pl.edu.pja.prz.account.model.dto;
 
-
-import pl.edu.pja.prz.account.model.enums.AccountStatus;
-
-import java.util.Set;
-import java.util.UUID;
-
-public class GuardianDto {
-	private UUID id;
+public class BoroughDto {
+	private long id;
 	private String name;
-	private String surname;
 	private String postalCode;
 	private String city;
 	private String streetNumber;
 	private String phone;
-	private AccountStatus status;
 	private String email;
-	private Set<ChildDto> children;
-	private Set<RoleDto> roles;
+	private String nipNumber;
 
-	public GuardianDto() {
+	public BoroughDto() {
 	}
 
-	public UUID getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -36,14 +27,6 @@ public class GuardianDto {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getSurname() {
-		return surname;
-	}
-
-	public void setSurname(String surname) {
-		this.surname = surname;
 	}
 
 	public String getPostalCode() {
@@ -78,14 +61,6 @@ public class GuardianDto {
 		this.phone = phone;
 	}
 
-	public AccountStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(AccountStatus status) {
-		this.status = status;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -94,19 +69,13 @@ public class GuardianDto {
 		this.email = email;
 	}
 
-	public Set<ChildDto> getChildren() {
-		return children;
+	public String getNipNumber() {
+		return nipNumber;
 	}
 
-	public void setChildren(Set<ChildDto> children) {
-		this.children = children;
+	public void setNipNumber(String nipNumber) {
+		this.nipNumber = nipNumber;
 	}
 
-	public Set<RoleDto> getRoles() {
-		return roles;
-	}
 
-	public void setRoles(Set<RoleDto> roles) {
-		this.roles = roles;
-	}
 }

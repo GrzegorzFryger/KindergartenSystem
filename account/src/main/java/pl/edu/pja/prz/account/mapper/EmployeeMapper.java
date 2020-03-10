@@ -1,9 +1,9 @@
-package pl.edu.pja.prz.account.facade.mapper;
+package pl.edu.pja.prz.account.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import pl.edu.pja.prz.account.facade.dto.AccountDto;
-import pl.edu.pja.prz.account.facade.dto.EmployeeDto;
+import pl.edu.pja.prz.account.model.dto.AccountDto;
+import pl.edu.pja.prz.account.model.dto.EmployeeDto;
 import pl.edu.pja.prz.account.model.Employee;
 import pl.edu.pja.prz.account.model.Person;
 

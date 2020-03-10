@@ -25,11 +25,11 @@ class BoroughServiceTest {
 	@Mock
 	private Borough borough;
 
-	private BoroughServiceImpl boroughService;
+	private BoroughService boroughService;
 
 	@BeforeEach
 	void setUp() {
-		boroughService = new BoroughServiceImpl(boroughRepository, childService);
+		boroughService = new BoroughService(boroughRepository, childService);
 	}
 
 	@Test

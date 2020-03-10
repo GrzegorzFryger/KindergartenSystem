@@ -1,9 +1,9 @@
-package pl.edu.pja.prz.account.facade.mapper;
+package pl.edu.pja.prz.account.mapper;
 
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import pl.edu.pja.prz.account.facade.dto.ChildDto;
+import pl.edu.pja.prz.account.model.dto.ChildDto;
 import pl.edu.pja.prz.account.model.Child;
 import pl.edu.pja.prz.account.model.value.Age;
 import pl.edu.pja.prz.account.model.value.StudyPeriod;

@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.account.facade.dto;
+package pl.edu.pja.prz.account.model.dto;
 
 import java.util.UUID;
 

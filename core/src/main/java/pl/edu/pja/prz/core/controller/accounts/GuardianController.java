@@ -5,9 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.pja.prz.account.facade.GuardianFacade;
-import pl.edu.pja.prz.account.facade.dto.AccountDto;
-import pl.edu.pja.prz.account.facade.dto.ChildDto;
-import pl.edu.pja.prz.account.facade.dto.GuardianDto;
+import pl.edu.pja.prz.account.model.dto.AccountDto;
+import pl.edu.pja.prz.account.model.dto.ChildDto;
+import pl.edu.pja.prz.account.model.dto.GuardianDto;
 
 import java.util.List;
 import java.util.Set;
