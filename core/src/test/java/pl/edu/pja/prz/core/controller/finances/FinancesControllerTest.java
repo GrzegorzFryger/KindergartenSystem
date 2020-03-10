@@ -18,10 +18,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.only;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static pl.edu.pja.prz.core.controller.RequestMappings.API_FINANCES;
 
 @ExtendWith(MockitoExtension.class)
 class FinancesControllerTest {
-    private static final String BASE = "/api/finances/";
     private MockMvc mvc;
 
     @Mock
@@ -41,26 +41,12 @@ class FinancesControllerTest {
         String childId = UUID.randomUUID().toString();
 
         //When
-        mvc.perform(MockMvcRequestBuilders.get(BASE + "balance/" + childId)
+        mvc.perform(MockMvcRequestBuilders.get(API_FINANCES + "balance/" + childId)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
         //Then
         verify(financesFacade, only()).getBalance(any(UUID.class));
-    }
-
-    @Test
-    public void Should_DelegateApiCallTo_getBalancesMethod() throws Exception {
-        //Given
-        String guardianId = UUID.randomUUID().toString();
-
-        //When
-        mvc.perform(MockMvcRequestBuilders.get(BASE + "balance-list/" + guardianId)
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-
-        //Then
-        verify(financesFacade, only()).getBalances(any(UUID.class));
     }
 
 }

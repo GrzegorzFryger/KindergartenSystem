@@ -37,16 +37,15 @@ public class Transaction extends BaseEntityLong implements Serializable {
     @NotNull
     private String transactionNumber;
     @NotNull
+    @Column(columnDefinition = "Decimal(10,2) default '0.00'")
     private BigDecimal transactionAmount;
     @NotNull
     private String transactionCurrency;
     @Type(type = "uuid-char")
     @Column(length = 36)
-    @NotNull
     private UUID childId;
     @Type(type = "uuid-char")
     @Column(length = 36)
-    @NotNull
     private UUID guardianId;
 
     public LocalDate getTransactionDate() {

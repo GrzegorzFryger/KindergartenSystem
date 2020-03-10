@@ -10,7 +10,6 @@ import java.util.UUID;
 
 public class BalanceHistoryBuilder {
     private UUID childId;
-    private BigDecimal balanceBeforeChange;
     private BigDecimal amountOfChange;
     private String title;
 
@@ -20,11 +19,6 @@ public class BalanceHistoryBuilder {
 
     public BalanceHistoryBuilder withChildId(UUID childId) {
         this.childId = childId;
-        return this;
-    }
-
-    public BalanceHistoryBuilder withBalanceBeforeChange(BigDecimal balanceBeforeChange) {
-        this.balanceBeforeChange = balanceBeforeChange;
         return this;
     }
 
@@ -43,9 +37,6 @@ public class BalanceHistoryBuilder {
         if (childId == null) {
             throw new EmptyInputException("UUID", "Child Id");
         }
-        if (balanceBeforeChange == null) {
-            throw new EmptyInputException("Big Decimal", "Balance before change");
-        }
         if (amountOfChange == null) {
             throw new EmptyInputException("Big Decimal", "Amount of change");
         }
@@ -54,7 +45,6 @@ public class BalanceHistoryBuilder {
         }
 
         balanceHistory.setChildId(childId);
-        balanceHistory.setBalanceBeforeChange(balanceBeforeChange);
         balanceHistory.setAmountOfChange(amountOfChange);
         balanceHistory.setTitle(title);
         balanceHistory.setDate(LocalDate.now());
