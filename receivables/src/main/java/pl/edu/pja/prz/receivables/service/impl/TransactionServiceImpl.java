@@ -9,6 +9,7 @@ import pl.edu.pja.prz.receivables.repository.TransactionRepository;
 import pl.edu.pja.prz.receivables.service.TransactionMappingService;
 import pl.edu.pja.prz.receivables.service.TransactionService;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -78,15 +79,19 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public void update(Transaction transaction) {
-        //TODO: find way of updating balance using facade (maybe new method in facade?)
         if (repository.findById(transaction.getId()).isEmpty()) {
             throw new ElementNotFoundException(TRANSACTION, transaction.getId());
         }
-
+        BigDecimal balanceToUpdate = BigDecimal.ZERO;
         Transaction transactionToUpdate = repository.findById(transaction.getId()).get();
+        if (transaction.getTransactionAmount() != null) {
+            balanceToUpdate = transaction.getTransactionAmount()
+                    .subtract(transactionToUpdate.getTransactionAmount());
+        }
         updateTransactionFields(transactionToUpdate, transaction);
 
         repository.save(transactionToUpdate);
+        applyBalanceCorrections(balanceToUpdate, transaction);
     }
 
     @Override
@@ -96,7 +101,7 @@ public class TransactionServiceImpl implements TransactionService {
             repository.save(transaction);
             facade.increaseBalance(transaction.getChildId(),
                     transaction.getTransactionAmount(),
-                    "Saved transaction: " + transaction.getTitle());
+                    transaction.getTitle());
         }
     }
 
@@ -136,6 +141,14 @@ public class TransactionServiceImpl implements TransactionService {
         }
         if (transaction.getGuardianId() != null) {
             transactionToUpdate.setGuardianId(transaction.getGuardianId());
+        }
+    }
+
+    private void applyBalanceCorrections(BigDecimal balanceToUpdate, Transaction transaction) {
+        if (!balanceToUpdate.equals(BigDecimal.ZERO)) {
+            facade.applyBalanceCorrection(transaction.getChildId(),
+                    transaction.getTransactionAmount(),
+                    transaction.getTitle());
         }
     }
 }
