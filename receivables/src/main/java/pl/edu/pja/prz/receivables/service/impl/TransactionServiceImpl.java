@@ -78,12 +78,15 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public void update(Transaction transaction) {
-        //TODO: fix updating method
         //TODO: find way of updating balance using facade (maybe new method in facade?)
         if (repository.findById(transaction.getId()).isEmpty()) {
             throw new ElementNotFoundException(TRANSACTION, transaction.getId());
         }
-        repository.save(transaction);
+
+        Transaction transactionToUpdate = repository.findById(transaction.getId()).get();
+        updateTransactionFields(transactionToUpdate, transaction);
+
+        repository.save(transactionToUpdate);
     }
 
     @Override
@@ -94,6 +97,45 @@ public class TransactionServiceImpl implements TransactionService {
             facade.increaseBalance(transaction.getChildId(),
                     transaction.getTransactionAmount(),
                     "Saved transaction: " + transaction.getTitle());
+        }
+    }
+
+    private void updateTransactionFields(Transaction transactionToUpdate, Transaction transaction) {
+        if (transaction.getTransactionDate() != null) {
+            transactionToUpdate.setTransactionDate(transaction.getTransactionDate());
+        }
+        if (transaction.getBookingDate() != null) {
+            transactionToUpdate.setBookingDate(transaction.getBookingDate());
+        }
+        if (transaction.getContractorDetails() != null) {
+            transactionToUpdate.setContractorDetails(transaction.getContractorDetails());
+        }
+        if (transaction.getTitle() != null) {
+            transactionToUpdate.setTitle(transaction.getTitle());
+        }
+        if (transaction.getAccountNumber() != null) {
+            transactionToUpdate.setAccountNumber(transaction.getAccountNumber());
+        }
+        if (transaction.getAccountNumber() != null) {
+            transactionToUpdate.setBankName(transaction.getBankName());
+        }
+        if (transaction.getBankName() != null) {
+            transactionToUpdate.setDetails(transaction.getDetails());
+        }
+        if (transaction.getDetails() != null) {
+            transactionToUpdate.setTransactionNumber(transaction.getTransactionNumber());
+        }
+        if (transaction.getTransactionAmount() != null) {
+            transactionToUpdate.setTransactionAmount(transaction.getTransactionAmount());
+        }
+        if (transaction.getTransactionCurrency() != null) {
+            transactionToUpdate.setTransactionCurrency(transaction.getTransactionCurrency());
+        }
+        if (transaction.getChildId() != null) {
+            transactionToUpdate.setChildId(transaction.getChildId());
+        }
+        if (transaction.getGuardianId() != null) {
+            transactionToUpdate.setGuardianId(transaction.getGuardianId());
         }
     }
 }

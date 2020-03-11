@@ -74,12 +74,15 @@ public class CashPaymentServiceImpl implements CashPaymentService {
 
     @Override
     public void update(CashPayment cashPayment) {
-        //TODO: fix updating method
         //TODO: find way of updating balance using facade (maybe new method in facade?)
         if (repository.findById(cashPayment.getId()).isEmpty()) {
             throw new ElementNotFoundException(CASH_PAYMENT, cashPayment.getId());
         }
-        repository.save(cashPayment);
+
+        CashPayment cashPaymentToUpdate = repository.findById(cashPayment.getId()).get();
+        updateCashPaymentFields(cashPaymentToUpdate, cashPayment);
+
+        repository.save(cashPaymentToUpdate);
     }
 
     @Override
@@ -89,6 +92,30 @@ public class CashPaymentServiceImpl implements CashPaymentService {
             facade.increaseBalance(cashPayment.getChildId(),
                     cashPayment.getTransactionAmount(),
                     "Saved cash payment" + cashPayment.getTitle());
+        }
+    }
+
+    private void updateCashPaymentFields(CashPayment cashPaymentToUpdate, CashPayment cashPayment) {
+        if (cashPayment.getTransactionDate() != null) {
+            cashPaymentToUpdate.setTransactionDate(cashPayment.getTransactionDate());
+        }
+        if (cashPayment.getContractorDetails() != null) {
+            cashPaymentToUpdate.setContractorDetails(cashPayment.getContractorDetails());
+        }
+        if (cashPayment.getTitle() != null) {
+            cashPaymentToUpdate.setTitle(cashPayment.getTitle());
+        }
+        if (cashPayment.getTransactionAmount() != null) {
+            cashPaymentToUpdate.setTransactionAmount(cashPayment.getTransactionAmount());
+        }
+        if (cashPayment.getTransactionCurrency() != null) {
+            cashPaymentToUpdate.setTransactionCurrency(cashPayment.getTransactionCurrency());
+        }
+        if (cashPayment.getChildId() != null) {
+            cashPaymentToUpdate.setChildId(cashPayment.getChildId());
+        }
+        if (cashPayment.getGuardianId() != null) {
+            cashPaymentToUpdate.setGuardianId(cashPayment.getGuardianId());
         }
     }
 }
