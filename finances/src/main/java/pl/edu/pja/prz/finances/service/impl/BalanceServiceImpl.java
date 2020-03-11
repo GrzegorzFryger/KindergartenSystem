@@ -55,12 +55,16 @@ public class BalanceServiceImpl implements BalanceService {
 
     @Override
     public Balance calculateBalance(List<BalanceHistory> balanceHistories) {
-        BigDecimal amount = BigDecimal.ZERO;
+        BigDecimal receivables = BigDecimal.ZERO;
+        BigDecimal liabilites = BigDecimal.ZERO;
+
         for (BalanceHistory balanceHistory : balanceHistories) {
-            amount = sum(amount, balanceHistory.getAmountOfChange());
+            if (isNegative(balanceHistory.getAmountOfChange())) {
+                liabilites = sum(liabilites, balanceHistory.getAmountOfChange());
+            } else {
+                receivables = sum(receivables, balanceHistory.getAmountOfChange());
+            }
         }
-        Balance balance = new Balance();
-        balance.setAmount(amount);
-        return balance;
+        return new Balance(receivables, liabilites);
     }
 }
