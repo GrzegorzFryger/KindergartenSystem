@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static pl.edu.pja.prz.commons.util.BigDecimalUtils.*;
+import static pl.edu.pja.prz.finances.model.enums.OperationType.*;
 
 @Service
 public class BalanceServiceImpl implements BalanceService {
@@ -38,7 +39,7 @@ public class BalanceServiceImpl implements BalanceService {
     @Override
     public void increaseBalance(UUID childId, BigDecimal amount, String title) {
         if (isPositive(amount)) {
-            historyService.saveBalanceInHistory(childId, amount, title);
+            historyService.saveBalanceInHistory(childId, amount, title, INCREASE);
         } else {
             throw new BusinessException("Attempt was made to increase balance when providing negative amount: " + amount);
         }
@@ -47,19 +48,15 @@ public class BalanceServiceImpl implements BalanceService {
     @Override
     public void decreaseBalance(UUID childId, BigDecimal amount, String title) {
         if (isNegative(amount)) {
-            historyService.saveBalanceInHistory(childId, amount, title);
+            historyService.saveBalanceInHistory(childId, amount, title, DECREASE);
         } else {
-            historyService.saveBalanceInHistory(childId, amount.negate(), title);
+            historyService.saveBalanceInHistory(childId, amount.negate(), title, DECREASE);
         }
     }
 
     @Override
     public void applyBalanceCorrection(UUID childId, BigDecimal amount, String title) {
-        if (isPositive(amount)) {
-            increaseBalance(childId, amount, title);
-        } else {
-            decreaseBalance(childId, amount, title);
-        }
+        historyService.saveBalanceInHistory(childId, amount, title, CORRECTION);
     }
 
     @Override

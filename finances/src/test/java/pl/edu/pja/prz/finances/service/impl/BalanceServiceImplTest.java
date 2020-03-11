@@ -11,6 +11,7 @@ import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.finances.model.BalanceHistory;
 import pl.edu.pja.prz.finances.model.builder.BalanceHistoryBuilder;
 import pl.edu.pja.prz.finances.model.dto.Balance;
+import pl.edu.pja.prz.finances.model.enums.OperationType;
 import pl.edu.pja.prz.finances.service.BalanceHistoryService;
 
 import java.math.BigDecimal;
@@ -43,6 +44,7 @@ class BalanceServiceImplTest {
                 .withAmountOfChange(new BigDecimal("50.00"))
                 .withChildId(UUID.randomUUID())
                 .withTitle("PAYMENT")
+                .withOperationType(OperationType.INCREASE)
                 .build();
 
         balanceHistories.add(balanceHistory);
@@ -86,7 +88,7 @@ class BalanceServiceImplTest {
 
         //Then
         verify(historyService, times(1))
-                .saveBalanceInHistory(any(UUID.class), any(BigDecimal.class), anyString());
+                .saveBalanceInHistory(any(UUID.class), any(BigDecimal.class), anyString(), any(OperationType.class));
     }
 
     @Test
@@ -110,7 +112,7 @@ class BalanceServiceImplTest {
 
         //Then
         verify(historyService, times(1))
-                .saveBalanceInHistory(any(UUID.class), any(BigDecimal.class), anyString());
+                .saveBalanceInHistory(any(UUID.class), any(BigDecimal.class), anyString(), any(OperationType.class));
     }
 
     @Test
@@ -122,7 +124,7 @@ class BalanceServiceImplTest {
 
         //Then
         verify(historyService, times(1))
-                .saveBalanceInHistory(any(UUID.class), any(BigDecimal.class), anyString());
+                .saveBalanceInHistory(any(UUID.class), any(BigDecimal.class), anyString(), any(OperationType.class));
     }
 
     @Test
@@ -134,7 +136,7 @@ class BalanceServiceImplTest {
 
         //Then
         verify(historyService, times(1))
-                .saveBalanceInHistory(any(UUID.class), any(BigDecimal.class), anyString());
+                .saveBalanceInHistory(any(UUID.class), any(BigDecimal.class), anyString(), any(OperationType.class));
     }
 
     @Test

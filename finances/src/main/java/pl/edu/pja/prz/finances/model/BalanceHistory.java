@@ -4,10 +4,9 @@ import org.hibernate.annotations.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.edu.pja.prz.commons.model.BaseEntityLong;
+import pl.edu.pja.prz.finances.model.enums.OperationType;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.PostPersist;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -29,6 +28,9 @@ public class BalanceHistory extends BaseEntityLong implements Serializable {
     private BigDecimal amountOfChange;
     @NotNull
     private String title;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private OperationType operationType;
 
     public UUID getChildId() {
         return childId;
@@ -62,6 +64,14 @@ public class BalanceHistory extends BaseEntityLong implements Serializable {
         this.title = title;
     }
 
+    public OperationType getOperationType() {
+        return operationType;
+    }
+
+    public void setOperationType(OperationType operationType) {
+        this.operationType = operationType;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -71,12 +81,13 @@ public class BalanceHistory extends BaseEntityLong implements Serializable {
         return childId.equals(that.childId) &&
                 date.equals(that.date) &&
                 amountOfChange.equals(that.amountOfChange) &&
-                title.equals(that.title);
+                title.equals(that.title) &&
+                operationType.equals(that.operationType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), childId, date, amountOfChange, title);
+        return Objects.hash(super.hashCode(), childId, date, amountOfChange, title, operationType);
     }
 
     @Override
