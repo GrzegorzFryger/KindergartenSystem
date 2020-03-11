@@ -54,6 +54,15 @@ public class BalanceServiceImpl implements BalanceService {
     }
 
     @Override
+    public void applyBalanceCorrection(UUID childId, BigDecimal amount, String title) {
+        if (isPositive(amount)) {
+            increaseBalance(childId, amount, title);
+        } else {
+            decreaseBalance(childId, amount, title);
+        }
+    }
+
+    @Override
     public Balance calculateBalance(List<BalanceHistory> balanceHistories) {
         BigDecimal receivables = BigDecimal.ZERO;
         BigDecimal liabilites = BigDecimal.ZERO;

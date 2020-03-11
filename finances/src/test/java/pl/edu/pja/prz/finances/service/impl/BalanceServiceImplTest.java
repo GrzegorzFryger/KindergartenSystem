@@ -126,6 +126,18 @@ class BalanceServiceImplTest {
     }
 
     @Test
+    public void Should_ApplyBalanceCorrection() {
+        //Given
+
+        //When
+        balanceService.applyBalanceCorrection(UUID.randomUUID(), new BigDecimal("50.00"), "PAYMENT");
+
+        //Then
+        verify(historyService, times(1))
+                .saveBalanceInHistory(any(UUID.class), any(BigDecimal.class), anyString());
+    }
+
+    @Test
     public void Should_CalculateBalance_When_ThereAreOnlyReceivables() {
         //Given
         List<BalanceHistory> balanceHistories = Arrays.asList(
