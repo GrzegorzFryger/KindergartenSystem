@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pja.prz.finances.model.BalanceHistory;
 import pl.edu.pja.prz.finances.model.builder.BalanceHistoryBuilder;
+import pl.edu.pja.prz.finances.model.enums.OperationType;
 import pl.edu.pja.prz.finances.repository.BalanceHistoryRepository;
 
 import java.math.BigDecimal;
@@ -35,6 +36,7 @@ class BalanceHistoryServiceImplTest {
                 .withAmountOfChange(new BigDecimal("-200.50"))
                 .withChildId(UUID.randomUUID())
                 .withTitle("PAYMENT")
+                .withOperationType(OperationType.DECREASE)
                 .build();
     }
 
@@ -61,7 +63,8 @@ class BalanceHistoryServiceImplTest {
         //When
         service.saveBalanceInHistory(UUID.randomUUID(),
                 new BigDecimal("200.10"),
-                "PAYMENT");
+                "PAYMENT",
+                OperationType.INCREASE);
 
         //Then
         verify(repository, times(1)).save(any(BalanceHistory.class));
