@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "7bd2ae5b-a9d0-4c72-8528-f6d555a0b7d3",
+		"_postman_id": "fed4fa69-ba7e-4c94-b019-9a929ac52d41",
 		"name": "KindergartenSystem",
 		"description": "This collection contains all API requests to backend system of our application.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -18,8 +18,8 @@
 								"id": "6e59e09f-6a64-46a5-a991-26f3848f76fa",
 								"exec": [
 									"pm.test(\"Save token in environment variable for future requests\", function() {\r",
-									"    let bearerToken = pm.response.headers.get(\"Authorization\").substring(7);\r",
-									"    pm.environment.set(\"token\", bearerToken);\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.environment.set(\"token\", jsonData.token);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -43,7 +43,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"username\": \"{{username}}\",\n\t\"password\": \"{{password}}\"\n}",
+							"raw": "{\n\t\"username\": \"{{user_login}}\",\n\t\"password\": \"{{user_pass}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -902,12 +902,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"type": "text/javascript",
+								"id": "ced36ab9-db6f-40ef-87ae-8b7bdabea5fa",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
-								]
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -923,7 +924,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"id\": 2,\n\t\"transactionDate\": \"2019-10-15\",\n\t\"bookingDate\": \"2019-10-15\",\n\t\"contractorDetails\": \"Rodzic #001\",\n\t\"title\": \"Czesne\",\n\t\"accountNumber\": \"1234123412341234\",\n\t\"bankName\": \"ING Bank\",\n\t\"details\": \"Za dziecko XYZ\",\n\t\"transactionNumber\": \"XYZ-123456\",\n\t\"transactionAmount\": \"20.50\",\n\t\"transactionCurrency\": \"PLN\"\n}"
+							"raw": "{\n\t\"id\": 1,\n\t\"transactionDate\": \"2019-10-15\",\n\t\"bookingDate\": \"2019-10-15\",\n\t\"contractorDetails\": \"Andrzej Małysz\",\n\t\"title\": \"429630192312\",\n\t\"accountNumber\": \"61 1090 1014 0000 0712 1981 2874\",\n\t\"bankName\": \"ING Bank\",\n\t\"details\": \"Za dziecko XYZ\",\n\t\"transactionNumber\": \"201967193405359451\",\n\t\"transactionAmount\": \"555.50\",\n\t\"transactionCurrency\": \"PLN\"\n}"
 						},
 						"url": {
 							"raw": "{{HOST}}/{{RECEIVABLES}}/transactions",
