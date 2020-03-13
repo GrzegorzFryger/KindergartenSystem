@@ -1,6 +1,7 @@
-package pl.edu.pja.prz.account.model;
+package pl.edu.pja.prz.account.utilites;
 
 import org.springframework.stereotype.Component;
+import pl.edu.pja.prz.account.model.*;
 import pl.edu.pja.prz.account.model.enums.AccountStatus;
 import pl.edu.pja.prz.account.model.enums.EmployeeType;
 import pl.edu.pja.prz.account.model.enums.PrivilegeType;

@@ -6,8 +6,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import pl.edu.pja.prz.account.facade.AccountFacade;
-import pl.edu.pja.prz.account.facade.dto.AccountDto;
+import pl.edu.pja.prz.account.facade.AccountCredentialFacade;
+import pl.edu.pja.prz.account.model.dto.AccountCredentialDto;
 import pl.edu.pja.prz.account.model.enums.AccountStatus;
 
 import java.util.ArrayList;
@@ -15,19 +15,22 @@ import java.util.Collection;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
-	private final AccountFacade accountFacade;
+	private final AccountCredentialFacade accountFacade;
 
 	@Autowired
-	public JwtUserDetailsService(AccountFacade accountService) {
+	public JwtUserDetailsService(AccountCredentialFacade accountService) {
 		this.accountFacade = accountService;
 	}
 
 	@Override
 	public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-		return convert(accountFacade.findAccountByEmail(s));
+		return accountFacade
+				.findByEmail(s)
+				.map(this::convert)
+				.orElseThrow(() -> new UsernameNotFoundException(s));
 	}
 
-	private UserDetails convert(AccountDto accountDto) {
+	private UserDetails convert(AccountCredentialDto accountDto) {
 		var userDetails = new JwtUserDetails();
 
 		userDetails.setEmail(accountDto.getEmail());
@@ -38,13 +41,13 @@ public class JwtUserDetailsService implements UserDetailsService {
 		return userDetails;
 	}
 
-	private Collection<SimpleGrantedAuthority> getAuthorities(AccountDto accountDto) {
+	private Collection<SimpleGrantedAuthority> getAuthorities(AccountCredentialDto accountDto) {
 		Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
 		accountDto.getRoles().forEach(roleDto -> authorities.add(new SimpleGrantedAuthority(roleDto.getName())));
 		return authorities;
 	}
 
-	private boolean checkAccountStatus(AccountDto accountDto) {
+	private boolean checkAccountStatus(AccountCredentialDto accountDto) {
 		return accountDto.getStatus().equals(AccountStatus.ACTIVE);
 	}
 }

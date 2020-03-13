@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.account.utilites;
+package pl.edu.pja.prz.account.service;
 
 import org.springframework.stereotype.Component;
 import pl.edu.pja.prz.account.model.enums.Gender;

@@ -26,6 +26,14 @@ public class ElementNotFoundException extends RuntimeException {
         message = buildErrorMessage("Element", String.valueOf(id));
     }
 
+    public ElementNotFoundException(UUID id) {
+        message = buildErrorMessage("Element", String.valueOf(id));
+    }
+
+    public ElementNotFoundException(Object id) {
+        message = buildErrorMessage("Element", String.valueOf(id));
+    }
+
     private String buildErrorMessage(String element, String id) {
         return element + " with id: " + id + " not found.";
     }

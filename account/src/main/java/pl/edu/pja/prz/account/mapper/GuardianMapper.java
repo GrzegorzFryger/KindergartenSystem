@@ -1,10 +1,10 @@
-package pl.edu.pja.prz.account.facade.mapper;
+package pl.edu.pja.prz.account.mapper;
 
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import pl.edu.pja.prz.account.facade.dto.AccountDto;
-import pl.edu.pja.prz.account.facade.dto.GuardianDto;
+import pl.edu.pja.prz.account.model.dto.AccountDto;
+import pl.edu.pja.prz.account.model.dto.GuardianDto;
 import pl.edu.pja.prz.account.model.Guardian;
 import pl.edu.pja.prz.account.model.Person;
 
