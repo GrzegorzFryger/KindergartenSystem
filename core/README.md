@@ -17,4 +17,33 @@ you can add generated certificate to trusted certificates store.
 Self-signed SSL certificates are being blocked:  
 Fix this by turning off 'SSL certificate verification' in Settings > General
 
+## Authentication
+For Authentication purposes make sure to call /api/authenticate endpoint.  
+You can find it in postman collection.  
+In order to use users with different roles, make sure to modify request body.  
+Possible roles:  
+
+**USER**
+```
+{
+	"username": "{{user_login}}",
+	"password": "{{user_pass}}"
+}
+```
+**TEACHER**
+```
+{
+	"username": "{{teacher_login}}",
+	"password": "{{teacher_pass}}"
+}
+```
+**ADMIN**
+```
+{
+	"username": "{{admin_login}}",
+	"password": "{{admin_pass}}"
+}
+```
+
+
 
