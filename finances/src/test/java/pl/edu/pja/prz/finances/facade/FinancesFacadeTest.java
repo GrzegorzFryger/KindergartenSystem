@@ -9,8 +9,6 @@ import pl.edu.pja.prz.finances.model.dto.Balance;
 import pl.edu.pja.prz.finances.service.BalanceService;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -31,7 +29,9 @@ class FinancesFacadeTest {
         facade = new FinancesFacadeImpl(balanceService);
 
         balance = new Balance();
-        balance.setAmount(new BigDecimal("50.00"));
+        balance.setBalance(new BigDecimal("50.00"));
+        balance.setLiabilities(new BigDecimal("50.00"));
+        balance.setReceivables(new BigDecimal("100.00"));
     }
 
     @Test

@@ -31,4 +31,9 @@ public class FinancesFacadeImpl implements FinancesFacade {
     public void decreaseBalance(UUID childId, BigDecimal amount, String title) {
         balanceService.decreaseBalance(childId, amount, title);
     }
+
+    @Override
+    public void applyBalanceCorrection(UUID childId, BigDecimal amount, String title) {
+        balanceService.applyBalanceCorrection(childId, amount, title);
+    }
 }

@@ -3,6 +3,7 @@ package pl.edu.pja.prz.finances.model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pl.edu.pja.prz.finances.model.builder.BalanceHistoryBuilder;
+import pl.edu.pja.prz.finances.model.enums.OperationType;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -21,6 +22,7 @@ class BalanceHistoryTest {
                 .withAmountOfChange(new BigDecimal("-200.50"))
                 .withChildId(UUID.randomUUID())
                 .withTitle("PAYMENT")
+                .withOperationType(OperationType.DECREASE)
                 .build();
 
         balanceHistory2 = builder.build();
