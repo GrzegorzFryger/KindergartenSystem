@@ -3,6 +3,7 @@ package pl.edu.pja.prz.groups.model;
 import pl.edu.pja.prz.commons.model.BaseEntityLong;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -14,7 +15,7 @@ public class Group extends BaseEntityLong {
 	@JoinTable(name = "classroom_child",
 			joinColumns = {@JoinColumn(name = "group_id")},
 			inverseJoinColumns = {@JoinColumn(name = "child_id")})
-	private Set<Child> children;
+	private Set<Child> children = new HashSet<>();
 	private String groupDescription;
 
 
@@ -52,15 +53,23 @@ public class Group extends BaseEntityLong {
 		this.groupDescription = groupDescription;
 	}
 
+	public boolean addChildToGroup(Child child) {
+		return children.add(child);
+	}
+
+	public boolean removeChildFromGroup(Child child) {
+		return children.remove(child);
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		if (!super.equals(o)) return false;
 		Group group = (Group) o;
-		return Objects.equals(groupName, group.groupName) &&
-				Objects.equals(children, group.children) &&
-				Objects.equals(groupDescription, group.groupDescription);
+		return groupName.equals(group.groupName) &&
+				children.equals(group.children) &&
+				groupDescription.equals(group.groupDescription);
 	}
 
 	@Override

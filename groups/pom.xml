@@ -31,6 +31,7 @@
                         <exclude>**/pl/edu/pja/prz/groups/facade/*</exclude>
                         <exclude>**/pl/edu/pja/prz/groups/facade/dto/*</exclude>
                         <exclude>**/pl/edu/pja/prz/groups/facade/mapper/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/groups/service/*</exclude>
                     </excludes>
                 </configuration>
             </plugin>
