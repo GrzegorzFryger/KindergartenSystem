@@ -10,7 +10,7 @@
 			"name": "Authorization",
 			"item": [
 				{
-					"name": "/api/authenticate",
+					"name": "/api/authenticate [USER]",
 					"event": [
 						{
 							"listen": "test",
@@ -44,6 +44,114 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\n\t\"username\": \"{{user_login}}\",\n\t\"password\": \"{{user_pass}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/authenticate",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/authenticate [TEACHER]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6e59e09f-6a64-46a5-a991-26f3848f76fa",
+								"exec": [
+									"pm.test(\"Save token in environment variable for future requests\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.environment.set(\"token\", jsonData.token);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "testjwtclientid",
+								"value": "XY7kmzoNzl100",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"{{teacher_login}}\",\n\t\"password\": \"{{teacher_pass}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/authenticate",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/authenticate [ADMIN]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6e59e09f-6a64-46a5-a991-26f3848f76fa",
+								"exec": [
+									"pm.test(\"Save token in environment variable for future requests\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.environment.set(\"token\", jsonData.token);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "testjwtclientid",
+								"value": "XY7kmzoNzl100",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"{{admin_login}}\",\n\t\"password\": \"{{admin_pass}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -689,39 +797,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "/balance-list/{guardianId}",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "dfa25d81-00dd-429c-ad43-5841159a1b51",
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{HOST}}/{{FINCANCES}}/balance-list/{{guardianId}}",
-							"host": [
-								"{{HOST}}"
-							],
-							"path": [
-								"{{FINCANCES}}",
-								"balance-list",
-								"{{guardianId}}"
-							]
-						}
-					},
-					"response": []
 				}
 			],
 			"description": "All requests from Finances module.",
@@ -748,12 +823,6 @@
 		{
 			"name": "Receivables",
 			"item": [
-				{
-					"name": "SCHEDULER",
-					"item": [],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
-				},
 				{
 					"name": "/transactions/{id}",
 					"event": [
