@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import pl.edu.pja.prz.groups.facade.GroupFacade;
 import pl.edu.pja.prz.groups.facade.dto.GroupDto;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("api/groups/")
 //TODO: ADD @PreAuthorize annotation with proper roles from Roles.java class
@@ -37,5 +39,11 @@ public class GroupsController {
 	public ResponseEntity<?> deleteGroup(@PathVariable Long id) {
 		groupFacade.deleteGroup(id);
 		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	@PutMapping("{groupId}/{childId}")
+	public ResponseEntity<GroupDto> addChildToGroup(@PathVariable Long groupId,
+													@PathVariable UUID childId) {
+		return new ResponseEntity<>(groupFacade.addChildToGroup(groupId, childId), HttpStatus.OK);
 	}
 }
