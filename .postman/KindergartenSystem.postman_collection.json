@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "fed4fa69-ba7e-4c94-b019-9a929ac52d41",
+		"_postman_id": "03e2dd24-017b-495f-9b93-a6d1ed3bcba8",
 		"name": "KindergartenSystem",
 		"description": "This collection contains all API requests to backend system of our application.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -804,7 +804,119 @@
 		},
 		{
 			"name": "Groups",
-			"item": [],
+			"item": [
+				{
+					"name": "/group",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"groupName\": \"Group one\",\n\t\"groupDescription\": \"Test description\"\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}/{{GROUPS}}/",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{GROUPS}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/group/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{GROUPS}}/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{GROUPS}}",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/group",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": \"3\",\n\t\"groupName\": \"New Name\",\n\t\"groupDescription\": \"New Description\"\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}/{{GROUPS}}/",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{GROUPS}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/group/{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{GROUPS}}/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{GROUPS}}",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/group/{groupId}/{childId}",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{GROUPS}}/1/<insert existing id here>",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{GROUPS}}",
+								"1",
+								"<insert existing id here>"
+							]
+						}
+					},
+					"response": []
+				}
+			],
 			"description": "All requests from Groups module.",
 			"protocolProfileBehavior": {}
 		},
