@@ -1,5 +1,7 @@
 package pl.edu.pja.prz.core.controller.groups;
 
+import static pl.edu.pja.prz.core.controller.RequestMappings.API_GROUPS;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,7 +10,7 @@ import pl.edu.pja.prz.groups.facade.GroupFacade;
 import pl.edu.pja.prz.groups.facade.dto.GroupDto;
 
 @RestController
-@RequestMapping("api/groups/")
+@RequestMapping(API_GROUPS)
 //TODO: ADD @PreAuthorize annotation with proper roles from Roles.java class
 public class GroupsController {
 	private final GroupFacade groupFacade;

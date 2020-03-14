@@ -15,9 +15,10 @@ import java.util.List;
 
 import static pl.edu.pja.prz.commons.constants.Profiles.DEVELOPMENT;
 import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_ADMIN;
+import static pl.edu.pja.prz.core.controller.RequestMappings.API_SCHEDULER;
 
 @RestController
-@RequestMapping("api/scheduler/")
+@RequestMapping(API_SCHEDULER)
 @Profile(DEVELOPMENT)
 @PreAuthorize(HAS_ROLE_ADMIN)
 public class SchedulerController {

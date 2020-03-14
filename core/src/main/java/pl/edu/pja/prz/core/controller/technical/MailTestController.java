@@ -13,9 +13,10 @@ import pl.edu.pja.prz.mail.model.test.BaseMailTestDto;
 
 import static pl.edu.pja.prz.commons.constants.Profiles.DEVELOPMENT;
 import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_ADMIN;
+import static pl.edu.pja.prz.core.controller.RequestMappings.API_MAIL;
 
 @RestController
-@RequestMapping("api/mail/")
+@RequestMapping(API_MAIL)
 @Profile(DEVELOPMENT)
 @PreAuthorize(HAS_ROLE_ADMIN)
 public class MailTestController {

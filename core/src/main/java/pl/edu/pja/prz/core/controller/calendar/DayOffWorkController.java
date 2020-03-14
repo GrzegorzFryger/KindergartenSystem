@@ -2,6 +2,7 @@ package pl.edu.pja.prz.core.controller.calendar;
 
 import static pl.edu.pja.prz.commons.constants.Roles.HAS_ANY_ROLE;
 import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_ADMIN;
+import static pl.edu.pja.prz.core.controller.RequestMappings.API_CALENDAR;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import pl.edu.pja.prz.calendar.facade.DayOffWorkFacade;
 import pl.edu.pja.prz.calendar.model.dto.DayOffWorkDto;
 
 @RestController
-@RequestMapping("api/calendar/")
+@RequestMapping(API_CALENDAR)
 public class DayOffWorkController {
 	private final DayOffWorkFacade dayOffWorkFacade;
 

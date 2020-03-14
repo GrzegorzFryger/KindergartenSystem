@@ -4,6 +4,7 @@ import static pl.edu.pja.prz.commons.constants.Roles.HAS_ANY_ROLE;
 import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_ADMIN;
 import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_TEACHER;
 import static pl.edu.pja.prz.commons.constants.Roles.OR;
+import static pl.edu.pja.prz.core.controller.RequestMappings.API_CALENDAR;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,7 +25,7 @@ import pl.edu.pja.prz.calendar.facade.AbsenceFacade;
 import pl.edu.pja.prz.calendar.model.dto.AbsenceDto;
 
 @RestController
-@RequestMapping("api/calendar/")
+@RequestMapping(API_CALENDAR)
 public class AbsenceController {
 	private final AbsenceFacade absenceFacade;
 

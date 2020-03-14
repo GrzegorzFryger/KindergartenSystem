@@ -1,5 +1,7 @@
 package pl.edu.pja.prz.core.controller.payments;
 
+import static pl.edu.pja.prz.core.controller.RequestMappings.API_PAYMENTS;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +11,7 @@ import pl.edu.pja.prz.payments.facade.dto.RecurringPaymentDto;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/payments/")
+@RequestMapping(API_PAYMENTS)
 //TODO: ADD @PreAuthorize annotation with proper roles from Roles.java class
 public class PaymentsController {
 	private final RecurringPaymentFacade paymentFacade;
