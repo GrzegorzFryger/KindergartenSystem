@@ -20,11 +20,11 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static pl.edu.pja.prz.core.controller.RequestMappings.API_CALENDAR;
 import static pl.edu.pja.prz.core.util.JsonUtil.convertToJson;
 
 @ExtendWith(MockitoExtension.class)
 public class AbsenceControllerTest {
-	private static final String BASE = "/api/calendar/";
 	private Long id = 1L;
 	private MockMvc mvc;
 	@Mock
@@ -42,7 +42,7 @@ public class AbsenceControllerTest {
 		//Given
 
 		//When
-		mvc.perform(MockMvcRequestBuilders.get(BASE + "absence/" + id)
+		mvc.perform(MockMvcRequestBuilders.get(API_CALENDAR + "absence/" + id)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());
 
@@ -55,7 +55,7 @@ public class AbsenceControllerTest {
 		//Given
 
 		//When
-		mvc.perform(MockMvcRequestBuilders.delete(BASE + "absence/" + id)
+		mvc.perform(MockMvcRequestBuilders.delete(API_CALENDAR + "absence/" + id)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());
 
@@ -69,7 +69,7 @@ public class AbsenceControllerTest {
 		String json = convertToJson(new AbsenceDto());
 
 		//When
-		mvc.perform(MockMvcRequestBuilders.post(BASE + "absence")
+		mvc.perform(MockMvcRequestBuilders.post(API_CALENDAR + "absence")
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON).content(json))
 				.andExpect(status().isOk());
@@ -84,7 +84,7 @@ public class AbsenceControllerTest {
 		String json = convertToJson(new AbsenceDto());
 
 		//When
-		mvc.perform(MockMvcRequestBuilders.put(BASE + "absence")
+		mvc.perform(MockMvcRequestBuilders.put(API_CALENDAR + "absence")
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON).content(json))
 				.andExpect(status().isOk());
@@ -99,7 +99,7 @@ public class AbsenceControllerTest {
 		String childId = UUID.randomUUID().toString();
 
 		//When
-		mvc.perform(MockMvcRequestBuilders.get(BASE + "absence/childById/" + childId)
+		mvc.perform(MockMvcRequestBuilders.get(API_CALENDAR + "absence/childById/" + childId)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());
 
@@ -113,7 +113,7 @@ public class AbsenceControllerTest {
 		String date = LocalDate.now().toString();
 
 		//When
-		mvc.perform(MockMvcRequestBuilders.get(BASE + "absence/childByDate/" + date)
+		mvc.perform(MockMvcRequestBuilders.get(API_CALENDAR + "absence/childByDate/" + date)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());
 
@@ -130,7 +130,7 @@ public class AbsenceControllerTest {
 
 
 		//When
-		mvc.perform(MockMvcRequestBuilders.get(BASE + "absence/child/" + childId + "/" + fromDate + "/" + toDate)
+		mvc.perform(MockMvcRequestBuilders.get(API_CALENDAR + "absence/child/" + childId + "/" + fromDate + "/" + toDate)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());
 
