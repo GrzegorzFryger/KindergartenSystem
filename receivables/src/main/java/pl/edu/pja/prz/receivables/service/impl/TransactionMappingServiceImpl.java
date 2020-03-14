@@ -16,6 +16,7 @@ import java.util.UUID;
 @Service
 public class TransactionMappingServiceImpl implements TransactionMappingService {
     private static final String TRANSACTION_MAPPING = "Transaction Mapping";
+
     @Value("${title-mapping.length}")
     private Integer titleMappingLength;
 
