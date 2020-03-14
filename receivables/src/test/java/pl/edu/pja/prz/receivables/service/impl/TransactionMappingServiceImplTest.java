@@ -39,7 +39,7 @@ class TransactionMappingServiceImplTest {
         transactionMapping.setChildId(UUID.randomUUID());
         transactionMapping.setGuardianId(UUID.randomUUID());
 
-        ReflectionTestUtils.setField(service, "titleMappingLength", 12);
+        ReflectionTestUtils.setField(service, "titleMappingLength", 6);
     }
 
     @Test
@@ -52,7 +52,7 @@ class TransactionMappingServiceImplTest {
 
         //Then
         verify(repository, times(1)).save(argumentCaptor.capture());
-        assertEquals(12, argumentCaptor.getValue().getTitle().length());
+        assertEquals(14, argumentCaptor.getValue().getTitle().length());
     }
 
     @Test

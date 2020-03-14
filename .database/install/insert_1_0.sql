@@ -70,11 +70,11 @@ INSERT INTO receivables.transaction (`version`,`accountNumber`,`bankName`,`booki
 VALUES (0,'61109010140000071219812874','ING Bank','2019-11-23','cb34b97c-bbe9-4719-9091-0e0939804426','Andrzej Małysz','Za dziecko XYZ','25e7d80a-a38e-496c-afc2-dd5733fdf8ac','429630195555',390.50,'PLN','2019-10-14','201967193405359451');
 
 INSERT INTO receivables.transactionmapping (`version`,`childId`, `guardianId`, `title`)
-VALUES (0,'7767d645-5408-4e79-9e4e-173b1fb23274','25e7d80a-a38e-496c-afc2-dd5733fdf8ac','429630192312');
+VALUES (0,'7767d645-5408-4e79-9e4e-173b1fb23274','25e7d80a-a38e-496c-afc2-dd5733fdf8ac','20200314753452');
 INSERT INTO receivables.transactionmapping (`version`,`childId`, `guardianId`, `title`)
-VALUES (0,'bd73f070-cac9-48db-8037-7c1d34596584','43750616-5f5d-4f34-9df8-d7759c180f72','432673408632');
+VALUES (0,'bd73f070-cac9-48db-8037-7c1d34596584','43750616-5f5d-4f34-9df8-d7759c180f72','20200314645723');
 INSERT INTO receivables.transactionmapping (`version`,`childId`, `guardianId`, `title`)
-VALUES (0,'cb34b97c-bbe9-4719-9091-0e0939804426','25e7d80a-a38e-496c-afc2-dd5733fdf8ac','429630195555');
+VALUES (0,'cb34b97c-bbe9-4719-9091-0e0939804426','25e7d80a-a38e-496c-afc2-dd5733fdf8ac','20200314624325');
 
 INSERT INTO receivables.cashpayment (`version`,`childId`, `contractorDetails`, `guardianId`, `title`, `transactionAmount`, `transactionCurrency`, `transactionDate`)
 VALUES (0,'7767d645-5408-4e79-9e4e-173b1fb23274','Andrzej Małysz','25e7d80a-a38e-496c-afc2-dd5733fdf8ac','429630192312',200.50,'PLN','2019-12-12');

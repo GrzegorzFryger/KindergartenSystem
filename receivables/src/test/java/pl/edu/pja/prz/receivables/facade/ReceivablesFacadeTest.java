@@ -81,6 +81,21 @@ class ReceivablesFacadeTest {
     }
 
     @Test
+    public void Should_GetAllCashPayments() {
+        //Given
+        List<CashPayment> cashPaymentList = new ArrayList<>();
+        cashPaymentList.add(cashPayment);
+
+        //When
+        when(cashPaymentService.getAllCashPayments()).thenReturn(cashPaymentList);
+        List<CashPayment> result = facade.getAllCashPayments();
+
+        //Then
+        assertEquals(1, result.size());
+        verify(cashPaymentService, only()).getAllCashPayments();
+    }
+
+    @Test
     public void Should_GetAllUnassignedTransactions() {
         //Given
         List<Transaction> transactionList = new ArrayList<>();

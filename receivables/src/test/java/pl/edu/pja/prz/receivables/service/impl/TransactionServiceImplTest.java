@@ -55,6 +55,7 @@ class TransactionServiceImplTest {
 
         transaction.setId(1L);
         transaction.setChildId(UUID.randomUUID());
+        transaction.setGuardianId(UUID.randomUUID());
     }
 
     @Test

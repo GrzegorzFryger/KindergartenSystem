@@ -16,7 +16,7 @@ public class EmployeeFacadeImpl implements EmployeeFacade {
 	private final EmployeeService employeeService;
 
 	@Autowired
-	public EmployeeFacadeImpl(EmployeeMapper employeeMapper, EmployeeService employeeService, AccountMapper accountMapper) {
+	public EmployeeFacadeImpl(EmployeeMapper employeeMapper, EmployeeService employeeService) {
 		this.employeeMapper = employeeMapper;
 		this.employeeService = employeeService;
 	}
