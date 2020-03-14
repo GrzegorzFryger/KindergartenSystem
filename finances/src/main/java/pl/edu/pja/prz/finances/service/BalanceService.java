@@ -14,5 +14,7 @@ public interface BalanceService {
 
     void decreaseBalance(UUID childId, BigDecimal amount, String title);
 
+    void applyBalanceCorrection(UUID childId, BigDecimal amount, String title);
+
     Balance calculateBalance(List<BalanceHistory> balanceHistories);
 }

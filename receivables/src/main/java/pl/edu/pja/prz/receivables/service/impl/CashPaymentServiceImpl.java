@@ -8,6 +8,7 @@ import pl.edu.pja.prz.receivables.model.CashPayment;
 import pl.edu.pja.prz.receivables.repository.CashPaymentRepository;
 import pl.edu.pja.prz.receivables.service.CashPaymentService;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -74,12 +75,20 @@ public class CashPaymentServiceImpl implements CashPaymentService {
 
     @Override
     public void update(CashPayment cashPayment) {
-        //TODO: fix updating method
-        //TODO: find way of updating balance using facade (maybe new method in facade?)
         if (repository.findById(cashPayment.getId()).isEmpty()) {
             throw new ElementNotFoundException(CASH_PAYMENT, cashPayment.getId());
         }
-        repository.save(cashPayment);
+
+        BigDecimal balanceToUpdate = BigDecimal.ZERO;
+        CashPayment cashPaymentToUpdate = repository.findById(cashPayment.getId()).get();
+        if (cashPayment.getTransactionAmount() != null) {
+            balanceToUpdate = cashPayment.getTransactionAmount()
+                    .subtract(cashPaymentToUpdate.getTransactionAmount());
+        }
+        updateCashPaymentFields(cashPaymentToUpdate, cashPayment);
+
+        repository.save(cashPaymentToUpdate);
+        applyBalanceCorrections(balanceToUpdate, cashPayment);
     }
 
     @Override
@@ -88,7 +97,39 @@ public class CashPaymentServiceImpl implements CashPaymentService {
             repository.save(cashPayment);
             facade.increaseBalance(cashPayment.getChildId(),
                     cashPayment.getTransactionAmount(),
-                    "Saved cash payment" + cashPayment.getTitle());
+                    cashPayment.getTitle());
+        }
+    }
+
+    private void updateCashPaymentFields(CashPayment cashPaymentToUpdate, CashPayment cashPayment) {
+        if (cashPayment.getTransactionDate() != null) {
+            cashPaymentToUpdate.setTransactionDate(cashPayment.getTransactionDate());
+        }
+        if (cashPayment.getContractorDetails() != null) {
+            cashPaymentToUpdate.setContractorDetails(cashPayment.getContractorDetails());
+        }
+        if (cashPayment.getTitle() != null) {
+            cashPaymentToUpdate.setTitle(cashPayment.getTitle());
+        }
+        if (cashPayment.getTransactionAmount() != null) {
+            cashPaymentToUpdate.setTransactionAmount(cashPayment.getTransactionAmount());
+        }
+        if (cashPayment.getTransactionCurrency() != null) {
+            cashPaymentToUpdate.setTransactionCurrency(cashPayment.getTransactionCurrency());
+        }
+        if (cashPayment.getChildId() != null) {
+            cashPaymentToUpdate.setChildId(cashPayment.getChildId());
+        }
+        if (cashPayment.getGuardianId() != null) {
+            cashPaymentToUpdate.setGuardianId(cashPayment.getGuardianId());
+        }
+    }
+
+    private void applyBalanceCorrections(BigDecimal balanceToUpdate, CashPayment cashPayment) {
+        if (!balanceToUpdate.equals(BigDecimal.ZERO)) {
+            facade.applyBalanceCorrection(cashPayment.getChildId(),
+                    cashPayment.getTransactionAmount(),
+                    cashPayment.getTitle());
         }
     }
 }

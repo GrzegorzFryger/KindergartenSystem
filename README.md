@@ -20,3 +20,34 @@ Simply run `KindergartenSystem.java` from core module (configuration should be l
 #### From console - using java -jar
 Run `java -jar core/target/core-1.0-SNAPSHOT.jar` from root directory.  
 Notice: make sure that core jar version is correct.
+
+## Authentication
+For Authentication purposes make sure to call /api/authenticate endpoint.  
+You can find it in postman collection.  
+There are 3 predefined requests, which contains proper credentials in body:
+
+
+**USER**  
+Request: `api/authenticate [USER]`
+```
+{
+	"username": "{{user_login}}",
+	"password": "{{user_pass}}"
+}
+```
+**TEACHER**  
+Request: `api/authenticate [TEACHER]`
+```
+{
+	"username": "{{teacher_login}}",
+	"password": "{{teacher_pass}}"
+}
+```
+**ADMIN**  
+Request: `api/authenticate [ADMIN]`
+```
+{
+	"username": "{{admin_login}}",
+	"password": "{{admin_pass}}"
+}
+```

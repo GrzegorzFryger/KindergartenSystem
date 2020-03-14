@@ -18,13 +18,13 @@ public class JwtAuthenticationEventListener implements ApplicationListener<Appli
 		if (applicationEvent instanceof AbstractAuthenticationFailureEvent) {
 			String username = ((AbstractAuthenticationFailureEvent) applicationEvent).getAuthentication().getName();
 			if (applicationEvent instanceof AuthenticationFailureBadCredentialsEvent) {
-				logger.info(String.format("AbstractAuthenticationFailureEvent", username));
+				logger.info(String.format("AbstractAuthenticationFailureEvent: for user %s", username));
 			}
 		}
 
 		if (applicationEvent instanceof AuthenticationFailureDisabledEvent) {
 			String username = ((AbstractAuthenticationFailureEvent) applicationEvent).getAuthentication().getName();
-			logger.info(String.format("AuthenticationFailureDisabledEvent", username));
+			logger.info(String.format("AuthenticationFailureDisabledEvent: for user %s", username));
 		}
 	}
 }
