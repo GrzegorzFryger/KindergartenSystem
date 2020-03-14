@@ -75,8 +75,6 @@ class BalanceHistoryBuilderTest {
     @Test
     public void Should_ThrownException_When_OperationTypeIsNull() {
         //Given
-        BigDecimal amountOfChange = new BigDecimal("-200.50");
-        UUID childId = UUID.randomUUID();
         String title = "PAYMENT";
 
         //When
@@ -113,5 +111,6 @@ class BalanceHistoryBuilderTest {
         assertEquals(amountOfChange, result.getAmountOfChange());
         assertEquals(childId, result.getChildId());
         assertEquals(title, result.getTitle());
+        assertEquals(OperationType.DECREASE, result.getOperationType());
     }
 }
