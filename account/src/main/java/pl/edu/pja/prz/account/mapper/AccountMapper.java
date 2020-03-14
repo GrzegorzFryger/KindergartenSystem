@@ -3,9 +3,9 @@ package pl.edu.pja.prz.account.mapper;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import pl.edu.pja.prz.account.model.dto.AccountDto;
 import pl.edu.pja.prz.account.model.Account;
 import pl.edu.pja.prz.account.model.Person;
+import pl.edu.pja.prz.account.model.dto.AccountDto;
 
 @Mapper(componentModel = "spring", uses = RoleMapper.class)
 public interface AccountMapper {
@@ -20,7 +20,6 @@ public interface AccountMapper {
 	@Mapping(source = "status", target = "accountStatus")
 	@Mapping(source = "email", target = "email")
 	@Mapping(source = "roles", target =  "roles")
-	@Mapping(source = "password", target =  "password.password")
 	Account toAccount(AccountDto accountDto);
 
 	@Mapping(source = "id", target = "id")
