@@ -29,4 +29,24 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>**/pl/edu/pja/prz/scheduler/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/scheduler/configuration/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/scheduler/annotation/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/scheduler/facade/dto/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/scheduler/facade/mapper/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/scheduler/model/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/scheduler/service/*</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
