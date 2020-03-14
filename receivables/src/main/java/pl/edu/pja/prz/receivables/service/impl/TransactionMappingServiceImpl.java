@@ -10,6 +10,7 @@ import pl.edu.pja.prz.receivables.repository.TransactionMappingRepository;
 import pl.edu.pja.prz.receivables.service.TransactionMappingService;
 import pl.edu.pja.prz.receivables.util.RandomUtils;
 
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -32,8 +33,11 @@ public class TransactionMappingServiceImpl implements TransactionMappingService 
         TransactionMapping mapping = new TransactionMapping();
         mapping.setGuardianId(guardianId);
         mapping.setChildId(childId);
+
+        LocalDate localDateTime = LocalDate.now();
+        String dateString = localDateTime.toString().replace("-", "");
         while (true) {
-            String title = RandomUtils.randomNumeric(titleMappingLength);
+            String title = dateString + RandomUtils.randomNumeric(titleMappingLength);
             if (getByTitle(title).isEmpty()) {
                 mapping.setTitle(title);
                 break;
