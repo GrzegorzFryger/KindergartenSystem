@@ -12,12 +12,12 @@ import pl.edu.pja.prz.mail.model.BaseMail;
 import pl.edu.pja.prz.mail.model.test.BaseMailTestDto;
 
 import static pl.edu.pja.prz.commons.constants.Profiles.DEVELOPMENT;
-import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_ADMINISTRATOR;
+import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_ADMIN;
 
 @RestController
 @RequestMapping("api/mail/")
 @Profile(DEVELOPMENT)
-@PreAuthorize(HAS_ROLE_ADMINISTRATOR)
+@PreAuthorize(HAS_ROLE_ADMIN)
 public class MailTestController {
 
     private final MailFacade mailFacade;

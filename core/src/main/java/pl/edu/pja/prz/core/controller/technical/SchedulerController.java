@@ -14,12 +14,12 @@ import pl.edu.pja.prz.scheduler.facade.dto.ScheduleJobInfoDto;
 import java.util.List;
 
 import static pl.edu.pja.prz.commons.constants.Profiles.DEVELOPMENT;
-import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_ADMINISTRATOR;
+import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_ADMIN;
 
 @RestController
 @RequestMapping("api/scheduler/")
 @Profile(DEVELOPMENT)
-@PreAuthorize(HAS_ROLE_ADMINISTRATOR)
+@PreAuthorize(HAS_ROLE_ADMIN)
 public class SchedulerController {
 	private final SchedulerFacade schedulerFacade;
 

@@ -28,6 +28,7 @@ INSERT INTO account.role_account (fk_role, fk_account) VALUES (2, '8a186e67-b796
 INSERT INTO account.role_account (fk_role, fk_account) VALUES (3, 'c4029244-e8ff-4328-8658-28964dda3c4e');
 INSERT INTO account.role_privileges (Role_id, privileges) VALUES (1, 'USER');
 INSERT INTO account.role_privileges (Role_id, privileges) VALUES (2, 'TEACHER');
+INSERT INTO account.role_privileges (Role_id, privileges) VALUES (3, 'ADMINISTRATOR');
 
 
 -- CALENDAR MODULE --
