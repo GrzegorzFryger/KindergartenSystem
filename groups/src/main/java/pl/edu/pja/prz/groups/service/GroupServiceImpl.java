@@ -64,19 +64,17 @@ public class GroupServiceImpl implements GroupService {
 
 	@Override
 	public Group addChildToGroup(Long groupId, Child child) {
-		return groupRepository.findById(groupId).map(group -> {
-			group.addChildToGroup(child);
-			return groupRepository.save(group);
-
-		}).orElseThrow(() -> new ElementNotFoundException(GROUP, groupId));
+		Group groupToAddChild = groupRepository.findById(groupId).orElseThrow(
+				() -> new ElementNotFoundException(GROUP, groupId));
+		groupToAddChild.addChildToGroup(child);
+			return groupRepository.save(groupToAddChild);
 	}
 
 	@Override
 	public Group removeChildFromGroup(Long groupId, Child child) {
-		return groupRepository.findById(groupId).map(group -> {
-			group.removeChildFromGroup(child);
-			return groupRepository.save(group);
-
-		}).orElseThrow(() -> new ElementNotFoundException(GROUP, groupId));
+		Group groupToRemoveChild = groupRepository.findById(groupId).orElseThrow(
+				() -> new ElementNotFoundException(GROUP, groupId));
+		groupToRemoveChild.removeChildFromGroup(child);
+		return groupRepository.save(groupToRemoveChild);
 	}
 }

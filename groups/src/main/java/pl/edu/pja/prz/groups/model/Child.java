@@ -1,16 +1,14 @@
 package pl.edu.pja.prz.groups.model;
 
+import pl.edu.pja.prz.commons.model.BaseEntityUuid;
+
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 @Entity
-public class Child {
-    @Id
-    private UUID id;
+public class Child extends BaseEntityUuid {
     @ManyToMany(mappedBy = "children")
     private List<Group> groups;
 
@@ -19,14 +17,6 @@ public class Child {
 
     public Child(List<Group> groups) {
         this.groups = groups;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
     }
 
     public List<Group> getGroups() {
@@ -38,16 +28,23 @@ public class Child {
     }
 
     @Override
+    public String toString() {
+        return "Child{" +
+                "groups=" + groups +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         Child child = (Child) o;
-        return id.equals(child.id) &&
-                Objects.equals(groups, child.groups);
+        return Objects.equals(groups, child.groups);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, groups);
+        return Objects.hash(super.hashCode(), groups);
     }
 }

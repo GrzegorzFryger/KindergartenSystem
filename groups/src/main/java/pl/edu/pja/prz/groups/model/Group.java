@@ -11,7 +11,7 @@ import java.util.Set;
 @Table(name = "classroom", schema = "classrooms")
 public class Group extends BaseEntityLong {
 	private String groupName;
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "classroom_child",
 			joinColumns = {@JoinColumn(name = "group_id")},
 			inverseJoinColumns = {@JoinColumn(name = "child_id")})
