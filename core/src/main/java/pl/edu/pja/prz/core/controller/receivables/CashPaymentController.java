@@ -1,17 +1,18 @@
 package pl.edu.pja.prz.core.controller.receivables;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.pja.prz.receivables.facade.ReceivablesFacade;
 import pl.edu.pja.prz.receivables.model.CashPayment;
 
 import java.util.List;
 
+import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_ADMIN;
 import static pl.edu.pja.prz.core.controller.RequestMappings.API_RECEIVABLES;
 
 @RestController
 @RequestMapping(API_RECEIVABLES)
-//TODO: ADD @PreAuthorize annotation with proper roles from Roles.java class
 public class CashPaymentController {
     private final ReceivablesFacade receivablesFacade;
 
@@ -21,26 +22,31 @@ public class CashPaymentController {
     }
 
     @GetMapping("cash-payments")
+    @PreAuthorize(HAS_ROLE_ADMIN)
     public List<CashPayment> getAllCashPayments() {
         return receivablesFacade.getAllCashPayments();
     }
 
     @GetMapping("cash-payments/{id}")
+    @PreAuthorize(HAS_ROLE_ADMIN)
     public CashPayment getCashPayment(@PathVariable Long id) {
         return receivablesFacade.getCashPayment(id);
     }
 
     @DeleteMapping("cash-payments/{id}")
+    @PreAuthorize(HAS_ROLE_ADMIN)
     public void deleteCashPayment(@PathVariable Long id) {
         receivablesFacade.deleteCashPayment(id);
     }
 
     @PostMapping("cash-payments")
+    @PreAuthorize(HAS_ROLE_ADMIN)
     public void createCashPayment(@RequestBody CashPayment cashPayment) {
         receivablesFacade.create(cashPayment);
     }
 
     @PutMapping("cash-payments")
+    @PreAuthorize(HAS_ROLE_ADMIN)
     public void updateCashPayment(@RequestBody CashPayment cashPayment) {
         receivablesFacade.update(cashPayment);
     }

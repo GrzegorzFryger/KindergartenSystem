@@ -1,5 +1,7 @@
 package pl.edu.pja.prz.core.security;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,6 +25,8 @@ import static pl.edu.pja.prz.core.utilites.JwtFilterUtils.addErrorToResponse;
 import static pl.edu.pja.prz.core.utilites.JwtFilterUtils.getAuthDto;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+    private static Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
+
     private final JwtTokenProvider jwtTokenProvider;
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider) {
@@ -72,7 +76,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .put(TOKEN, tokenString)
                 .toString();
         } catch (JSONException e) {
-            e.printStackTrace();
+            logger.error("Failed to build token", e);
         }
         return token;
     }
