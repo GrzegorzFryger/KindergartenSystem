@@ -22,20 +22,18 @@ class GroupServiceTest {
 	@Mock
 	private GroupRepository repository;
 	private GroupServiceImpl service;
-	private Set<Child> childrenSet;
 	private Child child;
-
-	//TODO: Redo the tests
 
 	@BeforeEach
 	void setUp() {
 		service = new GroupServiceImpl(repository);
 		group = new GroupBuilder()
 				.withGroupName("Group name")
-				.withChildren(childrenSet)
 				.withGroupDescription("Group Description")
 				.build();
 		group.setId(1L);
+
+		child = new Child();
 	}
 
 	@Test
@@ -125,17 +123,28 @@ class GroupServiceTest {
 		verify(repository, times(0)).save(any(Group.class));
 	}
 
-	//TODO: Fix this test
-//	@Test
-//	void shouldAddChildToGroup() {
-//		//Given
-//		when(repository.findById(anyLong())).thenReturn(Optional.of(group));
-//		Long id = 1L;
-//
-//		//When
-//		service.addChild(id, child);
-//
-//		//Then
-//		verify(repository, times(1)).save(any(Group.class));
-//	}
+	@Test
+	void shouldAddChildToGroup() {
+		//Given
+		when(repository.findById(anyLong())).thenReturn(Optional.of(group));
+
+		//When
+		service.addChildToGroup(1L, child);
+
+		//Then
+		verify(repository, times(1)).save(any(Group.class));
+	}
+
+	@Test
+	void shouldThrowExceptionIfGroupNotFound() {
+		//Given
+
+		//When
+		Assertions.assertThrows(ElementNotFoundException.class, () -> {
+			service.addChildToGroup(1L, child);
+		});
+
+		//Then
+		verify(repository, times(0)).save(any(Group.class));
+	}
 }

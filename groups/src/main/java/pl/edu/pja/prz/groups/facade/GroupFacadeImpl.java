@@ -72,7 +72,6 @@ public class GroupFacadeImpl implements GroupFacade {
 		return groupMapper.fromGroup(
 				groupService.addChildToGroup(groupId, childToAdd)
 		);
-
 	}
 
 	@Override
