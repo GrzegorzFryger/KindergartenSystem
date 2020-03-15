@@ -19,14 +19,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @Service
 public class AccountCredentialService {
 
-	private static final String ACCOUNT = "Account";
 	private static final String USER = "User";
 
 	private static final Logger logger = LoggerFactory.getLogger(AccountCredentialService.class);
 	private final AccountRepository accountRepository;
 	private final ActivateTokenService activateTokenService;
 	private final PasswordManager passwordManager;
-	private final RoleService roleService;
+	private final RoleService roleService; //TODO: Remove or make use of it
 
 	public AccountCredentialService(AccountRepository accountRepository, PasswordManager passwordManager,
 	                                RoleService roleService, ActivateTokenService activateTokenService) {
@@ -94,7 +93,9 @@ public class AccountCredentialService {
 		}).ifPresentOrElse(account -> {
 			//todo sent email if success
 			success.set(true);
-		},() -> new BusinessException("Can not activate account"));
+		}, () -> {
+			throw new BusinessException("Can not activate account");
+		});
 
 		return success.get();
 	}
