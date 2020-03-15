@@ -10,6 +10,7 @@ import pl.edu.pja.prz.account.model.dto.ChildDto;
 import pl.edu.pja.prz.groups.facade.GroupFacade;
 import pl.edu.pja.prz.groups.facade.dto.GroupDto;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -27,6 +28,11 @@ public class GroupsController {
 	@GetMapping("{id}")
 	public ResponseEntity<GroupDto> getGroup(@PathVariable Long id) {
 		return new ResponseEntity<>(groupFacade.getGroup(id), HttpStatus.OK);
+	}
+
+	@GetMapping("groups")
+	public ResponseEntity<List<GroupDto>> getAllGroups() {
+		return new ResponseEntity<>(groupFacade.getAllGroups(), HttpStatus.OK);
 	}
 
 	@PostMapping("")
