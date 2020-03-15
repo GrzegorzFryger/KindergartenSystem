@@ -7,8 +7,11 @@ import pl.edu.pja.prz.groups.model.Child;
 import pl.edu.pja.prz.groups.model.Group;
 import pl.edu.pja.prz.groups.repository.GroupRepository;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class GroupServiceImpl implements GroupService {
@@ -76,5 +79,13 @@ public class GroupServiceImpl implements GroupService {
 				() -> new ElementNotFoundException(GROUP, groupId));
 		groupToRemoveChild.removeChildFromGroup(child);
 		return groupRepository.save(groupToRemoveChild);
+	}
+
+	@Override
+	public Set<Child> findAllChildrenInGroup(Long groupId) {
+		Group groupToRead = groupRepository.findById(groupId).orElseThrow(
+				() -> new ElementNotFoundException(GROUP, groupId));
+		Set<Child> children = groupToRead.getChildren();
+		return children;
 	}
 }

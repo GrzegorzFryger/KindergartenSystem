@@ -5,6 +5,8 @@ import pl.edu.pja.prz.groups.model.Group;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 public interface GroupService {
 
@@ -21,5 +23,7 @@ public interface GroupService {
 	Group addChildToGroup(Long groupId, Child child);
 
 	Group removeChildFromGroup(Long groupId, Child child);
+
+	Set<Child> findAllChildrenInGroup(Long groupId);
 
 }

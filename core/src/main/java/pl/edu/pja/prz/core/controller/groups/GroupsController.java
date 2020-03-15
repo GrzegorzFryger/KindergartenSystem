@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.edu.pja.prz.account.model.dto.ChildDto;
 import pl.edu.pja.prz.groups.facade.GroupFacade;
 import pl.edu.pja.prz.groups.facade.dto.GroupDto;
 
+import java.util.Set;
 import java.util.UUID;
 
 @RestController
@@ -47,5 +49,10 @@ public class GroupsController {
 	public ResponseEntity<GroupDto> addChildToGroup(@PathVariable Long groupId,
 													@PathVariable UUID childId) {
 		return new ResponseEntity<>(groupFacade.addChildToGroup(groupId, childId), HttpStatus.OK);
+	}
+
+	@GetMapping("list/{id}")
+	public ResponseEntity<Set<ChildDto>> findAllChildrenInGroup(@PathVariable Long id) {
+		return new ResponseEntity<>(groupFacade.findAllChildrenInGroup(id), HttpStatus.OK);
 	}
 }

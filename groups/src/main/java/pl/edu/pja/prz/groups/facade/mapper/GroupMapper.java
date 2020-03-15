@@ -9,6 +9,7 @@ import pl.edu.pja.prz.groups.model.Child;
 import pl.edu.pja.prz.groups.model.Group;
 
 import java.util.List;
+import java.util.Set;
 
 @Mapper(componentModel = "spring")
 public interface GroupMapper {
@@ -21,5 +22,7 @@ public interface GroupMapper {
 
 	@Mapping(source = "id", target = "id")
 	Child toChild(ChildDto childDto);
+
+	Set<ChildDto> childListToDtoList(Set<Child> childList);
 
 }

@@ -10,6 +10,7 @@ import pl.edu.pja.prz.groups.model.Child;
 import pl.edu.pja.prz.groups.service.GroupService;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -75,5 +76,11 @@ public class GroupFacadeImpl implements GroupFacade {
 	@Override
 	public GroupDto removeChildFromGroup(Long groupId, UUID childId) {
 		return null;
+	}
+
+	@Override
+	public Set<ChildDto> findAllChildrenInGroup(Long groupId) {
+		return groupMapper.childListToDtoList(
+				groupService.findAllChildrenInGroup(groupId));
 	}
 }
