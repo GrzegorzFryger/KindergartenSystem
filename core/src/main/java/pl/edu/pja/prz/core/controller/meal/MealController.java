@@ -30,13 +30,13 @@ public class MealController {
         return mealFacade.getAllMeals();
     }
 
-    @GetMapping
-    public Meal getMealByID(@RequestParam("id") Long id) {
+    @GetMapping("{id}")
+    public Meal getMealByID(@PathVariable("id") Long id) {
         return mealFacade.getMealById(id);
     }
 
-    @PutMapping
-    public Meal updateMeal(@RequestBody MealCreateUpdateDTO meal, @RequestParam("id") Long mealToUpdateID) {
+    @PutMapping("{id}")
+    public Meal updateMeal(@RequestBody MealCreateUpdateDTO meal, @PathVariable("id") Long mealToUpdateID) {
         return mealFacade.updateMeal(meal,mealToUpdateID);
     }
 }

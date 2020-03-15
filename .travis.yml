@@ -1,4 +1,5 @@
 language: java
+<<<<<<< HEAD
 script: mvn verify -B
 services:
   - mysql
@@ -33,3 +34,5 @@ before_install:
   - mysql -u root -e "GRANT ALL PRIVILEGES ON scheduler.* TO 'scheduler'@'localhost';"
   - mysql -u root -e "GRANT SELECT ON account.* TO 'mail'@'localhost';"
   - mysql -u root --default-character-set=utf8 scheduler < .database/install/insert_quartz_1_0.sql
+=======
+>>>>>>> 23caafe656a8744c735a48ae40ab927ea3588255
