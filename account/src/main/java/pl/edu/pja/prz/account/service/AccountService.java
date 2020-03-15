@@ -43,7 +43,6 @@ public class AccountService {
 	protected void updateNotEmptyPersonField(Person oldPerson, Person newPerson) {
 		if (newPerson.getAddress() != null) {
 			oldPerson.setAddress(newPerson.getAddress());
-
 		}
 		if (newPerson.getFullName() != null) {
 			oldPerson.setFullName(newPerson.getFullName());

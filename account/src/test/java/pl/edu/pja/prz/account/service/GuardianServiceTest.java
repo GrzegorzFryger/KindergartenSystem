@@ -14,9 +14,6 @@ class GuardianServiceTest {
 	private Password password;
 	private String email;
 
-
-
-
 	@BeforeEach
 	void setUp() {
 		address = new Address("70-700", "City", "Street 256");
