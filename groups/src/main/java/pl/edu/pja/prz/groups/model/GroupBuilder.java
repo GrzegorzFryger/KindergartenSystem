@@ -1,10 +1,11 @@
 package pl.edu.pja.prz.groups.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class GroupBuilder {
 	private String groupName;
-	private Set<Child> children;
+	private Set<Child> children = new HashSet<>();
 	private String groupDescription;
 
 	public GroupBuilder withGroupName(String groupName) {

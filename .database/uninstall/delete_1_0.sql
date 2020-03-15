@@ -6,6 +6,9 @@ DELETE FROM calendar.dayoffwork;
 -- FINANCES MODULE --
 DELETE FROM finances.balance;
 -- GROUPS MODULE --
+DELETE FROM classrooms.child;
+DELETE FROM classrooms.classroom;
+DELETE FROM classrooms.classroom_child;
 -- MEAL MODULE --
 -- PAYMENTS MODULE --
 -- RECEIVABLES MODULE --

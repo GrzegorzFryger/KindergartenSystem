@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "fed4fa69-ba7e-4c94-b019-9a929ac52d41",
+		"_postman_id": "edc489e3-5636-4581-90e3-45451b557ef0",
 		"name": "KindergartenSystem",
 		"description": "This collection contains all API requests to backend system of our application.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -804,7 +804,177 @@
 		},
 		{
 			"name": "Groups",
-			"item": [],
+			"item": [
+				{
+					"name": "/group",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"groupName\": \"Group one\",\n\t\"groupDescription\": \"Test description\"\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}/{{GROUPS}}/",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{GROUPS}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/group/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{GROUPS}}/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{GROUPS}}",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/groups",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{GROUPS}}/groups",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{GROUPS}}",
+								"groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/group/list/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{GROUPS}}/list/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{GROUPS}}",
+								"list",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/group",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": \"3\",\n\t\"groupName\": \"New Name\",\n\t\"groupDescription\": \"New Description\"\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}/{{GROUPS}}/",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{GROUPS}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/group/{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{GROUPS}}/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{GROUPS}}",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/group/add/{groupId}/{childId}",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{GROUPS}}/add/2/1c7fe144-f71a-4599-b8bf-04aa92d7ab6d",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{GROUPS}}",
+								"add",
+								"2",
+								"1c7fe144-f71a-4599-b8bf-04aa92d7ab6d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/group/remove/{groupId}/{childId}",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{GROUPS}}/remove/1/0560d77d-e0db-4914-ae4a-4f39690ecb2d",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{GROUPS}}",
+								"remove",
+								"1",
+								"0560d77d-e0db-4914-ae4a-4f39690ecb2d"
+							]
+						}
+					},
+					"response": []
+				}
+			],
 			"description": "All requests from Groups module.",
 			"protocolProfileBehavior": {}
 		},
