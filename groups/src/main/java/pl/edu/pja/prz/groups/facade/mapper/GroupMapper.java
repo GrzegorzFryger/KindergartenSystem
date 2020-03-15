@@ -22,7 +22,4 @@ public interface GroupMapper {
 
 	@Mapping(source = "id", target = "id")
 	Child toChild(ChildDto childDto);
-
-	Set<ChildDto> childListToDtoList(Set<Child> childList);
-
 }

@@ -7,7 +7,6 @@ import pl.edu.pja.prz.groups.model.Child;
 import pl.edu.pja.prz.groups.model.Group;
 import pl.edu.pja.prz.groups.repository.GroupRepository;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -70,7 +69,7 @@ public class GroupServiceImpl implements GroupService {
 		Group groupToAddChild = groupRepository.findById(groupId).orElseThrow(
 				() -> new ElementNotFoundException(GROUP, groupId));
 		groupToAddChild.addChildToGroup(child);
-			return groupRepository.save(groupToAddChild);
+		return groupRepository.save(groupToAddChild);
 	}
 
 	@Override
@@ -82,10 +81,11 @@ public class GroupServiceImpl implements GroupService {
 	}
 
 	@Override
-	public Set<Child> findAllChildrenInGroup(Long groupId) {
+	public List<UUID> findIdOfAllChildrenInGroup(Long groupId) {
 		Group groupToRead = groupRepository.findById(groupId).orElseThrow(
 				() -> new ElementNotFoundException(GROUP, groupId));
 		Set<Child> children = groupToRead.getChildren();
-		return children;
+		List<UUID> childrenIds = children.stream().map(Child::getId).collect(Collectors.toList());
+		return childrenIds;
 	}
 }

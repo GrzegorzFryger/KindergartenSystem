@@ -9,6 +9,7 @@ import pl.edu.pja.prz.groups.facade.mapper.GroupMapper;
 import pl.edu.pja.prz.groups.model.Child;
 import pl.edu.pja.prz.groups.service.GroupService;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -67,6 +68,7 @@ public class GroupFacadeImpl implements GroupFacade {
 	public GroupDto addChildToGroup(Long groupId, UUID childId) {
 		ChildDto childFromDb = childFacade.findChildById(childId);
 		Child childToAdd = groupMapper.toChild(childFromDb);
+		childToAdd.setId(childId);
 		return groupMapper.fromGroup(
 				groupService.addChildToGroup(groupId, childToAdd)
 		);
@@ -80,7 +82,12 @@ public class GroupFacadeImpl implements GroupFacade {
 
 	@Override
 	public Set<ChildDto> findAllChildrenInGroup(Long groupId) {
-		return groupMapper.childListToDtoList(
-				groupService.findAllChildrenInGroup(groupId));
+		List<UUID> childIds = groupService.findIdOfAllChildrenInGroup(groupId);
+		Set<ChildDto> result = new HashSet<>();
+		for (UUID id : childIds
+		) {
+			result.add(childFacade.findChildById(id));
+		}
+		return result;
 	}
 }
