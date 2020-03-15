@@ -53,6 +53,42 @@ VALUES (0, '2020-05-12', 'INTERNAL_EVENT', 'Remont');
 -- CORE MODULE --
 -- FINANCES MODULE --
 -- GROUPS MODULE --
+INSERT INTO classrooms.classroom(`id`, `version`, `groupName`, `groupDescription`)
+VALUES (1, 0, 'Klasa A', 'Opis klasy A');
+INSERT INTO classrooms.classroom(`id`, `version`, `groupName`, `groupDescription`)
+VALUES (2, 0, 'Klasa B', 'Opis klasy B');
+INSERT INTO classrooms.classroom(`id`, `version`, `groupName`, `groupDescription`)
+VALUES (3, 0, 'Klasa C', 'Opis klasy C');
+INSERT INTO classrooms.classroom(`id`, `version`, `groupName`, `groupDescription`)
+VALUES (4, 0, 'Klasa D', 'Opis klasy D');
+
+INSERT INTO classrooms.child(`id`)
+VALUES('0560d77d-e0db-4914-ae4a-4f39690ecb2d');
+INSERT INTO classrooms.child(`id`)
+VALUES('067b5db4-de4e-401e-9cac-7f6289e96c19');
+INSERT INTO classrooms.child(`id`)
+VALUES('15ad869b-14c4-4be1-8456-d7f5fea6b557');
+INSERT INTO classrooms.child(`id`)
+VALUES('1cb1e3fc-e0c9-45f4-861d-24884a4f64ad');
+INSERT INTO classrooms.child(`id`)
+VALUES('45034cab-c252-4b2b-9887-59b7ad7431cd');
+INSERT INTO classrooms.child(`id`)
+VALUES('fec1b907-c9ce-4327-8bc6-abe353a76ba2');
+
+INSERT INTO classrooms.classroom_child(`group_id`, `child_id`)
+VALUES('1', '0560d77d-e0db-4914-ae4a-4f39690ecb2d');
+INSERT INTO classrooms.classroom_child(`group_id`, `child_id`)
+VALUES('1', '067b5db4-de4e-401e-9cac-7f6289e96c19');
+INSERT INTO classrooms.classroom_child(`group_id`, `child_id`)
+VALUES('2', '15ad869b-14c4-4be1-8456-d7f5fea6b557');
+INSERT INTO classrooms.classroom_child(`group_id`, `child_id`)
+VALUES('3', '1cb1e3fc-e0c9-45f4-861d-24884a4f64ad');
+INSERT INTO classrooms.classroom_child(`group_id`, `child_id`)
+VALUES('3', '45034cab-c252-4b2b-9887-59b7ad7431cd');
+INSERT INTO classrooms.classroom_child(`group_id`, `child_id`)
+VALUES('4', 'fec1b907-c9ce-4327-8bc6-abe353a76ba2');
+
+
 -- MEAL MODULE --
 -- PAYMENTS MODULE --
 -- RECEIVABLES MODULE --

@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "03e2dd24-017b-495f-9b93-a6d1ed3bcba8",
+		"_postman_id": "edc489e3-5636-4581-90e3-45451b557ef0",
 		"name": "KindergartenSystem",
 		"description": "This collection contains all API requests to backend system of our application.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -852,6 +852,43 @@
 					"response": []
 				},
 				{
+					"name": "/groups",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{GROUPS}}/groups",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{GROUPS}}",
+								"groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/group/list/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{GROUPS}}/list/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{GROUPS}}",
+								"list",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "/group",
 					"request": {
 						"method": "PUT",
@@ -898,19 +935,40 @@
 					"response": []
 				},
 				{
-					"name": "/group/{groupId}/{childId}",
+					"name": "/group/add/{groupId}/{childId}",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "{{HOST}}/{{GROUPS}}/1/<insert existing id here>",
+							"raw": "{{HOST}}/{{GROUPS}}/add/2/1c7fe144-f71a-4599-b8bf-04aa92d7ab6d",
 							"host": [
 								"{{HOST}}"
 							],
 							"path": [
 								"{{GROUPS}}",
+								"add",
+								"2",
+								"1c7fe144-f71a-4599-b8bf-04aa92d7ab6d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/group/remove/{groupId}/{childId}",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{GROUPS}}/remove/1/0560d77d-e0db-4914-ae4a-4f39690ecb2d",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{GROUPS}}",
+								"remove",
 								"1",
-								"<insert existing id here>"
+								"0560d77d-e0db-4914-ae4a-4f39690ecb2d"
 							]
 						}
 					},
