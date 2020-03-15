@@ -3,7 +3,6 @@ package pl.edu.pja.prz.groups.service;
 import pl.edu.pja.prz.groups.model.Child;
 import pl.edu.pja.prz.groups.model.Group;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,7 +20,7 @@ public interface GroupService {
 
 	Group addChildToGroup(Long groupId, Child child);
 
-	Group removeChildFromGroup(Long groupId, Child child);
+	void removeChildFromGroup(Long groupId, Child child);
 
 	List<UUID> findIdOfAllChildrenInGroup(Long groupId);
 

@@ -10,7 +10,6 @@ import pl.edu.pja.prz.account.model.dto.ChildDto;
 import pl.edu.pja.prz.groups.facade.GroupFacade;
 import pl.edu.pja.prz.groups.facade.dto.GroupDto;
 
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -46,7 +45,7 @@ public class GroupsController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@PutMapping("{groupId}/{childId}")
+	@PutMapping("add/{groupId}/{childId}")
 	public ResponseEntity<GroupDto> addChildToGroup(@PathVariable Long groupId,
 													@PathVariable UUID childId) {
 		return new ResponseEntity<>(groupFacade.addChildToGroup(groupId, childId), HttpStatus.OK);
@@ -55,5 +54,12 @@ public class GroupsController {
 	@GetMapping("list/{id}")
 	public ResponseEntity<Set<ChildDto>> findAllChildrenInGroup(@PathVariable Long id) {
 		return new ResponseEntity<>(groupFacade.findAllChildrenInGroup(id), HttpStatus.OK);
+	}
+
+	@PutMapping("remove/{groupId}/{childId}")
+	public ResponseEntity<?> removeChildFromGroup(@PathVariable Long groupId,
+													@PathVariable UUID childId) {
+		groupFacade.removeChildFromGroup(groupId, childId);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }

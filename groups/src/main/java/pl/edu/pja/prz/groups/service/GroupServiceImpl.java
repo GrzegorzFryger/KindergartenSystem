@@ -68,16 +68,16 @@ public class GroupServiceImpl implements GroupService {
 	public Group addChildToGroup(Long groupId, Child child) {
 		Group groupToAddChild = groupRepository.findById(groupId).orElseThrow(
 				() -> new ElementNotFoundException(GROUP, groupId));
-		groupToAddChild.addChildToGroup(child);
+		groupToAddChild.addChild(child);
 		return groupRepository.save(groupToAddChild);
 	}
 
 	@Override
-	public Group removeChildFromGroup(Long groupId, Child child) {
+	public void removeChildFromGroup(Long groupId, Child child) {
 		Group groupToRemoveChild = groupRepository.findById(groupId).orElseThrow(
 				() -> new ElementNotFoundException(GROUP, groupId));
-		groupToRemoveChild.removeChildFromGroup(child);
-		return groupRepository.save(groupToRemoveChild);
+		groupToRemoveChild.removeChild(child);
+		groupRepository.save(groupToRemoveChild);
 	}
 
 	@Override

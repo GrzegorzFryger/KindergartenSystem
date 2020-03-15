@@ -53,11 +53,11 @@ public class Group extends BaseEntityLong {
 		this.groupDescription = groupDescription;
 	}
 
-	public boolean addChildToGroup(Child child) {
+	public boolean addChild(Child child) {
 		return children.add(child);
 	}
 
-	public boolean removeChildFromGroup(Child child) {
+	public boolean removeChild(Child child) {
 		return children.remove(child);
 	}
 

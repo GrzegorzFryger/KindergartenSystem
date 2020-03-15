@@ -133,7 +133,7 @@ class GroupServiceTest {
 //		Long id = 1L;
 //
 //		//When
-//		service.addChildToGroup(id, child);
+//		service.addChild(id, child);
 //
 //		//Then
 //		verify(repository, times(1)).save(any(Group.class));

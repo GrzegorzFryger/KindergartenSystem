@@ -21,7 +21,7 @@ public interface GroupFacade {
 
 	GroupDto addChildToGroup(Long groupId, UUID childId);
 
-	GroupDto removeChildFromGroup(Long groupId, UUID childId);
+	void removeChildFromGroup(Long groupId, UUID childId);
 
 	Set<ChildDto> findAllChildrenInGroup(Long groupId);
 
