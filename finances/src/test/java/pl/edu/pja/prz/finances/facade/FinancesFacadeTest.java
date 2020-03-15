@@ -52,7 +52,7 @@ class FinancesFacadeTest {
         //Given
 
         //When
-        facade.increaseBalance(UUID.randomUUID(), new BigDecimal("50.00"), "PAYMENT");
+        facade.increaseBalance(UUID.randomUUID(), new BigDecimal("50.00"), "Some title");
 
         //Then
         verify(balanceService, times(1))
@@ -64,10 +64,22 @@ class FinancesFacadeTest {
         //Given
 
         //When
-        facade.decreaseBalance(UUID.randomUUID(), new BigDecimal("-50.00"), "PAYMENT");
+        facade.decreaseBalance(UUID.randomUUID(), new BigDecimal("-50.00"), "Some title");
 
         //Then
         verify(balanceService, times(1))
                 .decreaseBalance(any(UUID.class), any(BigDecimal.class), anyString());
+    }
+
+    @Test
+    public void Should_ApplyBalanceCorrection() {
+        //Given
+
+        //When
+        facade.applyBalanceCorrection(UUID.randomUUID(), new BigDecimal("-50.00"), "Some title");
+
+        //Then
+        verify(balanceService, times(1))
+                .applyBalanceCorrection(any(UUID.class), any(BigDecimal.class), anyString());
     }
 }

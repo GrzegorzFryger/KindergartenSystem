@@ -9,7 +9,6 @@ public class AccountDto {
 	private UUID id;
 	private String name;
 	private String surname;
-	private String password;
 	private String postalCode;
 	private String city;
 	private String streetNumber;
@@ -40,14 +39,6 @@ public class AccountDto {
 
 	public void setSurname(String surname) {
 		this.surname = surname;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public String getPostalCode() {
