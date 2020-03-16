@@ -1,9 +1,11 @@
 package pl.edu.pja.prz.core.controller.meal;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pl.edu.pja.prz.meal.facade.MealFacade;
 import pl.edu.pja.prz.meal.model.dto.MealCreateUpdateDTO;
 
 import static org.mockito.Mockito.times;
@@ -12,9 +14,16 @@ import static org.mockito.Mockito.verify;
 @ExtendWith(MockitoExtension.class)
 class MealControllerTest {
 
-    @Mock
     private MealController mealController;
     private MealCreateUpdateDTO mealCreateUpdateDTO;
+    @Mock
+    private MealFacade mealFacade;
+
+    @BeforeEach
+    public void setUp() {
+        mealController = new MealController(mealFacade);
+    }
+
 
     @Test
     void createMeal() {
@@ -22,7 +31,7 @@ class MealControllerTest {
         mealController.createMeal(mealCreateUpdateDTO);
 
         //then
-        verify(mealController, times(1)).createMeal(mealCreateUpdateDTO);
+        verify(mealFacade, times(1)).createMeal(mealCreateUpdateDTO);
     }
 
     @Test
@@ -31,7 +40,7 @@ class MealControllerTest {
         mealController.getAllMeals();
 
         //then
-        verify(mealController, times(1)).getAllMeals();
+        verify(mealFacade, times(1)).getAllMeals();
     }
 
     @Test
@@ -49,6 +58,6 @@ class MealControllerTest {
         mealController.updateMeal(mealCreateUpdateDTO, 1L);
 
         //then
-        verify(mealController, times(1)).updateMeal(mealCreateUpdateDTO, 1L);
+        verify(mealFacade, times(1)).updateMeal(mealCreateUpdateDTO, 1L);
     }
 }
