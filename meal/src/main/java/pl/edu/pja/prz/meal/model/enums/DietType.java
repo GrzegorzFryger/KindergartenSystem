@@ -2,7 +2,11 @@ package pl.edu.pja.prz.meal.model.enums;
 
 public enum DietType {
     VEGETARIAN("Wegetariańska"),
-    VEGAN("Wegańska");
+    VEGAN("Wegańska"),
+    BASIC("Podstawowa"),
+    DIABETIC("Dla Diabetyków"),
+    EASY_DIAGESTIBLE("Lekko strawna"),
+    NON_DAIRY("Bez nabiału");
 
     private String description;
 
