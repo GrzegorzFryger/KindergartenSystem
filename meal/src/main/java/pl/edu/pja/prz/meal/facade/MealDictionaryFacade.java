@@ -20,4 +20,8 @@ public class MealDictionaryFacade {
     public List<DictionaryObjectDTO> getAllMealTypes() {
         return mealDictionaryService.getAllMealTypes();
     }
+
+    public List<DictionaryObjectDTO> getAllDietType() {
+        return mealDictionaryService.getAllDietTypes();
+    }
 }
