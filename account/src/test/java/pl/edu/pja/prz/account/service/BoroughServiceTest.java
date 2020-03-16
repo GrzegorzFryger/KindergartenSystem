@@ -1,5 +1,6 @@
 package pl.edu.pja.prz.account.service;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -7,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pja.prz.account.model.Borough;
 import pl.edu.pja.prz.account.repository.BoroughRepository;
+import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.commons.model.Address;
 import pl.edu.pja.prz.commons.model.Phone;
 
@@ -25,11 +27,11 @@ class BoroughServiceTest {
 	@Mock
 	private Borough borough;
 
-	private BoroughServiceImpl boroughService;
+	private BoroughService boroughService;
 
 	@BeforeEach
 	void setUp() {
-		boroughService = new BoroughServiceImpl(boroughRepository, childService);
+		boroughService = new BoroughService(boroughRepository, childService);
 	}
 
 	@Test
@@ -114,5 +116,36 @@ class BoroughServiceTest {
 
 		//then
 		verify(boroughRepository, times(1)).save(borough);
+	}
+
+	@Test
+	public void Should_DeleteBorough() {
+		//Given
+		var borough = new Borough("Test borough",
+				new Address("70-700", "City", "Street 256"),
+				new Phone("123132123"),
+				"test@test.com",
+				"99576122623"
+		);
+
+		//When
+		when(boroughRepository.findById(anyLong())).thenReturn(Optional.of(borough));
+		boroughService.deleteBorough(1L);
+
+		//Then
+		verify(boroughRepository, times(1)).delete(any(Borough.class));
+	}
+
+	@Test
+	public void Should_ThrowException_When_BoroughToDeleteDoesNotExists() {
+		//Given
+
+		//When
+		when(boroughRepository.findById(anyLong())).thenReturn(Optional.empty());
+		Assertions.assertThrows(ElementNotFoundException.class, () -> {
+			boroughService.deleteBorough(1L);
+		});
+
+		//Then
 	}
 }

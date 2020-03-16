@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pja.prz.commons.exception.EmptyInputException;
 import pl.edu.pja.prz.finances.model.BalanceHistory;
+import pl.edu.pja.prz.finances.model.enums.OperationType;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -50,7 +51,6 @@ class BalanceHistoryBuilderTest {
         Assertions.assertThrows(EmptyInputException.class, () -> {
             BalanceHistory result = new BalanceHistoryBuilder()
                     .withChildId(UUID.randomUUID())
-                    .withBalanceBeforeChange(new BigDecimal("100.23"))
                     .build();
         });
 
@@ -65,8 +65,24 @@ class BalanceHistoryBuilderTest {
         Assertions.assertThrows(EmptyInputException.class, () -> {
             BalanceHistory result = new BalanceHistoryBuilder()
                     .withChildId(UUID.randomUUID())
-                    .withBalanceBeforeChange(new BigDecimal("100.23"))
                     .withAmountOfChange(new BigDecimal("50.00"))
+                    .build();
+        });
+
+        //Then
+    }
+
+    @Test
+    public void Should_ThrownException_When_OperationTypeIsNull() {
+        //Given
+        String title = "PAYMENT";
+
+        //When
+        Assertions.assertThrows(EmptyInputException.class, () -> {
+            BalanceHistory result = new BalanceHistoryBuilder()
+                    .withChildId(UUID.randomUUID())
+                    .withAmountOfChange(new BigDecimal("50.00"))
+                    .withTitle(title)
                     .build();
         });
 
@@ -77,24 +93,24 @@ class BalanceHistoryBuilderTest {
     public void Should_BuildBalanceHistory_When_AllRequiredFieldsAreInitialized() {
         //Given
         BigDecimal amountOfChange = new BigDecimal("-200.50");
-        BigDecimal balanceBeforeChange = new BigDecimal("100.23");
         UUID childId = UUID.randomUUID();
         String title = "PAYMENT";
+        OperationType operationType = OperationType.DECREASE;
 
         //When
         BalanceHistory result = new BalanceHistoryBuilder()
                 .withAmountOfChange(amountOfChange)
-                .withBalanceBeforeChange(balanceBeforeChange)
                 .withChildId(childId)
                 .withTitle(title)
+                .withOperationType(operationType)
                 .build();
 
         //Then
         assertNotNull(result);
         assertNotNull(result.getDate());
         assertEquals(amountOfChange, result.getAmountOfChange());
-        assertEquals(balanceBeforeChange, result.getBalanceBeforeChange());
         assertEquals(childId, result.getChildId());
         assertEquals(title, result.getTitle());
+        assertEquals(OperationType.DECREASE, result.getOperationType());
     }
 }

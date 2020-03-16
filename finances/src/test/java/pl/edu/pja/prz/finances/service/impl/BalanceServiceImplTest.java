@@ -8,14 +8,16 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pja.prz.commons.exception.BusinessException;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
-import pl.edu.pja.prz.finances.model.Balance;
-import pl.edu.pja.prz.finances.repository.BalanceRepository;
+import pl.edu.pja.prz.finances.model.BalanceHistory;
+import pl.edu.pja.prz.finances.model.builder.BalanceHistoryBuilder;
+import pl.edu.pja.prz.finances.model.dto.Balance;
+import pl.edu.pja.prz.finances.model.enums.OperationType;
 import pl.edu.pja.prz.finances.service.BalanceHistoryService;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,21 +28,26 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class BalanceServiceImplTest {
 
-    private Balance balance;
-    @Mock
-    private BalanceRepository repository;
+    private List<BalanceHistory> balanceHistories;
+
     @Mock
     private BalanceHistoryService historyService;
     private BalanceServiceImpl balanceService;
 
     @BeforeEach
     public void setUp() {
-        balanceService = new BalanceServiceImpl(repository, historyService);
+        balanceService = new BalanceServiceImpl(historyService);
 
-        balance = new Balance();
-        balance.setAmount(new BigDecimal("50.00"));
-        balance.setChildId(UUID.randomUUID());
-        balance.setGuardianId(UUID.randomUUID());
+        balanceHistories = new ArrayList<>();
+
+        BalanceHistory balanceHistory = new BalanceHistoryBuilder()
+                .withAmountOfChange(new BigDecimal("50.00"))
+                .withChildId(UUID.randomUUID())
+                .withTitle("PAYMENT")
+                .withOperationType(OperationType.INCREASE)
+                .build();
+
+        balanceHistories.add(balanceHistory);
     }
 
     @Test
@@ -48,12 +55,13 @@ class BalanceServiceImplTest {
         //Given
 
         //When
-        when(repository.getByChildId(any(UUID.class))).thenReturn(Optional.ofNullable(balance));
+        when(historyService.getAllHistoryRecordsForChild(any(UUID.class))).thenReturn(balanceHistories);
         Balance result = balanceService.getBalance(UUID.randomUUID());
 
         //Then
         assertNotNull(result);
-        verify(repository, times(1)).getByChildId(any(UUID.class));
+        verify(historyService, times(1)).getAllHistoryRecordsForChild(any(UUID.class));
+        assertEquals(new BigDecimal("50.00"), result.getBalance());
     }
 
 
@@ -62,29 +70,13 @@ class BalanceServiceImplTest {
         //Given
 
         //When
-        when(repository.getByChildId(any(UUID.class))).thenReturn(Optional.empty());
+        when(historyService.getAllHistoryRecordsForChild(any(UUID.class))).thenReturn(new ArrayList<>());
         Assertions.assertThrows(ElementNotFoundException.class, () -> {
             Balance result = balanceService.getBalance(UUID.randomUUID());
         });
 
         //Then
-        verify(repository, times(1)).getByChildId(any(UUID.class));
-    }
-
-    @Test
-    public void Should_GetAllBalances() {
-        //Given
-        List<Balance> balanceList = new ArrayList<>();
-        balanceList.add(balance);
-
-        //When
-        when(repository.getAllByGuardianId(any(UUID.class))).thenReturn(balanceList);
-        List<Balance> result = balanceService.getBalances(UUID.randomUUID());
-
-        //Then
-        assertNotNull(result);
-        assertEquals(1, result.size());
-        verify(repository, times(1)).getAllByGuardianId(any(UUID.class));
+        verify(historyService, times(1)).getAllHistoryRecordsForChild(any(UUID.class));
     }
 
     @Test
@@ -92,15 +84,11 @@ class BalanceServiceImplTest {
         //Given
 
         //When
-        when(repository.getByChildId(any(UUID.class))).thenReturn(Optional.ofNullable(balance));
-        Balance result = balanceService.increaseBalance(UUID.randomUUID(), new BigDecimal("50.00"), "PAYMENT");
+        balanceService.increaseBalance(UUID.randomUUID(), new BigDecimal("50.00"), "PAYMENT");
 
         //Then
-        assertNotNull(result);
-        assertEquals(new BigDecimal("100.00"), result.getAmount());
-        verify(repository, times(1)).save(any(Balance.class));
         verify(historyService, times(1))
-                .saveBalanceInHistory(any(UUID.class), any(BigDecimal.class), any(BigDecimal.class), anyString());
+                .saveBalanceInHistory(any(UUID.class), any(BigDecimal.class), anyString(), any(OperationType.class));
     }
 
     @Test
@@ -120,38 +108,93 @@ class BalanceServiceImplTest {
         //Given
 
         //When
-        when(repository.getByChildId(any(UUID.class))).thenReturn(Optional.ofNullable(balance));
-        Balance result = balanceService.decreaseBalance(UUID.randomUUID(), new BigDecimal("-50.00"), "PAYMENT");
+        balanceService.decreaseBalance(UUID.randomUUID(), new BigDecimal("-50.00"), "PAYMENT");
 
         //Then
-        assertNotNull(result);
-        assertEquals(new BigDecimal("0.00"), result.getAmount());
-        verify(repository, times(1)).save(any(Balance.class));
         verify(historyService, times(1))
-                .saveBalanceInHistory(any(UUID.class), any(BigDecimal.class), any(BigDecimal.class), anyString());
+                .saveBalanceInHistory(any(UUID.class), any(BigDecimal.class), anyString(), any(OperationType.class));
     }
 
     @Test
-    public void Should_ThrowException_When_AmountToDecreaseIsPositive() {
+    public void Should_DecreaseBalance_When_AmountIsPositive() {
         //Given
 
         //When
-        Assertions.assertThrows(BusinessException.class, () -> {
-            balanceService.decreaseBalance(UUID.randomUUID(), new BigDecimal("50.00"), "PAYMENT");
-        });
+        balanceService.decreaseBalance(UUID.randomUUID(), new BigDecimal("50.00"), "PAYMENT");
 
         //Then
+        verify(historyService, times(1))
+                .saveBalanceInHistory(any(UUID.class), any(BigDecimal.class), anyString(), any(OperationType.class));
     }
 
-
     @Test
-    public void Should_SaveBalance() {
+    public void Should_ApplyBalanceCorrection() {
         //Given
 
         //When
-        balanceService.saveBalance(balance);
+        balanceService.applyBalanceCorrection(UUID.randomUUID(), new BigDecimal("50.00"), "PAYMENT");
 
         //Then
-        verify(repository, times(1)).save(any(Balance.class));
+        verify(historyService, times(1))
+                .saveBalanceInHistory(any(UUID.class), any(BigDecimal.class), anyString(), any(OperationType.class));
+    }
+
+    @Test
+    public void Should_CalculateBalance_When_ThereAreOnlyReceivables() {
+        //Given
+        List<BalanceHistory> balanceHistories = Arrays.asList(
+                buildBalanceHistory("50.00"),
+                buildBalanceHistory("20.00")
+        );
+
+        //When
+        Balance result = balanceService.calculateBalance(balanceHistories);
+
+        assertNotNull(result);
+        assertEquals(new BigDecimal("70.00"), result.getBalance());
+        assertEquals(new BigDecimal("70.00"), result.getReceivables());
+        assertEquals(BigDecimal.ZERO, result.getLiabilities());
+    }
+
+    @Test
+    public void Should_CalculateBalance_When_ThereAreOnlyLiabilities() {
+        //Given
+        List<BalanceHistory> balanceHistories = Arrays.asList(
+                buildBalanceHistory("-50.00"),
+                buildBalanceHistory("-10.00")
+        );
+
+        //When
+        Balance result = balanceService.calculateBalance(balanceHistories);
+
+        assertNotNull(result);
+        assertEquals(new BigDecimal("-60.00"), result.getBalance());
+        assertEquals(BigDecimal.ZERO, result.getReceivables());
+        assertEquals(new BigDecimal("-60.00"), result.getLiabilities());
+    }
+
+    @Test
+    public void Should_CalculateBalance_When_ThereAreBothReceivablesAndLiabilities() {
+        //Given
+        List<BalanceHistory> balanceHistories = Arrays.asList(
+                buildBalanceHistory("50.00"),
+                buildBalanceHistory("20.00"),
+                buildBalanceHistory("-50.00"),
+                buildBalanceHistory("-10.00")
+        );
+
+        //When
+        Balance result = balanceService.calculateBalance(balanceHistories);
+
+        assertNotNull(result);
+        assertEquals(new BigDecimal("10.00"), result.getBalance());
+        assertEquals(new BigDecimal("70.00"), result.getReceivables());
+        assertEquals(new BigDecimal("-60.00"), result.getLiabilities());
+    }
+
+    private BalanceHistory buildBalanceHistory(String amount) {
+        BalanceHistory balanceHistory = new BalanceHistory();
+        balanceHistory.setAmountOfChange(new BigDecimal(amount));
+        return balanceHistory;
     }
 }

@@ -13,7 +13,6 @@ fi
 # Generate random password
 random_password=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 64 | head -n 1)
 printf "Your random password is:\n${LG}$random_password${NC}\n\n"
-printf "Make sure to copy it - since you will have to add it to configuration.\n\n"
 
 # Generate PKCS12 certificate
 keytool -genkeypair -noprompt \
@@ -25,6 +24,12 @@ keytool -genkeypair -noprompt \
 -keystore kindergartensystem.p12 \
 -storepass $random_password \
 -validity 90
+
+# Replace old password from application-cert.properties with newly generated
+server_ssl_key_store_password="server.ssl.key-store-password=$random_password"
+printf "Replacing password in ${LY}application-cert.properties${NC}\n"
+printf "${LG}$server_ssl_key_store_password${NC}\n\n"
+sed -i "s/server.ssl.key-store-password=.*/$server_ssl_key_store_password/g" ../application-cert.properties
 
 # End script
 printf "${LG}Success!${NC}\nScript execution finished. Press any key to continue.\n"

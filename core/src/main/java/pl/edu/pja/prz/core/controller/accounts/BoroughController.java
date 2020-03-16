@@ -1,18 +1,20 @@
 package pl.edu.pja.prz.core.controller.accounts;
 
+import static pl.edu.pja.prz.core.controller.RequestMappings.API_ACCOUNT;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.pja.prz.account.facade.BoroughFacade;
-import pl.edu.pja.prz.account.facade.dto.BoroughChildDto;
-import pl.edu.pja.prz.account.facade.dto.BoroughDto;
-import pl.edu.pja.prz.account.facade.dto.ChildDto;
+import pl.edu.pja.prz.account.model.dto.BoroughChildDto;
+import pl.edu.pja.prz.account.model.dto.BoroughDto;
+import pl.edu.pja.prz.account.model.dto.ChildDto;
 
 import java.util.Set;
 
 @RestController
-@RequestMapping("api/account/")
+@RequestMapping(API_ACCOUNT)
 //TODO: ADD @PreAuthorize annotation with proper roles from Roles.java class
 public class BoroughController {
     private final BoroughFacade boroughFacade;

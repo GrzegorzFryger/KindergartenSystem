@@ -5,12 +5,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pl.edu.pja.prz.finances.model.Balance;
+import pl.edu.pja.prz.finances.model.dto.Balance;
 import pl.edu.pja.prz.finances.service.BalanceService;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -31,9 +29,9 @@ class FinancesFacadeTest {
         facade = new FinancesFacadeImpl(balanceService);
 
         balance = new Balance();
-        balance.setAmount(new BigDecimal("50.00"));
-        balance.setChildId(UUID.randomUUID());
-        balance.setGuardianId(UUID.randomUUID());
+        balance.setBalance(new BigDecimal("50.00"));
+        balance.setLiabilities(new BigDecimal("50.00"));
+        balance.setReceivables(new BigDecimal("100.00"));
     }
 
     @Test
@@ -50,27 +48,11 @@ class FinancesFacadeTest {
     }
 
     @Test
-    public void Should_GetBalanceList() {
-        //Given
-        List<Balance> balanceList = new ArrayList();
-        balanceList.add(balance);
-
-        //When
-        when(balanceService.getBalances(any(UUID.class))).thenReturn(balanceList);
-        List<Balance> result = facade.getBalances(UUID.randomUUID());
-
-        //Then
-        assertNotNull(result);
-        assertEquals(1, result.size());
-        verify(balanceService, times(1)).getBalances(any(UUID.class));
-    }
-
-    @Test
     public void Should_IncreaseBalance() {
         //Given
 
         //When
-        facade.increaseBalance(UUID.randomUUID(), new BigDecimal("50.00"),"PAYMENT");
+        facade.increaseBalance(UUID.randomUUID(), new BigDecimal("50.00"), "Some title");
 
         //Then
         verify(balanceService, times(1))
@@ -82,10 +64,22 @@ class FinancesFacadeTest {
         //Given
 
         //When
-        facade.decreaseBalance(UUID.randomUUID(), new BigDecimal("-50.00"),"PAYMENT");
+        facade.decreaseBalance(UUID.randomUUID(), new BigDecimal("-50.00"), "Some title");
 
         //Then
         verify(balanceService, times(1))
                 .decreaseBalance(any(UUID.class), any(BigDecimal.class), anyString());
+    }
+
+    @Test
+    public void Should_ApplyBalanceCorrection() {
+        //Given
+
+        //When
+        facade.applyBalanceCorrection(UUID.randomUUID(), new BigDecimal("-50.00"), "Some title");
+
+        //Then
+        verify(balanceService, times(1))
+                .applyBalanceCorrection(any(UUID.class), any(BigDecimal.class), anyString());
     }
 }

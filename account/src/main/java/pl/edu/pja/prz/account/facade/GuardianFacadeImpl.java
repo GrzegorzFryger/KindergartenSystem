@@ -2,11 +2,12 @@ package pl.edu.pja.prz.account.facade;
 
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
-import pl.edu.pja.prz.account.facade.dto.AccountDto;
-import pl.edu.pja.prz.account.facade.dto.ChildDto;
-import pl.edu.pja.prz.account.facade.dto.GuardianDto;
-import pl.edu.pja.prz.account.facade.mapper.ChildMapper;
-import pl.edu.pja.prz.account.facade.mapper.GuardianMapper;
+import pl.edu.pja.prz.account.exception.MoreThanOneElement;
+import pl.edu.pja.prz.account.model.dto.AccountDto;
+import pl.edu.pja.prz.account.model.dto.ChildDto;
+import pl.edu.pja.prz.account.model.dto.GuardianDto;
+import pl.edu.pja.prz.account.mapper.ChildMapper;
+import pl.edu.pja.prz.account.mapper.GuardianMapper;
 import pl.edu.pja.prz.account.service.GuardianService;
 import pl.edu.pja.prz.commons.model.FullName;
 
@@ -40,12 +41,12 @@ public class GuardianFacadeImpl implements GuardianFacade {
 
     public GuardianDto findGuardianById(UUID id) {
         return guardianMapper.fromGuardian(
-                guardianService.getGuardianById(id)
+                guardianService.getById(id)
         );
     }
 
     public List<GuardianDto> findAllGuardians() {
-        return guardianService.getAllGuardians()
+        return guardianService.getAll()
                 .stream()
                 .map(guardianMapper::fromGuardian)
                 .collect(Collectors.toList());
@@ -58,7 +59,7 @@ public class GuardianFacadeImpl implements GuardianFacade {
                 .collect(Collectors.toSet());
     }
 
-    public Optional<GuardianDto> findByFullNameOrAddress(String name, String surname, @Nullable String street) {
+    public Optional<GuardianDto> findByFullNameOrAddress(String name, String surname, @Nullable String street) throws MoreThanOneElement {
         return guardianService
                 .findByFullNameOrAddressReadOnly(new FullName(name.toLowerCase(), surname.toLowerCase()), street)
                 .map(guardianMapper::fromGuardian)

@@ -19,9 +19,7 @@
         <spring-boot-starter-web.version>2.2.0.RELEASE</spring-boot-starter-web.version>
         <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
         <springfox-swagger-ui.version>2.9.2</springfox-swagger-ui.version>
-        <jjwt-api.version>0.11.0</jjwt-api.version>
-        <jjwt-impl.version>0.11.0</jjwt-impl.version>
-        <jjwt-jackson.version>0.11.0</jjwt-jackson.version>
+
     </properties>
 
     <dependencies>
@@ -83,23 +81,6 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>${springfox-swagger-ui.version}</version>
         </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-api</artifactId>
-            <version>${jjwt-api.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-impl</artifactId>
-            <version>${jjwt-impl.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-jackson</artifactId>
-            <version>${jjwt-jackson.version}</version>
-            <scope>runtime</scope>
-        </dependency>
     </dependencies>
 
     <build>
@@ -129,7 +110,6 @@
                         <exclude>**/pl/edu/pja/prz/core/security/*</exclude>
                         <exclude>**/pl/edu/pja/prz/core/utilites/*</exclude>
                         <exclude>**/pl/edu/pja/prz/core/controller/payments/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/core/controller/accounts/*</exclude>
                         <exclude>**/pl/edu/pja/prz/core/controller/calendar/*</exclude>
                         <exclude>**/pl/edu/pja/prz/core/controller/groups/*</exclude>
                         <exclude>**/pl/edu/pja/prz/core/controller/technical/*</exclude>

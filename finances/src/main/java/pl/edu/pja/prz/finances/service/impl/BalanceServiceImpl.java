@@ -4,74 +4,73 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.commons.exception.BusinessException;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
-import pl.edu.pja.prz.finances.model.Balance;
-import pl.edu.pja.prz.finances.repository.BalanceRepository;
+import pl.edu.pja.prz.finances.model.BalanceHistory;
+import pl.edu.pja.prz.finances.model.dto.Balance;
 import pl.edu.pja.prz.finances.service.BalanceHistoryService;
 import pl.edu.pja.prz.finances.service.BalanceService;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import static pl.edu.pja.prz.commons.util.BigDecimalUtils.*;
+import static pl.edu.pja.prz.finances.model.enums.OperationType.*;
 
 @Service
 public class BalanceServiceImpl implements BalanceService {
     private static final String BALANCE = "Balance";
-    private final BalanceRepository repository;
+
     private final BalanceHistoryService historyService;
 
     @Autowired
-    public BalanceServiceImpl(BalanceRepository repository, BalanceHistoryService historyService) {
-        this.repository = repository;
+    public BalanceServiceImpl(BalanceHistoryService historyService) {
         this.historyService = historyService;
     }
 
     @Override
     public Balance getBalance(UUID childId) {
-        Optional<Balance> result = repository.getByChildId(childId);
+        List<BalanceHistory> result = historyService.getAllHistoryRecordsForChild(childId);
         if (result.isEmpty()) {
             throw new ElementNotFoundException(BALANCE, childId.toString());
         }
-        return result.get();
+        return calculateBalance(result);
     }
 
     @Override
-    public List<Balance> getBalances(UUID guardianId) {
-        return repository.getAllByGuardianId(guardianId);
-    }
-
-    @Override
-    public Balance increaseBalance(UUID childId, BigDecimal amount, String title) {
+    public void increaseBalance(UUID childId, BigDecimal amount, String title) {
         if (isPositive(amount)) {
-            Balance balance = getBalance(childId);
-            BigDecimal amountBeforeChange = balance.getAmount();
-            balance.setAmount(sum(balance.getAmount(), amount));
-            saveBalance(balance);
-            historyService.saveBalanceInHistory(childId, amountBeforeChange, amount, title);
-            return balance;
+            historyService.saveBalanceInHistory(childId, amount, title, INCREASE);
         } else {
             throw new BusinessException("Attempt was made to increase balance when providing negative amount: " + amount);
         }
     }
 
     @Override
-    public Balance decreaseBalance(UUID childId, BigDecimal amount, String title) {
+    public void decreaseBalance(UUID childId, BigDecimal amount, String title) {
         if (isNegative(amount)) {
-            Balance balance = getBalance(childId);
-            BigDecimal amountBeforeChange = balance.getAmount();
-            balance.setAmount(sum(balance.getAmount(), amount));
-            saveBalance(balance);
-            historyService.saveBalanceInHistory(childId, amountBeforeChange, amount, title);
-            return balance;
+            historyService.saveBalanceInHistory(childId, amount, title, DECREASE);
         } else {
-            throw new BusinessException("Attempt was made to decrease balance when providing positive amount: " + amount);
+            historyService.saveBalanceInHistory(childId, amount.negate(), title, DECREASE);
         }
     }
 
     @Override
-    public void saveBalance(Balance balance) {
-        repository.save(balance);
+    public void applyBalanceCorrection(UUID childId, BigDecimal amount, String title) {
+        historyService.saveBalanceInHistory(childId, amount, title, CORRECTION);
+    }
+
+    @Override
+    public Balance calculateBalance(List<BalanceHistory> balanceHistories) {
+        BigDecimal receivables = BigDecimal.ZERO;
+        BigDecimal liabilites = BigDecimal.ZERO;
+
+        for (BalanceHistory balanceHistory : balanceHistories) {
+            if (isNegative(balanceHistory.getAmountOfChange())) {
+                liabilites = sum(liabilites, balanceHistory.getAmountOfChange());
+            } else {
+                receivables = sum(receivables, balanceHistory.getAmountOfChange());
+            }
+        }
+        return new Balance(receivables, liabilites);
     }
 }

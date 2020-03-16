@@ -6,22 +6,22 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pl.edu.pja.prz.account.model.Borough;
 import pl.edu.pja.prz.account.model.Child;
-import pl.edu.pja.prz.account.model.ChildBuilder;
 import pl.edu.pja.prz.account.model.enums.Gender;
 import pl.edu.pja.prz.account.model.value.StudyPeriod;
 import pl.edu.pja.prz.account.repository.ChildRepository;
-import pl.edu.pja.prz.account.utilites.PeselService;
+import pl.edu.pja.prz.account.utilites.ChildBuilder;
 import pl.edu.pja.prz.commons.model.Address;
 import pl.edu.pja.prz.commons.model.FullName;
 import pl.edu.pja.prz.commons.model.Phone;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -31,8 +31,6 @@ class ChildServiceTest {
 	private Phone phone;
 	private FullName fullName;
 
-	@Mock
-	private BoroughService boroughService;
 	@Mock
 	private ChildRepository childRepository;
 	@Mock
@@ -45,29 +43,27 @@ class ChildServiceTest {
 		address = new Address("70-700", "City", "Street 256");
 		phone = new Phone("123132123");
 		fullName = new FullName("TestName", "TestSurname");
-		childService = new ChildServiceImpl(childRepository, peselService);
+		childService = new ChildService(childRepository, peselService);
 	}
 
 	@Test
 	void should_createChild() {
 		//given
-		var borough = new Borough("Testborought", address, phone, "test@wp.com", "975456466");
 		var child = ChildBuilder.aChild()
 				.withPeselNumber("00440758725")
 				.withFullName(fullName)
 				.withAddress(address)
+				.withGuardians(new HashSet<>())
 				.build();
 
 		//when
-
 		when(peselService.extractDateOfBirth(any())).thenReturn(LocalDate.now());
 		when(peselService.extractGender(any())).thenReturn(Gender.MALE);
 		when(childRepository.save(any(Child.class))).thenReturn(child);
 		var createdChild = childService.createChild(address, fullName, "00440758725", new StudyPeriod());
 
-
 		//then
-
+		assertNotNull(createdChild);
 	}
 
 	@Test
@@ -84,9 +80,10 @@ class ChildServiceTest {
 
 		//when
 		when(childRepository.findById(id)).thenReturn(Optional.ofNullable(child));
-		var returnedObj = childService.getChildById(id);
+		var result = childService.getById(id);
 
 		//then
+		assertNotNull(result);
 		verify(childRepository, times(1)).findById(id);
 	}
 
@@ -115,7 +112,7 @@ class ChildServiceTest {
 		when(childRepository.findById(id)).thenReturn(Optional.of(childSpy));
 		when(childRepository.save(any())).thenReturn(childOld);
 
-		childService.updateChild(newChild);
+		childService.update(newChild);
 
 		//then
 		assertEquals(newChild, childSpy);
