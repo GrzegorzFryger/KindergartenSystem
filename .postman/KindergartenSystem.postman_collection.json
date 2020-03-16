@@ -1099,15 +1099,153 @@
 									}
 								},
 								"url": {
-									"raw": "https://localhost:8080/api/meal",
-									"protocol": "https",
+									"raw": "{{HOST}}/api/meal",
 									"host": [
-										"localhost"
+										"{{HOST}}"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"meal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Meals",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"mealType\": \"BREAKFAST\",\n\t\"dietType\": \"VEGETARIAN\",\n\t\"childID\": \"0560d77d-e0db-4914-ae4a-4f39690ecb2d\",\n\t\"mealFromDate\": \"2020-04-27\",\n\t\"mealToDate\": \"2020-05-27\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/api/meal",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"meal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Meal By ID",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"mealType\": \"BREAKFAST\",\n\t\"dietType\": \"VEGETARIAN\",\n\t\"childID\": \"0560d77d-e0db-4914-ae4a-4f39690ecb2d\",\n\t\"mealFromDate\": \"2020-04-27\",\n\t\"mealToDate\": \"2020-05-27\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/api/meal/1",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"meal",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Meal",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"mealType\": \"BREAKFAST\",\n\t\"dietType\": \"VEGETARIAN\",\n\t\"childID\": \"0560d77d-e0db-4914-ae4a-4f39690ecb2d\",\n\t\"mealFromDate\": \"2020-04-27\",\n\t\"mealToDate\": \"2020-05-27\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/api/meal/1",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"meal",
+										"1"
 									]
 								}
 							},
@@ -1142,12 +1280,10 @@
 									}
 								],
 								"url": {
-									"raw": "https://localhost:8080/api/meal/price",
-									"protocol": "https",
+									"raw": "{{HOST}}/api/meal/price",
 									"host": [
-										"localhost"
+										"{{HOST}}"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"meal",
@@ -1183,12 +1319,10 @@
 									"raw": "{\n\t\"mealType\":\"DINER\",\n\t\"mealPrice\":\"56.44\"\n}"
 								},
 								"url": {
-									"raw": "https://localhost:8080/api/meal/price",
-									"protocol": "https",
+									"raw": "{{HOST}}/api/meal/price",
 									"host": [
-										"localhost"
+										"{{HOST}}"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"meal",
@@ -1224,12 +1358,10 @@
 									"raw": "{\n\t\"mealType\":\"DINER\",\n\t\"mealPrice\":\"56.44\"\n}"
 								},
 								"url": {
-									"raw": "https://localhost:8080/api/meal/price?id=3",
-									"protocol": "https",
+									"raw": "{{HOST}}/api/meal/price?id=3",
 									"host": [
-										"localhost"
+										"{{HOST}}"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"meal",
@@ -1271,12 +1403,10 @@
 									"raw": "{\n\t\"mealType\":\"DINER\",\n\t\"mealPrice\":\"56.44\"\n}"
 								},
 								"url": {
-									"raw": "https://localhost:8080/api/meal/price?id=3",
-									"protocol": "https",
+									"raw": "{{HOST}}/api/meal/price?id=3",
 									"host": [
-										"localhost"
+										"{{HOST}}"
 									],
-									"port": "8080",
 									"path": [
 										"api",
 										"meal",
