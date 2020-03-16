@@ -49,7 +49,7 @@ class MealControllerTest {
         mealController.getMealByID(1L);
 
         //then
-        verify(mealController, times(1)).getMealByID(1L);
+        verify(mealFacade, times(1)).getMealById(1L);
     }
 
     @Test
