@@ -110,7 +110,3 @@ public class MealServiceImpl implements MealService {
         return mealRepository.existsById(id);
     }
 }
-
-        0560d77d-e0db-4914-ae4a-4f39690ecb2d
-        067b5db4-de4e-401e-9cac-7f6289e96c19
-        15ad869b-14c4-4be1-8456-d7f5fea6b557
