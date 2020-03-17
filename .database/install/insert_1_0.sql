@@ -90,6 +90,17 @@ VALUES('4', 'fec1b907-c9ce-4327-8bc6-abe353a76ba2');
 
 
 -- MEAL MODULE --
+
+INSERT INTO `meal`.`meal` (`childID`, `dietType`, `mealFromDate`, `mealPrice`, `mealStatus`, `mealToDate`, `mealType`) VALUES('0560d77d-e0db-4914-ae4a-4f39690ecb2d','VEGETARIAN', '2020-01-27 11:00:00.000000', '15.50', '0', '2020-08-26 22:00:00.000000', 'BREAKFAST');
+INSERT INTO `meal`.`meal` (`childID`, `dietType`, `mealFromDate`, `mealPrice`, `mealStatus`, `mealToDate`, `mealType`) VALUES('0560d77d-e0db-4914-ae4a-4f39690ecb2d','VEGETARIAN', '2020-01-27 11:00:00.000000', '56.44', '0', '2020-08-26 22:00:00.000000', 'DINER');
+INSERT INTO `meal`.`meal` (`childID`, `dietType`, `mealFromDate`, `mealPrice`, `mealStatus`, `mealToDate`, `mealType`) VALUES('067b5db4-de4e-401e-9cac-7f6289e96c19','VEGETARIAN', '2020-01-27 11:00:00.000000', '56.44', '0', '2020-08-26 22:00:00.000000', 'DINER');
+INSERT INTO `meal`.`meal` (`childID`, `dietType`, `mealFromDate`, `mealPrice`, `mealStatus`, `mealToDate`, `mealType`) VALUES('15ad869b-14c4-4be1-8456-d7f5fea6b557','VEGETARIAN', '2020-01-27 11:00:00.000000', '56.44', '0', '2020-08-26 22:00:00.000000', 'DINER');
+
+INSERT INTO `meal`.`mealprice` (`mealPrice`, `mealType`) VALUES ('56.44','DINER');
+INSERT INTO `meal`.`mealprice` (`mealPrice`, `mealType`) VALUES ('15.50','BREAKFAST');
+
+
+
 -- PAYMENTS MODULE --
 -- RECEIVABLES MODULE --
 INSERT INTO receivables.transaction (`version`,`accountNumber`,`bankName`,`bookingDate`,`childId`,`contractorDetails`,`details`,`guardianId`,`title`,`transactionAmount`,`transactionCurrency`,`transactionDate`,`transactionNumber`)
