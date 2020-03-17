@@ -4,26 +4,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.commons.exception.BusinessException;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
+import pl.edu.pja.prz.mail.facade.MailFacade;
+import pl.edu.pja.prz.mail.model.BaseMail;
 import pl.edu.pja.prz.meal.model.Meal;
 import pl.edu.pja.prz.meal.model.dto.MealCreateUpdateDTO;
 import pl.edu.pja.prz.meal.model.enums.MealStatus;
 import pl.edu.pja.prz.meal.repository.MealRepository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class MealServiceImpl implements MealService {
 
     private final MealRepository mealRepository;
     private final MealPriceServiceImpl mealPriceListService;
+    private final MailFacade mailFacade;
 
 
     @Autowired
-    public MealServiceImpl(MealRepository mealRepository, MealPriceServiceImpl mealPriceListService) {
+    public MealServiceImpl(MealRepository mealRepository, MealPriceServiceImpl mealPriceListService, MailFacade mailFacade) {
         this.mealRepository = mealRepository;
         this.mealPriceListService = mealPriceListService;
+        this.mailFacade = mailFacade;
     }
 
     @Override
@@ -108,5 +116,29 @@ public class MealServiceImpl implements MealService {
 
     public boolean isMealPresentByID(Long id) {
         return mealRepository.existsById(id);
+    }
+
+    private List<String> prepareDataToSendViaMail() {
+        List<Meal> activeMeals = getAllActiveMeals();
+        Map<String, Integer> mealsCount = new HashMap<>();
+
+        activeMeals.forEach(u -> {
+            String mealToOrder = u.getMealType() + " (" + u.getDietType()+")";
+            if(!mealsCount.containsKey(mealToOrder)){
+                mealsCount.put(mealToOrder, 0);
+            }
+            mealsCount.put(mealToOrder, mealsCount.get(mealToOrder) + 1);
+        });
+        return mealsCount.keySet().stream().map(u -> u + " : " + mealsCount.get(u))
+                .collect(Collectors.toList());
+    }
+
+    public void sendEmailWithOrder() {
+        BaseMail baseMail = new BaseMail();
+        baseMail.setTo("patyk@int.pl");
+        baseMail.setSubject("Zamówienie na dzień " + LocalDate.now());
+        String content = prepareDataToSendViaMail().stream().map(u -> u + '\n').collect(Collectors.joining());
+        baseMail.setContent(content);
+        mailFacade.sendEmail(baseMail);
     }
 }

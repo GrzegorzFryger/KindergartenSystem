@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pja.prz.commons.exception.BusinessException;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
+import pl.edu.pja.prz.mail.facade.MailFacade;
 import pl.edu.pja.prz.meal.exception.NotFoundException;
 import pl.edu.pja.prz.meal.model.Meal;
 import pl.edu.pja.prz.meal.model.dto.MealCreateUpdateDTO;
@@ -39,13 +40,14 @@ public class MealServiceImplTest {
     @Mock
     private MealPriceRepository mealPriceListRepository;
     private MealServiceImpl mealService ;
+    private MailFacade mailFacade;
 
     private MealCreateUpdateDTO mealCreateUpdateDTO;
 
 
     @BeforeEach
     public void setup() {
-        mealService = new MealServiceImpl(mealRepository, new MealPriceServiceImpl(mealPriceListRepository));
+        mealService = new MealServiceImpl(mealRepository, new MealPriceServiceImpl(mealPriceListRepository), mailFacade);
 
         mealCreateUpdateDTO =
                 new MealCreateUpdateDTO(new BigDecimal(1), MealType.BREAKFAST, DietType.VEGAN, UUID.randomUUID(), LocalDate.MIN, LocalDate.MAX);
