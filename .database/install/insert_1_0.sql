@@ -99,6 +99,7 @@ INSERT INTO `meal`.`meal` (`childID`, `dietType`, `mealFromDate`, `mealPrice`, `
 INSERT INTO `meal`.`mealprice` (`mealPrice`, `mealType`) VALUES ('56.44','DINER');
 INSERT INTO `meal`.`mealprice` (`mealPrice`, `mealType`) VALUES ('15.50','BREAKFAST');
 
+INSERT INTO `meal`.`mealconfiguration` (`id`, `version`, `emailToSendMealOrder`) VALUES ('1', '0', 'patyk@int.pl');
 
 
 -- PAYMENTS MODULE --

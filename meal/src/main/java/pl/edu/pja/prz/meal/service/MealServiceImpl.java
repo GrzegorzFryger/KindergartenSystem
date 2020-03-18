@@ -1,6 +1,7 @@
 package pl.edu.pja.prz.meal.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.commons.exception.BusinessException;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
@@ -8,8 +9,10 @@ import pl.edu.pja.prz.finances.facade.FinancesFacade;
 import pl.edu.pja.prz.mail.facade.MailFacade;
 import pl.edu.pja.prz.mail.model.BaseMail;
 import pl.edu.pja.prz.meal.model.Meal;
+import pl.edu.pja.prz.meal.model.MealConfiguration;
 import pl.edu.pja.prz.meal.model.dto.MealCreateUpdateDTO;
 import pl.edu.pja.prz.meal.model.enums.MealStatus;
+import pl.edu.pja.prz.meal.repository.MealConfigurationRepository;
 import pl.edu.pja.prz.meal.repository.MealRepository;
 
 import java.time.LocalDate;
@@ -21,20 +24,24 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
+@ConfigurationProperties(prefix = "meal")
 public class MealServiceImpl implements MealService {
 
     private final MealRepository mealRepository;
     private final MealPriceServiceImpl mealPriceListService;
     private final MailFacade mailFacade;
     private final FinancesFacade financesFacade;
+    private final MealConfigurationRepository mealConfigurationRepository;
 
 
     @Autowired
-    public MealServiceImpl(MealRepository mealRepository, MealPriceServiceImpl mealPriceListService, MailFacade mailFacade, FinancesFacade financesFacade) {
+    public MealServiceImpl(MealRepository mealRepository, MealPriceServiceImpl mealPriceListService,
+                           MailFacade mailFacade, FinancesFacade financesFacade, MealConfigurationRepository mealConfigurationRepository) {
         this.mealRepository = mealRepository;
         this.mealPriceListService = mealPriceListService;
         this.mailFacade = mailFacade;
         this.financesFacade = financesFacade;
+        this.mealConfigurationRepository = mealConfigurationRepository;
     }
 
     @Override
@@ -137,8 +144,9 @@ public class MealServiceImpl implements MealService {
     }
 
     public void sendEmailWithOrder() {
+        MealConfiguration config = mealConfigurationRepository.getOne(1L);
         BaseMail baseMail = new BaseMail();
-        baseMail.setTo("patyk@int.pl");
+        baseMail.setTo(config.getEmailToSendMealOrder());
         baseMail.setSubject("Zamówienie na dzień " + LocalDate.now());
         String content = prepareDataToSendViaMail().stream().map(u -> u + '\n').collect(Collectors.joining());
         baseMail.setContent(content);

@@ -16,6 +16,7 @@ import pl.edu.pja.prz.meal.model.dto.MealCreateUpdateDTO;
 import pl.edu.pja.prz.meal.model.enums.DietType;
 import pl.edu.pja.prz.meal.model.enums.MealStatus;
 import pl.edu.pja.prz.meal.model.enums.MealType;
+import pl.edu.pja.prz.meal.repository.MealConfigurationRepository;
 import pl.edu.pja.prz.meal.repository.MealPriceRepository;
 import pl.edu.pja.prz.meal.repository.MealRepository;
 
@@ -43,13 +44,14 @@ public class MealServiceImplTest {
     private MealServiceImpl mealService ;
     private MailFacade mailFacade;
     private FinancesFacade financesFacade;
+    private MealConfigurationRepository mealConfigurationRepository;
 
     private MealCreateUpdateDTO mealCreateUpdateDTO;
 
 
     @BeforeEach
     public void setup() {
-        mealService = new MealServiceImpl(mealRepository, new MealPriceServiceImpl(mealPriceListRepository), mailFacade, financesFacade);
+        mealService = new MealServiceImpl(mealRepository, new MealPriceServiceImpl(mealPriceListRepository), mailFacade, financesFacade, mealConfigurationRepository);
 
         mealCreateUpdateDTO =
                 new MealCreateUpdateDTO(new BigDecimal(1), MealType.BREAKFAST, DietType.VEGAN, UUID.randomUUID(), LocalDate.MIN, LocalDate.MAX);
