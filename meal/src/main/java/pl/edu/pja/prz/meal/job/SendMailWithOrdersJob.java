@@ -14,6 +14,8 @@ public class SendMailWithOrdersJob extends MealJob{
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+        mealService.markMealsAsInactiveIfNeeded();
         mealService.sendEmailWithOrder();
+        mealService.chargeForMeal();
     }
 }

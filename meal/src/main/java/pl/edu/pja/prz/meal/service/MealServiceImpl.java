@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.commons.exception.BusinessException;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
+import pl.edu.pja.prz.finances.facade.FinancesFacade;
 import pl.edu.pja.prz.mail.facade.MailFacade;
 import pl.edu.pja.prz.mail.model.BaseMail;
 import pl.edu.pja.prz.meal.model.Meal;
@@ -25,13 +26,15 @@ public class MealServiceImpl implements MealService {
     private final MealRepository mealRepository;
     private final MealPriceServiceImpl mealPriceListService;
     private final MailFacade mailFacade;
+    private final FinancesFacade financesFacade;
 
 
     @Autowired
-    public MealServiceImpl(MealRepository mealRepository, MealPriceServiceImpl mealPriceListService, MailFacade mailFacade) {
+    public MealServiceImpl(MealRepository mealRepository, MealPriceServiceImpl mealPriceListService, MailFacade mailFacade, FinancesFacade financesFacade) {
         this.mealRepository = mealRepository;
         this.mealPriceListService = mealPriceListService;
         this.mailFacade = mailFacade;
+        this.financesFacade = financesFacade;
     }
 
     @Override
@@ -141,4 +144,13 @@ public class MealServiceImpl implements MealService {
         baseMail.setContent(content);
         mailFacade.sendEmail(baseMail);
     }
+
+    public void chargeForMeal() {
+        List<Meal> activeMeals = getAllActiveMeals();
+
+        activeMeals.forEach(u -> {
+            financesFacade.decreaseBalance(u.getChildID(), u.getMealPrice(), u.getMealType() + "w dniu " + LocalDate.now() );
+        });
+    }
+
 }
