@@ -39,6 +39,7 @@
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <configuration>
                     <excludes>
+                        <exclude>**/pl/edu/pja/prz/mail/*</exclude>
                         <exclude>**/pl/edu/pja/prz/mail/job/*</exclude>
                         <exclude>**/pl/edu/pja/prz/mail/model/test/*</exclude>
                     </excludes>
