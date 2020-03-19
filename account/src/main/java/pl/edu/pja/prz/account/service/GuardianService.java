@@ -11,6 +11,7 @@ import pl.edu.pja.prz.account.model.Person;
 import pl.edu.pja.prz.account.repository.GuardianRepository;
 import pl.edu.pja.prz.account.utilites.AccountFactory;
 import pl.edu.pja.prz.account.utilites.PasswordManager;
+import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.commons.model.Address_;
 import pl.edu.pja.prz.commons.model.FullName;
 
@@ -52,7 +53,7 @@ public class GuardianService extends BasicAccountService<GuardianRepository,Guar
 		return repository.findById(guardianId)
 				.map(Guardian::getChildren)
 				.orElseThrow(() -> {
-					throw new IllegalArgumentException("Not found");
+					throw new ElementNotFoundException(guardianId);
 				});
 	}
 
