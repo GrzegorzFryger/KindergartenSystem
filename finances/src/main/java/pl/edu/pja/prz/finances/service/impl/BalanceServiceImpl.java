@@ -30,9 +30,6 @@ public class BalanceServiceImpl implements BalanceService {
     @Override
     public Balance getBalance(UUID childId) {
         List<BalanceHistory> result = historyService.getAllHistoryRecordsForChild(childId);
-        if (result.isEmpty()) {
-            throw new ElementNotFoundException(BALANCE, childId.toString());
-        }
         return calculateBalance(result);
     }
 
