@@ -11,6 +11,8 @@ import pl.edu.pja.prz.calendar.model.enums.EventType;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -72,6 +74,19 @@ public class DayOffWorkMapperTest {
 		verifyDayOffWork(newDayOffWork);
 	}
 
+	@Test
+	public void ShouldMapFromList() {
+		//Given
+		List<DayOffWork> dayOffWorkList = new ArrayList<>();
+		dayOffWorkList.add(dayOffWork);
+
+		//When
+		List<DayOffWorkDto> result = dayOffWorkMapper.daysOffToDtos(dayOffWorkList);
+
+		//Then
+		verifyDayOffWorkDtoList(result);
+	}
+
 	private void verifyDayOffWorkDto(DayOffWorkDto dayOffWorkDto) {
 		assertNotNull(dayOffWorkDto);
 		assertEquals(name, dayOffWorkDto.getName());
@@ -86,6 +101,16 @@ public class DayOffWorkMapperTest {
 		assertEquals(date, dayOffWork.getDate());
 		assertEquals(id, dayOffWork.getId());
 		assertEquals(eventType, dayOffWork.getEventType());
+	}
+
+	private void verifyDayOffWorkDtoList(List<DayOffWorkDto> absenceDtoList) {
+		assertNotNull(absenceDtoList);
+		List<DayOffWorkDto> listForComparison = new ArrayList<>();
+		listForComparison.add(dayOffWorkDto);
+		assertEquals(listForComparison.get(0).getEventType(), absenceDtoList.get(0).getEventType());
+		assertEquals(listForComparison.get(0).getName(), absenceDtoList.get(0).getName());
+		assertEquals(listForComparison.get(0).getDate(), absenceDtoList.get(0).getDate());
+		assertEquals(listForComparison.size(), absenceDtoList.size());
 	}
 
 }

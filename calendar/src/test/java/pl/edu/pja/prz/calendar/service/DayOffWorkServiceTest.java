@@ -65,6 +65,20 @@ public class DayOffWorkServiceTest {
 	}
 
 	@Test
+	public void ShouldGetAllDaysOff() {
+		//Given
+		List<DayOffWork> dayOffWorkList = new ArrayList<>();
+		dayOffWorkList.add(dayOffWork);
+		when(repository.findAll()).thenReturn(dayOffWorkList);
+
+		//When
+		service.getAllDaysOff();
+
+		//Then
+		verify(repository, times(1)).findAll();
+	}
+
+	@Test
 	public void ShouldThrowExceptionWhenDayOffNotFound() {
 		//Given
 		when(repository.findById(anyLong())).thenReturn(Optional.empty());

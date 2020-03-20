@@ -80,6 +80,17 @@ public class DayOffWorkFacadeTest {
 	}
 
 	@Test
+	public void shouldGetAllDaysOff() {
+		//Given
+
+		//When
+		dayOffWorkFacade.getAllDaysOff();
+
+		//Then
+		verify(dayOffWorkService, times(1)).getAllDaysOff();
+	}
+
+	@Test
 	public void shouldCreateDaysOffOnWeekends() {
 		//Given
 		int year = 2020;
