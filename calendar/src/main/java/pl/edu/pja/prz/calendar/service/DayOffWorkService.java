@@ -2,7 +2,6 @@ package pl.edu.pja.prz.calendar.service;
 
 import pl.edu.pja.prz.calendar.model.DayOffWork;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public interface DayOffWorkService {
