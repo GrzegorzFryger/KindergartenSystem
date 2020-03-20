@@ -66,17 +66,18 @@ class BalanceServiceImplTest {
 
 
     @Test
-    public void Should_ThrowException_When_BalanceNotFound() {
+    public void Should_ReturnZeroBalance_When_BalanceNotFound() {
         //Given
 
         //When
         when(historyService.getAllHistoryRecordsForChild(any(UUID.class))).thenReturn(new ArrayList<>());
-        Assertions.assertThrows(ElementNotFoundException.class, () -> {
-            Balance result = balanceService.getBalance(UUID.randomUUID());
-        });
+        Balance result = balanceService.getBalance(UUID.randomUUID());
 
         //Then
         verify(historyService, times(1)).getAllHistoryRecordsForChild(any(UUID.class));
+        assertEquals(BigDecimal.ZERO, result.getLiabilities());
+        assertEquals(BigDecimal.ZERO, result.getReceivables());
+        assertEquals(BigDecimal.ZERO, result.getBalance());
     }
 
     @Test

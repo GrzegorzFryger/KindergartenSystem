@@ -13,7 +13,6 @@ import static pl.edu.pja.prz.core.controller.RequestMappings.API_RECEIVABLES;
 
 @RestController
 @RequestMapping(API_RECEIVABLES)
-//TODO: ADD @PreAuthorize annotation with proper roles from Roles.java class
 public class TransactionsController {
     private final ReceivablesFacade receivablesFacade;
 
