@@ -27,4 +27,10 @@ public class FinancesController {
     public Balance getBalance(@PathVariable UUID childId) {
         return facade.getBalance(childId);
     }
+
+    @GetMapping("balance/guardian/{guardianId}")
+    @PreAuthorize(HAS_ROLE_USER)
+    public Balance getBalanceForAllChildren(@PathVariable UUID guardianId) {
+        return facade.getBalanceForAllChildren(guardianId);
+    }
 }

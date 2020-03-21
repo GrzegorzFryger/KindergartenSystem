@@ -8,6 +8,8 @@ import java.util.UUID;
 public interface FinancesFacade {
     Balance getBalance(UUID childId);
 
+    Balance getBalanceForAllChildren(UUID guardianId);
+
     void increaseBalance(UUID childId, BigDecimal amount, String title);
 
     void decreaseBalance(UUID childId, BigDecimal amount, String title);
