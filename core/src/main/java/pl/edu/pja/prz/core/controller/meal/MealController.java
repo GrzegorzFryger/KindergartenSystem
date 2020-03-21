@@ -1,13 +1,12 @@
 package pl.edu.pja.prz.core.controller.meal;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.edu.pja.prz.meal.facade.MealFacade;
 import pl.edu.pja.prz.meal.model.Meal;
 import pl.edu.pja.prz.meal.model.dto.MealCreateUpdateDTO;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/meal")
@@ -24,5 +23,20 @@ public class MealController {
     @PostMapping
     public Meal createMeal(@RequestBody MealCreateUpdateDTO dto) {
         return mealFacade.createMeal(dto);
+    }
+
+    @GetMapping
+    public List<Meal> getAllMeals() {
+        return mealFacade.getAllMeals();
+    }
+
+    @GetMapping("{id}")
+    public Meal getMealByID(@PathVariable("id") Long id) {
+        return mealFacade.getMealById(id);
+    }
+
+    @PutMapping("{id}")
+    public Meal updateMeal(@RequestBody MealCreateUpdateDTO meal, @PathVariable("id") Long mealToUpdateID) {
+        return mealFacade.updateMeal(meal,mealToUpdateID);
     }
 }

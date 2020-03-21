@@ -980,7 +980,449 @@
 		},
 		{
 			"name": "Meal",
-			"item": [],
+			"item": [
+				{
+					"name": "Dictionary",
+					"item": [
+						{
+							"name": "MealType Dictionary",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{HOST}}/api/dictionary/meal/mealType",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"dictionary",
+										"meal",
+										"mealType"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DieType Dictionary",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{HOST}}/api/dictionary/meal/dietType",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"dictionary",
+										"meal",
+										"dietType"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Meal",
+					"item": [
+						{
+							"name": "CreateMeal",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"mealType\": \"BREAKFAST\",\n\t\"dietType\": \"VEGETARIAN\",\n\t\"childID\": \"0560d77d-e0db-4914-ae4a-4f39690ecb2d\",\n\t\"mealFromDate\": \"2020-04-27\",\n\t\"mealToDate\": \"2020-05-27\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/api/meal",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"meal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Meals",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"mealType\": \"BREAKFAST\",\n\t\"dietType\": \"VEGETARIAN\",\n\t\"childID\": \"0560d77d-e0db-4914-ae4a-4f39690ecb2d\",\n\t\"mealFromDate\": \"2020-04-27\",\n\t\"mealToDate\": \"2020-05-27\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/api/meal",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"meal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Meal By ID",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"mealType\": \"BREAKFAST\",\n\t\"dietType\": \"VEGETARIAN\",\n\t\"childID\": \"0560d77d-e0db-4914-ae4a-4f39690ecb2d\",\n\t\"mealFromDate\": \"2020-04-27\",\n\t\"mealToDate\": \"2020-05-27\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/api/meal/1",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"meal",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Meal",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"mealType\": \"BREAKFAST\",\n\t\"dietType\": \"VEGETARIAN\",\n\t\"childID\": \"0560d77d-e0db-4914-ae4a-4f39690ecb2d\",\n\t\"mealFromDate\": \"2020-04-27\",\n\t\"mealToDate\": \"2020-05-27\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/api/meal/1",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"meal",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Meal Price",
+					"item": [
+						{
+							"name": "Get All Prices",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{HOST}}/api/meal/price",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"meal",
+										"price"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Creat Meal Price",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"mealType\":\"DINER\",\n\t\"mealPrice\":\"56.44\"\n}"
+								},
+								"url": {
+									"raw": "{{HOST}}/api/meal/price",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"meal",
+										"price"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Meal Price",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"mealType\":\"DINER\",\n\t\"mealPrice\":\"56.44\"\n}"
+								},
+								"url": {
+									"raw": "{{HOST}}/api/meal/price?id=3",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"meal",
+										"price"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Meal Price",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"mealType\":\"DINER\",\n\t\"mealPrice\":\"56.44\"\n}"
+								},
+								"url": {
+									"raw": "{{HOST}}/api/meal/price?id=3",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"meal",
+										"price"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
 			"description": "All requests from Meal module.",
 			"protocolProfileBehavior": {}
 		},

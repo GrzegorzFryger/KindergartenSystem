@@ -24,7 +24,7 @@ public class MealPriceController {
         return mealPriceFacade.creatMealPrice(mealPrice);
     }
 
-    @PutMapping()
+    @PutMapping
     public MealPrice updateMealPrice(@RequestBody MealPrice mealPrice, @RequestParam("id") long id)  {
         return mealPriceFacade.updateMealPrice(mealPrice, id);
     }
