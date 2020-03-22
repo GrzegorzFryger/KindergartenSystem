@@ -1799,6 +1799,40 @@
 					"response": []
 				},
 				{
+					"name": "/payments/mappings/{id}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dfa25d81-00dd-429c-ad43-5841159a1b51",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/payments/mappings/{{guardianId}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"payments",
+								"mappings",
+								"{{guardianId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "/payments/guardian/{id}/{from}/{to}",
 					"event": [
 						{

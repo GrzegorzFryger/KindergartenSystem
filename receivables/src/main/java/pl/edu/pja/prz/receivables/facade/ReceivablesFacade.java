@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import pl.edu.pja.prz.receivables.model.CashPayment;
 import pl.edu.pja.prz.receivables.model.Transaction;
+import pl.edu.pja.prz.receivables.model.TransactionMapping;
 import pl.edu.pja.prz.receivables.model.dto.IncomingPaymentDto;
 import pl.edu.pja.prz.receivables.service.*;
 
@@ -92,5 +93,9 @@ public class ReceivablesFacade {
 
     public List<IncomingPaymentDto> getAllIncomingPaymentsByGuardianId(UUID guardianId, LocalDate from, LocalDate to) {
         return incomingPaymentsService.getAllPaymentsForGuardian(guardianId, from, to);
+    }
+
+    public List<TransactionMapping> getAllMappingsForGuardian(UUID guardianId) {
+        return transactionMappingService.getAllByGuardianId(guardianId);
     }
 }
