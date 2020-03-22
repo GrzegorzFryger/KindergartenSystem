@@ -10,6 +10,8 @@ import java.util.UUID;
 public interface BalanceService {
     Balance getBalance(UUID childId);
 
+    Balance getBalanceForAllChildren(List<UUID> childIdList);
+
     void increaseBalance(UUID childId, BigDecimal amount, String title);
 
     void decreaseBalance(UUID childId, BigDecimal amount, String title);

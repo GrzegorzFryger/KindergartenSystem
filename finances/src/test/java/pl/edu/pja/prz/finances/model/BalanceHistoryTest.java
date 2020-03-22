@@ -66,4 +66,22 @@ class BalanceHistoryTest {
         assertTrue(firstEqualsToSecond);
         assertTrue(secondEqualsToFirst);
     }
+
+    @Test
+    public void Should_ReturnCorrectString() {
+        //Given
+        UUID id = UUID.randomUUID();
+        BigDecimal amountOfChange = new BigDecimal("500.00");
+
+        BalanceHistory balanceHistory = new BalanceHistory();
+        balanceHistory.setChildId(id);
+        balanceHistory.setAmountOfChange(amountOfChange);
+
+        //When
+        String expected = "[" + id + "] - Balance changed by: (" + amountOfChange + ")";
+        String result = balanceHistory.toString();
+
+        //Then
+        assertEquals(expected, result);
+    }
 }

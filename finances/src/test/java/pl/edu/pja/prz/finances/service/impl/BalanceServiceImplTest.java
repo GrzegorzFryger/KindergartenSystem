@@ -81,6 +81,23 @@ class BalanceServiceImplTest {
     }
 
     @Test
+    public void Should_GetBalanceForAllChildren() {
+        //Given
+        List<UUID> childIdList = new ArrayList<>();
+        childIdList.add(UUID.randomUUID());
+        childIdList.add(UUID.randomUUID());
+
+        //When
+        when(historyService.getAllHistoryRecordsForChild(any(UUID.class))).thenReturn(balanceHistories);
+        Balance result = balanceService.getBalanceForAllChildren(childIdList);
+
+        //Then
+        assertNotNull(result);
+        verify(historyService, times(2)).getAllHistoryRecordsForChild(any(UUID.class));
+        assertEquals(new BigDecimal("100.00"), result.getBalance());
+    }
+
+    @Test
     public void Should_IncreaseBalance() {
         //Given
 
