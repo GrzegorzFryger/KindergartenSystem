@@ -54,13 +54,13 @@ VALUES (0, '2020-05-12', 'INTERNAL_EVENT', 'Remont');
 -- FINANCES MODULE --
 INSERT INTO finances.balancehistory(`version`, `amountOfChange`, `childId`, `date`, `operationType`, `title`)
 VALUES
-(0, 390.50, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', '2019-10-14', 'INCREASE', '429630192312'),
-(0, 412.30, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', '2019-11-17', 'INCREASE', '429630192312'),
-(0, 312.70, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2019-10-12', 'INCREASE', '432673408632'),
-(0, 366.70, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2019-11-12', 'INCREASE', '432673408632'),
-(0, 623.70, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2019-12-12', 'INCREASE', '432673408632'),
-(0, 390.50, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2019-11-23', 'INCREASE', '432673408632'),
-(0, 200.50, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', '2019-12-12', 'INCREASE', '432673408632');
+(0, 390.50, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', '2019-10-14', 'INCREASE', '20200314645723'),
+(0, 412.30, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', '2019-11-17', 'INCREASE', '20200314645723'),
+(0, 312.70, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2019-10-12', 'INCREASE', '20200314753452'),
+(0, 366.70, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2019-11-12', 'INCREASE', '20200314753452'),
+(0, 623.70, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2019-12-12', 'INCREASE', '20200314753452'),
+(0, 390.50, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2019-11-23', 'INCREASE', '20200314753452'),
+(0, 200.50, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', '2019-12-12', 'INCREASE', '20200314645723');
 
 -- GROUPS MODULE --
 INSERT INTO classrooms.classroom(`id`, `version`, `groupName`, `groupDescription`)
@@ -129,7 +129,8 @@ VALUES
 
 INSERT INTO receivables.cashpayment (`version`, `childId`, `contractorDetails`, `guardianId`, `title`, `transactionAmount`, `transactionCurrency`, `transactionDate`)
 VALUES
-(0, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', 'Antoni Żebrowski', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20200314645723', 200.50, 'PLN', '2019-12-12');
+(0, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', 'Antoni Żebrowski', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20200314645723', 200.50, 'PLN', '2019-12-12'),
+(0, '067b5db4-de4e-401e-9cac-7f6289e96c19', 'Antoni Żebrowski', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20200314645723', 310.30, 'PLN', '2020-03-01');
 
 -- FINAL COMMIT FOR ALL CHANGES
 COMMIT;
