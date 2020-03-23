@@ -20,7 +20,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Component
-public class GuardianService extends BasicAccountService<GuardianRepository,Guardian>  {
+public class GuardianService extends BasicAccountService<GuardianRepository, Guardian> {
 	private static final String USER = "User";
 	private final ChildService childService;
 
@@ -40,13 +40,13 @@ public class GuardianService extends BasicAccountService<GuardianRepository,Guar
 		);
 	}
 
-	public void appendChildrenToGuardian(UUID childId, Set<UUID> setGuardianId) {
+	public Guardian appendChildrenToGuardian(UUID childId, UUID guardianId) {
 		var child = childService.getById(childId);
 
-		repository.findAllById(setGuardianId).forEach(guardian -> {
+		return repository.findById(guardianId).map(guardian -> {
 			guardian.addChild(child);
-			repository.save(guardian);
-		});
+			return repository.save(guardian);
+		}).orElseThrow(() -> new ElementNotFoundException(guardianId));
 	}
 
 	public Set<Child> getAllChildren(UUID guardianId) {
@@ -58,9 +58,8 @@ public class GuardianService extends BasicAccountService<GuardianRepository,Guar
 	}
 
 	/**
-	 *
 	 * @param fullName
-	 * @param street  optional param
+	 * @param street   optional param
 	 * @return Optional<Guardian> return guardian when find only one user, otherwise null
 	 * @throws Exception - when find more then one Guardian
 	 */
@@ -88,9 +87,6 @@ public class GuardianService extends BasicAccountService<GuardianRepository,Guar
 					});
 		}
 	}
-
-
-
 
 
 }
