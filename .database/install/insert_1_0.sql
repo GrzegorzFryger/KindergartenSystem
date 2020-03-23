@@ -40,11 +40,31 @@ INSERT INTO calendar.absence (`version`, `childId`, `date`, `reason`)
 VALUES (0, 'cb34b97c-bbe9-4719-9091-0e0939804426', '2018-10-25', 'Choroba');
 
 INSERT INTO calendar.dayoffwork (`version`, `date`, `eventType`, `name`)
-VALUES (0, '2020-12-24', 'HOLIDAY', 'Wigilia');
+VALUES (0, '2020-01-01', 'HOLIDAY', 'Nowy Rok');
 INSERT INTO calendar.dayoffwork (`version`, `date`, `eventType`, `name`)
-VALUES (0, '2020-12-25', 'HOLIDAY', 'Boze narodzenie');
+VALUES (0, '2020-01-06', 'HOLIDAY', 'Trzech Króli');
 INSERT INTO calendar.dayoffwork (`version`, `date`, `eventType`, `name`)
-VALUES (0, '2020-12-26', 'HOLIDAY', 'Boze narodzenie');
+VALUES (0, '2020-04-12', 'HOLIDAY', 'Wielkanoc');
+INSERT INTO calendar.dayoffwork (`version`, `date`, `eventType`, `name`)
+VALUES (0, '2020-04-13', 'HOLIDAY', 'Poniedziałek Wielkanocny');
+INSERT INTO calendar.dayoffwork (`version`, `date`, `eventType`, `name`)
+VALUES (0, '2020-05-01', 'HOLIDAY', 'Święto Pracy');
+INSERT INTO calendar.dayoffwork (`version`, `date`, `eventType`, `name`)
+VALUES (0, '2020-05-03', 'HOLIDAY', 'Święto Konstytucji 3 Maja');
+INSERT INTO calendar.dayoffwork (`version`, `date`, `eventType`, `name`)
+VALUES (0, '2020-05-31', 'HOLIDAY', 'Zesłanie Ducha Świętego');
+INSERT INTO calendar.dayoffwork (`version`, `date`, `eventType`, `name`)
+VALUES (0, '2020-06-11', 'HOLIDAY', 'Boże Ciało');
+INSERT INTO calendar.dayoffwork (`version`, `date`, `eventType`, `name`)
+VALUES (0, '2020-08-15', 'HOLIDAY', 'Wniebowziecie Najswietszej Maryi Panny');
+INSERT INTO calendar.dayoffwork (`version`, `date`, `eventType`, `name`)
+VALUES (0, '2020-11-01', 'HOLIDAY', 'Wszystkich Świętych');
+INSERT INTO calendar.dayoffwork (`version`, `date`, `eventType`, `name`)
+VALUES (0, '2020-11-11', 'HOLIDAY', 'Święto Niepodległości');
+INSERT INTO calendar.dayoffwork (`version`, `date`, `eventType`, `name`)
+VALUES (0, '2020-12-25', 'HOLIDAY', 'Boże Narodzenie (pierwszy dzień)');
+INSERT INTO calendar.dayoffwork (`version`, `date`, `eventType`, `name`)
+VALUES (0, '2020-12-26', 'HOLIDAY', 'Boże Narodzenie (drugi dzień)');
 INSERT INTO calendar.dayoffwork (`version`, `date`, `eventType`, `name`)
 VALUES (0, '2020-05-12', 'INTERNAL_EVENT', 'Remont');
 

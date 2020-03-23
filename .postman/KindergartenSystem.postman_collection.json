@@ -726,6 +726,26 @@
 					"response": []
 				},
 				{
+					"name": "/dayoff/weekends/{year}",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{CALENDAR}}/dayoff/weekends/2020",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{CALENDAR}}",
+								"dayoff",
+								"weekends",
+								"2020"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "/dayoff",
 					"request": {
 						"method": "PUT",

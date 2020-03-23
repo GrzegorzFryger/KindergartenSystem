@@ -10,6 +10,8 @@ import pl.edu.pja.prz.calendar.model.Absence;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -72,6 +74,19 @@ public class AbsenceMapperTest {
 		verifyAbsence(newAbsence);
 	}
 
+	@Test
+	public void ShouldMapFromList() {
+		//Given
+		List<Absence> absenceList = new ArrayList<>();
+		absenceList.add(absence);
+
+		//When
+		List<AbsenceDto> result = absenceMapper.absenceListToDtoList(absenceList);
+
+		//Then
+		verifyAbsenceDtoList(result);
+	}
+
 	private void verifyAbsence(Absence absence) {
 		assertNotNull(absence);
 		assertEquals(id, absence.getId());
@@ -86,5 +101,15 @@ public class AbsenceMapperTest {
 		assertEquals(date, absenceDto.getDate());
 		assertEquals(reason, absenceDto.getReason());
 		assertEquals(childId, absenceDto.getChildId());
+	}
+
+	private void verifyAbsenceDtoList(List<AbsenceDto> absenceDtoList) {
+		assertNotNull(absenceDtoList);
+		List<AbsenceDto> listForComparison = new ArrayList<>();
+		listForComparison.add(absenceDto);
+		assertEquals(listForComparison.get(0).getReason(), absenceDtoList.get(0).getReason());
+		assertEquals(listForComparison.get(0).getDate(), absenceDtoList.get(0).getDate());
+		assertEquals(listForComparison.get(0).getChildId(), absenceDtoList.get(0).getChildId());
+		assertEquals(listForComparison.size(), absenceDtoList.size());
 	}
 }

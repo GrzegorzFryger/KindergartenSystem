@@ -55,4 +55,11 @@ public class DayOffWorkFacadeImpl implements DayOffWorkFacade {
 				dayOffWorkService.getAllDaysOff()
 		);
 	}
+
+	@Override
+	public List<DayOffWorkDto> createDaysOffOnWeekends(int year) {
+		return dayOffWorkMapper.daysOffToDtos(
+				dayOffWorkService.createDaysOffOnWeekends(year)
+		);
+	}
 }

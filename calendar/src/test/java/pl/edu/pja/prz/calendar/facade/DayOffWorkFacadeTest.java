@@ -78,4 +78,27 @@ public class DayOffWorkFacadeTest {
 		//Then
 		verify(dayOffWorkService, times(1)).getDayOffWork(id);
 	}
+
+	@Test
+	public void shouldGetAllDaysOff() {
+		//Given
+
+		//When
+		dayOffWorkFacade.getAllDaysOff();
+
+		//Then
+		verify(dayOffWorkService, times(1)).getAllDaysOff();
+	}
+
+	@Test
+	public void shouldCreateDaysOffOnWeekends() {
+		//Given
+		int year = 2020;
+
+		//When
+		dayOffWorkFacade.createDaysOffOnWeekends(year);
+
+		//Then
+		verify(dayOffWorkService, times(1)).createDaysOffOnWeekends(year);
+	}
 }

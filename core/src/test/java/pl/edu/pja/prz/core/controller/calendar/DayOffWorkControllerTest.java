@@ -23,6 +23,7 @@ import static pl.edu.pja.prz.core.util.JsonUtil.convertToJson;
 @ExtendWith(MockitoExtension.class)
 public class DayOffWorkControllerTest {
 	private Long id = 1L;
+	private int year = 2020;
 	private MockMvc mvc;
 	@Mock
 	private DayOffWorkFacade dayOffWorkFacade;
@@ -101,5 +102,18 @@ public class DayOffWorkControllerTest {
 
 		//Then
 		verify(dayOffWorkFacade, only()).getAllDaysOff();
+	}
+
+	@Test
+	public void shouldDelegateApiCallTo_createDaysOffOnWeekends() throws Exception {
+		//Given
+
+		//When
+		mvc.perform(MockMvcRequestBuilders.post(API_CALENDAR + "dayoff/weekends/" + year)
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk());
+
+		//Then
+		verify(dayOffWorkFacade, only()).createDaysOffOnWeekends(year);
 	}
 }

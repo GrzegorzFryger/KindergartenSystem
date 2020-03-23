@@ -15,4 +15,6 @@ public interface DayOffWorkService {
 	DayOffWork getDayOffWork(Long id);
 
 	List<DayOffWork> getAllDaysOff();
+
+	List<DayOffWork> createDaysOffOnWeekends(int year);
 }
