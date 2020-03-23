@@ -72,6 +72,16 @@ VALUES (0, '2020-05-12', 'INTERNAL_EVENT', 'Remont');
 
 -- CORE MODULE --
 -- FINANCES MODULE --
+INSERT INTO finances.balancehistory(`version`, `amountOfChange`, `childId`, `date`, `operationType`, `title`)
+VALUES
+(0, 390.50, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', '2019-10-14', 'INCREASE', '20200314645723'),
+(0, 412.30, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', '2019-11-17', 'INCREASE', '20200314645723'),
+(0, 312.70, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2019-10-12', 'INCREASE', '20200314753452'),
+(0, 366.70, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2019-11-12', 'INCREASE', '20200314753452'),
+(0, 623.70, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2019-12-12', 'INCREASE', '20200314753452'),
+(0, 390.50, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2019-11-23', 'INCREASE', '20200314753452'),
+(0, 200.50, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', '2019-12-12', 'INCREASE', '20200314645723');
+
 -- GROUPS MODULE --
 INSERT INTO classrooms.classroom(`id`, `version`, `groupName`, `groupDescription`)
 VALUES (1, 0, 'Klasa A', 'Opis klasy A');
@@ -123,26 +133,24 @@ INSERT INTO `meal`.`mealconfiguration` (`id`, `version`, `emailToSendMealOrder`)
 
 -- PAYMENTS MODULE --
 -- RECEIVABLES MODULE --
-INSERT INTO receivables.transaction (`version`,`accountNumber`,`bankName`,`bookingDate`,`childId`,`contractorDetails`,`details`,`guardianId`,`title`,`transactionAmount`,`transactionCurrency`,`transactionDate`,`transactionNumber`)
-VALUES (0,'61109010140000071219812874','ING Bank','2019-10-14','0560d77d-e0db-4914-ae4a-4f39690ecb2d','Andrzej Małysz','Za dziecko XYZ','c4029244-e8ff-4328-8658-28964dda3c4e','429630192312',390.50,'PLN','2019-10-14','201967193405359451');
-INSERT INTO receivables.transaction (`version`,`accountNumber`,`bankName`,`bookingDate`,`childId`,`contractorDetails`,`details`,`guardianId`,`title`,`transactionAmount`,`transactionCurrency`,`transactionDate`,`transactionNumber`)
-VALUES (0,'61109010140000071219812874','ING Bank','2019-11-17','0560d77d-e0db-4914-ae4a-4f39690ecb2d','Andrzej Małysz','Za dziecko XYZ','c4029244-e8ff-4328-8658-28964dda3c4e','429630192312',412.30,'PLN','2019-11-17','201967174335322451');
-INSERT INTO receivables.transaction (`version`,`accountNumber`,`bankName`,`bookingDate`,`childId`,`contractorDetails`,`details`,`guardianId`,`title`,`transactionAmount`,`transactionCurrency`,`transactionDate`,`transactionNumber`)
-VALUES (0,'56570065000000446723541423','Bank Millennium','2019-10-12','067b5db4-de4e-401e-9cac-7f6289e96c19','Antoni Michalkiewicz','Za dziecko XYZ','c4029244-e8ff-4328-8658-28964dda3c4e','432673408632',312.70,'PLN','2019-10-12','201967174335322451');
-INSERT INTO receivables.transaction (`version`,`accountNumber`,`bankName`,`bookingDate`,`childId`,`contractorDetails`,`details`,`guardianId`,`title`,`transactionAmount`,`transactionCurrency`,`transactionDate`,`transactionNumber`)
-VALUES (0,'56570065000000446723541423','Bank Millennium','2019-11-12','067b5db4-de4e-401e-9cac-7f6289e96c19','Antoni Michalkiewicz','Za dziecko XYZ','c4029244-e8ff-4328-8658-28964dda3c4e','432673408632',366.70,'PLN','2019-11-12','201967122332622451');
-INSERT INTO receivables.transaction (`version`,`accountNumber`,`bankName`,`bookingDate`,`childId`,`contractorDetails`,`details`,`guardianId`,`title`,`transactionAmount`,`transactionCurrency`,`transactionDate`,`transactionNumber`)
-VALUES (0,'56570065000000446723541423','Bank Millennium','2019-12-12','067b5db4-de4e-401e-9cac-7f6289e96c19','Antoni Michalkiewicz','Za dziecko XYZ','c4029244-e8ff-4328-8658-28964dda3c4e','432673408632',623.70,'PLN','2019-12-12','201963374373423451');
-INSERT INTO receivables.transaction (`version`,`accountNumber`,`bankName`,`bookingDate`,`childId`,`contractorDetails`,`details`,`guardianId`,`title`,`transactionAmount`,`transactionCurrency`,`transactionDate`,`transactionNumber`)
-VALUES (0,'61109010140000071219812874','ING Bank','2019-11-23','067b5db4-de4e-401e-9cac-7f6289e96c19','Andrzej Małysz','Za dziecko XYZ','c4029244-e8ff-4328-8658-28964dda3c4e','429630195555',390.50,'PLN','2019-10-14','201967193405359451');
+INSERT INTO receivables.transaction (`version`, `accountNumber`, `bankName`, `bookingDate`, `childId`, `contractorDetails`, `details`, `guardianId`, `title`, `transactionAmount`, `transactionCurrency`, `transactionDate`, `transactionNumber`)
+VALUES
+(0, '61109010140000071219812874', 'ING Bank', '2019-10-14', '0560d77d-e0db-4914-ae4a-4f39690ecb2d', 'Antoni Żebrowski', 'Za dziecko XYZ', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20200314645723', 390.50, 'PLN', '2019-10-14', '201967193405359451'),
+(0, '61109010140000071219812874', 'ING Bank', '2019-11-17', '0560d77d-e0db-4914-ae4a-4f39690ecb2d', 'Antoni Żebrowski', 'Za dziecko XYZ', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20200314645723', 412.30, 'PLN', '2019-11-17', '201967174335322451'),
+(0, '56570065000000446723541423', 'Bank Millennium', '2019-10-12', '067b5db4-de4e-401e-9cac-7f6289e96c19', 'Antoni Michalkiewicz', 'Za dziecko XYZ', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20200314753452', 312.70, 'PLN', '2019-10-12', '201967174335322451'),
+(0, '56570065000000446723541423', 'Bank Millennium', '2019-11-12', '067b5db4-de4e-401e-9cac-7f6289e96c19', 'Antoni Michalkiewicz', 'Za dziecko XYZ', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20200314753452', 366.70, 'PLN', '2019-11-12', '201967122332622451'),
+(0, '56570065000000446723541423', 'Bank Millennium', '2019-12-12', '067b5db4-de4e-401e-9cac-7f6289e96c19', 'Antoni Michalkiewicz', 'Za dziecko XYZ', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20200314753452', 623.70, 'PLN', '2019-12-12', '201963374373423451'),
+(0, '61109010140000071219812874', 'ING Bank', '2019-11-23', '067b5db4-de4e-401e-9cac-7f6289e96c19', 'Antoni Żebrowski', 'Za dziecko XYZ', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20200314753452', 390.50, 'PLN', '2019-10-14', '201967193405359451');
 
-INSERT INTO receivables.transactionmapping (`version`,`childId`, `guardianId`, `title`)
-VALUES (0,'067b5db4-de4e-401e-9cac-7f6289e96c19','c4029244-e8ff-4328-8658-28964dda3c4e','20200314753452');
-INSERT INTO receivables.transactionmapping (`version`,`childId`, `guardianId`, `title`)
-VALUES (0,'0560d77d-e0db-4914-ae4a-4f39690ecb2d','c4029244-e8ff-4328-8658-28964dda3c4e','20200314645723');
+INSERT INTO receivables.transactionmapping (`version`, `childId`, `guardianId`, `title`)
+VALUES
+(0, '067b5db4-de4e-401e-9cac-7f6289e96c19', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20200314753452'),
+(0, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20200314645723');
 
-INSERT INTO receivables.cashpayment (`version`,`childId`, `contractorDetails`, `guardianId`, `title`, `transactionAmount`, `transactionCurrency`, `transactionDate`)
-VALUES (0,'7767d645-5408-4e79-9e4e-173b1fb23274','Andrzej Małysz','25e7d80a-a38e-496c-afc2-dd5733fdf8ac','429630192312',200.50,'PLN','2019-12-12');
+INSERT INTO receivables.cashpayment (`version`, `childId`, `contractorDetails`, `guardianId`, `title`, `transactionAmount`, `transactionCurrency`, `transactionDate`)
+VALUES
+(0, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', 'Antoni Żebrowski', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20200314645723', 200.50, 'PLN', '2019-12-12'),
+(0, '067b5db4-de4e-401e-9cac-7f6289e96c19', 'Antoni Żebrowski', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20200314645723', 310.30, 'PLN', '2020-03-01');
 
 -- FINAL COMMIT FOR ALL CHANGES
 COMMIT;

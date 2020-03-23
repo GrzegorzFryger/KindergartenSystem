@@ -4,7 +4,7 @@ DELETE FROM calendar.absence;
 DELETE FROM calendar.dayoffwork;
 -- CORE MODULE --
 -- FINANCES MODULE --
-DELETE FROM finances.balance;
+DELETE FROM finances.balancehistory;
 -- GROUPS MODULE --
 DELETE FROM classrooms.child;
 DELETE FROM classrooms.classroom;

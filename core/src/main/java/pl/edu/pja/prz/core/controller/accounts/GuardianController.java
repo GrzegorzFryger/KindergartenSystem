@@ -1,7 +1,5 @@
 package pl.edu.pja.prz.core.controller.accounts;
 
-import static pl.edu.pja.prz.core.controller.RequestMappings.API_ACCOUNT;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,11 +7,14 @@ import org.springframework.web.bind.annotation.*;
 import pl.edu.pja.prz.account.facade.GuardianFacade;
 import pl.edu.pja.prz.account.model.dto.AccountDto;
 import pl.edu.pja.prz.account.model.dto.ChildDto;
+import pl.edu.pja.prz.account.model.dto.GuardianChildAssociationDto;
 import pl.edu.pja.prz.account.model.dto.GuardianDto;
 
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+
+import static pl.edu.pja.prz.core.controller.RequestMappings.API_ACCOUNT;
 
 @RestController
 @RequestMapping(API_ACCOUNT)
@@ -44,6 +45,22 @@ public class GuardianController {
 	@PostMapping("guardian")
 	public ResponseEntity<GuardianDto> createGuardian(@RequestBody AccountDto accountDto) {
 		return new ResponseEntity<>(guardianFacade.createGuardian(accountDto), HttpStatus.OK);
+	}
+
+	@PostMapping("guardian/append-child")
+	public ResponseEntity<GuardianDto> createGuardian(@RequestBody GuardianChildAssociationDto associationDto) {
+		var guardian = this.guardianFacade.appendGuardianToChild(associationDto);
+
+		var success = guardian.getChildren()
+				.stream()
+				.anyMatch(childDto -> childDto.getId() == associationDto.getChildId());
+
+		if(success) {
+			return new ResponseEntity<>(guardian, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
 	}
 
 

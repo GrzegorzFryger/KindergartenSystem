@@ -3,6 +3,7 @@ package pl.edu.pja.prz.account.facade;
 import org.springframework.lang.Nullable;
 import pl.edu.pja.prz.account.model.dto.AccountDto;
 import pl.edu.pja.prz.account.model.dto.ChildDto;
+import pl.edu.pja.prz.account.model.dto.GuardianChildAssociationDto;
 import pl.edu.pja.prz.account.model.dto.GuardianDto;
 
 import java.util.List;
@@ -19,6 +20,8 @@ public interface GuardianFacade {
     List<GuardianDto> findAllGuardians();
 
     Set<ChildDto> findAllGuardianChildren(UUID id);
+
+    GuardianDto appendGuardianToChild(GuardianChildAssociationDto associationDto);
 
     Optional<GuardianDto> findByFullNameOrAddress(String name, String surname, @Nullable String street) throws Exception;
 }

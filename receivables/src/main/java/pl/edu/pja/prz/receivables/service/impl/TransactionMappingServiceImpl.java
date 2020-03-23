@@ -11,6 +11,7 @@ import pl.edu.pja.prz.receivables.service.TransactionMappingService;
 import pl.edu.pja.prz.receivables.util.RandomUtils;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -50,6 +51,11 @@ public class TransactionMappingServiceImpl implements TransactionMappingService 
     public Optional<TransactionMapping> getByTitle(String title) {
         TransactionMapping mapping = repository.findByTitle(title);
         return Optional.ofNullable(mapping);
+    }
+
+    @Override
+    public List<TransactionMapping> getAllByGuardianId(UUID guardianId) {
+        return repository.findAllByGuardianId(guardianId);
     }
 
     @Override

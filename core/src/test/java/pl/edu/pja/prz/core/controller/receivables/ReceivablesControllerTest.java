@@ -97,4 +97,18 @@ class ReceivablesControllerTest {
         verify(receivablesFacade, only()).getAllIncomingPaymentsByGuardianId(
                 any(UUID.class), any(LocalDate.class), any(LocalDate.class));
     }
+
+    @Test
+    public void Should_DelegateApiCallTo_getAllPaymentMappingsForGuardianMethod() throws Exception {
+        //Given
+        String guardianId = UUID.randomUUID().toString();
+
+        //When
+        mvc.perform(MockMvcRequestBuilders.get(API_RECEIVABLES + "payments/mappings/" + guardianId)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        //Then
+        verify(receivablesFacade, only()).getAllMappingsForGuardian(any(UUID.class));
+    }
 }
