@@ -22,6 +22,7 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -315,9 +316,9 @@ class ReceivablesFacadeTest {
         UUID guardianId = UUID.randomUUID();
 
         //When
-        facade.addTransactionMapping(guardianId,  childId);
+        facade.addTransactionMapping(guardianId, childId, "John", "Snow");
 
         //Then
-        verify(transactionMappingService, only()).create(any(UUID.class), any(UUID.class));
+        verify(transactionMappingService, only()).create(any(UUID.class), any(UUID.class), anyString(), anyString());
     }
 }

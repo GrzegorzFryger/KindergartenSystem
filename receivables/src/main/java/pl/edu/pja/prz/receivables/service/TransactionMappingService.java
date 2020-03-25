@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface TransactionMappingService {
-    void create(UUID guardianId, UUID childId);
+    void create(UUID guardianId, UUID childId, String childName, String childSurname);
 
     Optional<TransactionMapping> getByTitle(String title);
 
