@@ -54,7 +54,7 @@ public class GuardianService extends BasicAccountService<GuardianRepository, Gua
 				})
 				.map(guardian -> {
 					this.accountEventPublisher.appendChildToGuardianEvent(
-							new GuardianChildDependency(guardian.getId(), child.getId(), guardian.getFullName())
+							new GuardianChildDependency(guardian.getId(), child.getId(), child.getFullName())
 					);
 					return guardian;
 				})

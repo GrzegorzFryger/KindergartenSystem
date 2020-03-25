@@ -5,15 +5,15 @@ import java.util.UUID;
 public class GuardianChildDependency {
 	private UUID guardianId;
 	private UUID childId;
-	private FullName guardianFullName;
+	private FullName childFullName;
 
 	public GuardianChildDependency() {
 	}
 
-	public GuardianChildDependency(UUID guardianId, UUID childId, FullName guardianFullName) {
+	public GuardianChildDependency(UUID guardianId, UUID childId, FullName childFullName) {
 		this.guardianId = guardianId;
 		this.childId = childId;
-		this.guardianFullName = guardianFullName;
+		this.childFullName = childFullName;
 	}
 
 	public UUID getGuardianId() {
@@ -32,12 +32,12 @@ public class GuardianChildDependency {
 		this.childId = childId;
 	}
 
-	public FullName getGuardianFullName() {
-		return guardianFullName;
+	public FullName getChildFullName() {
+		return childFullName;
 	}
 
-	public void setGuardianFullName(FullName guardianFullName) {
-		this.guardianFullName = guardianFullName;
+	public void setChildFullName(FullName childFullName) {
+		this.childFullName = childFullName;
 	}
 
 	@Override
@@ -50,14 +50,14 @@ public class GuardianChildDependency {
 		if (getGuardianId() != null ? !getGuardianId().equals(that.getGuardianId()) : that.getGuardianId() != null)
 			return false;
 		if (getChildId() != null ? !getChildId().equals(that.getChildId()) : that.getChildId() != null) return false;
-		return getGuardianFullName() != null ? getGuardianFullName().equals(that.getGuardianFullName()) : that.getGuardianFullName() == null;
+		return getChildFullName() != null ? getChildFullName().equals(that.getChildFullName()) : that.getChildFullName() == null;
 	}
 
 	@Override
 	public int hashCode() {
 		int result = getGuardianId() != null ? getGuardianId().hashCode() : 0;
 		result = 31 * result + (getChildId() != null ? getChildId().hashCode() : 0);
-		result = 31 * result + (getGuardianFullName() != null ? getGuardianFullName().hashCode() : 0);
+		result = 31 * result + (getChildFullName() != null ? getChildFullName().hashCode() : 0);
 		return result;
 	}
 
@@ -66,7 +66,7 @@ public class GuardianChildDependency {
 		return "GuardianChildDependency{" +
 				"guardianId=" + guardianId +
 				", childId=" + childId +
-				", guardianFullName=" + guardianFullName +
+				", childFullName=" + childFullName +
 				'}';
 	}
 }
