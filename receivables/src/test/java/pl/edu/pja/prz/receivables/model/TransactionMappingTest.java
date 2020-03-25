@@ -8,13 +8,16 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TransactionMappingTest {
+    private UUID childId;
+    private UUID guardianId;
+
     private TransactionMapping transactionMapping;
     private TransactionMapping transactionMapping_2;
 
     @BeforeEach
     public void setUp() {
-        UUID childId = UUID.randomUUID();
-        UUID guardianId = UUID.randomUUID();
+        childId = UUID.randomUUID();
+        guardianId = UUID.randomUUID();
 
         transactionMapping = new TransactionMapping();
         transactionMapping.setTitle("XYZ-123456");
@@ -64,6 +67,17 @@ class TransactionMappingTest {
         //Then
         assertTrue(firstEqualsToSecond);
         assertTrue(secondEqualsToFirst);
+    }
+
+    @Test
+    public void Should_ReturnProperString() {
+        //Given
+
+        //When
+        String result = transactionMapping.toString();
+
+        //Then
+        assertEquals(childId + " - XYZ-123456", result);
     }
 
 }

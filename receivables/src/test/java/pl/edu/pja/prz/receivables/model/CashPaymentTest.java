@@ -73,4 +73,14 @@ class CashPaymentTest {
         assertTrue(secondEqualsToFirst);
     }
 
+    @Test
+    public void Should_ReturnProperString() {
+        //Given
+
+        //When
+        String result = payment.toString();
+
+        //Then
+        assertEquals("Czesne #001 [20.00 PLN]", result);
+    }
 }

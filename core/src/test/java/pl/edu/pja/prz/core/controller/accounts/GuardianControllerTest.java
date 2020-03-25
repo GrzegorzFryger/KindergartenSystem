@@ -33,9 +33,6 @@ class GuardianControllerTest {
   @Mock
   private GuardianFacade guardianFacade;
 
-  @Mock
-  private ReceivablesFacade receivablesFacade;
-
   @InjectMocks
   private GuardianController controller;
 
@@ -126,7 +123,6 @@ class GuardianControllerTest {
 
     //Then
     verify(guardianFacade, only()).appendGuardianToChild(any(GuardianChildAssociationDto.class));
-    verify(receivablesFacade, only()).addTransactionMapping(any(UUID.class), any(UUID.class));
   }
 
   @Test
