@@ -66,6 +66,7 @@
                         <exclude>**/pl/edu/pja/prz/account/configuration/*</exclude>
                         <exclude>**/pl/edu/pja/prz/account/repository/*</exclude>
                         <exclude>**/pl/edu/pja/prz/account/service/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/account/event/*</exclude>
                     </excludes>
                 </configuration>
             </plugin>
