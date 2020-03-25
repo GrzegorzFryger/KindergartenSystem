@@ -1,13 +1,5 @@
 package pl.edu.pja.prz.core.controller.accounts;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static pl.edu.pja.prz.core.controller.RequestMappings.API_ACCOUNT;
-import static pl.edu.pja.prz.core.util.JsonUtil.convertToJson;
-
-import java.util.HashSet;
-import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,6 +16,15 @@ import pl.edu.pja.prz.account.model.dto.ChildDto;
 import pl.edu.pja.prz.account.model.dto.GuardianChildAssociationDto;
 import pl.edu.pja.prz.account.model.dto.GuardianDto;
 import pl.edu.pja.prz.receivables.facade.ReceivablesFacade;
+
+import java.util.HashSet;
+import java.util.UUID;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static pl.edu.pja.prz.core.controller.RequestMappings.API_ACCOUNT;
+import static pl.edu.pja.prz.core.util.JsonUtil.convertToJson;
 
 @ExtendWith(MockitoExtension.class)
 class GuardianControllerTest {
@@ -97,7 +98,6 @@ class GuardianControllerTest {
 
     //Then
     verify(guardianFacade, only()).createGuardian(any(AccountDto.class));
-    verify(receivablesFacade, only()).addTransactionMappings(any(GuardianDto.class));
   }
 
   @Test
@@ -155,7 +155,6 @@ class GuardianControllerTest {
 
     //Then
     verify(guardianFacade, only()).appendGuardianToChild(any(GuardianChildAssociationDto.class));
-    verifyNoInteractions(receivablesFacade);
   }
 
 

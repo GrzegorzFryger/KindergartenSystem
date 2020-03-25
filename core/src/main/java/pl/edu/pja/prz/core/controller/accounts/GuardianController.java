@@ -9,7 +9,6 @@ import pl.edu.pja.prz.account.model.dto.AccountDto;
 import pl.edu.pja.prz.account.model.dto.ChildDto;
 import pl.edu.pja.prz.account.model.dto.GuardianChildAssociationDto;
 import pl.edu.pja.prz.account.model.dto.GuardianDto;
-import pl.edu.pja.prz.receivables.facade.ReceivablesFacade;
 
 import java.util.List;
 import java.util.Set;
@@ -22,12 +21,10 @@ import static pl.edu.pja.prz.core.controller.RequestMappings.API_ACCOUNT;
 //TODO: ADD @PreAuthorize annotation with proper roles from Roles.java class
 public class GuardianController {
 	private final GuardianFacade guardianFacade;
-	private final ReceivablesFacade receivablesFacade;
 
 	@Autowired
-	public GuardianController(GuardianFacade guardianFacade, ReceivablesFacade receivablesFacade) {
+	public GuardianController(GuardianFacade guardianFacade) {
 		this.guardianFacade = guardianFacade;
-		this.receivablesFacade = receivablesFacade;
 	}
 
 	@GetMapping("guardian/{id}")
@@ -48,7 +45,6 @@ public class GuardianController {
 	@PostMapping("guardian")
 	public ResponseEntity<GuardianDto> createGuardian(@RequestBody AccountDto accountDto) {
 		GuardianDto guardianDto = guardianFacade.createGuardian(accountDto);
-		receivablesFacade.addTransactionMappings(guardianDto);
 		return new ResponseEntity<>(guardianDto, HttpStatus.OK);
 	}
 
@@ -60,15 +56,6 @@ public class GuardianController {
 				.stream()
 				.anyMatch(childDto -> childDto.getId().equals(associationDto.getChildId()));
 
-		if(success) {
-			receivablesFacade.addTransactionMapping(associationDto.getGuardianId(), associationDto.getChildId());
-			return new ResponseEntity<>(guardian, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
+		return success ? new ResponseEntity<>(guardian, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
-
-
-
 }

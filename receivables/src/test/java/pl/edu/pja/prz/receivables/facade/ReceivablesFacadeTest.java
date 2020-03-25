@@ -7,9 +7,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
-import pl.edu.pja.prz.account.model.Guardian;
-import pl.edu.pja.prz.account.model.dto.ChildDto;
-import pl.edu.pja.prz.account.model.dto.GuardianDto;
 import pl.edu.pja.prz.receivables.model.CashPayment;
 import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.model.TransactionMapping;
@@ -18,7 +15,9 @@ import pl.edu.pja.prz.receivables.service.*;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -320,63 +319,5 @@ class ReceivablesFacadeTest {
 
         //Then
         verify(transactionMappingService, only()).create(any(UUID.class), any(UUID.class));
-    }
-
-    @Test
-    public void Should_NotAddTransactionMappings_When_GuardianDtoIsNull() {
-        //Given
-        GuardianDto dto = null;
-
-        //When
-        facade.addTransactionMappings(dto);
-
-        //Then
-        verify(transactionMappingService, never()).create(any(UUID.class), any(UUID.class));
-    }
-
-    @Test
-    public void Should_NotAddTransactionMappings_When_ChildListForGuardianDtoIsNull() {
-        //Given
-        GuardianDto dto = new GuardianDto();
-
-        //When
-        facade.addTransactionMappings(dto);
-
-        //Then
-        verify(transactionMappingService, never()).create(any(UUID.class), any(UUID.class));
-    }
-
-    @Test
-    public void Should_NotAddTransactionMappings_When_ChildListForGuardianDtoIsEmpty() {
-        //Given
-        GuardianDto dto = new GuardianDto();
-        dto.setChildren(new HashSet<>());
-
-        //When
-        facade.addTransactionMappings(dto);
-
-        //Then
-        verify(transactionMappingService, never()).create(any(UUID.class), any(UUID.class));
-    }
-
-
-    @Test
-    public void Should_AddTransactionMappings() {
-        //Given
-        ChildDto childDto = new ChildDto();
-        childDto.setId(UUID.randomUUID());
-
-        Set<ChildDto> childDtoSet = new HashSet<>();
-        childDtoSet.add(childDto);
-
-        GuardianDto dto = new GuardianDto();
-        dto.setId(UUID.randomUUID());
-        dto.setChildren(childDtoSet);
-
-        //When
-        facade.addTransactionMappings(dto);
-
-        //Then
-        verify(transactionMappingService, times(1)).create(any(UUID.class), any(UUID.class));
     }
 }
