@@ -35,7 +35,8 @@ public abstract class BasicAccountService<T extends BasicAccountRepository<E, UU
 		});
 
 		var result = repository.save(
-				accountFactory.createStandardAccount(new Person(address, fullName, phone),
+				accountFactory.createStandardAccount(
+						new Person(address, fullName, phone),
 						new Password(passwordManager.generateEncodeRandomPassword()),
 						email,
 						tClass
