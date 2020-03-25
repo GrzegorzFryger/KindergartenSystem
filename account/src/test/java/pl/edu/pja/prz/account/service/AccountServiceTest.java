@@ -10,9 +10,6 @@ import pl.edu.pja.prz.account.model.Account;
 import pl.edu.pja.prz.account.model.Person;
 import pl.edu.pja.prz.account.repository.AccountRepository;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
-import pl.edu.pja.prz.commons.model.Address;
-import pl.edu.pja.prz.commons.model.FullName;
-import pl.edu.pja.prz.commons.model.Phone;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -35,6 +32,7 @@ class AccountServiceTest {
     @Test
     public void Should_FindById() {
         //Given
+
         Optional<Account> accountOptional = Optional.of(new Account());
 
         //When

@@ -8,23 +8,30 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TransactionMappingTest {
+    private UUID childId;
+    private UUID guardianId;
+
     private TransactionMapping transactionMapping;
-    private TransactionMapping transactionMapping_2;
+    private TransactionMapping transactionMapping2;
 
     @BeforeEach
     public void setUp() {
-        UUID childId = UUID.randomUUID();
-        UUID guardianId = UUID.randomUUID();
+        childId = UUID.randomUUID();
+        guardianId = UUID.randomUUID();
 
         transactionMapping = new TransactionMapping();
         transactionMapping.setTitle("XYZ-123456");
         transactionMapping.setChildId(childId);
         transactionMapping.setGuardianId(guardianId);
+        transactionMapping.setChildName("John");
+        transactionMapping.setChildSurname("Snow");
 
-        transactionMapping_2 = new TransactionMapping();
-        transactionMapping_2.setTitle("XYZ-123456");
-        transactionMapping_2.setChildId(childId);
-        transactionMapping_2.setGuardianId(guardianId);
+        transactionMapping2 = new TransactionMapping();
+        transactionMapping2.setTitle("XYZ-123456");
+        transactionMapping2.setChildId(childId);
+        transactionMapping2.setGuardianId(guardianId);
+        transactionMapping2.setChildName("John");
+        transactionMapping2.setChildSurname("Snow");
     }
 
     @Test
@@ -46,7 +53,7 @@ class TransactionMappingTest {
 
         //When
         int first = transactionMapping.hashCode();
-        int second = transactionMapping_2.hashCode();
+        int second = transactionMapping2.hashCode();
 
         //Then
         assertEquals(first, second);
@@ -58,12 +65,23 @@ class TransactionMappingTest {
         //Given
 
         //When
-        boolean firstEqualsToSecond = transactionMapping.equals(transactionMapping_2);
-        boolean secondEqualsToFirst = transactionMapping_2.equals(transactionMapping);
+        boolean firstEqualsToSecond = transactionMapping.equals(transactionMapping2);
+        boolean secondEqualsToFirst = transactionMapping2.equals(transactionMapping);
 
         //Then
         assertTrue(firstEqualsToSecond);
         assertTrue(secondEqualsToFirst);
+    }
+
+    @Test
+    public void Should_ReturnProperString() {
+        //Given
+
+        //When
+        String result = transactionMapping.toString();
+
+        //Then
+        assertEquals(childId + " - XYZ-123456", result);
     }
 
 }

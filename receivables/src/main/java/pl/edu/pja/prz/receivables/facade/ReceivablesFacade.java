@@ -3,8 +3,6 @@ package pl.edu.pja.prz.receivables.facade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import pl.edu.pja.prz.account.model.dto.ChildDto;
-import pl.edu.pja.prz.account.model.dto.GuardianDto;
 import pl.edu.pja.prz.receivables.model.CashPayment;
 import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.model.TransactionMapping;
@@ -101,17 +99,7 @@ public class ReceivablesFacade {
         return transactionMappingService.getAllByGuardianId(guardianId);
     }
 
-    public void addTransactionMappings(GuardianDto guardianDto) {
-        if (guardianDto != null) {
-            if (guardianDto.getChildren() != null && !guardianDto.getChildren().isEmpty()) {
-                for (ChildDto dto : guardianDto.getChildren()) {
-                    transactionMappingService.create(guardianDto.getId(), dto.getId());
-                }
-            }
-        }
-    }
-
-    public void addTransactionMapping(UUID guardianId, UUID childId) {
-        transactionMappingService.create(guardianId, childId);
+    public void addTransactionMapping(UUID guardianId, UUID childId, String childName, String childSurname) {
+        transactionMappingService.create(guardianId, childId, childName, childSurname);
     }
 }
