@@ -23,15 +23,11 @@ class TransactionMappingTest {
         transactionMapping.setTitle("XYZ-123456");
         transactionMapping.setChildId(childId);
         transactionMapping.setGuardianId(guardianId);
-        transactionMapping.setChildName("John");
-        transactionMapping.setChildSurname("Snow");
 
         transactionMapping2 = new TransactionMapping();
         transactionMapping2.setTitle("XYZ-123456");
         transactionMapping2.setChildId(childId);
         transactionMapping2.setGuardianId(guardianId);
-        transactionMapping2.setChildName("John");
-        transactionMapping2.setChildSurname("Snow");
     }
 
     @Test

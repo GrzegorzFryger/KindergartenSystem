@@ -51,7 +51,7 @@ class TransactionMappingServiceImplTest {
         ArgumentCaptor<TransactionMapping> argumentCaptor = ArgumentCaptor.forClass(TransactionMapping.class);
 
         //When
-        service.create(UUID.randomUUID(), UUID.randomUUID(), "John", "Snow");
+        service.create(UUID.randomUUID(), UUID.randomUUID());
 
         //Then
         verify(repository, times(1)).save(argumentCaptor.capture());
