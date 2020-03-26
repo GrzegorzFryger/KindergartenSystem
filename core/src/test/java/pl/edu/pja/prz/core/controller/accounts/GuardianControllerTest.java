@@ -33,9 +33,6 @@ class GuardianControllerTest {
   @Mock
   private GuardianFacade guardianFacade;
 
-  @Mock
-  private ReceivablesFacade receivablesFacade;
-
   @InjectMocks
   private GuardianController controller;
 

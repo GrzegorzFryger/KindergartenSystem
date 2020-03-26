@@ -35,10 +35,12 @@ public class TransactionMappingServiceImpl implements TransactionMappingService,
 	}
 
 	@Override
-	public void create(UUID guardianId, UUID childId) {
+	public void create(UUID guardianId, UUID childId, String childName, String childSurname) {
 		TransactionMapping mapping = new TransactionMapping();
 		mapping.setGuardianId(guardianId);
 		mapping.setChildId(childId);
+		mapping.setChildName(childName);
+		mapping.setChildSurname(childSurname);
 
 		LocalDate localDateTime = LocalDate.now();
 		String dateString = localDateTime.toString().replace("-", "");
@@ -68,7 +70,14 @@ public class TransactionMappingServiceImpl implements TransactionMappingService,
 		if (getByTitle(transactionMapping.getTitle()).isEmpty()) {
 			throw new ElementNotFoundException(TRANSACTION_MAPPING, transactionMapping.getTitle());
 		}
-		repository.save(transactionMapping);
+		TransactionMapping transactionMappingToUpdate = getByTitle(transactionMapping.getTitle()).get();
+		transactionMappingToUpdate.setTitle(transactionMapping.getTitle());
+		transactionMappingToUpdate.setChildId(transactionMapping.getChildId());
+		transactionMappingToUpdate.setGuardianId(transactionMapping.getGuardianId());
+		transactionMappingToUpdate.setChildName(transactionMapping.getChildName());
+		transactionMappingToUpdate.setChildSurname(transactionMapping.getChildSurname());
+
+		repository.save(transactionMappingToUpdate);
 	}
 
 	@Override
@@ -99,7 +108,8 @@ public class TransactionMappingServiceImpl implements TransactionMappingService,
 
 		if (appendChildEvent.getGuardianChildDependency() != null) {
 			var dependency = appendChildEvent.getGuardianChildDependency();
-			this.create(dependency.getGuardianId(), dependency.getChildId());
+			this.create(dependency.getGuardianId(), dependency.getChildId(),
+					dependency.getChildFullName().getName(), dependency.getChildFullName().getSurname());
 		}
 	}
 }
