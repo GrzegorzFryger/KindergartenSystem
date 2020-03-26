@@ -6,8 +6,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pl.edu.pja.prz.account.exception.MoreThanOneElement;
 import pl.edu.pja.prz.account.model.Child;
+import pl.edu.pja.prz.account.model.enums.ChildStatus;
 import pl.edu.pja.prz.account.model.enums.Gender;
+import pl.edu.pja.prz.account.model.value.Age;
 import pl.edu.pja.prz.account.model.value.StudyPeriod;
 import pl.edu.pja.prz.account.repository.ChildRepository;
 import pl.edu.pja.prz.account.utilites.ChildBuilder;
@@ -16,12 +19,12 @@ import pl.edu.pja.prz.commons.model.FullName;
 import pl.edu.pja.prz.commons.model.Phone;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.UUID;
+import java.time.Month;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -117,4 +120,112 @@ class ChildServiceTest {
 		//then
 		assertEquals(newChild, childSpy);
 	}
+
+	@Test
+	void Should_ThrowMoreThanOneElement_When_FoundMorChildren() {
+		//given
+		var child = ChildBuilder.aChild()
+				.withPeselNumber("00440758725")
+				.withFullName(fullName)
+				.withAddress(address)
+				.build();
+
+		var  childSecond = ChildBuilder.aChild()
+				.withPeselNumber("00440758725")
+				.withFullName(fullName)
+				.withAddress(address)
+				.build();
+
+
+		when(childRepository.findReadOnly(any(),any())).thenReturn(List.of(child, childSecond));
+
+		//when
+		assertThrows( MoreThanOneElement.class, ()-> {
+			this.childService.findByFullNameOrAddressReadOnly(fullName, null);
+		});
+		assertThrows(MoreThanOneElement.class, ()-> {
+			this.childService.findByFullNameOrAddressReadOnly(fullName, "test");
+		});
+
+	}
+
+	@Test
+	void Should_GetAllChild(){
+		//given
+		var child = ChildBuilder.aChild()
+				.withPeselNumber("00440758725")
+				.withFullName(fullName)
+				.withAddress(address)
+				.build();
+
+		var childSecond = ChildBuilder.aChild()
+				.withPeselNumber("00440758725")
+				.withFullName(fullName)
+				.withAddress(address)
+				.build();
+
+		//when
+		when(childRepository.findAll()).thenReturn(List.of(child,childSecond));
+		var allChildren = this.childService.getAll();
+
+		//then
+		verify(childRepository, times(1)).findAll();
+		assertEquals(2, allChildren.size());
+
+	}
+
+	@Test
+	void Should_CreateChildrenWithPesel() {
+		var studyPeriod = new StudyPeriod(LocalDate.of(2014, Month.SEPTEMBER, 01),
+				LocalDate.of(2015, Month.JULY, 26));
+
+		var child = ChildBuilder.aChild()
+				.withAge(new Age(LocalDate.of(1994,7,11)))
+				.withPeselNumber("94071105694")
+				.withFullName(fullName)
+				.withAddress(address)
+				.withStudyPeriod(studyPeriod)
+				.withGender(Gender.MALE)
+				.withChildStatuses(Set.of(ChildStatus.NEW))
+				.build();
+
+		//when
+		when(childRepository.save(any(Child.class))).thenReturn(child);
+		when(peselService.extractGender(any())).thenReturn(Gender.MALE);
+		when(peselService.extractDateOfBirth(any())).thenReturn(LocalDate.of(1994,7,11));
+		this.childService.createChild(address,fullName,"94071105694",studyPeriod);
+
+		//then
+		verify(childRepository,times(1)).save(
+				argThat(arg ->arg.equals(child))
+		);
+	}
+
+	@Test
+	void Should_CreateChildrenWithoutPesel() {
+		var studyPeriod = new StudyPeriod(LocalDate.of(2014, Month.SEPTEMBER, 01),
+				LocalDate.of(2015, Month.JULY, 26));
+
+		var age = new Age(LocalDate.of(1994,7,11));
+
+		var child = ChildBuilder.aChild()
+				.withAge(new Age(LocalDate.of(1994,7,11)))
+				.withPeselNumber("NOT_SET")
+				.withFullName(fullName)
+				.withAddress(address)
+				.withStudyPeriod(studyPeriod)
+				.withGender(Gender.MALE)
+				.withChildStatuses(Set.of(ChildStatus.NEW))
+				.build();
+
+		//when
+		when(childRepository.save(any(Child.class))).thenReturn(child);
+		this.childService.createChild(address,age, fullName,Gender.MALE,studyPeriod);
+
+		//then
+		verify(childRepository,times(1)).save(
+				argThat(arg ->arg.equals(child))
+		);
+	}
+
 }
