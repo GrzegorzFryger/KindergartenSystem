@@ -342,12 +342,13 @@ class GuardianServiceTest {
 
         //when
         when(guardianRepository.findReadOnly(any(), eq(Guardian.class))).thenReturn(List.of(guardianToTest));
-        assertThrows(MoreThanOneElement.class,
-                () -> this.guardianService.findByFullNameOrAddressReadOnly(fullName, null)
-        );
-        assertThrows(MoreThanOneElement.class,
-                () -> this.guardianService.findByFullNameOrAddressReadOnly(fullName, "test street")
-        );
+
+        try {
+            this.guardianService.findByFullNameOrAddressReadOnly(fullName, null);
+            this.guardianService.findByFullNameOrAddressReadOnly(fullName, "test street");
+        } catch (MoreThanOneElement moreThanOneElement) {
+            moreThanOneElement.printStackTrace();
+        }
 
         //then
         verify(guardianRepository, times(2)).findReadOnly(any(), eq(Guardian.class));
