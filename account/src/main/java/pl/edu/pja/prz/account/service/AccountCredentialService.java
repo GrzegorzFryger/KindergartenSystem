@@ -18,20 +18,16 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 public class AccountCredentialService {
-
 	private static final String USER = "User";
-
 	private static final Logger logger = LoggerFactory.getLogger(AccountCredentialService.class);
 	private final AccountRepository accountRepository;
 	private final ActivateTokenService activateTokenService;
 	private final PasswordManager passwordManager;
-	private final RoleService roleService; //TODO: Remove or make use of it
 
 	public AccountCredentialService(AccountRepository accountRepository, PasswordManager passwordManager,
-	                                RoleService roleService, ActivateTokenService activateTokenService) {
+                                    ActivateTokenService activateTokenService) {
 		this.accountRepository = accountRepository;
 		this.passwordManager = passwordManager;
-		this.roleService = roleService;
 		this.activateTokenService = activateTokenService;
 	}
 
@@ -66,9 +62,7 @@ public class AccountCredentialService {
 	}
 
 
-
 	public boolean activateAccount(String token, CharSequence newPassword, CharSequence repeatNewPassword) {
-
 		AtomicBoolean success = new AtomicBoolean(false);
 
 		if(!newPassword.equals(repeatNewPassword)) {

@@ -26,153 +26,150 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class AccountServiceTest {
-    @Mock
-    private AccountRepository accountRepository;
+	@Mock
+	private AccountRepository accountRepository;
+	private AccountService accountService;
+	private Account account;
 
-    private Account account;
-    private AccountService accountService;
+	@BeforeEach
+	public void setUp() {
+		accountService = new AccountService(accountRepository);
+		account = new Account();
+		account.setAddress(new Address("70-700", "City", "Street 256"));
+		account.setFullName(new FullName("TestName", "TestSurname"));
+		account.setPhoneNumber(new Phone("123132123"));
+		account.setPassword(new Password("newPassword"));
+		account.setAccountStatus(AccountStatus.ACTIVE);
+		account.setId(UUID.randomUUID());
+		account.setEmail("test@test.com");
+	}
 
-    @BeforeEach
-    public void setUp() {
-        accountService = new AccountService(accountRepository);
-        account = new Account();
+	@Test
+	public void Should_FindById() {
+		//Given
+		Optional<Account> accountOptional = Optional.of(new Account());
 
-        account.setAddress( new Address("70-700", "City", "Street 256") );
-        account.setFullName( new FullName("TestName", "TestSurname"));
-        account.setPhoneNumber( new Phone("123132123") );
-        account.setPassword(new Password("newPassword"));
-        account.setAccountStatus( AccountStatus.ACTIVE);
-        account.setId( UUID.randomUUID() );
-        account.setEmail("test@test.com");
-    }
+		//When
+		when(accountRepository.findById(any(UUID.class))).thenReturn(accountOptional);
+		accountService.findById(UUID.randomUUID());
 
-    @Test
-    public void Should_FindById() {
-        //Given
+		//Then
+		verify(accountRepository, only()).findById(any(UUID.class));
+	}
 
-        Optional<Account> accountOptional = Optional.of(new Account());
+	@Test
+	public void Should_ThrowException_When_RepositoryCouldNotFindAccountById() {
+		//Given
 
-        //When
-        when(accountRepository.findById(any(UUID.class))).thenReturn(accountOptional);
-        accountService.findById(UUID.randomUUID());
+		//When
+		when(accountRepository.findById(any(UUID.class))).thenReturn(Optional.empty());
+		Assertions.assertThrows(ElementNotFoundException.class, () -> {
+			accountService.findById(UUID.randomUUID());
+		});
 
-        //Then
-        verify(accountRepository, only()).findById(any(UUID.class));
-    }
+		//Then
+	}
 
-    @Test
-    public void Should_ThrowException_When_RepositoryCouldNotFindAccountById() {
-        //Given
+	@Test
+	public void Should_FindByEmail() {
+		//Given
+		Optional<Account> accountOptional = Optional.of(new Account());
 
-        //When
-        when(accountRepository.findById(any(UUID.class))).thenReturn(Optional.empty());
-        Assertions.assertThrows(ElementNotFoundException.class, () -> {
-            accountService.findById(UUID.randomUUID());
-        });
+		//When
+		when(accountRepository.findByEmail(anyString())).thenReturn(accountOptional);
+		accountService.findByEmail("Some email");
 
-        //Then
-    }
+		//Then
+		verify(accountRepository, only()).findByEmail(anyString());
+	}
 
-    @Test
-    public void Should_FindByEmail() {
-        //Given
-        Optional<Account> accountOptional = Optional.of(new Account());
+	@Test
+	public void Should_ThrowException_When_RepositoryCouldNotFindAccountByEmail() {
+		//Given
 
-        //When
-        when(accountRepository.findByEmail(anyString())).thenReturn(accountOptional);
-        accountService.findByEmail("Some email");
+		//When
+		when(accountRepository.findByEmail(anyString())).thenReturn(Optional.empty());
+		Assertions.assertThrows(ElementNotFoundException.class, () -> {
+			accountService.findByEmail("Some email");
+		});
 
-        //Then
-        verify(accountRepository, only()).findByEmail(anyString());
-    }
+		//Then
+	}
 
-    @Test
-    public void Should_ThrowException_When_RepositoryCouldNotFindAccountByEmail() {
-        //Given
+	@Test
+	public void Should_ThrowException_When_AccountForUpdatingPersonalDataDoesNotExists() {
+		//Given
+		Person person = new Person();
+		person.setId(UUID.randomUUID());
 
-        //When
-        when(accountRepository.findByEmail(anyString())).thenReturn(Optional.empty());
-        Assertions.assertThrows(ElementNotFoundException.class, () -> {
-            accountService.findByEmail("Some email");
-        });
+		//When
+		when(accountRepository.findById(any(UUID.class))).thenReturn(Optional.empty());
+		Assertions.assertThrows(ElementNotFoundException.class, () -> {
+			accountService.updatePersonalData(person);
+		});
 
-        //Then
-    }
+		//Then
+	}
 
-    @Test
-    public void Should_ThrowException_When_AccountForUpdatingPersonalDataDoesNotExists() {
-        //Given
-        Person person = new Person();
-        person.setId(UUID.randomUUID());
+	@Test
+	void Should_UpdatePersonalData() {
+		//given
+		ArgumentCaptor<Account> argument = ArgumentCaptor.forClass(Account.class);
+		var updatedAccount = new Person();
 
-        //When
-        when(accountRepository.findById(any(UUID.class))).thenReturn(Optional.empty());
-        Assertions.assertThrows(ElementNotFoundException.class, () -> {
-            accountService.updatePersonalData(person);
-        });
+		updatedAccount.setAddress(new Address("80-80", "CityUpdated", "StreetUpdated"));
+		updatedAccount.setFullName(new FullName("TestNameUpdated", "TestSurnameUpdated"));
+		updatedAccount.setPhoneNumber(new Phone("723456478"));
+		updatedAccount.setId(account.getId());
 
-        //Then
-    }
+		//when
+		when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
+		when(accountRepository.save(any(Account.class))).thenReturn(new Account());
+		accountService.updatePersonalData(updatedAccount);
 
-    @Test
-    void Should_UpdatePersonalData() {
-        //given
-        ArgumentCaptor<Account> argument = ArgumentCaptor.forClass(Account.class);
-        var updatedAccount = new Person();
+		//then
+		verify(accountRepository, times(1)).findById(account.getId());
+		verify(accountRepository, times(1)).save(any());
 
-        updatedAccount.setAddress( new Address("80-80", "CityUpdated", "StreetUpdated") );
-        updatedAccount.setFullName( new FullName("TestNameUpdated", "TestSurnameUpdated"));
-        updatedAccount.setPhoneNumber( new Phone("723456478") );
-        updatedAccount.setId( account.getId() );
+		verify(accountRepository).save(argument.capture());
+		assertEquals(updatedAccount.getAddress(), argument.getValue().getAddress());
+		assertEquals(updatedAccount.getFullName(), argument.getValue().getFullName());
+		assertEquals(updatedAccount.getAddress(), argument.getValue().getAddress());
+		assertEquals(updatedAccount.getPhoneNumber(), argument.getValue().getPhoneNumber());
 
-        //when
-        when(accountRepository.findById(account.getId())).thenReturn(Optional.of(account));
-        when(accountRepository.save(any(Account.class))).thenReturn(new Account());
-        accountService.updatePersonalData(updatedAccount);
+		assertEquals(account.getEmail(), argument.getValue().getEmail());
+		assertEquals(account.getPassword(), argument.getValue().getPassword());
+	}
 
-        //then
-        verify(accountRepository,times(1)).findById(account.getId());
-        verify(accountRepository,times(1)).save(any());
+	@Test
+	void Should_UpdateNotPersonalData() {
+		//given
+		Person person = account;
+		var personUpdated = new Person();
 
-        verify(accountRepository).save(argument.capture());
-        assertEquals(updatedAccount.getAddress(),argument.getValue().getAddress());
-        assertEquals(updatedAccount.getFullName(),argument.getValue().getFullName());
-        assertEquals(updatedAccount.getAddress(),argument.getValue().getAddress());
-        assertEquals(updatedAccount.getPhoneNumber(),argument.getValue().getPhoneNumber());
+		personUpdated.setAddress(new Address("80-80", "CityUpdated", "StreetUpdated"));
+		personUpdated.setFullName(new FullName("TestNameUpdated", "TestSurnameUpdated"));
+		personUpdated.setPhoneNumber(new Phone("723456478"));
+		personUpdated.setId(account.getId());
 
-        assertEquals(account.getEmail(),argument.getValue().getEmail());
-        assertEquals(account.getPassword(),argument.getValue().getPassword());
-    }
+		this.accountService.updateNotEmptyPersonField(person, personUpdated);
 
-    @Test
-    void Should_UpdateNotPersonalData() {
-        //given
-        Person person = account;
-        var personUpdated = new Person();
+		assertEquals(personUpdated, person);
+	}
 
-        personUpdated.setAddress( new Address("80-80", "CityUpdated", "StreetUpdated") );
-        personUpdated.setFullName( new FullName("TestNameUpdated", "TestSurnameUpdated"));
-        personUpdated.setPhoneNumber( new Phone("723456478") );
-        personUpdated.setId( account.getId() );
+	@Test
+	void Should_Not_UpdateNotPersonalData() {
+		//given
+		Person person = account;
+		var personUpdated = new Person();
 
-        this.accountService.updateNotEmptyPersonField(person, personUpdated);
-
-        assertEquals(personUpdated, person);
-    }
-
-    @Test
-    void Should_Not_UpdateNotPersonalData() {
-        //given
-        Person person = account;
-        var personUpdated = new Person();
-
-        personUpdated.setAddress( null );
-        personUpdated.setFullName( null);
-        personUpdated.setPhoneNumber( null );
-        personUpdated.setId( account.getId() );
-
-        this.accountService.updateNotEmptyPersonField(person, personUpdated);
-
-        assertEquals(account, person);
-    }
+		personUpdated.setAddress(null);
+		personUpdated.setFullName(null);
+		personUpdated.setPhoneNumber(null);
+		personUpdated.setId(account.getId());
+		//when
+		this.accountService.updateNotEmptyPersonField(person, personUpdated);
+		//then
+		assertEquals(account, person);
+	}
 }
