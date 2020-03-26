@@ -1,8 +1,8 @@
 package pl.edu.pja.prz.account.model;
 
+import pl.edu.pja.prz.account.model.value.Password;
 import pl.edu.pja.prz.commons.model.Address;
 import pl.edu.pja.prz.commons.model.FullName;
-import pl.edu.pja.prz.account.model.value.Password;
 import pl.edu.pja.prz.commons.model.Phone;
 
 import javax.persistence.Entity;
@@ -63,4 +63,5 @@ public class Guardian extends Account {
 		result = 31 * result + (getChildren() != null ? getChildren().hashCode() : 0);
 		return result;
 	}
+
 }
