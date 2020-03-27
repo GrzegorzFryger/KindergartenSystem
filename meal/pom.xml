@@ -28,6 +28,10 @@
             <groupId>pl.edu.pja.prz</groupId>
             <artifactId>finances</artifactId>
         </dependency>
+        <dependency>
+            <groupId>pl.edu.pja.prz</groupId>
+            <artifactId>calendar</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
