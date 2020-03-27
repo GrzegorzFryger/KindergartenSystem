@@ -316,9 +316,9 @@ class ReceivablesFacadeTest {
         UUID guardianId = UUID.randomUUID();
 
         //When
-        facade.addTransactionMapping(guardianId, childId, "John", "Snow");
+        facade.addTransactionMapping(guardianId, childId);
 
         //Then
-        verify(transactionMappingService, only()).create(any(UUID.class), any(UUID.class), anyString(), anyString());
+        verify(transactionMappingService, only()).create(any(UUID.class), any(UUID.class));
     }
 }

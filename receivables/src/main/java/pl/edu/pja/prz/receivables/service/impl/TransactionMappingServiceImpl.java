@@ -35,12 +35,10 @@ public class TransactionMappingServiceImpl implements TransactionMappingService,
 	}
 
 	@Override
-	public void create(UUID guardianId, UUID childId, String childName, String childSurname) {
+	public void create(UUID guardianId, UUID childId) {
 		TransactionMapping mapping = new TransactionMapping();
 		mapping.setGuardianId(guardianId);
 		mapping.setChildId(childId);
-		mapping.setChildName(childName);
-		mapping.setChildSurname(childSurname);
 
 		LocalDate localDateTime = LocalDate.now();
 		String dateString = localDateTime.toString().replace("-", "");
@@ -74,8 +72,6 @@ public class TransactionMappingServiceImpl implements TransactionMappingService,
 		transactionMappingToUpdate.setTitle(transactionMapping.getTitle());
 		transactionMappingToUpdate.setChildId(transactionMapping.getChildId());
 		transactionMappingToUpdate.setGuardianId(transactionMapping.getGuardianId());
-		transactionMappingToUpdate.setChildName(transactionMapping.getChildName());
-		transactionMappingToUpdate.setChildSurname(transactionMapping.getChildSurname());
 
 		repository.save(transactionMappingToUpdate);
 	}
@@ -108,8 +104,7 @@ public class TransactionMappingServiceImpl implements TransactionMappingService,
 
 		if (appendChildEvent.getGuardianChildDependency() != null) {
 			var dependency = appendChildEvent.getGuardianChildDependency();
-			this.create(dependency.getGuardianId(), dependency.getChildId(),
-					dependency.getChildFullName().getName(), dependency.getChildFullName().getSurname());
+			this.create(dependency.getGuardianId(), dependency.getChildId());
 		}
 	}
 }
