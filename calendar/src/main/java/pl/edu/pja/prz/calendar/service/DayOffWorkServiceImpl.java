@@ -6,6 +6,7 @@ import pl.edu.pja.prz.calendar.model.DayOffWork;
 import pl.edu.pja.prz.calendar.repository.DayOffWorkRepository;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -65,5 +66,10 @@ public class DayOffWorkServiceImpl implements DayOffWorkService {
 	@Override
 	public List<DayOffWork> getAllDaysOff() {
 		return dayOffWorkRepository.findAll();
+	}
+
+	@Override
+	public boolean isTodayDayOff() {
+		return dayOffWorkRepository.findDayOffWorkByDate(LocalDate.now()).isPresent();
 	}
 }

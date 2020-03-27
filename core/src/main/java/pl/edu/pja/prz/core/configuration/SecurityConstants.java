@@ -14,7 +14,7 @@ public class SecurityConstants {
     public static final String TOKEN_ISSUER = "secure-api";
     public static final String TOKEN_AUDIENCE = "secure-app";
 
-    public static final Integer TOKEN_EXPIRATION_TIME = 300_000; // 5 minutes
+    public static final Integer TOKEN_EXPIRATION_TIME = 300000_000; // 5 minutes
 
     public static final String TOKEN = "token";
 

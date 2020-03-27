@@ -100,4 +100,13 @@ public class DayOffWorkServiceTest {
 	}
 
 
+    @Test
+    void ShouldTodayDayOff_returnTrue() {
+		//Given
+		when(repository.findDayOffWorkByDate(LocalDate.now())).thenReturn(Optional.of(new DayOffWork()));
+		//When
+		boolean isTodayOff = service.isTodayDayOff();
+		//Then
+		Assertions.assertTrue(isTodayOff);
+    }
 }
