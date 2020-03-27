@@ -22,4 +22,11 @@ public enum DietType {
     public String toString() {
         return this.getDescription();
     }
+
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
 }

@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Objects;
 import java.util.UUID;
 
 public class MealCreateUpdateDTO {
@@ -62,5 +63,57 @@ public class MealCreateUpdateDTO {
 	}
 	public UUID getChildID() {
 		return childID;
+	}
+
+
+	public void setMealType(MealType mealType) {
+		this.mealType = mealType;
+	}
+
+	public void setDietType(DietType dietType) {
+		this.dietType = dietType;
+	}
+
+	public void setChildID(UUID childID) {
+		this.childID = childID;
+	}
+
+	public void setMealFromDate(LocalDate mealFromDate) {
+		this.mealFromDate = mealFromDate;
+	}
+
+	public void setMealToDate(LocalDate mealToDate) {
+		this.mealToDate = mealToDate;
+	}
+
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		MealCreateUpdateDTO that = (MealCreateUpdateDTO) o;
+		return mealPrice.equals(that.mealPrice) &&
+				mealType == that.mealType &&
+				dietType == that.dietType &&
+				childID.equals(that.childID) &&
+				mealFromDate.equals(that.mealFromDate) &&
+				mealToDate.equals(that.mealToDate);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(mealPrice, mealType, dietType, childID, mealFromDate, mealToDate);
+	}
+
+	@Override
+	public String toString() {
+		return "MealCreateUpdateDTO{" +
+				"mealPrice=" + mealPrice +
+				", mealType=" + mealType +
+				", dietType=" + dietType +
+				", childID=" + childID +
+				", mealFromDate=" + mealFromDate +
+				", mealToDate=" + mealToDate +
+				'}';
 	}
 }
