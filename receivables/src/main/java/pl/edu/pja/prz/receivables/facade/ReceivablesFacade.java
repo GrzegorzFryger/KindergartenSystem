@@ -99,7 +99,7 @@ public class ReceivablesFacade {
         return transactionMappingService.getAllByGuardianId(guardianId);
     }
 
-    public void addTransactionMapping(UUID guardianId, UUID childId, String childName, String childSurname) {
-        transactionMappingService.create(guardianId, childId, childName, childSurname);
+    public void addTransactionMapping(UUID guardianId, UUID childId) {
+        transactionMappingService.create(guardianId, childId);
     }
 }
