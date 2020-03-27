@@ -28,6 +28,10 @@ public class TransactionMapping extends BaseEntityLong implements Serializable {
     @Column(length = 36)
     @NotNull
     private UUID guardianId;
+    @NotNull
+    private String childName;
+    @NotNull
+    private String childSurname;
 
     public String getTitle() {
         return title;
@@ -53,6 +57,22 @@ public class TransactionMapping extends BaseEntityLong implements Serializable {
         this.guardianId = guardianId;
     }
 
+    public String getChildName() {
+        return childName;
+    }
+
+    public void setChildName(String childName) {
+        this.childName = childName;
+    }
+
+    public String getChildSurname() {
+        return childSurname;
+    }
+
+    public void setChildSurname(String childSurname) {
+        this.childSurname = childSurname;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -60,12 +80,14 @@ public class TransactionMapping extends BaseEntityLong implements Serializable {
         TransactionMapping mapping = (TransactionMapping) o;
         return title.equals(mapping.title) &&
                 childId.equals(mapping.childId) &&
-                guardianId.equals(mapping.guardianId);
+                guardianId.equals(mapping.guardianId) &&
+                childName.equals(mapping.childName) &&
+                childSurname.equals(mapping.childSurname);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, childId, guardianId);
+        return Objects.hash(title, childId, guardianId, childName, childSurname);
     }
 
     @Override

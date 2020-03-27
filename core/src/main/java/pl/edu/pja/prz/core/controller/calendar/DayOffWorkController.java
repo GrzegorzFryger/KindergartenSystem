@@ -5,6 +5,7 @@ import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_ADMIN;
 import static pl.edu.pja.prz.core.controller.RequestMappings.API_CALENDAR;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,5 +60,11 @@ public class DayOffWorkController {
 	public ResponseEntity<?> deleteDayOffWork(@PathVariable Long id) {
 		dayOffWorkFacade.deleteDayOffWork(id);
 		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	@PreAuthorize(HAS_ROLE_ADMIN)
+	@PostMapping("dayoff/weekends/{year}")
+	public ResponseEntity<List<DayOffWorkDto>> createDaysOffOnWeekends(@PathVariable int year) {
+		return new ResponseEntity<>(dayOffWorkFacade.createDaysOffOnWeekends(year), HttpStatus.OK);
 	}
 }

@@ -8,7 +8,10 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
+import pl.edu.pja.prz.commons.event.AppendChildEvent;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
+import pl.edu.pja.prz.commons.model.FullName;
+import pl.edu.pja.prz.commons.model.GuardianChildDependency;
 import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.model.TransactionMapping;
 import pl.edu.pja.prz.receivables.repository.TransactionMappingRepository;
@@ -48,7 +51,7 @@ class TransactionMappingServiceImplTest {
         ArgumentCaptor<TransactionMapping> argumentCaptor = ArgumentCaptor.forClass(TransactionMapping.class);
 
         //When
-        service.create(UUID.randomUUID(), UUID.randomUUID());
+        service.create(UUID.randomUUID(), UUID.randomUUID(), "John", "Snow");
 
         //Then
         verify(repository, times(1)).save(argumentCaptor.capture());
@@ -91,7 +94,7 @@ class TransactionMappingServiceImplTest {
         service.update(transactionMapping);
 
         //Then
-        verify(repository, times(1)).findByTitle(anyString());
+        verify(repository, times(2)).findByTitle(anyString());
         verify(repository, times(1)).save(any(TransactionMapping.class));
     }
 
@@ -152,6 +155,22 @@ class TransactionMappingServiceImplTest {
         verify(repository, times(1)).findByTitle(anyString());
         assertNotNull(result.getChildId());
         assertNotNull(result.getGuardianId());
+    }
+
+    @Test
+    public void Should_HandleOnApplicationEvent() {
+        //Given
+        GuardianChildDependency guardianChildDependency = new GuardianChildDependency();
+        guardianChildDependency.setChildFullName(new FullName("John", "Snow"));
+        guardianChildDependency.setChildId(UUID.randomUUID());
+        guardianChildDependency.setGuardianId(UUID.randomUUID());
+        AppendChildEvent appendChildEvent = new AppendChildEvent(new Object(), guardianChildDependency);
+
+        //When
+        service.onApplicationEvent(appendChildEvent);
+
+        //Then
+        verify(repository, times(1)).save(any(TransactionMapping.class));
     }
 
 }

@@ -14,82 +14,79 @@ import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class AccountCredentialServiceTest {
-    @Mock
-    private AccountRepository accountRepository;
-    @Mock
-    private ActivateTokenService activateTokenService;
-    @Mock
-    private PasswordManager passwordManager;
-    @Mock
-    private RoleService roleService;
+	@Mock
+	private AccountRepository accountRepository;
+	@Mock
+	private ActivateTokenService activateTokenService;
+	@Mock
+	private PasswordManager passwordManager;
 
-    private AccountCredentialService accountCredentialService;
+	private AccountCredentialService accountCredentialService;
 
-    @BeforeEach
-    public void setUp() {
-        accountCredentialService = new AccountCredentialService(accountRepository,
-                passwordManager, roleService, activateTokenService);
-    }
+	@BeforeEach
+	public void setUp() {
+		accountCredentialService = new AccountCredentialService(accountRepository,
+				passwordManager, activateTokenService);
+	}
 
-    @Test
-    public void Should_FindByEmail() {
-        //Given
+	@Test
+	public void Should_FindByEmail() {
+		//Given
 
-        //When
-        accountCredentialService.findByEmail("Some email");
+		//When
+		accountCredentialService.findByEmail("Some email");
 
-        //Then
-        verify(accountRepository, only()).findByEmail(anyString());
-    }
+		//Then
+		verify(accountRepository, only()).findByEmail(anyString());
+	}
 
-    @Test
-    public void Should_ThrowException_When_PasswordsForAccountActivationDoesNotMatch() {
-        //Given
-        CharSequence password = "password";
-        CharSequence repeatedPassword = "oh no I'm different";
+	@Test
+	public void Should_ThrowException_When_PasswordsForAccountActivationDoesNotMatch() {
+		//Given
+		CharSequence password = "password";
+		CharSequence repeatedPassword = "oh no I'm different";
 
-        //When
-        Assertions.assertThrows(BusinessException.class, () -> {
-            accountCredentialService.activateAccount("token", password, repeatedPassword);
-        });
+		//When
+		Assertions.assertThrows(BusinessException.class, () -> {
+			accountCredentialService.activateAccount("token", password, repeatedPassword);
+		});
 
-        //Then
-    }
+		//Then
+	}
 
-    @Test
-    public void Should_ThrowException_When_AccountToUpdatePasswordDoesNotExists() {
-        //Given
-        CharSequence password = "password";
-        CharSequence repeatedPassword = "password";
+	@Test
+	public void Should_ThrowException_When_AccountToUpdatePasswordDoesNotExists() {
+		//Given
+		CharSequence password = "password";
+		CharSequence repeatedPassword = "password";
 
-        //When
-        when(accountRepository.findById(any(UUID.class))).thenReturn(Optional.empty());
+		//When
+		when(accountRepository.findById(any(UUID.class))).thenReturn(Optional.empty());
 
-        Assertions.assertThrows(ElementNotFoundException.class, () -> {
-            accountCredentialService.updatePassword(UUID.randomUUID(), password, repeatedPassword);
-        });
+		Assertions.assertThrows(ElementNotFoundException.class, () -> {
+			accountCredentialService.updatePassword(UUID.randomUUID(), password, repeatedPassword);
+		});
 
-        //Then
-    }
+		//Then
+	}
 
-    @Test
-    public void Should_ThrowException_When_AccountToUpdateEmailDoesNotExists() {
-        //Given
+	@Test
+	public void Should_ThrowException_When_AccountToUpdateEmailDoesNotExists() {
+		//Given
 
-        //When
-        when(accountRepository.findById(any(UUID.class))).thenReturn(Optional.empty());
+		//When
+		when(accountRepository.findById(any(UUID.class))).thenReturn(Optional.empty());
 
-        Assertions.assertThrows(ElementNotFoundException.class, () -> {
-            accountCredentialService.updateEmail(UUID.randomUUID(), "Some email");
-        });
+		Assertions.assertThrows(ElementNotFoundException.class, () -> {
+			accountCredentialService.updateEmail(UUID.randomUUID(), "Some email");
+		});
 
-        //Then
-    }
+		//Then
+	}
 
 }

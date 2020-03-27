@@ -13,6 +13,9 @@ import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -62,6 +65,20 @@ public class DayOffWorkServiceTest {
 	}
 
 	@Test
+	public void ShouldGetAllDaysOff() {
+		//Given
+		List<DayOffWork> dayOffWorkList = new ArrayList<>();
+		dayOffWorkList.add(dayOffWork);
+		when(repository.findAll()).thenReturn(dayOffWorkList);
+
+		//When
+		service.getAllDaysOff();
+
+		//Then
+		verify(repository, times(1)).findAll();
+	}
+
+	@Test
 	public void ShouldThrowExceptionWhenDayOffNotFound() {
 		//Given
 		when(repository.findById(anyLong())).thenReturn(Optional.empty());
@@ -99,6 +116,17 @@ public class DayOffWorkServiceTest {
 		verify(repository, times(1)).deleteById(anyLong());
 	}
 
+	@Test
+	public void ShouldCreateListOfDaysOffOnWeekends() {
+		//Given
+		int year = 2020;
+
+		//When
+		service.createDaysOffOnWeekends(year);
+
+		//Then
+		verify(repository, times(1)).saveAll(anyIterable());
+	}
 
     @Test
     void ShouldTodayDayOff_returnTrue() {

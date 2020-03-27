@@ -3,6 +3,7 @@ package pl.edu.pja.prz.account.service;
 import org.jooq.lambda.Unchecked;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
+import pl.edu.pja.prz.account.event.AccountEventPublisher;
 import pl.edu.pja.prz.account.exception.MoreThanOneElement;
 import pl.edu.pja.prz.account.model.Child;
 import pl.edu.pja.prz.account.model.Guardian;
@@ -11,22 +12,26 @@ import pl.edu.pja.prz.account.model.Person;
 import pl.edu.pja.prz.account.repository.GuardianRepository;
 import pl.edu.pja.prz.account.utilites.AccountFactory;
 import pl.edu.pja.prz.account.utilites.PasswordManager;
+import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.commons.model.Address_;
 import pl.edu.pja.prz.commons.model.FullName;
+import pl.edu.pja.prz.commons.model.GuardianChildDependency;
 
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
 @Component
-public class GuardianService extends BasicAccountService<GuardianRepository,Guardian>  {
+public class GuardianService extends BasicAccountService<GuardianRepository, Guardian> {
 	private static final String USER = "User";
 	private final ChildService childService;
+	private final AccountEventPublisher accountEventPublisher;
 
 	public GuardianService(GuardianRepository repository, AccountFactory accountFactory, PasswordManager passwordManager,
-	                       RoleService roleService, ChildService childService) {
+	                       RoleService roleService, ChildService childService, AccountEventPublisher accountEventPublisher) {
 		super(repository, accountFactory, passwordManager, roleService);
 		this.childService = childService;
+		this.accountEventPublisher = accountEventPublisher;
 	}
 
 	public Guardian createGuardianAccount(Person person, String email) {
@@ -39,27 +44,36 @@ public class GuardianService extends BasicAccountService<GuardianRepository,Guar
 		);
 	}
 
-	public void appendChildrenToGuardian(UUID childId, Set<UUID> setGuardianId) {
+	public Guardian appendChildrenToGuardian(UUID childId, UUID guardianId) {
 		var child = childService.getById(childId);
 
-		repository.findAllById(setGuardianId).forEach(guardian -> {
-			guardian.addChild(child);
-			repository.save(guardian);
-		});
+		return repository.findById(guardianId)
+				.map(guardian -> {
+					guardian.addChild(child);
+					return repository.save(guardian);
+				})
+				.map(guardian -> {
+					this.accountEventPublisher.appendChildToGuardianEvent(
+							new GuardianChildDependency(guardian.getId(), child.getId(), child.getFullName())
+					);
+					return guardian;
+				})
+				.orElseThrow(() -> {
+					throw new ElementNotFoundException(guardianId);
+				});
 	}
 
 	public Set<Child> getAllChildren(UUID guardianId) {
 		return repository.findById(guardianId)
 				.map(Guardian::getChildren)
 				.orElseThrow(() -> {
-					throw new IllegalArgumentException("Not found");
+					throw new ElementNotFoundException(guardianId);
 				});
 	}
 
 	/**
-	 *
 	 * @param fullName
-	 * @param street  optional param
+	 * @param street   optional param
 	 * @return Optional<Guardian> return guardian when find only one user, otherwise null
 	 * @throws Exception - when find more then one Guardian
 	 */
@@ -87,9 +101,6 @@ public class GuardianService extends BasicAccountService<GuardianRepository,Guar
 					});
 		}
 	}
-
-
-
 
 
 }

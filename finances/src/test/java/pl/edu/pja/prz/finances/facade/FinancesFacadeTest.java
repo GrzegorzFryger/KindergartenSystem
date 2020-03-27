@@ -3,12 +3,19 @@ package pl.edu.pja.prz.finances.facade;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pl.edu.pja.prz.account.facade.GuardianFacade;
+import pl.edu.pja.prz.account.model.dto.ChildDto;
 import pl.edu.pja.prz.finances.model.dto.Balance;
 import pl.edu.pja.prz.finances.service.BalanceService;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,14 +26,19 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class FinancesFacadeTest {
 
+    @Captor
+    ArgumentCaptor<List<UUID>> argumentCaptor;
+
     private Balance balance;
     @Mock
     private BalanceService balanceService;
+    @Mock
+    private GuardianFacade guardianFacade;
     private FinancesFacade facade;
 
     @BeforeEach
     public void setUp() {
-        facade = new FinancesFacadeImpl(balanceService);
+        facade = new FinancesFacadeImpl(balanceService, guardianFacade);
 
         balance = new Balance();
         balance.setBalance(new BigDecimal("50.00"));
@@ -45,6 +57,28 @@ class FinancesFacadeTest {
         //Then
         assertNotNull(result);
         verify(balanceService, times(1)).getBalance(any(UUID.class));
+    }
+
+    @Test
+    public void Should_GetBalanceForAllChildren() {
+        //Given
+        Set<ChildDto> childDtos = new HashSet<>();
+        ChildDto first = new ChildDto();
+        ChildDto second = new ChildDto();
+        first.setId(UUID.randomUUID());
+        second.setId(UUID.randomUUID());
+        childDtos.add(first);
+        childDtos.add(second);
+
+        //When
+        when(guardianFacade.findAllGuardianChildren(any(UUID.class))).thenReturn(childDtos);
+        when(balanceService.getBalanceForAllChildren(anyList())).thenReturn(balance);
+        Balance result = facade.getBalanceForAllChildren(UUID.randomUUID());
+
+        //Then
+        assertNotNull(result);
+        verify(balanceService, times(1)).getBalanceForAllChildren(argumentCaptor.capture());
+        assertEquals(2, argumentCaptor.getValue().size());
     }
 
     @Test

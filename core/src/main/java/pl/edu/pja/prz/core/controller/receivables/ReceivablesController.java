@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import pl.edu.pja.prz.receivables.facade.ReceivablesFacade;
 import pl.edu.pja.prz.receivables.model.Transaction;
+import pl.edu.pja.prz.receivables.model.TransactionMapping;
 import pl.edu.pja.prz.receivables.model.dto.IncomingPaymentDto;
 
 @RestController
@@ -63,6 +64,12 @@ public class ReceivablesController {
         LocalDate fromDate = LocalDate.parse(from);
         LocalDate toDate = LocalDate.parse(to);
         return receivablesFacade.getAllIncomingPaymentsByGuardianId(guardianId, fromDate, toDate);
+    }
+
+    @GetMapping("payments/mappings/{guardianId}")
+    @PreAuthorize(HAS_ROLE_USER)
+    public List<TransactionMapping> getAllPaymentMappingsForGuardian(@PathVariable UUID guardianId) {
+        return receivablesFacade.getAllMappingsForGuardian(guardianId);
     }
 
     @PostMapping(value = "transactions/import", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

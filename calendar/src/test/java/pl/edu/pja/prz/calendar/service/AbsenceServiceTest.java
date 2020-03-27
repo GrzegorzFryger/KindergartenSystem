@@ -12,7 +12,10 @@ import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -20,6 +23,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class AbsenceServiceTest {
 	private Absence absence;
+	private List<Absence> absenceList;
 	@Mock
 	private AbsenceRepository repository;
 	private AbsenceServiceImpl service;
@@ -32,6 +36,9 @@ public class AbsenceServiceTest {
 		absence.setReason("Choroba");
 		absence.setDate(LocalDate.of(2019, Month.APRIL, 14));
 		absence.setId(1L);
+
+		absenceList = new ArrayList<>();
+		absenceList.add(absence);
 	}
 
 	@Test
@@ -95,5 +102,43 @@ public class AbsenceServiceTest {
 
 		//Then
 		verify(repository, times(1)).deleteById(anyLong());
+	}
+
+	@Test
+	public void ShouldGetAllAbsencesByDate() {
+		//Given
+		when(repository.findAllByDate(any(LocalDate.class))).thenReturn(absenceList);
+
+		//When
+		service.getAllAbsencesByDate(LocalDate.now());
+
+		//Then
+		verify(repository, times(1)).findAllByDate(any(LocalDate.class));
+	}
+
+	@Test
+	public void ShouldGetAllAbsencesByChildId() {
+		//Given
+		when(repository.findAllByChildId(any(UUID.class))).thenReturn(absenceList);
+
+		//When
+		service.getAllAbsencesByChildId(UUID.randomUUID());
+
+		//Then
+		verify(repository, times(1)).findAllByChildId(any(UUID.class));
+	}
+
+	@Test
+	public void ShouldGetAllAbsencesForChildBetweenDates() {
+		//Given
+		when(repository.findAllByChildIdBetweenDates(any(UUID.class), any(LocalDate.class),
+				any(LocalDate.class))).thenReturn(absenceList);
+
+		//When
+		service.getAllAbsencesForChildBetweenDates(UUID.randomUUID(), LocalDate.now(), LocalDate.now());
+
+		//Then
+		verify(repository, times(1)).findAllByChildIdBetweenDates(any(UUID.class),
+				any(LocalDate.class), any(LocalDate.class));
 	}
 }

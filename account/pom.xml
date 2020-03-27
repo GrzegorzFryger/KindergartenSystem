@@ -28,7 +28,7 @@
         <dependency>
             <groupId>org.jooq</groupId>
             <artifactId>jool</artifactId>
-            <version>0.9.14</version>
+            <version>${jool.version}</version>
         </dependency>
     </dependencies>
     
@@ -61,11 +61,8 @@
                 <configuration>
                     <excludes>
                         <exclude>**/pl/edu/pja/prz/account/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/account/model/value/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/account/exception/*</exclude>
                         <exclude>**/pl/edu/pja/prz/account/configuration/*</exclude>
                         <exclude>**/pl/edu/pja/prz/account/repository/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/account/service/*</exclude>
                     </excludes>
                 </configuration>
             </plugin>

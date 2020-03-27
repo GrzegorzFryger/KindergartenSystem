@@ -14,4 +14,6 @@ public interface DayOffWorkFacade {
 	DayOffWorkDto getDayOffWork(Long id);
 
 	List<DayOffWorkDto> getAllDaysOff();
+
+	List<DayOffWorkDto> createDaysOffOnWeekends(int year);
 }

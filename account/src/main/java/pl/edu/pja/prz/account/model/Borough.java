@@ -26,11 +26,6 @@ public class Borough extends BaseEntityLong {
 	public Borough() {
 	}
 
-	public Borough(String name, Address address, Phone phone, String email, String nipNumber, Set<Child> children) {
-		this(name, address, phone, email, nipNumber);
-		this.children = children;
-	}
-
 	public Borough(String name, Address address, Phone phone, String email, String nipNumber) {
 		this.name = name;
 		this.address = address;

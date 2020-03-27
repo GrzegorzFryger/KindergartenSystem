@@ -9,6 +9,7 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 import pl.edu.pja.prz.receivables.model.CashPayment;
 import pl.edu.pja.prz.receivables.model.Transaction;
+import pl.edu.pja.prz.receivables.model.TransactionMapping;
 import pl.edu.pja.prz.receivables.model.dto.IncomingPaymentDto;
 import pl.edu.pja.prz.receivables.service.*;
 
@@ -21,6 +22,7 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -188,6 +190,7 @@ class ReceivablesFacadeTest {
         List<Transaction> result = facade.getTransactionListFromCsv(input, "UTF8");
 
         //Then
+        assertNotNull(result);
         verify(csvParsingService, times(1)).parseTransactionsFromCsvFile(any(MultipartFile.class), anyString());
         verify(transactionService, times(1)).save(any(Transaction.class));
         verify(transactionMappingService, times(1)).mapTransaction(any(Transaction.class));
@@ -206,6 +209,7 @@ class ReceivablesFacadeTest {
         List<Transaction> result = facade.getTransactionListFromCsv(input, "");
 
         //Then
+        assertNotNull(result);
         verify(csvParsingService, times(1)).parseTransactionsFromCsvFile(any(MultipartFile.class), anyString());
         verify(transactionService, times(1)).save(any(Transaction.class));
         verify(transactionMappingService, times(1)).mapTransaction(any(Transaction.class));
@@ -223,6 +227,7 @@ class ReceivablesFacadeTest {
         List<IncomingPaymentDto> result = facade.getAllIncomingPaymentsByChildId(UUID.randomUUID());
 
         //Then
+        assertNotNull(result);
         assertEquals(1, result.size());
         verify(incomingPaymentsService, times(1)).getAllPaymentsForChild(any(UUID.class));
     }
@@ -238,6 +243,7 @@ class ReceivablesFacadeTest {
         List<IncomingPaymentDto> result = facade.getAllIncomingPaymentsByGuardianId(UUID.randomUUID());
 
         //Then
+        assertNotNull(result);
         assertEquals(1, result.size());
         verify(incomingPaymentsService, times(1)).getAllPaymentsForGuardian(any(UUID.class));
     }
@@ -258,6 +264,7 @@ class ReceivablesFacadeTest {
 
 
         //Then
+        assertNotNull(result);
         assertEquals(1, result.size());
         verify(incomingPaymentsService, times(1))
                 .getAllPaymentsForChild(any(UUID.class), any(LocalDate.class), any(LocalDate.class));
@@ -278,8 +285,40 @@ class ReceivablesFacadeTest {
         List<IncomingPaymentDto> result = facade.getAllIncomingPaymentsByGuardianId(UUID.randomUUID(), start, end);
 
         //Then
+        assertNotNull(result);
         assertEquals(1, result.size());
         verify(incomingPaymentsService, times(1))
                 .getAllPaymentsForGuardian(any(UUID.class), any(LocalDate.class), any(LocalDate.class));
+    }
+
+    @Test
+    public void Should_GetAllMappingsForGuardian() {
+        //Given
+        List<TransactionMapping> transactionMappings = new ArrayList<>();
+        transactionMappings.add(new TransactionMapping());
+        transactionMappings.add(new TransactionMapping());
+
+        //When
+        when(transactionMappingService.getAllByGuardianId(any(UUID.class))).thenReturn(transactionMappings);
+        List<TransactionMapping> result = facade.getAllMappingsForGuardian(UUID.randomUUID());
+
+
+        //Then
+        assertNotNull(result);
+        assertEquals(2, result.size());
+        verify(transactionMappingService, only()).getAllByGuardianId(any(UUID.class));
+    }
+
+    @Test
+    public void Should_AddTransactionMapping() {
+        //Given
+        UUID childId = UUID.randomUUID();
+        UUID guardianId = UUID.randomUUID();
+
+        //When
+        facade.addTransactionMapping(guardianId, childId, "John", "Snow");
+
+        //Then
+        verify(transactionMappingService, only()).create(any(UUID.class), any(UUID.class), anyString(), anyString());
     }
 }
