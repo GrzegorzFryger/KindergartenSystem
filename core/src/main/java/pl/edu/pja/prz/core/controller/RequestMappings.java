@@ -9,6 +9,9 @@ public class RequestMappings {
     public static final String API_RECEIVABLES = "/api/receivables/";
     public static final String API_MAIL = "/api/mail/";
     public static final String API_SCHEDULER = "/api/scheduler/";
+    public static final String API_MEALS_DICTIONARY = "api/dictionary/meal/";
+    public static final String API_MEALS_PRICE = "api/meal/price";
+    public static final String API_MEALS = "api/meal";
 
     private RequestMappings() {
 
