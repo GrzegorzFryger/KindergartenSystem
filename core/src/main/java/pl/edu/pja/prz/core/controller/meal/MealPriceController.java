@@ -23,13 +23,13 @@ public class MealPriceController {
     }
 
     @PostMapping
-    @PreAuthorize(HAS_ROLE_TEACHER + OR + HAS_ROLE_ADMIN)
+    @PreAuthorize(HAS_ROLE_ADMIN)
     public MealPrice creatMealPrice(@RequestBody  MealPrice mealPrice)  {
         return mealPriceFacade.creatMealPrice(mealPrice);
     }
 
     @PutMapping
-    @PreAuthorize(HAS_ROLE_TEACHER + OR + HAS_ROLE_ADMIN)
+    @PreAuthorize(HAS_ROLE_ADMIN)
     public MealPrice updateMealPrice(@RequestBody MealPrice mealPrice, @RequestParam("id") long id)  {
         return mealPriceFacade.updateMealPrice(mealPrice, id);
     }
@@ -41,7 +41,7 @@ public class MealPriceController {
     }
 
     @DeleteMapping
-    @PreAuthorize(HAS_ROLE_TEACHER + OR + HAS_ROLE_ADMIN)
+    @PreAuthorize(HAS_ROLE_ADMIN)
     public void deleteMealPriceById(@RequestParam("id") long id) {
         mealPriceFacade.deleteMealPriceById(id);
     }
