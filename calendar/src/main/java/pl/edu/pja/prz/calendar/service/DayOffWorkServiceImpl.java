@@ -74,6 +74,10 @@ public class DayOffWorkServiceImpl implements DayOffWorkService {
 	}
 
 	@Override
+
+	public boolean isTodayDayOff() {
+		return dayOffWorkRepository.findDayOffWorkByDate(LocalDate.now()).isPresent();
+	}
 	public List<DayOffWork> createDaysOffOnWeekends(int year) {
 		List<LocalDate> weekendDateList = findWeekends(year);
 		List<DayOffWork> weekendsOff = new ArrayList<>();
@@ -105,5 +109,6 @@ public class DayOffWorkServiceImpl implements DayOffWorkService {
 			calendar.add(Calendar.DAY_OF_YEAR, 1);
 		}
 		return weekendList;
+
 	}
 }

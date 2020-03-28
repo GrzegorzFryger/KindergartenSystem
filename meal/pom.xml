@@ -28,6 +28,10 @@
             <groupId>pl.edu.pja.prz</groupId>
             <artifactId>finances</artifactId>
         </dependency>
+        <dependency>
+            <groupId>pl.edu.pja.prz</groupId>
+            <artifactId>calendar</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -38,6 +42,8 @@
                 <configuration>
                     <excludes>
                         <exclude>**/pl/edu/pja/prz/meal/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/meal/model/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/meal/model/dto/*</exclude>
                         <exclude>**/pl/edu/pja/prz/meal/job/*</exclude>
                         <exclude>**/pl/edu/pja/prz/meal/exception/*</exclude>
                         <exclude>**/pl/edu/pja/prz/meal/configuration/*</exclude>
