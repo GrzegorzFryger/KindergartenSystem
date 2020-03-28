@@ -58,6 +58,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(AUTH_LOGIN_URL).permitAll()
                 .anyRequest().authenticated()
                 .and()
+                .requiresChannel().anyRequest().requiresSecure()
+                .and()
                 .addFilter(new JwtAuthenticationFilter(super.authenticationManagerBean(), jwtTokenProvider))
                 .addFilter(new JwtAuthorizationFilter(super.authenticationManagerBean(), jwtTokenProvider))
                 .sessionManagement()
