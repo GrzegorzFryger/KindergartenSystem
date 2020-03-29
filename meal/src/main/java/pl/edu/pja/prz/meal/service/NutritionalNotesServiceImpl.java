@@ -2,6 +2,7 @@ package pl.edu.pja.prz.meal.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.meal.model.NutritionalNotes;
 import pl.edu.pja.prz.meal.model.dto.NutritionalNotesDTO;
 import pl.edu.pja.prz.meal.repository.MealNutritionalNotesRepository;
@@ -37,7 +38,9 @@ public class NutritionalNotesServiceImpl implements NutritionalNotesService{
 
     @Override
     public NutritionalNotes getNutritionalNotesById(Long id) {
-        return null;
+
+        return mealNutritionalNotesRepository.findById(id).orElseThrow(() ->
+                new ElementNotFoundException(id));
     }
 
     @Override
