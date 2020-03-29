@@ -12,6 +12,7 @@ public class RequestMappings {
     public static final String API_MEALS_DICTIONARY = "api/dictionary/meal/";
     public static final String API_MEALS_PRICE = "api/meal/price";
     public static final String API_MEALS = "api/meal";
+    public static final String API_NUTRITIONAL_NOTES = "api/meal/nn";
 
     private RequestMappings() {
 
