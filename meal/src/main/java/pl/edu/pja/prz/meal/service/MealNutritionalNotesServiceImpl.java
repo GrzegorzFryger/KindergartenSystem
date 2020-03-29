@@ -9,6 +9,7 @@ import pl.edu.pja.prz.meal.model.dto.NutritionalNotesDTO;
 import pl.edu.pja.prz.meal.repository.MealNutritionalNotesRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MealNutritionalNotesServiceImpl implements MealNutritionalNotesService {
@@ -53,13 +54,17 @@ public class MealNutritionalNotesServiceImpl implements MealNutritionalNotesServ
 
             Meal meal = mealService.getMealByID(mealId);
             List<NutritionalNotes> nutritionalNotes = meal.getNutritionalNotesList();
-            meal.getNutritionalNotesList().forEach(u -> {
-                if(u.getId().equals(nnId)) {
-                    nutritionalNotes.remove(u);
-                }
-            });
-            mealService.updateMealNutritionalNotes(mealId,nutritionalNotes);
-            mealNutritionalNotesRepository.deleteById(nnId);
+
+            Optional<NutritionalNotes> objectToRemove = nutritionalNotes.stream()
+                    .filter(u -> u.getId().equals(nnId))
+                    .findFirst();
+
+            if(objectToRemove.isPresent()) {
+                nutritionalNotes.remove(objectToRemove.get());
+                mealService.updateMealNutritionalNotes(mealId,nutritionalNotes);
+                mealNutritionalNotesRepository.deleteById(nnId);
+            }
+
         }
         return mealService.getNutritionalNotesByMealId(mealId);
     }
