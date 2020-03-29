@@ -27,7 +27,12 @@ public class NutritionalNotesServiceImpl implements NutritionalNotesService{
 
     @Override
     public NutritionalNotes addNutritionalNotes(NutritionalNotesDTO nutritionalNotesDTO) {
-
+        return mealNutritionalNotesRepository.save(
+                NutritionalNotes.create(
+                        nutritionalNotesDTO,
+                        mealService.getMealByID(nutritionalNotesDTO.getMealId())
+                )
+        );
     }
 
     @Override
