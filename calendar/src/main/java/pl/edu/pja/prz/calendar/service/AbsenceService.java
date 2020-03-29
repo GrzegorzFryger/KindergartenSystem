@@ -21,4 +21,6 @@ public interface AbsenceService {
 	List<Absence> getAllAbsencesByChildId(UUID id);
 
 	List<Absence> getAllAbsencesForChildBetweenDates(UUID id, LocalDate startDate, LocalDate endDate);
+
+	List<Absence> createAbsencesForChildBetweenDates(UUID id, LocalDate startDate, LocalDate endDate, String reason);
 }
