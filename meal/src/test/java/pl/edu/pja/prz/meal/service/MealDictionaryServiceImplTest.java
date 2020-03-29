@@ -11,16 +11,16 @@ import static org.junit.Assert.assertNotNull;
 
 
 @ExtendWith(MockitoExtension.class)
-public class MealDictionaryServiceTest {
+public class MealDictionaryServiceImplTest {
 
-    private MealDictionaryService mealDictionaryService = new MealDictionaryService();
+    private MealDictionaryServiceImpl mealDictionaryServiceImpl = new MealDictionaryServiceImpl();
 
     @Test
     public void Should_GetAllMealsType() {
         //given
         List<DictionaryObjectDTO> dictionaryObjectDTOList;
         //when
-        dictionaryObjectDTOList = mealDictionaryService.getAllMealTypes();
+        dictionaryObjectDTOList = mealDictionaryServiceImpl.getAllMealTypes();
         //then
         assertNotNull(dictionaryObjectDTOList);
     }
