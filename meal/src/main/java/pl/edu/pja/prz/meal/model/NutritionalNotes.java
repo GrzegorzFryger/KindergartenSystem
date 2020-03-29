@@ -1,6 +1,7 @@
 package pl.edu.pja.prz.meal.model;
 
 import pl.edu.pja.prz.commons.model.BaseEntityLong;
+import pl.edu.pja.prz.meal.model.dto.NutritionalNotesDTO;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -41,6 +42,10 @@ public class NutritionalNotes extends BaseEntityLong {
 
     public void setCreatedTime(LocalDateTime createdTime) {
         this.createdTime = createdTime;
+    }
+
+    public static NutritionalNotes create(NutritionalNotesDTO nutritionalNotesDTO) {
+        return new NutritionalNotes();
     }
 
 
