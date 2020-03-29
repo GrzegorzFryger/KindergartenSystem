@@ -33,7 +33,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class NutritionalNotesServiceImplTest {
+class MealNutritionalNotesServiceImplTest {
 
     @Mock
     private MealNutritionalNotesRepository mealNutritionalNotesRepository;
@@ -47,13 +47,13 @@ class NutritionalNotesServiceImplTest {
     private FinancesFacade financesFacade;
     private MealConfigurationRepository mealConfigurationRepository;
 
-    private NutritionalNotesService nutritionalNotesService;
+    private MealNutritionalNotesService mealNutritionalNotesService;
     List<NutritionalNotes> nutritionalNotes = new ArrayList<>();
 
     @BeforeEach
     void setUp() {
         mealService = new MealServiceImpl(mealRepository, new MealPriceServiceImpl(mealPriceListRepository), mailFacade, financesFacade, mealConfigurationRepository);
-        nutritionalNotesService = new NutritionalNotesServiceImpl(mealNutritionalNotesRepository, mealService);
+        mealNutritionalNotesService = new MealNutritionalNotesServiceImpl(mealNutritionalNotesRepository, mealService);
     }
 
 
@@ -69,7 +69,7 @@ class NutritionalNotesServiceImplTest {
         when(mealNutritionalNotesRepository.findAll()).thenReturn(nutritionalNotes);
 
         //then
-        Assert.assertEquals(nutritionalNotesService.getAllNutritionalNotes(), nutritionalNotes);
+        Assert.assertEquals(mealNutritionalNotesService.getAllNutritionalNotes(), nutritionalNotes);
     }
 
     @Test
@@ -97,7 +97,7 @@ class NutritionalNotesServiceImplTest {
         when(mealNutritionalNotesRepository.save(any(NutritionalNotes.class))).thenReturn(notes);
 
         //then
-        NutritionalNotes nn = nutritionalNotesService.addNutritionalNotes(dto);
+        NutritionalNotes nn = mealNutritionalNotesService.addNutritionalNotes(dto);
         Assert.assertThat(nn, instanceOf(NutritionalNotes.class));
         Assert.assertEquals("Dziś obiad był wyjątkowo dobry", nn.getNutritionalNotesValue());
     }
@@ -114,7 +114,7 @@ class NutritionalNotesServiceImplTest {
 
         //when
         assertThrows(ElementNotFoundException.class, () -> {
-            nutritionalNotesService.addNutritionalNotes(dto);
+            mealNutritionalNotesService.addNutritionalNotes(dto);
         });
 
 
@@ -141,14 +141,14 @@ class NutritionalNotesServiceImplTest {
         when(mealNutritionalNotesRepository.findById(99L)).thenReturn(Optional.of(notes));
 
         //then
-        Assert.assertEquals(u, nutritionalNotesService.getNutritionalNotesById(99L).getMeal().getChildID());
-        Assert.assertEquals(notes.getNutritionalNotesValue(), nutritionalNotesService.getNutritionalNotesById(99L).getNutritionalNotesValue());
+        Assert.assertEquals(u, mealNutritionalNotesService.getNutritionalNotesById(99L).getMeal().getChildID());
+        Assert.assertEquals(notes.getNutritionalNotesValue(), mealNutritionalNotesService.getNutritionalNotesById(99L).getNutritionalNotesValue());
     }
 
     @Test
     void ShouldDeleteNutritionalNotesById_When_CorrectCall() {
         //when
-        nutritionalNotesService.deleteNutritionalNotesById(99L);
+        mealNutritionalNotesService.deleteNutritionalNotesById(99L);
         //then
         verify(mealNutritionalNotesRepository, times(1)).deleteById(99L);
     }

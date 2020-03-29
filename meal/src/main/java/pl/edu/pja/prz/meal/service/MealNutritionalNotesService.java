@@ -5,7 +5,7 @@ import pl.edu.pja.prz.meal.model.dto.NutritionalNotesDTO;
 
 import java.util.List;
 
-public interface NutritionalNotesService {
+public interface MealNutritionalNotesService {
 
     List<NutritionalNotes> getAllNutritionalNotes();
     NutritionalNotes addNutritionalNotes(NutritionalNotesDTO nutritionalNotesDTO);

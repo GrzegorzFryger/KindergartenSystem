@@ -10,13 +10,13 @@ import pl.edu.pja.prz.meal.repository.MealNutritionalNotesRepository;
 import java.util.List;
 
 @Service
-public class NutritionalNotesServiceImpl implements NutritionalNotesService{
+public class MealNutritionalNotesServiceImpl implements MealNutritionalNotesService {
 
     private MealNutritionalNotesRepository mealNutritionalNotesRepository;
     private MealService mealService;
 
     @Autowired
-    public NutritionalNotesServiceImpl(MealNutritionalNotesRepository mealNutritionalNotesRepository, MealService mealService) {
+    public MealNutritionalNotesServiceImpl(MealNutritionalNotesRepository mealNutritionalNotesRepository, MealService mealService) {
         this.mealNutritionalNotesRepository = mealNutritionalNotesRepository;
         this.mealService = mealService;
     }
