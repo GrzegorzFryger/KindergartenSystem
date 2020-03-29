@@ -45,6 +45,7 @@ public class NutritionalNotesServiceImpl implements NutritionalNotesService{
 
     @Override
     public void deleteNutritionalNotesById(Long id) {
+        mealNutritionalNotesRepository.deleteById(id);
 
     }
 }
