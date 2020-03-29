@@ -10,6 +10,7 @@ import pl.edu.pja.prz.mail.facade.MailFacade;
 import pl.edu.pja.prz.mail.model.BaseMail;
 import pl.edu.pja.prz.meal.model.Meal;
 import pl.edu.pja.prz.meal.model.MealConfiguration;
+import pl.edu.pja.prz.meal.model.NutritionalNotes;
 import pl.edu.pja.prz.meal.model.dto.MealCreateUpdateDTO;
 import pl.edu.pja.prz.meal.model.enums.MealStatus;
 import pl.edu.pja.prz.meal.repository.MealConfigurationRepository;
@@ -86,6 +87,7 @@ public class MealServiceImpl implements MealService {
             mealToUpdate.setMealToDate(LocalDateTime.of(meal.getMealToDate(), LocalTime.MIDNIGHT));
         }
 
+
         return mealRepository.save(mealToUpdate);
     }
 
@@ -159,6 +161,12 @@ public class MealServiceImpl implements MealService {
         activeMeals.forEach(u -> {
             financesFacade.decreaseBalance(u.getChildID(), u.getMealPrice(), u.getMealType() + "w dniu " + LocalDate.now() );
         });
+    }
+
+    public Meal updateMealNutritionalNotes(Long mealId, List<NutritionalNotes> nutritionalNotes){
+        Meal mealToUpdate = getMealByID(mealId);
+        mealToUpdate.setNutritionalNotesList(nutritionalNotes);
+        return mealRepository.save(mealToUpdate);
     }
 
 }

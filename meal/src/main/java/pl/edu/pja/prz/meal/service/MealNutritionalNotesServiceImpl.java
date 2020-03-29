@@ -3,6 +3,7 @@ package pl.edu.pja.prz.meal.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
+import pl.edu.pja.prz.meal.model.Meal;
 import pl.edu.pja.prz.meal.model.NutritionalNotes;
 import pl.edu.pja.prz.meal.model.dto.NutritionalNotesDTO;
 import pl.edu.pja.prz.meal.repository.MealNutritionalNotesRepository;
@@ -27,13 +28,15 @@ public class MealNutritionalNotesServiceImpl implements MealNutritionalNotesServ
     }
 
     @Override
-    public NutritionalNotes addNutritionalNotes(NutritionalNotesDTO nutritionalNotesDTO) {
-        return mealNutritionalNotesRepository.save(
-                NutritionalNotes.create(
-                        nutritionalNotesDTO,
-                        mealService.getMealByID(nutritionalNotesDTO.getMealId())
-                )
-        );
+    public List<NutritionalNotes> addNutritionalNotes(NutritionalNotesDTO nutritionalNotesDTO) {
+
+        Meal meal = mealService.getMealByID(nutritionalNotesDTO.getMealId());
+        List<NutritionalNotes> updatedList = meal.getNutritionalNotesList();
+        updatedList.add( NutritionalNotes.create(nutritionalNotesDTO));
+
+        Meal updatedMeal = mealService.updateMealNutritionalNotes(meal.getId(), updatedList);
+
+        return updatedMeal.getNutritionalNotesList();
     }
 
     @Override

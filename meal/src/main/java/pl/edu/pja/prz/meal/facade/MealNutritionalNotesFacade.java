@@ -22,7 +22,7 @@ public class MealNutritionalNotesFacade {
         return mealNutritionalNotesService.getAllNutritionalNotes();
     }
 
-    public NutritionalNotes addNutritionalNotes(NutritionalNotesDTO nutritionalNotesDTO) {
+    public List<NutritionalNotes> addNutritionalNotes(NutritionalNotesDTO nutritionalNotesDTO) {
         return mealNutritionalNotesService.addNutritionalNotes(nutritionalNotesDTO);
     }
 

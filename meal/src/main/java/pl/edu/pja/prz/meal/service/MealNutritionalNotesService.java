@@ -8,7 +8,7 @@ import java.util.List;
 public interface MealNutritionalNotesService {
 
     List<NutritionalNotes> getAllNutritionalNotes();
-    NutritionalNotes addNutritionalNotes(NutritionalNotesDTO nutritionalNotesDTO);
+    List<NutritionalNotes> addNutritionalNotes(NutritionalNotesDTO nutritionalNotesDTO);
     NutritionalNotes getNutritionalNotesById(Long id);
     void deleteNutritionalNotesById(Long id);
 

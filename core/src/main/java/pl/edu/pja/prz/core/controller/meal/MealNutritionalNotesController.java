@@ -29,7 +29,7 @@ public class MealNutritionalNotesController {
 
     @PostMapping
     @PreAuthorize(HAS_ANY_ROLE)
-    NutritionalNotes addNutritionalNotes(@RequestBody NutritionalNotesDTO nutritionalNotesDTO) {
+    List<NutritionalNotes> addNutritionalNotes(@RequestBody NutritionalNotesDTO nutritionalNotesDTO) {
         return mealNutritionalNotesFacade.addNutritionalNotes(nutritionalNotesDTO);
     }
 

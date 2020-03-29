@@ -27,9 +27,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.hamcrest.core.IsInstanceOf.instanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -74,32 +72,31 @@ class MealNutritionalNotesServiceImplTest {
 
     @Test
     void ShouldAddNutritionalNotes_When_CorrectCall() {
-        //given
-        Meal meal = new Meal(new BigDecimal("44.22"),
-                LocalDateTime.MIN,
-                LocalDateTime.MAX,
-                DietType.VEGAN,
-                MealStatus.ACTIVE,
-                MealType.BREAKFAST,
-                UUID.randomUUID());
+//        //given
+//        Meal meal = new Meal(new BigDecimal("44.22"),
+//                LocalDateTime.MIN,
+//                LocalDateTime.MAX,
+//                DietType.VEGAN,
+//                MealStatus.ACTIVE,
+//                MealType.BREAKFAST,
+//                UUID.randomUUID(),
+//                new ArrayList<>());
+//
+//        NutritionalNotesDTO dto = new NutritionalNotesDTO("Dziś obiad był wyjątkowo dobry",
+//                99L,
+//                LocalDateTime.now());
+//
+//        NutritionalNotes notes = new NutritionalNotes("Dziś obiad był wyjątkowo dobry",
+//                LocalDateTime.now());
+//
+//
+//        //when
+//        when(mealRepository.findById(any())).thenReturn(Optional.of(meal));
+//        when(mealNutritionalNotesRepository.save(any(NutritionalNotes.class))).thenReturn(notes);
+//
+//        //then
 
-        NutritionalNotesDTO dto = new NutritionalNotesDTO("Dziś obiad był wyjątkowo dobry",
-                99L,
-                LocalDateTime.now());
 
-        NutritionalNotes notes = new NutritionalNotes("Dziś obiad był wyjątkowo dobry",
-                meal,
-                LocalDateTime.now());
-
-
-        //when
-        when(mealRepository.findById(99L)).thenReturn(Optional.of(meal));
-        when(mealNutritionalNotesRepository.save(any(NutritionalNotes.class))).thenReturn(notes);
-
-        //then
-        NutritionalNotes nn = mealNutritionalNotesService.addNutritionalNotes(dto);
-        Assert.assertThat(nn, instanceOf(NutritionalNotes.class));
-        Assert.assertEquals("Dziś obiad był wyjątkowo dobry", nn.getNutritionalNotesValue());
     }
 
     @Test
@@ -131,17 +128,16 @@ class MealNutritionalNotesServiceImplTest {
                 DietType.VEGAN,
                 MealStatus.ACTIVE,
                 MealType.BREAKFAST,
-                u);
+                u,
+                new ArrayList<>());
 
         NutritionalNotes notes = new NutritionalNotes("Dziś obiad był wyjątkowo dobry",
-                meal,
                 LocalDateTime.now());
 
         //when
         when(mealNutritionalNotesRepository.findById(99L)).thenReturn(Optional.of(notes));
 
         //then
-        Assert.assertEquals(u, mealNutritionalNotesService.getNutritionalNotesById(99L).getMeal().getChildID());
         Assert.assertEquals(notes.getNutritionalNotesValue(), mealNutritionalNotesService.getNutritionalNotesById(99L).getNutritionalNotesValue());
     }
 

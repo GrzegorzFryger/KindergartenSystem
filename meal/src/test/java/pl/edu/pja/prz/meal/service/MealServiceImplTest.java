@@ -54,7 +54,7 @@ public class MealServiceImplTest {
         mealService = new MealServiceImpl(mealRepository, new MealPriceServiceImpl(mealPriceListRepository), mailFacade, financesFacade, mealConfigurationRepository);
 
         mealCreateUpdateDTO =
-                new MealCreateUpdateDTO(new BigDecimal(1), MealType.BREAKFAST, DietType.VEGAN, UUID.randomUUID(), LocalDate.MIN, LocalDate.MAX);
+                new MealCreateUpdateDTO(new BigDecimal(1), MealType.BREAKFAST, DietType.VEGAN, UUID.randomUUID(), LocalDate.MIN, LocalDate.MAX, new ArrayList<>());
     }
 
 
@@ -62,7 +62,7 @@ public class MealServiceImplTest {
     public void shouldCreateMeal_When_InputArgumentIsCorrect() {
 
         //given
-        Meal meal = new Meal(new BigDecimal(99), LocalDateTime.MIN, LocalDateTime.MAX, DietType.VEGAN, MealStatus.ACTIVE, MealType.BREAKFAST, UUID.randomUUID());
+        Meal meal = new Meal(new BigDecimal(99), LocalDateTime.MIN, LocalDateTime.MAX, DietType.VEGAN, MealStatus.ACTIVE, MealType.BREAKFAST, UUID.randomUUID(), new ArrayList<>());
 
         //when
         when(mealRepository.findMealByChildIDAndMealStatusAndMealType(any(), any(), any())).thenReturn(Optional.empty());
@@ -81,7 +81,7 @@ public class MealServiceImplTest {
     public void shouldThrowMealActivityStatusException_When_TriedToCreateMealWhichIsAlreadyActive() {
 
         //given
-        Meal meal = new Meal(new BigDecimal(99), LocalDateTime.MIN, LocalDateTime.MAX, DietType.VEGAN, MealStatus.ACTIVE, MealType.BREAKFAST, UUID.randomUUID());
+        Meal meal = new Meal(new BigDecimal(99), LocalDateTime.MIN, LocalDateTime.MAX, DietType.VEGAN, MealStatus.ACTIVE, MealType.BREAKFAST, UUID.randomUUID(), new ArrayList<>());
 
         //when
         when(mealRepository.findMealByChildIDAndMealStatusAndMealType(any(), any(), any())).thenReturn(Optional.of(meal));
@@ -139,7 +139,7 @@ public class MealServiceImplTest {
     @Test
     public void ShouldUpdateMeal_When_InputArgumentIsCorrect(){
         //given
-        Meal meal = new Meal(new BigDecimal(88), LocalDateTime.MIN, LocalDateTime.now(), DietType.VEGAN, MealStatus.ACTIVE, MealType.SOUP, UUID.randomUUID());
+        Meal meal = new Meal(new BigDecimal(88), LocalDateTime.MIN, LocalDateTime.now(), DietType.VEGAN, MealStatus.ACTIVE, MealType.SOUP, UUID.randomUUID(), new ArrayList<>());
         when(mealService.isMealPresentByID(1L)).thenReturn(true);
         when(mealRepository.findMealByIdAndMealStatus(any(), any())).thenReturn(Optional.empty());
         when(mealRepository.findById(1L)).thenReturn(Optional.of(meal));
@@ -166,7 +166,7 @@ public class MealServiceImplTest {
     public void ShouldReturnMealActivityStatusException_When_TriedToUpdateMealWithIsNotActive() {
 
         //given
-        Meal meal = new Meal(BigDecimal.ONE, LocalDateTime.MIN, LocalDateTime.MAX, DietType.VEGAN, MealStatus.INACTIVE,  MealType.BREAKFAST, UUID.randomUUID() );
+        Meal meal = new Meal(BigDecimal.ONE, LocalDateTime.MIN, LocalDateTime.MAX, DietType.VEGAN, MealStatus.INACTIVE,  MealType.BREAKFAST, UUID.randomUUID(), new ArrayList<>() );
         when(mealRepository.existsById(1L)).thenReturn(true);
         when(mealRepository.findMealByIdAndMealStatus(1L, MealStatus.INACTIVE)).thenReturn(Optional.of(MealCreateUpdateDTO.createMealFactory(mealCreateUpdateDTO)));
 
@@ -181,7 +181,7 @@ public class MealServiceImplTest {
         //given
         when(mealRepository.existsById(1L)).thenReturn(true);
         when(mealRepository.findMealByIdAndMealStatus(any(), any())).thenReturn(Optional.empty());
-        Meal meal = new Meal(BigDecimal.ONE, LocalDateTime.MIN, LocalDateTime.MAX, DietType.VEGAN, MealStatus.ACTIVE, MealType.BREAKFAST, UUID.randomUUID() );
+        Meal meal = new Meal(BigDecimal.ONE, LocalDateTime.MIN, LocalDateTime.MAX, DietType.VEGAN, MealStatus.ACTIVE, MealType.BREAKFAST, UUID.randomUUID(), new ArrayList<>() );
 
         when(mealRepository.findById(1L)).thenReturn(Optional.of(meal));
 
@@ -204,7 +204,7 @@ public class MealServiceImplTest {
     public void ShouldReturnMealActivityStatusException_When_TriedToMarkMealAsInactiveOnDemandWithIsNotActive() {
         //given
         when(mealRepository.existsById(111L)).thenReturn(true);
-        Meal meal = new Meal(BigDecimal.ONE, LocalDateTime.MIN, LocalDateTime.MAX, DietType.VEGAN, MealStatus.ACTIVE, MealType.BREAKFAST, UUID.randomUUID() );
+        Meal meal = new Meal(BigDecimal.ONE, LocalDateTime.MIN, LocalDateTime.MAX, DietType.VEGAN, MealStatus.ACTIVE, MealType.BREAKFAST, UUID.randomUUID(), new ArrayList<>() );
         when(mealRepository.findMealByIdAndMealStatus(any(), any())).thenReturn(Optional.of(meal));
 
 
@@ -218,8 +218,8 @@ public class MealServiceImplTest {
     public void ShouldGetAllMeals_When_InputArgumentIsCorrect() {
         //given
         List<Meal> meals = new ArrayList<>();
-        meals.add(new Meal(BigDecimal.ONE, LocalDateTime.MIN, LocalDateTime.MAX, DietType.VEGAN, MealStatus.ACTIVE, MealType.BREAKFAST, UUID.randomUUID() ));
-        meals.add(new Meal(BigDecimal.ONE, LocalDateTime.MIN, LocalDateTime.MAX, DietType.VEGAN, MealStatus.INACTIVE, MealType.BREAKFAST, UUID.randomUUID() ));
+        meals.add(new Meal(BigDecimal.ONE, LocalDateTime.MIN, LocalDateTime.MAX, DietType.VEGAN, MealStatus.ACTIVE, MealType.BREAKFAST, UUID.randomUUID(), new ArrayList<>() ));
+        meals.add(new Meal(BigDecimal.ONE, LocalDateTime.MIN, LocalDateTime.MAX, DietType.VEGAN, MealStatus.INACTIVE, MealType.BREAKFAST, UUID.randomUUID(), new ArrayList<>() ));
         when(mealRepository.findAll()).thenReturn(meals);
 
         //when
@@ -233,7 +233,7 @@ public class MealServiceImplTest {
     public void ShouldGetAllActiveMeals_When_InputArgumentIsCorrect() {
         //given
         List<Meal> meals = new ArrayList<>();
-        meals.add(new Meal(BigDecimal.ONE, LocalDateTime.MIN, LocalDateTime.MAX, DietType.VEGAN, MealStatus.ACTIVE, MealType.BREAKFAST, UUID.randomUUID() ));
+        meals.add(new Meal(BigDecimal.ONE, LocalDateTime.MIN, LocalDateTime.MAX, DietType.VEGAN, MealStatus.ACTIVE, MealType.BREAKFAST, UUID.randomUUID(), new ArrayList<>() ));
         when(mealRepository.findAllByMealStatus(MealStatus.ACTIVE)).thenReturn(meals);
 
         //when
@@ -247,9 +247,9 @@ public class MealServiceImplTest {
     public void ShouldMarkMealsAsInactiveIfNeeded_When_InputArgumentIsCorrect() {
         //given
         List<Meal> meals = new ArrayList<>();
-        meals.add(new Meal(BigDecimal.ONE, LocalDateTime.MIN, LocalDateTime.MIN, DietType.VEGAN, MealStatus.ACTIVE, MealType.BREAKFAST, UUID.randomUUID() ));
-        meals.add(new Meal(BigDecimal.ONE, LocalDateTime.MIN, LocalDateTime.MIN, DietType.VEGAN, MealStatus.ACTIVE, MealType.BREAKFAST, UUID.randomUUID() ));
-        meals.add(new Meal(BigDecimal.ONE, LocalDateTime.MIN, LocalDateTime.MIN, DietType.VEGAN, MealStatus.ACTIVE, MealType.BREAKFAST, UUID.randomUUID() ));
+        meals.add(new Meal(BigDecimal.ONE, LocalDateTime.MIN, LocalDateTime.MIN, DietType.VEGAN, MealStatus.ACTIVE, MealType.BREAKFAST, UUID.randomUUID(), new ArrayList<>() ));
+        meals.add(new Meal(BigDecimal.ONE, LocalDateTime.MIN, LocalDateTime.MIN, DietType.VEGAN, MealStatus.ACTIVE, MealType.BREAKFAST, UUID.randomUUID(), new ArrayList<>() ));
+        meals.add(new Meal(BigDecimal.ONE, LocalDateTime.MIN, LocalDateTime.MIN, DietType.VEGAN, MealStatus.ACTIVE, MealType.BREAKFAST, UUID.randomUUID(), new ArrayList<>() ));
         when(mealRepository.findAllByMealStatus(MealStatus.ACTIVE)).thenReturn(meals);
 
         //when

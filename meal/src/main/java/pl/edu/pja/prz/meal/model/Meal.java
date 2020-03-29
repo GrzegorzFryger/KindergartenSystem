@@ -27,7 +27,7 @@ public class Meal extends BaseEntityLong {
     @Type(type = "uuid-char")
     @Column(length = 36)
     private UUID childID;
-    @OneToMany(mappedBy = "meal", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<NutritionalNotes> nutritionalNotesList;
 
 
@@ -37,7 +37,7 @@ public class Meal extends BaseEntityLong {
 
 
     public Meal(BigDecimal mealPrice, LocalDateTime mealFromDate, LocalDateTime mealToDate, DietType dietType,
-                MealStatus mealStatus, MealType mealType, UUID childID) {
+                MealStatus mealStatus, MealType mealType, UUID childID, List<NutritionalNotes> nutritionalNotesList) {
         this.mealPrice = mealPrice;
         this.mealFromDate = mealFromDate;
         this.mealToDate = mealToDate;
@@ -45,6 +45,7 @@ public class Meal extends BaseEntityLong {
         this.mealType = mealType;
         this.dietType = dietType;
         this.childID = childID;
+        this.nutritionalNotesList = nutritionalNotesList;
     }
 
     public void setMealPrice(BigDecimal mealPrice) {
@@ -121,21 +122,20 @@ public class Meal extends BaseEntityLong {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Meal meal = (Meal) o;
-        return mealPrice.equals(meal.mealPrice) &&
-                mealFromDate.equals(meal.mealFromDate) &&
-                mealToDate.equals(meal.mealToDate) &&
+        return Objects.equals(mealPrice, meal.mealPrice) &&
+                Objects.equals(mealFromDate, meal.mealFromDate) &&
+                Objects.equals(mealToDate, meal.mealToDate) &&
                 mealStatus == meal.mealStatus &&
                 mealType == meal.mealType &&
                 dietType == meal.dietType &&
-                childID.equals(meal.childID) &&
-                nutritionalNotesList.equals(meal.nutritionalNotesList);
+                Objects.equals(childID, meal.childID) &&
+                Objects.equals(nutritionalNotesList, meal.nutritionalNotesList);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), mealPrice, mealFromDate, mealToDate, mealStatus, mealType, dietType, childID, nutritionalNotesList);
     }
-
 
     @Override
     public String toString() {

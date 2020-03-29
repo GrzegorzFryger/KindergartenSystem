@@ -4,8 +4,6 @@ import pl.edu.pja.prz.commons.model.BaseEntityLong;
 import pl.edu.pja.prz.meal.model.dto.NutritionalNotesDTO;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -13,16 +11,13 @@ import java.util.Objects;
 public class NutritionalNotes extends BaseEntityLong {
 
     private String nutritionalNotesValue;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Meal meal;
     private LocalDateTime createdTime;
 
     public NutritionalNotes() {
     }
 
-    public NutritionalNotes(String nutritionalNotesValue,  Meal meal, LocalDateTime createdTime) {
+    public NutritionalNotes(String nutritionalNotesValue,  LocalDateTime createdTime) {
         this.nutritionalNotesValue = nutritionalNotesValue;
-        this.meal = meal;
         this.createdTime = createdTime;
     }
 
@@ -34,13 +29,6 @@ public class NutritionalNotes extends BaseEntityLong {
         this.nutritionalNotesValue = nutritionalNotesValue;
     }
 
-    public Meal getMeal() {
-        return meal;
-    }
-
-    public void setMeal(Meal meal) {
-        this.meal = meal;
-    }
 
     public LocalDateTime getCreatedTime() {
         return createdTime;
@@ -50,10 +38,9 @@ public class NutritionalNotes extends BaseEntityLong {
         this.createdTime = createdTime;
     }
 
-    public static NutritionalNotes create(NutritionalNotesDTO dto, Meal meal) {
+    public static NutritionalNotes create(NutritionalNotesDTO dto) {
         return new NutritionalNotes(
                 dto.getNutritionalNotesValue(),
-                meal,
                 LocalDateTime.now()
         );
     }
@@ -66,20 +53,18 @@ public class NutritionalNotes extends BaseEntityLong {
         if (!super.equals(o)) return false;
         NutritionalNotes that = (NutritionalNotes) o;
         return Objects.equals(nutritionalNotesValue, that.nutritionalNotesValue) &&
-                Objects.equals(meal, that.meal) &&
                 Objects.equals(createdTime, that.createdTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), nutritionalNotesValue, meal, createdTime);
+        return Objects.hash(super.hashCode(), nutritionalNotesValue, createdTime);
     }
 
     @Override
     public String  toString() {
         return "NutritionalNotes{" +
                 "nutritionalNotesValue='" + nutritionalNotesValue + '\'' +
-                ", meal=" + meal +
                 ", createdTime=" + createdTime +
                 '}';
     }
