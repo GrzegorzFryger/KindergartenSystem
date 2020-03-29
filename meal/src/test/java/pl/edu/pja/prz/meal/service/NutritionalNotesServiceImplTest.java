@@ -6,21 +6,29 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
+import pl.edu.pja.prz.finances.facade.FinancesFacade;
+import pl.edu.pja.prz.mail.facade.MailFacade;
 import pl.edu.pja.prz.meal.model.Meal;
 import pl.edu.pja.prz.meal.model.NutritionalNotes;
 import pl.edu.pja.prz.meal.model.dto.NutritionalNotesDTO;
 import pl.edu.pja.prz.meal.model.enums.DietType;
 import pl.edu.pja.prz.meal.model.enums.MealStatus;
 import pl.edu.pja.prz.meal.model.enums.MealType;
+import pl.edu.pja.prz.meal.repository.MealConfigurationRepository;
 import pl.edu.pja.prz.meal.repository.MealNutritionalNotesRepository;
+import pl.edu.pja.prz.meal.repository.MealPriceRepository;
+import pl.edu.pja.prz.meal.repository.MealRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -30,13 +38,21 @@ class NutritionalNotesServiceImplTest {
     @Mock
     private MealNutritionalNotesRepository mealNutritionalNotesRepository;
     @Mock
+    private MealRepository mealRepository;
+    @Mock
+    private MealPriceRepository mealPriceListRepository;
+
     private MealService mealService;
+    private MailFacade mailFacade;
+    private FinancesFacade financesFacade;
+    private MealConfigurationRepository mealConfigurationRepository;
 
     private NutritionalNotesService nutritionalNotesService;
     List<NutritionalNotes> nutritionalNotes = new ArrayList<>();
 
     @BeforeEach
     void setUp() {
+        mealService = new MealServiceImpl(mealRepository, new MealPriceServiceImpl(mealPriceListRepository), mailFacade, financesFacade, mealConfigurationRepository);
         nutritionalNotesService = new NutritionalNotesServiceImpl(mealNutritionalNotesRepository, mealService);
     }
 
@@ -84,6 +100,25 @@ class NutritionalNotesServiceImplTest {
         NutritionalNotes nn = nutritionalNotesService.addNutritionalNotes(dto);
         Assert.assertThat(nn, instanceOf(NutritionalNotes.class));
         Assert.assertEquals("Dziś obiad był wyjątkowo dobry", nn.getNutritionalNotesValue());
+    }
+
+    @Test
+    void ShouldReturnException_AddNutritionalNotes_When_MealIsMissing() {
+
+        //given
+        when(mealRepository.findById(99L)).thenReturn(Optional.empty());
+
+        NutritionalNotesDTO dto = new NutritionalNotesDTO("Dziś obiad był wyjątkowo dobry",
+                99L,
+                LocalDateTime.now());
+
+        //when
+        assertThrows(ElementNotFoundException.class, () -> {
+            nutritionalNotesService.addNutritionalNotes(dto);
+        });
+
+
+
     }
 
     @Test
