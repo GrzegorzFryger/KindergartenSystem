@@ -1,6 +1,7 @@
 package pl.edu.pja.prz.meal.model.dto;
 
 import pl.edu.pja.prz.meal.model.Meal;
+import pl.edu.pja.prz.meal.model.NutritionalNotes;
 import pl.edu.pja.prz.meal.model.enums.DietType;
 import pl.edu.pja.prz.meal.model.enums.MealStatus;
 import pl.edu.pja.prz.meal.model.enums.MealType;
@@ -9,6 +10,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -20,15 +22,18 @@ public class MealCreateUpdateDTO {
 	private UUID childID;
 	private LocalDate mealFromDate;
 	private LocalDate mealToDate;
+	private List<NutritionalNotes> nutritionalNotesList;
 
 	public MealCreateUpdateDTO(BigDecimal mealPrice, MealType mealType, DietType dietType, UUID childID,
-							   LocalDate mealFromDate, LocalDate mealToDate) {
+							   LocalDate mealFromDate, LocalDate mealToDate,
+							   List<NutritionalNotes> nutritionalNotesList) {
 		this.mealPrice = mealPrice;
 		this.mealType = mealType;
-		this.childID = childID;
 		this.dietType = dietType;
+		this.childID = childID;
 		this.mealFromDate = mealFromDate;
 		this.mealToDate = mealToDate;
+		this.nutritionalNotesList = nutritionalNotesList;
 	}
 
 	public static Meal createMealFactory(MealCreateUpdateDTO dto) {
@@ -38,7 +43,8 @@ public class MealCreateUpdateDTO {
 				dto.getDietType(),
 				MealStatus.ACTIVE,
 				dto.getMealType(),
-				dto.getChildID());
+				dto.getChildID(),
+				dto.getNutritionalNotesList());
 	}
 
 	public BigDecimal getMealPrice() {
@@ -86,23 +92,31 @@ public class MealCreateUpdateDTO {
 		this.mealToDate = mealToDate;
 	}
 
+	public List<NutritionalNotes> getNutritionalNotesList() {
+		return nutritionalNotesList;
+	}
+
+	public void setNutritionalNotesList(List<NutritionalNotes> nutritionalNotesList) {
+		this.nutritionalNotesList = nutritionalNotesList;
+	}
 
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		MealCreateUpdateDTO that = (MealCreateUpdateDTO) o;
-		return mealPrice.equals(that.mealPrice) &&
+		return Objects.equals(mealPrice, that.mealPrice) &&
 				mealType == that.mealType &&
 				dietType == that.dietType &&
-				childID.equals(that.childID) &&
-				mealFromDate.equals(that.mealFromDate) &&
-				mealToDate.equals(that.mealToDate);
+				Objects.equals(childID, that.childID) &&
+				Objects.equals(mealFromDate, that.mealFromDate) &&
+				Objects.equals(mealToDate, that.mealToDate) &&
+				Objects.equals(nutritionalNotesList, that.nutritionalNotesList);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(mealPrice, mealType, dietType, childID, mealFromDate, mealToDate);
+		return Objects.hash(mealPrice, mealType, dietType, childID, mealFromDate, mealToDate, nutritionalNotesList);
 	}
 
 	@Override
@@ -114,6 +128,7 @@ public class MealCreateUpdateDTO {
 				", childID=" + childID +
 				", mealFromDate=" + mealFromDate +
 				", mealToDate=" + mealToDate +
+				", nutritionalNotesList=" + nutritionalNotesList +
 				'}';
 	}
 }

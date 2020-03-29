@@ -12,6 +12,12 @@ public class NutritionalNotesDTO {
     public NutritionalNotesDTO() {
     }
 
+    public NutritionalNotesDTO(String nutritionalNotesValue, Long mealId, LocalDateTime createdTime) {
+        this.nutritionalNotesValue = nutritionalNotesValue;
+        this.mealId = mealId;
+        this.createdTime = createdTime;
+    }
+
     public String getNutritionalNotesValue() {
         return nutritionalNotesValue;
     }
@@ -35,6 +41,7 @@ public class NutritionalNotesDTO {
     public void setCreatedTime(LocalDateTime createdTime) {
         this.createdTime = createdTime;
     }
+
 
     @Override
     public boolean equals(Object o) {
