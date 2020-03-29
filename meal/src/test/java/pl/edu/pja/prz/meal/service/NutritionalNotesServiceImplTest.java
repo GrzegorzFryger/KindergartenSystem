@@ -30,7 +30,7 @@ import java.util.UUID;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class NutritionalNotesServiceImplTest {
@@ -146,6 +146,10 @@ class NutritionalNotesServiceImplTest {
     }
 
     @Test
-    void deleteNutritionalNotesById() {
+    void ShouldDeleteNutritionalNotesById_When_CorrectCall() {
+        //when
+        nutritionalNotesService.deleteNutritionalNotesById(99L);
+        //then
+        verify(mealNutritionalNotesRepository, times(1)).deleteById(99L);
     }
 }
