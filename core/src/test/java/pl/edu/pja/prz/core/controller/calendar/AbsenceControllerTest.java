@@ -138,4 +138,23 @@ public class AbsenceControllerTest {
 		verify(absenceFacade, only()).getAllAbsencesForChildBetweenDates(
 				any(UUID.class), any(LocalDate.class), any(LocalDate.class));
 	}
+
+	@Test
+	public void shouldDelegateApiCallTo_createAbsencesForChildBetweenDatesMethod() throws Exception {
+		//Given
+		String childId = UUID.randomUUID().toString();
+		String fromDate = LocalDate.now().toString();
+		String toDate = LocalDate.now().toString();
+		String reason = "Reason";
+
+
+		//When
+		mvc.perform(MockMvcRequestBuilders.post(API_CALENDAR + "absence/childMultiple/" + childId + "/" + fromDate + "/" + toDate + "/" + reason)
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk());
+
+		//Then
+		verify(absenceFacade, only()).createAbsencesForChildBetweenDates(
+				any(UUID.class), any(LocalDate.class), any(LocalDate.class), anyString());
+	}
 }

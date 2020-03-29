@@ -144,4 +144,19 @@ public class AbsenceServiceTest {
 		verify(absenceRepository, times(1)).findAllByChildIdBetweenDates(any(UUID.class),
 				any(LocalDate.class), any(LocalDate.class));
 	}
+
+	@Test
+	public void ShouldCreateAbsencesForChildBetweenDates() {
+		//Given
+		var childId = UUID.randomUUID();
+		LocalDate dateFrom = LocalDate.of(2019, Month.JANUARY, 1);
+		LocalDate dateTo = LocalDate.of(2019, Month.APRIL, 14);
+		String reason = "Reason";
+
+		//When
+		service.createAbsencesForChildBetweenDates(childId, dateFrom, dateTo, reason);
+
+		//Then
+		verify(absenceRepository, times(1)).saveAll(anyIterable());
+	}
 }
