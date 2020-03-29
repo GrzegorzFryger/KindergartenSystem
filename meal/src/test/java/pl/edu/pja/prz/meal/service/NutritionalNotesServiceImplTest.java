@@ -122,7 +122,27 @@ class NutritionalNotesServiceImplTest {
     }
 
     @Test
-    void getNutritionalNotesById() {
+    void ShouldGetNutritionalNotesById_When_CorrectCall() {
+        //given
+        UUID u = UUID.randomUUID();
+        Meal meal = new Meal(new BigDecimal("44.22"),
+                LocalDateTime.MIN,
+                LocalDateTime.MAX,
+                DietType.VEGAN,
+                MealStatus.ACTIVE,
+                MealType.BREAKFAST,
+                u);
+
+        NutritionalNotes notes = new NutritionalNotes("Dziś obiad był wyjątkowo dobry",
+                meal,
+                LocalDateTime.now());
+
+        //when
+        when(mealNutritionalNotesRepository.findById(99L)).thenReturn(Optional.of(notes));
+
+        //then
+        Assert.assertEquals(u, nutritionalNotesService.getNutritionalNotesById(99L).getMeal().getChildID());
+        Assert.assertEquals(notes.getNutritionalNotesValue(), nutritionalNotesService.getNutritionalNotesById(99L).getNutritionalNotesValue());
     }
 
     @Test
