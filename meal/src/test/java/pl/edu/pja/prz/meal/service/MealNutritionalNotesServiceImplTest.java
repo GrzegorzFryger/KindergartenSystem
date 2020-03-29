@@ -93,7 +93,7 @@ class MealNutritionalNotesServiceImplTest {
 
 
         //when
-        when(mealService.getMealByID(99L)).thenReturn(meal);
+        when(mealRepository.findById(99L)).thenReturn(Optional.of(meal));
         when(mealNutritionalNotesRepository.save(any(NutritionalNotes.class))).thenReturn(notes);
 
         //then
