@@ -20,6 +20,12 @@ public class NutritionalNotes extends BaseEntityLong {
     public NutritionalNotes() {
     }
 
+    public NutritionalNotes(String nutritionalNotesValue,  Meal meal, LocalDateTime createdTime) {
+        this.nutritionalNotesValue = nutritionalNotesValue;
+        this.meal = meal;
+        this.createdTime = createdTime;
+    }
+
     public String getNutritionalNotesValue() {
         return nutritionalNotesValue;
     }
@@ -45,12 +51,11 @@ public class NutritionalNotes extends BaseEntityLong {
     }
 
     public static NutritionalNotes create(NutritionalNotesDTO dto, Meal meal) {
-        NutritionalNotes n =  new NutritionalNotes();
-        n.setCreatedTime(LocalDateTime.now());
-        n.setNutritionalNotesValue(dto.getNutritionalNotesValue());
-        n.setMeal(meal);
-
-        return n;
+        return new NutritionalNotes(
+                dto.getNutritionalNotesValue(),
+                meal,
+                LocalDateTime.now()
+        );
     }
 
 

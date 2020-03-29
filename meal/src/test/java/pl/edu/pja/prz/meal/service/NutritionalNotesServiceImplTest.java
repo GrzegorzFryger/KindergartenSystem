@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pl.edu.pja.prz.meal.model.Meal;
 import pl.edu.pja.prz.meal.model.NutritionalNotes;
 import pl.edu.pja.prz.meal.repository.MealNutritionalNotesRepository;
 
@@ -33,7 +34,7 @@ class NutritionalNotesServiceImplTest {
 
 
     @Test
-    void getAllNutritionalNotes() {
+    void ShouldGetAllNutritionalNotes_When_CorrectCall() {
         //given
         nutritionalNotes.add(new NutritionalNotes());
         nutritionalNotes.add(new NutritionalNotes());
@@ -48,6 +49,8 @@ class NutritionalNotesServiceImplTest {
 
     @Test
     void addNutritionalNotes() {
+        //given
+        Meal meal = new Meal(b)
     }
 
     @Test

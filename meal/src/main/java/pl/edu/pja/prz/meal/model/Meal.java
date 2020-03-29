@@ -34,6 +34,8 @@ public class Meal extends BaseEntityLong {
     public Meal() {
     }
 
+
+
     public Meal(BigDecimal mealPrice, LocalDateTime mealFromDate, LocalDateTime mealToDate, DietType dietType,
                 MealStatus mealStatus, MealType mealType, UUID childID) {
         this.mealPrice = mealPrice;
@@ -87,6 +89,30 @@ public class Meal extends BaseEntityLong {
 
     public UUID getChildID() {
         return childID;
+    }
+
+    public void setMealFromDate(LocalDateTime mealFromDate) {
+        this.mealFromDate = mealFromDate;
+    }
+
+    public void setMealType(MealType mealType) {
+        this.mealType = mealType;
+    }
+
+    public void setDietType(DietType dietType) {
+        this.dietType = dietType;
+    }
+
+    public void setChildID(UUID childID) {
+        this.childID = childID;
+    }
+
+    public List<NutritionalNotes> getNutritionalNotesList() {
+        return nutritionalNotesList;
+    }
+
+    public void setNutritionalNotesList(List<NutritionalNotes> nutritionalNotesList) {
+        this.nutritionalNotesList = nutritionalNotesList;
     }
 
     @Override
