@@ -7,9 +7,7 @@ import pl.edu.pja.prz.calendar.model.enums.EventType;
 import pl.edu.pja.prz.calendar.repository.DayOffWorkRepository;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -74,10 +72,11 @@ public class DayOffWorkServiceImpl implements DayOffWorkService {
 	}
 
 	@Override
-
 	public boolean isTodayDayOff() {
 		return dayOffWorkRepository.findDayOffWorkByDate(LocalDate.now()).isPresent();
 	}
+
+	@Override
 	public List<DayOffWork> createDaysOffOnWeekends(int year) {
 		List<LocalDate> weekendDateList = findWeekends(year);
 		List<DayOffWork> weekendsOff = new ArrayList<>();
@@ -87,28 +86,24 @@ public class DayOffWorkServiceImpl implements DayOffWorkService {
 			dayOff.setDate(date);
 			dayOff.setEventType(EventType.WEEKEND);
 			dayOff.setName("Weekend");
-			weekendsOff.add(dayOff);
+			if (dayOffWorkRepository.findDayOffWorkByDate(date).isEmpty()) {
+				weekendsOff.add(dayOff);
+			}
 		}
 		return dayOffWorkRepository.saveAll(weekendsOff);
 	}
 
 	private List<LocalDate> findWeekends(int year) {
 		List<LocalDate> weekendList = new ArrayList<>();
-		ZoneId defaultZoneId = ZoneId.systemDefault();
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(year, 0, 1);
+		LocalDate startDate = LocalDate.of(year, Month.JANUARY, 1);
+		LocalDate endDate = LocalDate.of(year, Month.DECEMBER, 31);
+		LocalDate next = startDate.minusDays(1);
 
-		while (calendar.get(Calendar.YEAR) == year) {
-			switch (calendar.get(Calendar.DAY_OF_WEEK)) {
-				case Calendar.SATURDAY:
-				case Calendar.SUNDAY:
-					LocalDate localDate = LocalDateTime.ofInstant(calendar.toInstant(), defaultZoneId).toLocalDate();
-					weekendList.add(localDate);
-					break;
+		while ((next = next.plusDays(1)).isBefore(endDate.plusDays(1))) {
+			if (next.getDayOfWeek() == DayOfWeek.SATURDAY || next.getDayOfWeek() == DayOfWeek.SUNDAY) {
+				weekendList.add(next.plusDays(1));
 			}
-			calendar.add(Calendar.DAY_OF_YEAR, 1);
 		}
 		return weekendList;
-
 	}
 }

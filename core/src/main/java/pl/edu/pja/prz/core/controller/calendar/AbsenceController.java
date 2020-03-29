@@ -1,14 +1,12 @@
 package pl.edu.pja.prz.core.controller.calendar;
 
-import static pl.edu.pja.prz.commons.constants.Roles.HAS_ANY_ROLE;
-import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_ADMIN;
-import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_TEACHER;
-import static pl.edu.pja.prz.commons.constants.Roles.OR;
+import static pl.edu.pja.prz.commons.constants.Roles.*;
 import static pl.edu.pja.prz.core.controller.RequestMappings.API_CALENDAR;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -80,6 +78,17 @@ public class AbsenceController {
 		LocalDate dateFrom = LocalDate.parse(startDate);
 		LocalDate dateTo = LocalDate.parse(endDate);
 		return new ResponseEntity<>(absenceFacade.getAllAbsencesForChildBetweenDates(childId, dateFrom, dateTo), HttpStatus.OK);
+	}
+
+	@PreAuthorize(HAS_ROLE_USER + OR + HAS_ROLE_ADMIN)
+	@PostMapping("absence/childMultiple/{childId}/{startDate}/{endDate}/{reason}")
+	public ResponseEntity<List<AbsenceDto>> createAbsencesForChildBetweenDates(@PathVariable UUID childId,
+																			   @PathVariable String startDate,
+																			   @PathVariable String endDate,
+																			   @PathVariable String reason) {
+		LocalDate dateFrom = LocalDate.parse(startDate);
+		LocalDate dateTo = LocalDate.parse(endDate);
+		return new ResponseEntity<>(absenceFacade.createAbsencesForChildBetweenDates(childId, dateFrom, dateTo, reason), HttpStatus.OK);
 	}
 
 }

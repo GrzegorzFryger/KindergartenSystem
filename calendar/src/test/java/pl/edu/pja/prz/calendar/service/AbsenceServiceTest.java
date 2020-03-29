@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pja.prz.calendar.model.Absence;
 import pl.edu.pja.prz.calendar.repository.AbsenceRepository;
+import pl.edu.pja.prz.calendar.repository.DayOffWorkRepository;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 
 import java.time.LocalDate;
@@ -25,12 +26,14 @@ public class AbsenceServiceTest {
 	private Absence absence;
 	private List<Absence> absenceList;
 	@Mock
-	private AbsenceRepository repository;
+	private AbsenceRepository absenceRepository;
+	@Mock
+	private DayOffWorkRepository dayOffWorkRepository;
 	private AbsenceServiceImpl service;
 
 	@BeforeEach
 	public void setUp() {
-		service = new AbsenceServiceImpl(repository);
+		service = new AbsenceServiceImpl(absenceRepository, dayOffWorkRepository);
 
 		absence = new Absence();
 		absence.setReason("Choroba");
@@ -49,26 +52,26 @@ public class AbsenceServiceTest {
 		service.createAbsence(absence);
 
 		//Then
-		verify(repository, times(1)).save(any(Absence.class));
+		verify(absenceRepository, times(1)).save(any(Absence.class));
 	}
 
 	@Test
 	public void ShouldGetAbsence() {
 		//Given
-		when(repository.findById(anyLong())).thenReturn(Optional.of(absence));
+		when(absenceRepository.findById(anyLong())).thenReturn(Optional.of(absence));
 		Long id = 1L;
 
 		//When
 		service.getAbsence(id);
 
 		//Then
-		verify(repository, times(1)).findById(id);
+		verify(absenceRepository, times(1)).findById(id);
 	}
 
 	@Test
 	public void ShouldThrowExceptionWhenAbsenceNotFound() {
 		//Given
-		when(repository.findById(anyLong())).thenReturn(Optional.empty());
+		when(absenceRepository.findById(anyLong())).thenReturn(Optional.empty());
 
 		//When
 		Assertions.assertThrows(ElementNotFoundException.class, () -> {
@@ -76,69 +79,69 @@ public class AbsenceServiceTest {
 		});
 
 		//Then
-		verify(repository, times(1)).findById(anyLong());
+		verify(absenceRepository, times(1)).findById(anyLong());
 	}
 
 	@Test
 	public void ShouldUpdateAbsence() {
 		//Given
-		when(repository.findById(anyLong())).thenReturn(Optional.of(absence));
+		when(absenceRepository.findById(anyLong())).thenReturn(Optional.of(absence));
 
 		//When
 		service.updateAbsence(absence);
 
 		//Then
-		verify(repository, times(1)).save(any(Absence.class));
+		verify(absenceRepository, times(1)).save(any(Absence.class));
 
 	}
 
 	@Test
 	public void ShouldDeleteAbsence() {
 		//Given
-		when(repository.findById(anyLong())).thenReturn(Optional.of(absence));
+		when(absenceRepository.findById(anyLong())).thenReturn(Optional.of(absence));
 
 		//When
 		service.deleteAbsence(1L);
 
 		//Then
-		verify(repository, times(1)).deleteById(anyLong());
+		verify(absenceRepository, times(1)).deleteById(anyLong());
 	}
 
 	@Test
 	public void ShouldGetAllAbsencesByDate() {
 		//Given
-		when(repository.findAllByDate(any(LocalDate.class))).thenReturn(absenceList);
+		when(absenceRepository.findAllByDate(any(LocalDate.class))).thenReturn(absenceList);
 
 		//When
 		service.getAllAbsencesByDate(LocalDate.now());
 
 		//Then
-		verify(repository, times(1)).findAllByDate(any(LocalDate.class));
+		verify(absenceRepository, times(1)).findAllByDate(any(LocalDate.class));
 	}
 
 	@Test
 	public void ShouldGetAllAbsencesByChildId() {
 		//Given
-		when(repository.findAllByChildId(any(UUID.class))).thenReturn(absenceList);
+		when(absenceRepository.findAllByChildId(any(UUID.class))).thenReturn(absenceList);
 
 		//When
 		service.getAllAbsencesByChildId(UUID.randomUUID());
 
 		//Then
-		verify(repository, times(1)).findAllByChildId(any(UUID.class));
+		verify(absenceRepository, times(1)).findAllByChildId(any(UUID.class));
 	}
 
 	@Test
 	public void ShouldGetAllAbsencesForChildBetweenDates() {
 		//Given
-		when(repository.findAllByChildIdBetweenDates(any(UUID.class), any(LocalDate.class),
+		when(absenceRepository.findAllByChildIdBetweenDates(any(UUID.class), any(LocalDate.class),
 				any(LocalDate.class))).thenReturn(absenceList);
 
 		//When
 		service.getAllAbsencesForChildBetweenDates(UUID.randomUUID(), LocalDate.now(), LocalDate.now());
 
 		//Then
-		verify(repository, times(1)).findAllByChildIdBetweenDates(any(UUID.class),
+		verify(absenceRepository, times(1)).findAllByChildIdBetweenDates(any(UUID.class),
 				any(LocalDate.class), any(LocalDate.class));
 	}
 }
