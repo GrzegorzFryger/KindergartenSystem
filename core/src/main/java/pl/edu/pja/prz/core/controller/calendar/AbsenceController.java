@@ -72,9 +72,7 @@ public class AbsenceController {
 
 	@PreAuthorize(HAS_ANY_ROLE)
 	@GetMapping("absence/child/{childId}/{startDate}/{endDate}")
-	public ResponseEntity<List<AbsenceDto>> getAllAbsencesForChildBetweenDates(@PathVariable UUID childId,
-																			   @PathVariable String startDate,
-																			   @PathVariable String endDate) {
+	public ResponseEntity<List<AbsenceDto>> getAllAbsencesForChildBetweenDates(@PathVariable UUID childId, @PathVariable String startDate, @PathVariable String endDate) {
 		LocalDate dateFrom = LocalDate.parse(startDate);
 		LocalDate dateTo = LocalDate.parse(endDate);
 		return new ResponseEntity<>(absenceFacade.getAllAbsencesForChildBetweenDates(childId, dateFrom, dateTo), HttpStatus.OK);
@@ -82,10 +80,8 @@ public class AbsenceController {
 
 	@PreAuthorize(HAS_ROLE_USER + OR + HAS_ROLE_ADMIN)
 	@PostMapping("absence/childMultiple/{childId}/{startDate}/{endDate}/{reason}")
-	public ResponseEntity<List<AbsenceDto>> createAbsencesForChildBetweenDates(@PathVariable UUID childId,
-																			   @PathVariable String startDate,
-																			   @PathVariable String endDate,
-																			   @PathVariable String reason) {
+	public ResponseEntity<List<AbsenceDto>> createAbsencesForChildBetweenDates(@PathVariable UUID childId, @PathVariable String startDate, @PathVariable String endDate, @PathVariable String reason) {
+
 		LocalDate dateFrom = LocalDate.parse(startDate);
 		LocalDate dateTo = LocalDate.parse(endDate);
 		return new ResponseEntity<>(absenceFacade.createAbsencesForChildBetweenDates(childId, dateFrom, dateTo, reason), HttpStatus.OK);
