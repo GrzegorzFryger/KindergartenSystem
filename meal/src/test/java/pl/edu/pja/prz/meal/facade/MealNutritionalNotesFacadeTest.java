@@ -53,5 +53,9 @@ class MealNutritionalNotesFacadeTest {
 
     @Test
     void ShouldDeleteNutritionalNotesById_When_CorrectCall() {
+        //when
+        mealNutritionalNotesFacade.deleteNutritionalNotesById(anyLong());
+        //then
+        verify(mealNutritionalNotesService, times(1)).deleteNutritionalNotesById(anyLong());
     }
 }
