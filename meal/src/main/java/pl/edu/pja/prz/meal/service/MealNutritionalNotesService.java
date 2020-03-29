@@ -5,11 +5,11 @@ import pl.edu.pja.prz.meal.model.dto.NutritionalNotesDTO;
 
 import java.util.List;
 
-public interface NutritionalNotesService {
+public interface MealNutritionalNotesService {
 
     List<NutritionalNotes> getAllNutritionalNotes();
-    NutritionalNotes addNutritionalNotes(NutritionalNotesDTO nutritionalNotesDTO);
+    List<NutritionalNotes> addNutritionalNotes(NutritionalNotesDTO nutritionalNotesDTO);
     NutritionalNotes getNutritionalNotesById(Long id);
-    void deleteNutritionalNotesById(Long id);
+    List<NutritionalNotes> deleteNutritionalNotesById(Long nnId, Long mealId);
 
 }

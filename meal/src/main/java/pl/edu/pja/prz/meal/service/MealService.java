@@ -1,6 +1,7 @@
 package pl.edu.pja.prz.meal.service;
 
 import pl.edu.pja.prz.meal.model.Meal;
+import pl.edu.pja.prz.meal.model.NutritionalNotes;
 import pl.edu.pja.prz.meal.model.dto.MealCreateUpdateDTO;
 
 import java.util.List;
@@ -13,6 +14,9 @@ public interface MealService {
     Meal updateMeal(MealCreateUpdateDTO meal, Long mealToUpdateID) ;
     boolean isMealPresentByID(Long id);
     List<Meal> getAllMeals();
+    Meal updateMealNutritionalNotes(Long mealId, List<NutritionalNotes> nutritionalNotes);
+    boolean isNoteByIdPresentInMeal(Long nnId, Long mealId);
+    List<NutritionalNotes> getNutritionalNotesByMealId(Long mealId);
 
 
 }
