@@ -15,6 +15,8 @@ public interface MealService {
     boolean isMealPresentByID(Long id);
     List<Meal> getAllMeals();
     Meal updateMealNutritionalNotes(Long mealId, List<NutritionalNotes> nutritionalNotes);
+    boolean isNoteByIdPresentInMeal(Long nnId, Long mealId);
+    List<NutritionalNotes> getNutritionalNotesByMealId(Long mealId);
 
 
 }

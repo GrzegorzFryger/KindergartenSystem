@@ -53,9 +53,9 @@ class MealNutritionalNotesControllerTest {
     @Test
     void deleteNutritionalNotesById() {
         //when
-        mealNutritionalNotesController.deleteNutritionalNotesById(any());
+        mealNutritionalNotesController.deleteNutritionalNotesById(any(), any());
 
         //then
-        verify(mealNutritionalNotesFacade, times(1)).deleteNutritionalNotesById(any());
+        verify(mealNutritionalNotesFacade, times(1)).deleteNutritionalNotesById(any(), any());
     }
 }

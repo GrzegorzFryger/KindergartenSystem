@@ -30,7 +30,7 @@ public class MealNutritionalNotesFacade {
         return mealNutritionalNotesService.getNutritionalNotesById(id);
     }
 
-    public void deleteNutritionalNotesById(Long id) {
-        mealNutritionalNotesService.deleteNutritionalNotesById(id);
+    public List<NutritionalNotes> deleteNutritionalNotesById(Long nnId, Long mealId) {
+       return mealNutritionalNotesService.deleteNutritionalNotesById(nnId, mealId);
     }
 }

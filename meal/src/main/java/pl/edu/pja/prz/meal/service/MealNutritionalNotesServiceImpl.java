@@ -47,8 +47,20 @@ public class MealNutritionalNotesServiceImpl implements MealNutritionalNotesServ
     }
 
     @Override
-    public void deleteNutritionalNotesById(Long id) {
-        mealNutritionalNotesRepository.deleteById(id);
+    public List<NutritionalNotes> deleteNutritionalNotesById(Long nnId, Long mealId) {
 
+        if(mealService.isNoteByIdPresentInMeal(nnId, mealId)) {
+
+            Meal meal = mealService.getMealByID(mealId);
+            List<NutritionalNotes> nutritionalNotes = meal.getNutritionalNotesList();
+            meal.getNutritionalNotesList().forEach(u -> {
+                if(u.getId().equals(nnId)) {
+                    nutritionalNotes.remove(u);
+                }
+            });
+            mealService.updateMealNutritionalNotes(mealId,nutritionalNotes);
+            mealNutritionalNotesRepository.deleteById(nnId);
+        }
+        return mealService.getNutritionalNotesByMealId(mealId);
     }
 }

@@ -10,6 +10,6 @@ public interface MealNutritionalNotesService {
     List<NutritionalNotes> getAllNutritionalNotes();
     List<NutritionalNotes> addNutritionalNotes(NutritionalNotesDTO nutritionalNotesDTO);
     NutritionalNotes getNutritionalNotesById(Long id);
-    void deleteNutritionalNotesById(Long id);
+    List<NutritionalNotes> deleteNutritionalNotesById(Long nnId, Long mealId);
 
 }

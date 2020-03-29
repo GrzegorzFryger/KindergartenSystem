@@ -169,4 +169,13 @@ public class MealServiceImpl implements MealService {
         return mealRepository.save(mealToUpdate);
     }
 
+    public boolean isNoteByIdPresentInMeal(Long nnId, Long mealId) {
+        return getMealByID(mealId).getNutritionalNotesList()
+                .stream().anyMatch(u -> u.getId().equals(nnId));
+    }
+
+    public List<NutritionalNotes> getNutritionalNotesByMealId(Long mealId) {
+        return getMealByID(mealId).getNutritionalNotesList();
+    }
+
 }

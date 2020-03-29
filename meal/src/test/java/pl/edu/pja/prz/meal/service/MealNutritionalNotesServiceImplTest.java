@@ -143,9 +143,9 @@ class MealNutritionalNotesServiceImplTest {
 
     @Test
     void ShouldDeleteNutritionalNotesById_When_CorrectCall() {
-        //when
-        mealNutritionalNotesService.deleteNutritionalNotesById(99L);
-        //then
-        verify(mealNutritionalNotesRepository, times(1)).deleteById(99L);
+//        //when
+//        mealNutritionalNotesService.deleteNutritionalNotesById(99L);
+//        //then
+//        verify(mealNutritionalNotesRepository, times(1)).deleteById(99L);
     }
 }
