@@ -144,15 +144,18 @@ public class AbsenceControllerTest {
 	@Test
 	public void shouldDelegateApiCallTo_createAbsencesForChildBetweenDatesMethod() throws Exception {
 		//Given
-		String childId = UUID.randomUUID().toString();
-		String fromDate = LocalDate.now().toString();
-		String toDate = LocalDate.now().toString();
+		UUID childId = UUID.randomUUID();
+		LocalDate fromDate = LocalDate.now();
+		LocalDate toDate = LocalDate.now();
 		String reason = "Reason";
+
+		String json = convertToJson(new AbsenceRangeDto(childId, fromDate, toDate, reason));
 
 
 		//When
-		mvc.perform(MockMvcRequestBuilders.post(API_CALENDAR + "absence/childMultiple/" + childId + "/" + fromDate + "/" + toDate + "/" + reason)
-				.accept(MediaType.APPLICATION_JSON))
+		mvc.perform(MockMvcRequestBuilders.post(API_CALENDAR + "absences")
+				.accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON).content(json))
 				.andExpect(status().isOk());
 
 		//Then

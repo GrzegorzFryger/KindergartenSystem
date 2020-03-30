@@ -130,6 +130,6 @@ public class AbsenceFacadeTest {
 		absenceFacade.createAbsencesForChildBetweenDates(new AbsenceRangeDto(childId, dateFrom, dateTo,reason));
 
 		//Then
-		verify(absenceService, times(1)).createAbsencesForChildBetweenDates(childId, dateFrom, dateTo, reason);
+		verify(absenceService, times(1)).createAbsencesForChildBetweenDates(any(), any(), any(), any());
 	}
 }
