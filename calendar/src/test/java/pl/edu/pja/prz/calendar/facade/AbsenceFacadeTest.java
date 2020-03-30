@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pja.prz.calendar.facade.mapper.AbsenceMapper;
 import pl.edu.pja.prz.calendar.model.dto.AbsenceDto;
+import pl.edu.pja.prz.calendar.model.dto.AbsenceRangeDto;
 import pl.edu.pja.prz.calendar.service.AbsenceService;
 
 import java.time.LocalDate;
@@ -126,7 +127,7 @@ public class AbsenceFacadeTest {
 		String reason = "Reason";
 
 		//When
-		absenceFacade.createAbsencesForChildBetweenDates(childId, dateFrom, dateTo, reason);
+		absenceFacade.createAbsencesForChildBetweenDates(new AbsenceRangeDto(childId, dateFrom, dateTo,reason));
 
 		//Then
 		verify(absenceService, times(1)).createAbsencesForChildBetweenDates(childId, dateFrom, dateTo, reason);

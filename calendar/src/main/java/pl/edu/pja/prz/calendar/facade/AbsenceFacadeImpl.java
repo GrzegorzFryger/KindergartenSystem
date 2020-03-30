@@ -76,7 +76,7 @@ public class AbsenceFacadeImpl implements AbsenceFacade {
 	@Override
     public List<AbsenceDto> createAbsencesForChildBetweenDates(AbsenceRangeDto absenceRangeDto) {
 		return absenceMapper.absenceListToDtoList(
-                absenceService.createAbsencesForChildBetweenDates(
+                 absenceService.createAbsencesForChildBetweenDates(
                         absenceRangeDto.getChildId(),
                         absenceRangeDto.getDateFrom(),
                         absenceRangeDto.getDateTo(),

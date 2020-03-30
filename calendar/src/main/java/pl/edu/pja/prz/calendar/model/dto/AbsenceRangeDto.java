@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public class AbsenceRangeDto {
-    private Long id;
     private UUID childId;
     private LocalDate dateFrom;
     private LocalDate dateTo;
@@ -13,13 +12,10 @@ public class AbsenceRangeDto {
     public AbsenceRangeDto() {
     }
 
-    public Long getId() {
-        return id;
+
+    public AbsenceRangeDto(UUID childId, LocalDate dateFrom, LocalDate dateTo, String reason) {
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public UUID getChildId() {
         return childId;
