@@ -2,8 +2,9 @@ package pl.edu.pja.prz.calendar.facade;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.edu.pja.prz.calendar.model.dto.AbsenceDto;
 import pl.edu.pja.prz.calendar.facade.mapper.AbsenceMapper;
+import pl.edu.pja.prz.calendar.model.dto.AbsenceDto;
+import pl.edu.pja.prz.calendar.model.dto.AbsenceRangeDto;
 import pl.edu.pja.prz.calendar.service.AbsenceService;
 
 import java.time.LocalDate;
@@ -73,9 +74,14 @@ public class AbsenceFacadeImpl implements AbsenceFacade {
 	}
 
 	@Override
-	public List<AbsenceDto> createAbsencesForChildBetweenDates(UUID id, LocalDate startDate, LocalDate endDate, String reason) {
+    public List<AbsenceDto> createAbsencesForChildBetweenDates(AbsenceRangeDto absenceRangeDto) {
 		return absenceMapper.absenceListToDtoList(
-				absenceService.createAbsencesForChildBetweenDates(id, startDate, endDate, reason)
+                 absenceService.createAbsencesForChildBetweenDates(
+                        absenceRangeDto.getChildId(),
+                        absenceRangeDto.getDateFrom(),
+                        absenceRangeDto.getDateTo(),
+                        absenceRangeDto.getReason()
+                )
 		);
 	}
 }

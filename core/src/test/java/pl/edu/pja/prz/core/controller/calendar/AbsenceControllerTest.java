@@ -12,13 +12,15 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pl.edu.pja.prz.calendar.facade.AbsenceFacade;
 import pl.edu.pja.prz.calendar.model.dto.AbsenceDto;
+import pl.edu.pja.prz.calendar.model.dto.AbsenceRangeDto;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.only;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static pl.edu.pja.prz.core.controller.RequestMappings.API_CALENDAR;
 import static pl.edu.pja.prz.core.util.JsonUtil.convertToJson;
@@ -142,19 +144,21 @@ public class AbsenceControllerTest {
 	@Test
 	public void shouldDelegateApiCallTo_createAbsencesForChildBetweenDatesMethod() throws Exception {
 		//Given
-		String childId = UUID.randomUUID().toString();
-		String fromDate = LocalDate.now().toString();
-		String toDate = LocalDate.now().toString();
+		UUID childId = UUID.randomUUID();
+		LocalDate fromDate = LocalDate.now();
+		LocalDate toDate = LocalDate.now();
 		String reason = "Reason";
+
+		String json = convertToJson(new AbsenceRangeDto(childId, fromDate, toDate, reason));
 
 
 		//When
-		mvc.perform(MockMvcRequestBuilders.post(API_CALENDAR + "absence/childMultiple/" + childId + "/" + fromDate + "/" + toDate + "/" + reason)
-				.accept(MediaType.APPLICATION_JSON))
+		mvc.perform(MockMvcRequestBuilders.post(API_CALENDAR + "absences")
+				.accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON).content(json))
 				.andExpect(status().isOk());
 
 		//Then
-		verify(absenceFacade, only()).createAbsencesForChildBetweenDates(
-				any(UUID.class), any(LocalDate.class), any(LocalDate.class), anyString());
+		verify(absenceFacade, only()).createAbsencesForChildBetweenDates(any(AbsenceRangeDto.class));
 	}
 }
