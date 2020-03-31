@@ -13,6 +13,7 @@ import static pl.edu.pja.prz.core.controller.RequestMappings.API_NUTRITIONAL_NOT
 
 @RestController
 @RequestMapping(API_NUTRITIONAL_NOTES)
+@CrossOrigin(origins = "http://localhost:4200")
 public class MealNutritionalNotesController {
 
     private final MealNutritionalNotesFacade mealNutritionalNotesFacade;
@@ -39,7 +40,7 @@ public class MealNutritionalNotesController {
         return mealNutritionalNotesFacade.getNutritionalNotesById(id);
     }
 
-    @DeleteMapping
+    @GetMapping("/delete")
     @PreAuthorize(HAS_ANY_ROLE)
     public List<NutritionalNotes> deleteNutritionalNotesById(@RequestParam("nnId") Long nnId, @RequestParam("mealId") Long mealId ) {
        return mealNutritionalNotesFacade.deleteNutritionalNotesById(nnId, mealId);
