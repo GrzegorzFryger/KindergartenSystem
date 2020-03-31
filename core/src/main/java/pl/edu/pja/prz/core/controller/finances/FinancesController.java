@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.edu.pja.prz.finances.facade.FinancesFacade;
 import pl.edu.pja.prz.finances.model.dto.Balance;
 
+import java.util.List;
 import java.util.UUID;
 
 import static pl.edu.pja.prz.commons.constants.Roles.HAS_ANY_ROLE;
@@ -28,9 +29,15 @@ public class FinancesController {
         return facade.getBalance(childId);
     }
 
+    @GetMapping("balance/children/{guardianId}")
+    @PreAuthorize(HAS_ANY_ROLE)
+    public List<Balance> getBalancesForAllChildren(@PathVariable UUID guardianId) {
+        return facade.getBalancesForAllChildren(guardianId);
+    }
+
     @GetMapping("balance/guardian/{guardianId}")
     @PreAuthorize(HAS_ANY_ROLE)
-    public Balance getBalanceForAllChildren(@PathVariable UUID guardianId) {
+    public Balance getSumOfBalancesForAllChildren(@PathVariable UUID guardianId) {
         return facade.getBalanceForAllChildren(guardianId);
     }
 }

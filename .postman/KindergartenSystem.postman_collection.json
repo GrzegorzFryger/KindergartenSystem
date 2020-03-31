@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "12efad18-aa18-43ff-9e52-64b2ed5d190d",
+		"_postman_id": "78129b68-9fc2-42e0-afeb-571331c3837c",
 		"name": "KindergartenSystem",
 		"description": "This collection contains all API requests to backend system of our application.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -846,6 +846,40 @@
 								"{{FINCANCES}}",
 								"balance",
 								"guardian",
+								"{{guardianId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/balance/children/{guardianId}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dfa25d81-00dd-429c-ad43-5841159a1b51",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{FINCANCES}}/balance/children/{{guardianId}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{FINCANCES}}",
+								"balance",
+								"children",
 								"{{guardianId}}"
 							]
 						}

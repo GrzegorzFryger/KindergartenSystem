@@ -60,6 +60,28 @@ class FinancesFacadeTest {
     }
 
     @Test
+    public void Should_GetListOfBalancesForAllChildren() {
+        //Given
+        Set<ChildDto> childDtos = new HashSet<>();
+        ChildDto first = new ChildDto();
+        ChildDto second = new ChildDto();
+        first.setId(UUID.randomUUID());
+        second.setId(UUID.randomUUID());
+        childDtos.add(first);
+        childDtos.add(second);
+
+        //When
+        when(guardianFacade.findAllGuardianChildren(any(UUID.class))).thenReturn(childDtos);
+        when(balanceService.getBalance(any(UUID.class))).thenReturn(balance);
+        List<Balance> result = facade.getBalancesForAllChildren(UUID.randomUUID());
+
+        //Then
+        assertNotNull(result);
+        verify(balanceService, times(2)).getBalance(any(UUID.class));
+        assertEquals(2, result.size());
+    }
+
+    @Test
     public void Should_GetBalanceForAllChildren() {
         //Given
         Set<ChildDto> childDtos = new HashSet<>();
@@ -72,12 +94,12 @@ class FinancesFacadeTest {
 
         //When
         when(guardianFacade.findAllGuardianChildren(any(UUID.class))).thenReturn(childDtos);
-        when(balanceService.getBalanceForAllChildren(anyList())).thenReturn(balance);
+        when(balanceService.getBalanceForAllChildren(anyList(), any(UUID.class))).thenReturn(balance);
         Balance result = facade.getBalanceForAllChildren(UUID.randomUUID());
 
         //Then
         assertNotNull(result);
-        verify(balanceService, times(1)).getBalanceForAllChildren(argumentCaptor.capture());
+        verify(balanceService, times(1)).getBalanceForAllChildren(argumentCaptor.capture(), any(UUID.class));
         assertEquals(2, argumentCaptor.getValue().size());
     }
 

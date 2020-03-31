@@ -28,16 +28,20 @@ public class BalanceServiceImpl implements BalanceService {
     @Override
     public Balance getBalance(UUID childId) {
         List<BalanceHistory> result = historyService.getAllHistoryRecordsForChild(childId);
-        return calculateBalance(result);
+        Balance balance = calculateBalance(result);
+        balance.setChildId(childId);
+        return balance;
     }
 
     @Override
-    public Balance getBalanceForAllChildren(List<UUID> childIdList) {
+    public Balance getBalanceForAllChildren(List<UUID> childIdList, UUID guardianId) {
         List<BalanceHistory> result = new ArrayList<>();
         for (UUID id : childIdList) {
             result.addAll(historyService.getAllHistoryRecordsForChild(id));
         }
-        return calculateBalance(result);
+        Balance balance = calculateBalance(result);
+        balance.setGuardianId(guardianId);
+        return balance;
     }
 
     @Override
