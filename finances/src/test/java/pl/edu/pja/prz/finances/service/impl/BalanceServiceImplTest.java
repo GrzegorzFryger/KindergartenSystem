@@ -20,8 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -60,6 +59,8 @@ class BalanceServiceImplTest {
 
         //Then
         assertNotNull(result);
+        assertNotNull(result.getChildId());
+        assertNull(result.getGuardianId());
         verify(historyService, times(1)).getAllHistoryRecordsForChild(any(UUID.class));
         assertEquals(new BigDecimal("50.00"), result.getBalance());
     }
@@ -74,6 +75,8 @@ class BalanceServiceImplTest {
         Balance result = balanceService.getBalance(UUID.randomUUID());
 
         //Then
+        assertNotNull(result.getChildId());
+        assertNull(result.getGuardianId());
         verify(historyService, times(1)).getAllHistoryRecordsForChild(any(UUID.class));
         assertEquals(BigDecimal.ZERO, result.getLiabilities());
         assertEquals(BigDecimal.ZERO, result.getReceivables());
@@ -89,10 +92,12 @@ class BalanceServiceImplTest {
 
         //When
         when(historyService.getAllHistoryRecordsForChild(any(UUID.class))).thenReturn(balanceHistories);
-        Balance result = balanceService.getBalanceForAllChildren(childIdList);
+        Balance result = balanceService.getBalanceForAllChildren(childIdList, UUID.randomUUID());
 
         //Then
         assertNotNull(result);
+        assertNotNull(result.getGuardianId());
+        assertNull(result.getChildId());
         verify(historyService, times(2)).getAllHistoryRecordsForChild(any(UUID.class));
         assertEquals(new BigDecimal("100.00"), result.getBalance());
     }

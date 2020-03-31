@@ -20,6 +20,8 @@ INSERT INTO account.child_childstatuses (Child_id, childStatuses) VALUES ('1cb1e
 INSERT INTO account.child_childstatuses (Child_id, childStatuses) VALUES ('1c7fe144-f71a-4599-b8bf-04aa92d7ab6d', 'NEW');
 INSERT INTO account.employee (employeeType, id) VALUES ('TEACHER', '2a5c0cad-4de6-45a0-aebe-2a71cf06232b');
 INSERT INTO account.guardian (id) VALUES ('c4029244-e8ff-4328-8658-28964dda3c4e');
+INSERT INTO account.guardian_child (fk_guardian, fk_child) VALUES ('c4029244-e8ff-4328-8658-28964dda3c4e', '0560d77d-e0db-4914-ae4a-4f39690ecb2d');
+INSERT INTO account.guardian_child (fk_guardian, fk_child) VALUES ('c4029244-e8ff-4328-8658-28964dda3c4e', '067b5db4-de4e-401e-9cac-7f6289e96c19');
 INSERT INTO account.role (id, version, name) VALUES (1, 0, 'USER');
 INSERT INTO account.role (id, version, name) VALUES (2, 0, 'TEACHER');
 INSERT INTO account.role (id, version, name) VALUES (3, 0, 'ADMINISTRATOR');

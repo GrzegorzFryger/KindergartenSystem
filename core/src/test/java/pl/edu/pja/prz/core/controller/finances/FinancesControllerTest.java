@@ -50,6 +50,20 @@ class FinancesControllerTest {
     }
 
     @Test
+    public void Should_DelegateApiCallTo_getBalancesForAllChildren() throws Exception {
+        //Given
+        String guardianId = UUID.randomUUID().toString();
+
+        //When
+        mvc.perform(MockMvcRequestBuilders.get(API_FINANCES + "balance/children/" + guardianId)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        //Then
+        verify(financesFacade, only()).getBalancesForAllChildren(any(UUID.class));
+    }
+
+    @Test
     public void Should_DelegateApiCallTo_getBalanceForAllChildren() throws Exception {
         //Given
         String guardianId = UUID.randomUUID().toString();
