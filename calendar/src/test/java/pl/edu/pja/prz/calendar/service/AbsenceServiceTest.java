@@ -146,6 +146,19 @@ public class AbsenceServiceTest {
 	}
 
 	@Test
+	public void ShouldGetAllAbsencesBetweenDates() {
+		//Given
+		when(absenceRepository.findAllBetweenDates(any(LocalDate.class), any(LocalDate.class)))
+				.thenReturn(absenceList);
+
+		//When
+		service.getAllAbsencesBetweenDates(LocalDate.now(), LocalDate.now());
+
+		//Then
+		verify(absenceRepository, times(1)).findAllBetweenDates(any(LocalDate.class), any(LocalDate.class));
+	}
+
+	@Test
 	public void ShouldCreateAbsencesForChildBetweenDates() {
 		//Given
 		var childId = UUID.randomUUID();

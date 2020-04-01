@@ -119,6 +119,20 @@ public class AbsenceFacadeTest {
 	}
 
 	@Test
+	public void shouldGetAllAbsencesBetweenDates() {
+		//Given
+		LocalDate dateFrom = LocalDate.of(2019, Month.JANUARY, 1);
+		LocalDate dateTo = LocalDate.of(2019, Month.APRIL, 14);
+
+		//When
+		absenceFacade.getAllAbsencesBetweenDates(dateFrom, dateTo);
+
+		//Then
+		verify(absenceService, times(1)).getAllAbsencesBetweenDates(dateFrom, dateTo);
+
+	}
+
+	@Test
 	public void shouldCreateAbsenceForChildBetweenDates() {
 		//Given
 		var childId = UUID.randomUUID();
@@ -127,7 +141,7 @@ public class AbsenceFacadeTest {
 		String reason = "Reason";
 
 		//When
-		absenceFacade.createAbsencesForChildBetweenDates(new AbsenceRangeDto(childId, dateFrom, dateTo,reason));
+		absenceFacade.createAbsencesForChildBetweenDates(new AbsenceRangeDto(childId, dateFrom, dateTo, reason));
 
 		//Then
 		verify(absenceService, times(1)).createAbsencesForChildBetweenDates(any(), any(), any(), any());

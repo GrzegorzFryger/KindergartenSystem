@@ -16,10 +16,15 @@ public interface AbsenceRepository extends JpaRepository<Absence, Long> {
 
 	List<Absence> findAllByDate(LocalDate date);
 
-	@Query("select c from Absence c where c.childId = :childId " +
-			"and c.date >= :start " +
-			"and c.date <= :end")
+	@Query("select a from Absence a where a.childId = :childId " +
+			"and a.date >= :start " +
+			"and a.date <= :end")
 	List<Absence> findAllByChildIdBetweenDates(@Param("childId") UUID childId,
-												   @Param("start") LocalDate start,
-												   @Param("end") LocalDate end);
+											   @Param("start") LocalDate start,
+											   @Param("end") LocalDate end);
+
+	@Query("select a from Absence a where a.date >= :start " +
+			"and a.date <= :end")
+	List<Absence> findAllBetweenDates(@Param("start") LocalDate start,
+									  @Param("end") LocalDate end);
 }

@@ -80,6 +80,11 @@ public class AbsenceServiceImpl implements AbsenceService {
 	}
 
 	@Override
+	public List<Absence> getAllAbsencesBetweenDates(LocalDate startDate, LocalDate endDate) {
+		return absenceRepository.findAllBetweenDates(startDate, endDate);
+	}
+
+	@Override
 	public List<Absence> createAbsencesForChildBetweenDates(UUID id, LocalDate startDate, LocalDate endDate, String reason) {
 		List<Absence> absenceList = new ArrayList<>();
 		LocalDate endDatePlus = endDate.plusDays(1);
