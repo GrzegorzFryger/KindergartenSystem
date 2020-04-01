@@ -16,6 +16,8 @@ public interface AbsenceFacade {
 
 	AbsenceDto getAbsence(Long id);
 
+	List<AbsenceDto> getAllAbsences();
+
 	List<AbsenceDto> getAllAbsencesByDate(LocalDate date);
 
 	List<AbsenceDto> getAllAbsencesByChildId(UUID id);

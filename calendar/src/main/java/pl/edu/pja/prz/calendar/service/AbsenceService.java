@@ -16,6 +16,8 @@ public interface AbsenceService {
 
 	Absence getAbsence(Long id);
 
+	List<Absence> getAllAbsences();
+
 	List<Absence> getAllAbsencesByDate(LocalDate date);
 
 	List<Absence> getAllAbsencesByChildId(UUID id);

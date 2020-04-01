@@ -96,6 +96,19 @@ public class AbsenceControllerTest {
 	}
 
 	@Test
+	public void shouldDelegateApiCallTo_getAllAbsencesMethod() throws Exception {
+		//Given
+
+		//When
+		mvc.perform(MockMvcRequestBuilders.get(API_CALENDAR + "absences")
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk());
+
+		//Then
+		verify(absenceFacade, only()).getAllAbsences();
+	}
+
+	@Test
 	public void shouldDelegateApiCallTo_getAllAbsencesByChildIdMethod() throws Exception {
 		//Given
 		String childId = UUID.randomUUID().toString();

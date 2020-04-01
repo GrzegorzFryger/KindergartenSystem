@@ -53,6 +53,13 @@ public class AbsenceFacadeImpl implements AbsenceFacade {
 	}
 
 	@Override
+	public List<AbsenceDto> getAllAbsences() {
+		return absenceMapper.absenceListToDtoList(
+				absenceService.getAllAbsences()
+		);
+	}
+
+	@Override
 	public List<AbsenceDto> getAllAbsencesByDate(LocalDate date) {
 		return absenceMapper.absenceListToDtoList(
 				absenceService.getAllAbsencesByDate(date)

@@ -108,6 +108,18 @@ public class AbsenceServiceTest {
 	}
 
 	@Test
+	public void ShouldGetAllAbsences() {
+		//Given
+		when(absenceRepository.findAll()).thenReturn(absenceList);
+
+		//When
+		service.getAllAbsences();
+
+		//Then
+		verify(absenceRepository, times(1)).findAll();
+	}
+
+	@Test
 	public void ShouldGetAllAbsencesByDate() {
 		//Given
 		when(absenceRepository.findAllByDate(any(LocalDate.class))).thenReturn(absenceList);

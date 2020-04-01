@@ -81,6 +81,17 @@ public class AbsenceFacadeTest {
 	}
 
 	@Test
+	public void shouldGetAllAbsences() {
+		//Given
+
+		//When
+		absenceFacade.getAllAbsences();
+
+		//Then
+		verify(absenceService, times(1)).getAllAbsences();
+	}
+
+	@Test
 	public void shouldGetAllAbsencesByChildId() {
 		//Given
 		var childId = UUID.randomUUID();

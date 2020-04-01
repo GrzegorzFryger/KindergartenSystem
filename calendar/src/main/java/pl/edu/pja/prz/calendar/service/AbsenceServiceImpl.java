@@ -65,6 +65,11 @@ public class AbsenceServiceImpl implements AbsenceService {
 	}
 
 	@Override
+	public List<Absence> getAllAbsences() {
+		return absenceRepository.findAll();
+	}
+
+	@Override
 	public List<Absence> getAllAbsencesByDate(LocalDate date) {
 		return absenceRepository.findAllByDate(date);
 	}

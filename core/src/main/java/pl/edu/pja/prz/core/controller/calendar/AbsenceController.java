@@ -32,6 +32,12 @@ public class AbsenceController {
 		return new ResponseEntity<>(absenceFacade.getAbsence(id), HttpStatus.OK);
 	}
 
+	@PreAuthorize(HAS_ROLE_ADMIN)
+	@GetMapping("absences")
+	public ResponseEntity<List<AbsenceDto>> findAllAbsences() {
+		return new ResponseEntity<>(absenceFacade.getAllAbsences(), HttpStatus.OK);
+	}
+
 	@PreAuthorize(HAS_ROLE_TEACHER + OR + HAS_ROLE_ADMIN)
 	@PostMapping("absence")
 	public ResponseEntity<AbsenceDto> createAbsence(@RequestBody AbsenceDto absenceDto) {
