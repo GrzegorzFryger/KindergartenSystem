@@ -5,7 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.edu.pja.prz.core.exception.Error;
 import pl.edu.pja.prz.core.model.AuthDto;
-import pl.edu.pja.prz.core.security.JwtAuthenticationFilter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

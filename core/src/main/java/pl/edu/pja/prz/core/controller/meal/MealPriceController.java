@@ -8,7 +8,7 @@ import pl.edu.pja.prz.meal.model.MealPrice;
 
 import java.util.List;
 
-import static pl.edu.pja.prz.commons.constants.Roles.*;
+import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_ADMIN;
 import static pl.edu.pja.prz.core.controller.RequestMappings.API_MEALS_PRICE;
 
 @RestController
@@ -35,7 +35,7 @@ public class MealPriceController {
     }
 
     @GetMapping
-    @PreAuthorize(HAS_ROLE_TEACHER + OR + HAS_ROLE_ADMIN)
+    @PreAuthorize(HAS_ROLE_ADMIN)
     public List<MealPrice> getAllPrices() {
        return mealPriceFacade.getAllPrices();
     }

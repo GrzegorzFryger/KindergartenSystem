@@ -29,7 +29,10 @@ INSERT INTO account.role_account (fk_role, fk_account) VALUES (1, '2a5c0cad-4de6
 INSERT INTO account.role_account (fk_role, fk_account) VALUES (2, '8a186e67-b796-406f-8e6a-3dc483143121');
 INSERT INTO account.role_account (fk_role, fk_account) VALUES (3, 'c4029244-e8ff-4328-8658-28964dda3c4e');
 INSERT INTO account.role_privileges (Role_id, privileges) VALUES (1, 'USER');
+INSERT INTO account.role_privileges (Role_id, privileges) VALUES (2, 'USER');
 INSERT INTO account.role_privileges (Role_id, privileges) VALUES (2, 'TEACHER');
+INSERT INTO account.role_privileges (Role_id, privileges) VALUES (3, 'USER');
+INSERT INTO account.role_privileges (Role_id, privileges) VALUES (3, 'TEACHER');
 INSERT INTO account.role_privileges (Role_id, privileges) VALUES (3, 'ADMINISTRATOR');
 
 

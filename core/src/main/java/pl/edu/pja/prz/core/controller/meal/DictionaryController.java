@@ -10,7 +10,7 @@ import pl.edu.pja.prz.meal.model.dto.DictionaryObjectDTO;
 
 import java.util.List;
 
-import static pl.edu.pja.prz.commons.constants.Roles.*;
+import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_USER;
 import static pl.edu.pja.prz.core.controller.RequestMappings.API_MEALS_DICTIONARY;
 
 @RestController
@@ -27,13 +27,13 @@ public class DictionaryController {
 
 
     @GetMapping("mealType")
-    @PreAuthorize(HAS_ANY_ROLE)
+    @PreAuthorize(HAS_ROLE_USER)
     public List<DictionaryObjectDTO> getAllMealTypes() {
         return mealDictionaryFacade.getAllMealTypes();
     }
 
     @GetMapping("dietType")
-    @PreAuthorize(HAS_ANY_ROLE)
+    @PreAuthorize(HAS_ROLE_USER)
     public List<DictionaryObjectDTO> getAllDietType() {
         return mealDictionaryFacade.getAllDietType();
     }
