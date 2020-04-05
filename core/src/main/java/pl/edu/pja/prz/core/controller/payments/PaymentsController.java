@@ -1,7 +1,5 @@
 package pl.edu.pja.prz.core.controller.payments;
 
-import static pl.edu.pja.prz.core.controller.RequestMappings.API_PAYMENTS;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +7,8 @@ import pl.edu.pja.prz.payments.facade.RecurringPaymentFacade;
 import pl.edu.pja.prz.payments.facade.dto.RecurringPaymentDto;
 
 import java.util.List;
+
+import static pl.edu.pja.prz.core.controller.RequestMappings.API_PAYMENTS;
 
 @RestController
 @RequestMapping(API_PAYMENTS)

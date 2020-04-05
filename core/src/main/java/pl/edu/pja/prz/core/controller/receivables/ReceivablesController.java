@@ -15,8 +15,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
-import static pl.edu.pja.prz.commons.constants.Roles.HAS_ANY_ROLE;
 import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_ADMIN;
+import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_USER;
 import static pl.edu.pja.prz.core.controller.RequestMappings.API_RECEIVABLES;
 
 @RestController
@@ -30,13 +30,13 @@ public class ReceivablesController {
     }
 
     @GetMapping("payments/child/{childId}")
-    @PreAuthorize(HAS_ANY_ROLE)
+    @PreAuthorize(HAS_ROLE_USER)
     public List<IncomingPaymentDto> getAllIncomingPaymentsForChild(@PathVariable UUID childId) {
         return receivablesFacade.getAllIncomingPaymentsByChildId(childId);
     }
 
     @GetMapping("payments/child/{childId}/{from}/{to}")
-    @PreAuthorize(HAS_ANY_ROLE)
+    @PreAuthorize(HAS_ROLE_USER)
     public List<IncomingPaymentDto> getAllIncomingPaymentsForChild(@PathVariable UUID childId,
                                                                    @PathVariable String from,
                                                                    @PathVariable String to) {
@@ -46,13 +46,13 @@ public class ReceivablesController {
     }
 
     @GetMapping("payments/guardian/{guardianId}")
-    @PreAuthorize(HAS_ANY_ROLE)
+    @PreAuthorize(HAS_ROLE_USER)
     public List<IncomingPaymentDto> getAllIncomingPaymentsForGuardian(@PathVariable UUID guardianId) {
         return receivablesFacade.getAllIncomingPaymentsByGuardianId(guardianId);
     }
 
     @GetMapping("payments/guardian/{guardianId}/{from}/{to}")
-    @PreAuthorize(HAS_ANY_ROLE)
+    @PreAuthorize(HAS_ROLE_USER)
     public List<IncomingPaymentDto> getAllIncomingPaymentsForGuardian(@PathVariable UUID guardianId,
                                                                       @PathVariable String from,
                                                                       @PathVariable String to) {
@@ -62,7 +62,7 @@ public class ReceivablesController {
     }
 
     @GetMapping("payments/mappings/{guardianId}")
-    @PreAuthorize(HAS_ANY_ROLE)
+    @PreAuthorize(HAS_ROLE_USER)
     public List<TransactionMapping> getAllPaymentMappingsForGuardian(@PathVariable UUID guardianId) {
         return receivablesFacade.getAllMappingsForGuardian(guardianId);
     }
