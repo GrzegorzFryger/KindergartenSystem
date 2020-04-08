@@ -9,6 +9,7 @@ import pl.edu.pja.prz.account.model.dto.AccountDto;
 import pl.edu.pja.prz.account.model.dto.ChildDto;
 import pl.edu.pja.prz.account.model.dto.GuardianChildAssociationDto;
 import pl.edu.pja.prz.account.model.dto.GuardianDto;
+import pl.edu.pja.prz.commons.model.FullName;
 
 import java.util.List;
 import java.util.Set;
@@ -40,6 +41,13 @@ public class GuardianController {
 	@GetMapping("guardians/{id}/children")
 	public ResponseEntity<Set<ChildDto>> findAllGuardianChildren(@PathVariable UUID id) {
 		return new ResponseEntity<>(guardianFacade.findAllGuardianChildren(id), HttpStatus.OK);
+
+	}
+
+	@GetMapping("guardians/search")
+	public ResponseEntity<List<GuardianDto>> searchGuardianByFullName(@RequestParam String name, @RequestParam String surname) {
+
+		return new ResponseEntity<>(guardianFacade.searchByFullName(new FullName(name, surname)), HttpStatus.OK);
 	}
 
 	@PostMapping("guardian")
