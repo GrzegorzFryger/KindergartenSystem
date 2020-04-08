@@ -11,6 +11,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import pl.edu.pja.prz.core.security.JwtAuthenticationEntryPoint;
 import pl.edu.pja.prz.core.security.JwtUserDetailsService;
 
+import java.util.Arrays;
+
 @Configuration
 public class SecurityBeanConfiguration {
 
@@ -22,7 +24,10 @@ public class SecurityBeanConfiguration {
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+		CorsConfiguration c = new CorsConfiguration();
+		c.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+		source.registerCorsConfiguration("/**", c.applyPermitDefaultValues());
+
 		return source;
 	}
 
