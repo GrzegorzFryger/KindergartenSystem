@@ -9,8 +9,10 @@ import pl.edu.pja.prz.account.model.dto.ChildDto;
 import pl.edu.pja.prz.account.service.ChildService;
 import pl.edu.pja.prz.commons.model.FullName;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ChildFacadeImpl implements ChildFacade {
@@ -69,5 +71,12 @@ public class ChildFacadeImpl implements ChildFacade {
 				.findByFullNameOrAddressReadOnly(new FullName(name, surname), street)
 				.map(childMapper::fromChild)
 				.or(Optional::empty);
+	}
+
+	public List<ChildDto> searchByFullName(FullName fullName) {
+		return childService.findByFullNameReadOnly(fullName)
+				.stream()
+				.map(childMapper::fromChild)
+				.collect(Collectors.toList());
 	}
 }
