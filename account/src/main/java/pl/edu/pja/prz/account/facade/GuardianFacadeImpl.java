@@ -75,4 +75,10 @@ public class GuardianFacadeImpl implements GuardianFacade {
 				.or(Optional::empty);
 	}
 
+	public List<GuardianDto> searchByFullName(FullName fullName) {
+		return this.guardianService.findByFullName(fullName)
+				.stream()
+				.map(this.guardianMapper::fromGuardian
+				).collect(Collectors.toList());
+	}
 }

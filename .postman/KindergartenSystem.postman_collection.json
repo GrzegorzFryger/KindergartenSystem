@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "78129b68-9fc2-42e0-afeb-571331c3837c",
+		"_postman_id": "f031db4f-983a-4afa-ab3b-efab530090b0",
 		"name": "KindergartenSystem",
 		"description": "This collection contains all API requests to backend system of our application.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -419,6 +419,64 @@
 							"path": [
 								"{{ACCOUNT}}",
 								"guardians"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/guardians/search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{ACCOUNT}}/guardians/search?name=Antoni&surname=Michalkiewicz",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{ACCOUNT}}",
+								"guardians",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Antoni"
+								},
+								{
+									"key": "surname",
+									"value": "Michalkiewicz"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/children/search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{ACCOUNT}}/children/search?name=Adam&surname=Michalkiewicz",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{ACCOUNT}}",
+								"children",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Adam"
+								},
+								{
+									"key": "surname",
+									"value": "Michalkiewicz"
+								}
 							]
 						}
 					},
