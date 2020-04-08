@@ -6,25 +6,46 @@ package pl.edu.pja.prz.commons.constants;
  * All below constants are 1:1 mappings with PrivilegeType enum from account module<br><br>
  *
  * Example mapping:<br>
- * {@link Roles#USER} - {@link pl.edu.pja.prz.account.model.enums.PrivilegeType#USER}
+ * {@link Roles#USER} - {@link pl.edu.pja.prz.account.model.enums.PrivilegeType#USER}<br><br>
+ *
+ * Roles hierarchy:<br>
+ * ADMINISTRATOR -> [Administrator, Teacher, User]<br>
+ * TEACHER -> [Teacher, User]<br>
+ * USER -> [User]<br>
  */
 public class Roles {
-    public static final String OR = " or ";
-    public static final String AND = " and ";
+    private static final String ROLE_USER = "hasAuthority('USER')";
+    private static final String ROLE_TEACHER = "hasAuthority('TEACHER')";
+    private static final String ROLE_ADMINISTRATOR = "hasAuthority('ADMINISTRATOR')";
 
-    public static final String USER = "USER";
-    public static final String HAS_ROLE_USER = "hasAuthority('" + USER + "')";
-    public static final String HAS_NOT_ROLE_USER = "!hasAuthority('" + USER + "')";
+    private static final String OR = " or ";
 
-    public static final String ADMINISTRATOR = "ADMINISTRATOR";
-    public static final String HAS_ROLE_ADMIN = "hasAuthority('" + ADMINISTRATOR + "')";
-    public static final String HAS_NOT_ROLE_ADMIN = "!hasAuthority('" + ADMINISTRATOR + "')";
+    /**
+     * Endpoints with this role in @PreAuthorize annotation can be accessed by:
+     * <ul>
+     *     <li>USER</li>
+     *     <li>TEACHER</li>
+     *     <li>ADMINISTRATOR</li>
+     * </ul>
+     */
+    public static final String HAS_ROLE_USER = ROLE_USER + OR + ROLE_TEACHER + OR + ROLE_ADMINISTRATOR;
 
-    public static final String TEACHER = "TEACHER";
-    public static final String HAS_ROLE_TEACHER = "hasAuthority('" + TEACHER + "')";
-    public static final String HAS_NOT_ROLE_TEACHER = "!hasAuthority('" + TEACHER + "')";
+    /**
+     * Endpoints with this role in @PreAuthorize annotation can be accessed by:
+     * <ul>
+     *     <li>TEACHER</li>
+     *     <li>ADMINISTRATOR</li>
+     * </ul>
+     */
+    public static final String HAS_ROLE_TEACHER = ROLE_TEACHER + OR + ROLE_ADMINISTRATOR;
 
-    public static final String HAS_ANY_ROLE = HAS_ROLE_USER + OR + HAS_ROLE_TEACHER + OR + HAS_ROLE_ADMIN;
+    /**
+     * Endpoints with this role in @PreAuthorize annotation can be accessed by:
+     * <ul>
+     *     <li>ADMINISTRATOR</li>
+     * </ul>
+     */
+    public static final String HAS_ROLE_ADMIN = ROLE_ADMINISTRATOR;
 
     private Roles() {
 

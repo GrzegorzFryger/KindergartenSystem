@@ -1,12 +1,13 @@
 package pl.edu.pja.prz.core.security;
 
-import static pl.edu.pja.prz.core.configuration.SecurityConstants.AUTH_LOGIN_URL;
-
-import java.io.IOException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+import static pl.edu.pja.prz.core.configuration.SecurityConstants.AUTH_LOGIN_URL;
 
 public class JwtAuthenticationEntryPoint extends LoginUrlAuthenticationEntryPoint {
 	public JwtAuthenticationEntryPoint()  {

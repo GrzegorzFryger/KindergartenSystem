@@ -1,10 +1,5 @@
 package pl.edu.pja.prz.core.controller.groups;
 
-import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_ADMIN;
-import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_TEACHER;
-import static pl.edu.pja.prz.commons.constants.Roles.OR;
-import static pl.edu.pja.prz.core.controller.RequestMappings.API_GROUPS;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +13,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_ADMIN;
+import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_TEACHER;
+import static pl.edu.pja.prz.core.controller.RequestMappings.API_GROUPS;
+
 @RestController
 @RequestMapping(API_GROUPS)
 public class GroupsController {
@@ -28,13 +27,13 @@ public class GroupsController {
 		this.groupFacade = groupFacade;
 	}
 
-	@PreAuthorize(HAS_ROLE_TEACHER + OR + HAS_ROLE_ADMIN)
+	@PreAuthorize(HAS_ROLE_TEACHER)
 	@GetMapping("{id}")
 	public ResponseEntity<GroupDto> getGroup(@PathVariable Long id) {
 		return new ResponseEntity<>(groupFacade.getGroup(id), HttpStatus.OK);
 	}
 
-	@PreAuthorize(HAS_ROLE_TEACHER + OR + HAS_ROLE_ADMIN)
+	@PreAuthorize(HAS_ROLE_TEACHER)
 	@GetMapping("groups")
 	public ResponseEntity<List<GroupDto>> getAllGroups() {
 		return new ResponseEntity<>(groupFacade.getAllGroups(), HttpStatus.OK);
@@ -66,7 +65,7 @@ public class GroupsController {
 		return new ResponseEntity<>(groupFacade.addChildToGroup(groupId, childId), HttpStatus.OK);
 	}
 
-	@PreAuthorize(HAS_ROLE_TEACHER + OR + HAS_ROLE_ADMIN)
+	@PreAuthorize(HAS_ROLE_TEACHER)
 	@GetMapping("list/{id}")
 	public ResponseEntity<Set<ChildDto>> findAllChildrenInGroup(@PathVariable Long id) {
 		return new ResponseEntity<>(groupFacade.findAllChildrenInGroup(id), HttpStatus.OK);
