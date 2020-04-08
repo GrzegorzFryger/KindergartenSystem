@@ -17,7 +17,9 @@ import pl.edu.pja.prz.account.utilites.ChildBuilder;
 import pl.edu.pja.prz.commons.model.Address;
 import pl.edu.pja.prz.commons.model.Address_;
 import pl.edu.pja.prz.commons.model.FullName;
+import pl.edu.pja.prz.commons.model.FullName_;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -73,6 +75,14 @@ public class ChildService extends GenericService<ChildRepository, Child, UUID> {
 						return null;
 					});
 		}
+	}
+
+	public List<Child> findByFullNameReadOnly(FullName fullName) {
+		return repository.findReadOnly((root, query, cb) ->
+				cb.or(
+						cb.like(root.get(Child_.FULL_NAME).get(FullName_.NAME), fullName.getName()),
+						cb.like(root.get(Child_.FULL_NAME).get(FullName_.SURNAME), fullName.getSurname())
+				), Child.class);
 	}
 
 	private Child createChildBasedOnPesel(Address address, FullName fullName, String pesel,
