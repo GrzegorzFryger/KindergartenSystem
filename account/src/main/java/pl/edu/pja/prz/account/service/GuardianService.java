@@ -106,7 +106,7 @@ public class GuardianService extends BasicAccountService<GuardianRepository, Gua
 
     public List<Guardian> findByFullName(FullName fullName) {
         return repository.findReadOnly((root, query, cb) ->
-                cb.or(
+                cb.and(
                         cb.like(root.get(Guardian_.FULL_NAME).get(FullName_.NAME), fullName.getName()),
                         cb.like(root.get(Guardian_.FULL_NAME).get(FullName_.SURNAME), fullName.getSurname())
                 ), Guardian.class);

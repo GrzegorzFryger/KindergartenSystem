@@ -79,7 +79,7 @@ public class ChildService extends GenericService<ChildRepository, Child, UUID> {
 
 	public List<Child> findByFullNameReadOnly(FullName fullName) {
 		return repository.findReadOnly((root, query, cb) ->
-				cb.or(
+				cb.and(
 						cb.like(root.get(Child_.FULL_NAME).get(FullName_.NAME), fullName.getName()),
 						cb.like(root.get(Child_.FULL_NAME).get(FullName_.SURNAME), fullName.getSurname())
 				), Child.class);
