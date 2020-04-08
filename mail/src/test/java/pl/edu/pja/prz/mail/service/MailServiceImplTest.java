@@ -5,6 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.mail.MailSendException;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import pl.edu.pja.prz.mail.model.BaseMail;
@@ -165,6 +166,34 @@ class MailServiceImplTest {
 
         //When
         verify(factory, never()).getSender(anyString(), anyString());
+    }
+
+    @Test
+    public void Should_CatchException_When_SendingEmail() {
+        //Given
+        BaseMail baseMail = new BaseMail("correct@email.com", "Hello there",
+                "Some text, which I want to show in email");
+        String email = "correct_email@aa.eu";
+        String password = "pass";
+
+        //When
+        when(factory.getSender(anyString(), anyString())).thenThrow(MailSendException.class);
+        service.sendEmail(baseMail, email, password);
+
+        //Then
+    }
+
+    @Test
+    public void Should_CatchException_When_SendingEmail_Without_AdditionalEmailAndPassword() {
+        //Given
+        BaseMail baseMail = new BaseMail("correct@email.com", "Hello there",
+                "Some text, which I want to show in email");
+
+        //When
+        when(factory.getSender()).thenThrow(MailSendException.class);
+        service.sendEmail(baseMail);
+
+        //Then
     }
 
 

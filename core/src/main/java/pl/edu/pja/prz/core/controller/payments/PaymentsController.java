@@ -8,8 +8,10 @@ import pl.edu.pja.prz.payments.facade.dto.RecurringPaymentDto;
 
 import java.util.List;
 
+import static pl.edu.pja.prz.core.controller.RequestMappings.API_PAYMENTS;
+
 @RestController
-@RequestMapping("api/payments/")
+@RequestMapping(API_PAYMENTS)
 //TODO: ADD @PreAuthorize annotation with proper roles from Roles.java class
 public class PaymentsController {
 	private final RecurringPaymentFacade paymentFacade;

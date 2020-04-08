@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class MealPriceServiceImpl {
+public class MealPriceServiceImpl implements MealPriceService {
 
 
     private final MealPriceRepository mealPriceRepository;
@@ -52,7 +52,7 @@ public class MealPriceServiceImpl {
         mealPriceRepository.deleteById(id);
     }
 
-    BigDecimal getPriceByMealType(MealType mealType) {
+    public BigDecimal getPriceByMealType(MealType mealType) {
         return BigDecimal.valueOf(mealPriceRepository.findMealPriceByMealType(mealType));
     }
 

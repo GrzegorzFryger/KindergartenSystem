@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "7bd2ae5b-a9d0-4c72-8528-f6d555a0b7d3",
+		"_postman_id": "78129b68-9fc2-42e0-afeb-571331c3837c",
 		"name": "KindergartenSystem",
 		"description": "This collection contains all API requests to backend system of our application.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -10,7 +10,7 @@
 			"name": "Authorization",
 			"item": [
 				{
-					"name": "/api/authenticate",
+					"name": "/api/authenticate [USER]",
 					"event": [
 						{
 							"listen": "test",
@@ -18,8 +18,8 @@
 								"id": "6e59e09f-6a64-46a5-a991-26f3848f76fa",
 								"exec": [
 									"pm.test(\"Save token in environment variable for future requests\", function() {\r",
-									"    let bearerToken = pm.response.headers.get(\"Authorization\").substring(7);\r",
-									"    pm.environment.set(\"token\", bearerToken);\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.environment.set(\"token\", jsonData.token);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -43,7 +43,115 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"username\": \"{{username}}\",\n\t\"password\": \"{{password}}\"\n}",
+							"raw": "{\n\t\"username\": \"{{user_login}}\",\n\t\"password\": \"{{user_pass}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/authenticate",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/authenticate [TEACHER]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6e59e09f-6a64-46a5-a991-26f3848f76fa",
+								"exec": [
+									"pm.test(\"Save token in environment variable for future requests\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.environment.set(\"token\", jsonData.token);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "testjwtclientid",
+								"value": "XY7kmzoNzl100",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"{{teacher_login}}\",\n\t\"password\": \"{{teacher_pass}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{HOST}}/api/authenticate",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/api/authenticate [ADMIN]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6e59e09f-6a64-46a5-a991-26f3848f76fa",
+								"exec": [
+									"pm.test(\"Save token in environment variable for future requests\", function() {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.environment.set(\"token\", jsonData.token);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "testjwtclientid",
+								"value": "XY7kmzoNzl100",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"{{admin_login}}\",\n\t\"password\": \"{{admin_pass}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -618,6 +726,26 @@
 					"response": []
 				},
 				{
+					"name": "/dayoff/weekends/{year}",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{CALENDAR}}/dayoff/weekends/2020",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{CALENDAR}}",
+								"dayoff",
+								"weekends",
+								"2020"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "/dayoff",
 					"request": {
 						"method": "PUT",
@@ -691,7 +819,7 @@
 					"response": []
 				},
 				{
-					"name": "/balance-list/{guardianId}",
+					"name": "/balance/guardian/{guardianId}",
 					"event": [
 						{
 							"listen": "test",
@@ -710,13 +838,48 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{HOST}}/{{FINCANCES}}/balance-list/{{guardianId}}",
+							"raw": "{{HOST}}/{{FINCANCES}}/balance/guardian/{{guardianId}}",
 							"host": [
 								"{{HOST}}"
 							],
 							"path": [
 								"{{FINCANCES}}",
-								"balance-list",
+								"balance",
+								"guardian",
+								"{{guardianId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/balance/children/{guardianId}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dfa25d81-00dd-429c-ad43-5841159a1b51",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{FINCANCES}}/balance/children/{{guardianId}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{FINCANCES}}",
+								"balance",
+								"children",
 								"{{guardianId}}"
 							]
 						}
@@ -729,13 +892,625 @@
 		},
 		{
 			"name": "Groups",
-			"item": [],
+			"item": [
+				{
+					"name": "/group",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"groupName\": \"Group one\",\n\t\"groupDescription\": \"Test description\"\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}/{{GROUPS}}/",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{GROUPS}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/group/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{GROUPS}}/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{GROUPS}}",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/groups",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{GROUPS}}/groups",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{GROUPS}}",
+								"groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/group/list/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{GROUPS}}/list/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{GROUPS}}",
+								"list",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/group",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": \"3\",\n\t\"groupName\": \"New Name\",\n\t\"groupDescription\": \"New Description\"\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}/{{GROUPS}}/",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{GROUPS}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/group/{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{GROUPS}}/1",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{GROUPS}}",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/group/add/{groupId}/{childId}",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{GROUPS}}/add/2/1c7fe144-f71a-4599-b8bf-04aa92d7ab6d",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{GROUPS}}",
+								"add",
+								"2",
+								"1c7fe144-f71a-4599-b8bf-04aa92d7ab6d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/group/remove/{groupId}/{childId}",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{GROUPS}}/remove/1/0560d77d-e0db-4914-ae4a-4f39690ecb2d",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{GROUPS}}",
+								"remove",
+								"1",
+								"0560d77d-e0db-4914-ae4a-4f39690ecb2d"
+							]
+						}
+					},
+					"response": []
+				}
+			],
 			"description": "All requests from Groups module.",
 			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Meal",
-			"item": [],
+			"item": [
+				{
+					"name": "Dictionary",
+					"item": [
+						{
+							"name": "MealType Dictionary",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{HOST}}/api/dictionary/meal/mealType",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"dictionary",
+										"meal",
+										"mealType"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DieType Dictionary",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{HOST}}/api/dictionary/meal/dietType",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"dictionary",
+										"meal",
+										"dietType"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Meal",
+					"item": [
+						{
+							"name": "CreateMeal",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"mealType\": \"BREAKFAST\",\n\t\"dietType\": \"VEGETARIAN\",\n\t\"childID\": \"0560d77d-e0db-4914-ae4a-4f39690ecb2d\",\n\t\"mealFromDate\": \"2020-04-27\",\n\t\"mealToDate\": \"2020-05-27\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/api/meal",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"meal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Meals",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"mealType\": \"BREAKFAST\",\n\t\"dietType\": \"VEGETARIAN\",\n\t\"childID\": \"0560d77d-e0db-4914-ae4a-4f39690ecb2d\",\n\t\"mealFromDate\": \"2020-04-27\",\n\t\"mealToDate\": \"2020-05-27\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/api/meal",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"meal"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Meal By ID",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"mealType\": \"BREAKFAST\",\n\t\"dietType\": \"VEGETARIAN\",\n\t\"childID\": \"0560d77d-e0db-4914-ae4a-4f39690ecb2d\",\n\t\"mealFromDate\": \"2020-04-27\",\n\t\"mealToDate\": \"2020-05-27\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/api/meal/1",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"meal",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Meal",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"mealType\": \"BREAKFAST\",\n\t\"dietType\": \"VEGETARIAN\",\n\t\"childID\": \"0560d77d-e0db-4914-ae4a-4f39690ecb2d\",\n\t\"mealFromDate\": \"2020-04-27\",\n\t\"mealToDate\": \"2020-05-27\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{HOST}}/api/meal/1",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"meal",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Meal Price",
+					"item": [
+						{
+							"name": "Get All Prices",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{HOST}}/api/meal/price",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"meal",
+										"price"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Creat Meal Price",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"mealType\":\"DINER\",\n\t\"mealPrice\":\"56.44\"\n}"
+								},
+								"url": {
+									"raw": "{{HOST}}/api/meal/price",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"meal",
+										"price"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Meal Price",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"mealType\":\"DINER\",\n\t\"mealPrice\":\"56.44\"\n}"
+								},
+								"url": {
+									"raw": "{{HOST}}/api/meal/price?id=3",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"meal",
+										"price"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Meal Price",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"mealType\":\"DINER\",\n\t\"mealPrice\":\"56.44\"\n}"
+								},
+								"url": {
+									"raw": "{{HOST}}/api/meal/price?id=3",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"api",
+										"meal",
+										"price"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
 			"description": "All requests from Meal module.",
 			"protocolProfileBehavior": {}
 		},
@@ -748,12 +1523,6 @@
 		{
 			"name": "Receivables",
 			"item": [
-				{
-					"name": "SCHEDULER",
-					"item": [],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
-				},
 				{
 					"name": "/transactions/{id}",
 					"event": [
@@ -902,12 +1671,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"type": "text/javascript",
+								"id": "ced36ab9-db6f-40ef-87ae-8b7bdabea5fa",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
-								]
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -923,7 +1693,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"id\": 2,\n\t\"transactionDate\": \"2019-10-15\",\n\t\"bookingDate\": \"2019-10-15\",\n\t\"contractorDetails\": \"Rodzic #001\",\n\t\"title\": \"Czesne\",\n\t\"accountNumber\": \"1234123412341234\",\n\t\"bankName\": \"ING Bank\",\n\t\"details\": \"Za dziecko XYZ\",\n\t\"transactionNumber\": \"XYZ-123456\",\n\t\"transactionAmount\": \"20.50\",\n\t\"transactionCurrency\": \"PLN\"\n}"
+							"raw": "{\n\t\"id\": 1,\n\t\"transactionDate\": \"2019-10-15\",\n\t\"bookingDate\": \"2019-10-15\",\n\t\"contractorDetails\": \"Andrzej Małysz\",\n\t\"title\": \"429630192312\",\n\t\"accountNumber\": \"61 1090 1014 0000 0712 1981 2874\",\n\t\"bankName\": \"ING Bank\",\n\t\"details\": \"Za dziecko XYZ\",\n\t\"transactionNumber\": \"201967193405359451\",\n\t\"transactionAmount\": \"555.50\",\n\t\"transactionCurrency\": \"PLN\"\n}"
 						},
 						"url": {
 							"raw": "{{HOST}}/{{RECEIVABLES}}/transactions",
@@ -1076,6 +1846,40 @@
 								"{{RECEIVABLES}}",
 								"payments",
 								"guardian",
+								"{{guardianId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/payments/mappings/{id}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dfa25d81-00dd-429c-ad43-5841159a1b51",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/payments/mappings/{{guardianId}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"payments",
+								"mappings",
 								"{{guardianId}}"
 							]
 						}

@@ -31,28 +31,6 @@ public class Child extends BaseEntityUuid {
 	public Child() {
 	}
 
-	public Child(Address address, Age age, FullName fullName, Gender gender, Set<ChildStatus> childStatuses,
-	             Set<Guardian> guardians, String peselNumber, StudyPeriod studyPeriod) {
-		this.address = address;
-		this.age = age;
-		this.fullName = fullName;
-		this.gender = gender;
-		this.childStatuses = childStatuses;
-		this.guardians = guardians;
-		this.peselNumber = peselNumber;
-		this.studyPeriod = studyPeriod;
-	}
-
-	public Child(Gender gender, String peselNumber, FullName fullName, Age age, Address address,
-	             StudyPeriod studyPeriod) {
-		this.address = address;
-		this.age = age;
-		this.fullName = fullName;
-		this.gender = gender;
-		this.peselNumber = peselNumber;
-		this.studyPeriod = studyPeriod;
-	}
-
 	public Address getAddress() {
 		return address;
 	}
@@ -152,20 +130,5 @@ public class Child extends BaseEntityUuid {
 		result = 31 * result + (getPeselNumber() != null ? getPeselNumber().hashCode() : 0);
 		result = 31 * result + (getStudyPeriod() != null ? getStudyPeriod().hashCode() : 0);
 		return result;
-	}
-
-	@Override
-	public String toString() {
-		return "Child{" +
-				"address=" + address +
-				", age=" + age +
-				//", borough=" + borough +
-				", fullName=" + fullName +
-				", gender=" + gender +
-				", childStatuses=" + childStatuses +
-				", guardians=" + guardians +
-				", peselNumber='" + peselNumber + '\'' +
-				", studyPeriod=" + studyPeriod +
-				'}';
 	}
 }

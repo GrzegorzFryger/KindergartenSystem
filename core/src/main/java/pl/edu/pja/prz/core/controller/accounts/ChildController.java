@@ -4,12 +4,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.pja.prz.account.facade.ChildFacade;
-import pl.edu.pja.prz.account.facade.dto.ChildDto;
+import pl.edu.pja.prz.account.model.dto.ChildDto;
 
 import java.util.UUID;
 
+import static pl.edu.pja.prz.core.controller.RequestMappings.API_ACCOUNT;
+
 @RestController
-@RequestMapping("api/account/")
+@RequestMapping(API_ACCOUNT)
 //TODO: ADD @PreAuthorize annotation with proper roles from Roles.java class
 public class ChildController {
 	private final ChildFacade childFacade;

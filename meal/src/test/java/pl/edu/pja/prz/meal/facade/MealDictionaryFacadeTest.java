@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pl.edu.pja.prz.meal.service.MealDictionaryService;
+import pl.edu.pja.prz.meal.service.MealDictionaryServiceImpl;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -14,13 +14,13 @@ import static org.mockito.Mockito.verify;
 class MealDictionaryFacadeTest {
 
     @Mock
-    private MealDictionaryService mealDictionaryService;
+    private MealDictionaryServiceImpl mealDictionaryServiceImpl;
 
     private MealDictionaryFacade mealDictionaryFacade;
 
     @BeforeEach
     public void setUp() {
-        mealDictionaryFacade = new MealDictionaryFacade(mealDictionaryService);
+        mealDictionaryFacade = new MealDictionaryFacade(mealDictionaryServiceImpl);
     }
 
     @Test
@@ -30,6 +30,6 @@ class MealDictionaryFacadeTest {
         mealDictionaryFacade.getAllMealTypes();
 
         //then
-        verify(mealDictionaryService, times(1)).getAllMealTypes();
+        verify(mealDictionaryServiceImpl, times(1)).getAllMealTypes();
     }
 }

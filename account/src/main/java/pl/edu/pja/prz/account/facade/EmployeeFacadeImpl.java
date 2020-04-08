@@ -2,10 +2,10 @@ package pl.edu.pja.prz.account.facade;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.edu.pja.prz.account.facade.dto.AccountDto;
-import pl.edu.pja.prz.account.facade.dto.EmployeeDto;
-import pl.edu.pja.prz.account.facade.mapper.AccountMapper;
-import pl.edu.pja.prz.account.facade.mapper.EmployeeMapper;
+import pl.edu.pja.prz.account.model.dto.AccountDto;
+import pl.edu.pja.prz.account.model.dto.EmployeeDto;
+import pl.edu.pja.prz.account.mapper.AccountMapper;
+import pl.edu.pja.prz.account.mapper.EmployeeMapper;
 import pl.edu.pja.prz.account.service.EmployeeService;
 
 import java.util.UUID;
@@ -16,7 +16,7 @@ public class EmployeeFacadeImpl implements EmployeeFacade {
 	private final EmployeeService employeeService;
 
 	@Autowired
-	public EmployeeFacadeImpl(EmployeeMapper employeeMapper, EmployeeService employeeService, AccountMapper accountMapper) {
+	public EmployeeFacadeImpl(EmployeeMapper employeeMapper, EmployeeService employeeService) {
 		this.employeeMapper = employeeMapper;
 		this.employeeService = employeeService;
 	}
@@ -40,10 +40,11 @@ public class EmployeeFacadeImpl implements EmployeeFacade {
 				)
 		);
 	}
+
 	@Override
 	public EmployeeDto findById(UUID id) {
 		return employeeMapper.fromEmployee(employeeService
-						.findById(id));
+						.getById(id));
 	}
 
 }

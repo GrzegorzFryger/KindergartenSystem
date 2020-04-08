@@ -17,12 +17,13 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static pl.edu.pja.prz.core.controller.RequestMappings.API_CALENDAR;
 import static pl.edu.pja.prz.core.util.JsonUtil.convertToJson;
 
 @ExtendWith(MockitoExtension.class)
 public class DayOffWorkControllerTest {
-	private static final String BASE = "/api/calendar/";
 	private Long id = 1L;
+	private int year = 2020;
 	private MockMvc mvc;
 	@Mock
 	private DayOffWorkFacade dayOffWorkFacade;
@@ -39,7 +40,7 @@ public class DayOffWorkControllerTest {
 		//Given
 
 		//When
-		mvc.perform(MockMvcRequestBuilders.get(BASE + "dayoff/" + id)
+		mvc.perform(MockMvcRequestBuilders.get(API_CALENDAR + "dayoff/" + id)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());
 
@@ -52,7 +53,7 @@ public class DayOffWorkControllerTest {
 		//Given
 
 		//When
-		mvc.perform(MockMvcRequestBuilders.delete(BASE + "dayoff/" + id)
+		mvc.perform(MockMvcRequestBuilders.delete(API_CALENDAR + "dayoff/" + id)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());
 
@@ -66,7 +67,7 @@ public class DayOffWorkControllerTest {
 		String json = convertToJson(new DayOffWorkDto());
 
 		//When
-		mvc.perform(MockMvcRequestBuilders.post(BASE + "dayoff")
+		mvc.perform(MockMvcRequestBuilders.post(API_CALENDAR + "dayoff")
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON).content(json))
 				.andExpect(status().isOk());
@@ -81,7 +82,7 @@ public class DayOffWorkControllerTest {
 		String json = convertToJson(new DayOffWorkDto());
 
 		//When
-		mvc.perform(MockMvcRequestBuilders.put(BASE + "dayoff")
+		mvc.perform(MockMvcRequestBuilders.put(API_CALENDAR + "dayoff")
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON).content(json))
 				.andExpect(status().isOk());
@@ -95,11 +96,24 @@ public class DayOffWorkControllerTest {
 		//Given
 
 		//When
-		mvc.perform(MockMvcRequestBuilders.get(BASE + "daysoff")
+		mvc.perform(MockMvcRequestBuilders.get(API_CALENDAR + "daysoff")
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());
 
 		//Then
 		verify(dayOffWorkFacade, only()).getAllDaysOff();
+	}
+
+	@Test
+	public void shouldDelegateApiCallTo_createDaysOffOnWeekends() throws Exception {
+		//Given
+
+		//When
+		mvc.perform(MockMvcRequestBuilders.post(API_CALENDAR + "dayoff/weekends/" + year)
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk());
+
+		//Then
+		verify(dayOffWorkFacade, only()).createDaysOffOnWeekends(year);
 	}
 }

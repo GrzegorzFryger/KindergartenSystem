@@ -1,5 +1,9 @@
 package pl.edu.pja.prz.core.security;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -10,14 +14,19 @@ import pl.edu.pja.prz.core.model.AuthDto;
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpMethod.POST;
-import static pl.edu.pja.prz.core.configuration.SecurityConstants.*;
+import static pl.edu.pja.prz.core.configuration.SecurityConstants.AUTH_LOGIN_URL;
+import static pl.edu.pja.prz.core.configuration.SecurityConstants.TOKEN;
 import static pl.edu.pja.prz.core.utilites.JwtFilterUtils.addErrorToResponse;
 import static pl.edu.pja.prz.core.utilites.JwtFilterUtils.getAuthDto;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+    private static Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
+
     private final JwtTokenProvider jwtTokenProvider;
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider) {
@@ -47,7 +56,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
-                                            FilterChain filterChain, Authentication authentication) {
+                                            FilterChain filterChain, Authentication authentication) throws IOException {
         var user = ((JwtUserDetails) authentication.getPrincipal());
 
         var roles = user.getAuthorities()
@@ -55,8 +64,21 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
-        String token = jwtTokenProvider.buildToken(user, roles);
-        response.addHeader(TOKEN_HEADER, TOKEN_PREFIX + token);
+        String token = buildToken(user, roles);
+        response.getWriter().write(token);
+    }
+
+    private String buildToken(JwtUserDetails user, List<String> roles) {
+        String tokenString = jwtTokenProvider.buildToken(user, roles);
+        String token = "";
+        try {
+            token = new JSONObject()
+                .put(TOKEN, tokenString)
+                .toString();
+        } catch (JSONException e) {
+            logger.error("Failed to build token", e);
+        }
+        return token;
     }
 
     private Authentication respondWithError(String message, HttpServletResponse response) {

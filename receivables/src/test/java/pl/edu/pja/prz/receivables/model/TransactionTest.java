@@ -69,4 +69,15 @@ class TransactionTest {
         assertTrue(firstEqualsToSecond);
         assertTrue(secondEqualsToFirst);
     }
+
+    @Test
+    public void Should_ReturnProperString() {
+        //Given
+
+        //When
+        String result = transaction.toString();
+
+        //Then
+        assertEquals("Czesne [25.5 PLN]", result);
+    }
 }

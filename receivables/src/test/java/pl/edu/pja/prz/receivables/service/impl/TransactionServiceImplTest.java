@@ -11,6 +11,7 @@ import pl.edu.pja.prz.finances.facade.FinancesFacade;
 import pl.edu.pja.prz.receivables.model.Transaction;
 import pl.edu.pja.prz.receivables.model.builder.TransactionBuilder;
 import pl.edu.pja.prz.receivables.repository.TransactionRepository;
+import pl.edu.pja.prz.receivables.service.TransactionMappingService;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -30,12 +31,14 @@ class TransactionServiceImplTest {
     private FinancesFacade facade;
     @Mock
     private TransactionRepository repository;
+    @Mock
+    private TransactionMappingService mappingService;
 
     private TransactionServiceImpl service;
 
     @BeforeEach
     public void setUp() {
-        service = new TransactionServiceImpl(facade, repository);
+        service = new TransactionServiceImpl(facade, repository, mappingService);
 
         transaction = new TransactionBuilder()
                 .withTransactionDate(LocalDate.of(2020, 10, 10))
@@ -52,6 +55,7 @@ class TransactionServiceImplTest {
 
         transaction.setId(1L);
         transaction.setChildId(UUID.randomUUID());
+        transaction.setGuardianId(UUID.randomUUID());
     }
 
     @Test

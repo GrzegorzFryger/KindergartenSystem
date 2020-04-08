@@ -3,8 +3,9 @@ package pl.edu.pja.prz.account.facade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
-import pl.edu.pja.prz.account.facade.dto.ChildDto;
-import pl.edu.pja.prz.account.facade.mapper.ChildMapper;
+import pl.edu.pja.prz.account.exception.MoreThanOneElement;
+import pl.edu.pja.prz.account.mapper.ChildMapper;
+import pl.edu.pja.prz.account.model.dto.ChildDto;
 import pl.edu.pja.prz.account.service.ChildService;
 import pl.edu.pja.prz.commons.model.FullName;
 
@@ -50,7 +51,8 @@ public class ChildFacadeImpl implements ChildFacade {
 	@Override
 	public ChildDto updateChild(ChildDto childDto) {
 		return childMapper.fromChild(
-				childService.updateChild(
+				childService.update(
+
 						childMapper.toChild(childDto)
 				)
 		);
@@ -58,13 +60,13 @@ public class ChildFacadeImpl implements ChildFacade {
 
 	public ChildDto findChildById(UUID id) {
 		return childMapper.fromChild(
-				childService.getChildById(id)
+				childService.getById(id)
 		);
 	}
 
-	public Optional<ChildDto> findByFullNameOrAddress(String name, String surname, @Nullable String street) {
+	public Optional<ChildDto> findByFullNameOrAddress(String name, String surname, @Nullable String street) throws MoreThanOneElement {
 		return childService
-				.findByFullNameOrAddressReadOnly(new FullName(name.toLowerCase(), surname.toLowerCase()), street)
+				.findByFullNameOrAddressReadOnly(new FullName(name, surname), street)
 				.map(childMapper::fromChild)
 				.or(Optional::empty);
 	}

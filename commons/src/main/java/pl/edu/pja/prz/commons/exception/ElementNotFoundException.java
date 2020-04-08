@@ -8,6 +8,8 @@ import java.util.UUID;
  * This exception should be used for all cases, when some resource is not found.
  */
 public class ElementNotFoundException extends RuntimeException {
+    private static final String ELEMENT = "Element";
+
     private final String message;
 
     public ElementNotFoundException(String element, Long id) {
@@ -23,7 +25,15 @@ public class ElementNotFoundException extends RuntimeException {
     }
 
     public ElementNotFoundException(Long id) {
-        message = buildErrorMessage("Element", String.valueOf(id));
+        message = buildErrorMessage(ELEMENT, String.valueOf(id));
+    }
+
+    public ElementNotFoundException(UUID id) {
+        message = buildErrorMessage(ELEMENT, String.valueOf(id));
+    }
+
+    public ElementNotFoundException(Object id) {
+        message = buildErrorMessage(ELEMENT, String.valueOf(id));
     }
 
     private String buildErrorMessage(String element, String id) {

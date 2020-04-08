@@ -11,31 +11,37 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import pl.edu.pja.prz.core.security.JwtAuthenticationEntryPoint;
 import pl.edu.pja.prz.core.security.JwtUserDetailsService;
 
+import java.util.Arrays;
+
 @Configuration
 public class SecurityBeanConfiguration {
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-	@Bean
-	public CorsConfigurationSource corsConfigurationSource() {
-		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
-		return source;
-	}
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration c = new CorsConfiguration();
+        c.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+        source.registerCorsConfiguration("/**", c.applyPermitDefaultValues());
 
-	@Bean
-	public DaoAuthenticationProvider daoAuthenticationProvider(PasswordEncoder passwordEncoder, JwtUserDetailsService userDetailsService) {
-		DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-		daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
-		daoAuthenticationProvider.setUserDetailsService(userDetailsService);
-		return daoAuthenticationProvider;
-	}
+        return source;
+    }
 
-	@Bean
-	public JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint() {
-		return new JwtAuthenticationEntryPoint();
-	}
+    @Bean
+    public DaoAuthenticationProvider daoAuthenticationProvider(PasswordEncoder passwordEncoder, JwtUserDetailsService userDetailsService) {
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
+        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
+        return daoAuthenticationProvider;
+    }
+
+    @Bean
+    public JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint() {
+        return new JwtAuthenticationEntryPoint();
+    }
+
 }

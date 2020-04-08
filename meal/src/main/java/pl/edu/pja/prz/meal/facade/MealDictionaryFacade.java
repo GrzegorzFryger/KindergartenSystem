@@ -3,21 +3,25 @@ package pl.edu.pja.prz.meal.facade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.meal.model.dto.DictionaryObjectDTO;
-import pl.edu.pja.prz.meal.service.MealDictionaryService;
+import pl.edu.pja.prz.meal.service.MealDictionaryServiceImpl;
 
 import java.util.List;
 
 @Service
 public class MealDictionaryFacade {
 
-    private final MealDictionaryService mealDictionaryService;
+    private final MealDictionaryServiceImpl mealDictionaryServiceImpl;
 
     @Autowired
-    public MealDictionaryFacade(MealDictionaryService mealDictionaryService) {
-        this.mealDictionaryService = mealDictionaryService;
+    public MealDictionaryFacade(MealDictionaryServiceImpl mealDictionaryServiceImpl) {
+        this.mealDictionaryServiceImpl = mealDictionaryServiceImpl;
     }
 
     public List<DictionaryObjectDTO> getAllMealTypes() {
-        return mealDictionaryService.getAllMealTypes();
+        return mealDictionaryServiceImpl.getAllMealTypes();
+    }
+
+    public List<DictionaryObjectDTO> getAllDietType() {
+        return mealDictionaryServiceImpl.getAllDietTypes();
     }
 }

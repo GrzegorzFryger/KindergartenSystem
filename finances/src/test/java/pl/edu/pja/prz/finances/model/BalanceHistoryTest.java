@@ -3,6 +3,7 @@ package pl.edu.pja.prz.finances.model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pl.edu.pja.prz.finances.model.builder.BalanceHistoryBuilder;
+import pl.edu.pja.prz.finances.model.enums.OperationType;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -19,9 +20,9 @@ class BalanceHistoryTest {
 
         balanceHistory = builder
                 .withAmountOfChange(new BigDecimal("-200.50"))
-                .withBalanceBeforeChange(new BigDecimal("100.23"))
                 .withChildId(UUID.randomUUID())
                 .withTitle("PAYMENT")
+                .withOperationType(OperationType.DECREASE)
                 .build();
 
         balanceHistory2 = builder.build();
@@ -33,7 +34,7 @@ class BalanceHistoryTest {
         int beforeChange = balanceHistory.hashCode();
 
         //When
-        balanceHistory.setBalanceBeforeChange(new BigDecimal("25.00"));
+        balanceHistory.setTitle("New title");
         int afterChange = balanceHistory.hashCode();
 
         //Then
@@ -64,5 +65,23 @@ class BalanceHistoryTest {
         //Then
         assertTrue(firstEqualsToSecond);
         assertTrue(secondEqualsToFirst);
+    }
+
+    @Test
+    public void Should_ReturnCorrectString() {
+        //Given
+        UUID id = UUID.randomUUID();
+        BigDecimal amountOfChange = new BigDecimal("500.00");
+
+        BalanceHistory balanceHistory = new BalanceHistory();
+        balanceHistory.setChildId(id);
+        balanceHistory.setAmountOfChange(amountOfChange);
+
+        //When
+        String expected = "[" + id + "] - Balance changed by: (" + amountOfChange + ")";
+        String result = balanceHistory.toString();
+
+        //Then
+        assertEquals(expected, result);
     }
 }

@@ -1,9 +1,10 @@
 package pl.edu.pja.prz.account.facade;
 
 import org.springframework.lang.Nullable;
-import pl.edu.pja.prz.account.facade.dto.AccountDto;
-import pl.edu.pja.prz.account.facade.dto.ChildDto;
-import pl.edu.pja.prz.account.facade.dto.GuardianDto;
+import pl.edu.pja.prz.account.model.dto.AccountDto;
+import pl.edu.pja.prz.account.model.dto.ChildDto;
+import pl.edu.pja.prz.account.model.dto.GuardianChildAssociationDto;
+import pl.edu.pja.prz.account.model.dto.GuardianDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,5 +21,7 @@ public interface GuardianFacade {
 
     Set<ChildDto> findAllGuardianChildren(UUID id);
 
-    Optional<GuardianDto> findByFullNameOrAddress(String name, String surname, @Nullable String street);
+    GuardianDto appendGuardianToChild(GuardianChildAssociationDto associationDto);
+
+    Optional<GuardianDto> findByFullNameOrAddress(String name, String surname, @Nullable String street) throws Exception;
 }

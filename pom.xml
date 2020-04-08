@@ -68,6 +68,10 @@
         <mapstruct.version>1.3.1.Final</mapstruct.version>
         <hibernate-jpamodelgen.version>5.4.6.Final</hibernate-jpamodelgen.version>
         <hibernate-validator.version>6.1.1.Final</hibernate-validator.version>
+        <jjwt-api.version>0.11.0</jjwt-api.version>
+        <jjwt-impl.version>0.11.0</jjwt-impl.version>
+        <jjwt-jackson.version>0.11.0</jjwt-jackson.version>
+        <jool.version>0.9.14</jool.version>
 
         <!-- Plugins (Mandatory) -->
         <spring-boot-maven-plugin.version>2.2.0.RELEASE</spring-boot-maven-plugin.version>
@@ -281,6 +285,23 @@
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>${jjwt-api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>${jjwt-impl.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>${jjwt-jackson.version}</version>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 

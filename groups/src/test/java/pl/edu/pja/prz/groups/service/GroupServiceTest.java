@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
@@ -13,41 +12,28 @@ import pl.edu.pja.prz.groups.model.Group;
 import pl.edu.pja.prz.groups.model.GroupBuilder;
 import pl.edu.pja.prz.groups.repository.GroupRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class GroupServiceTest {
-	@InjectMocks
-	GroupServiceImpl groupService;
 	private Group group;
 	@Mock
-	private GroupRepository groupRepository;
-
-	//TODO: Redo the tests
+	private GroupRepository repository;
+	private GroupServiceImpl service;
+	private Child child;
 
 	@BeforeEach
 	void setUp() {
-		groupService = new GroupServiceImpl(groupRepository);
+		service = new GroupServiceImpl(repository);
 		group = new GroupBuilder()
 				.withGroupName("Group name")
 				.withGroupDescription("Group Description")
 				.build();
-	}
+		group.setId(1L);
 
-	@Test
-	void groupServiceNotNull() {
-		//Given
-
-		//When
-
-		//Then
-		assertNotNull(groupService);
+		child = new Child();
 	}
 
 	@Test
@@ -55,10 +41,10 @@ class GroupServiceTest {
 		//Given
 
 		//When
-		groupService.createGroup(group);
+		service.createGroup(group);
 
 		//Then
-		verify(groupRepository, times(1)).save(any(Group.class));
+		verify(repository, times(1)).save(any(Group.class));
 	}
 
 	@Test
@@ -66,37 +52,37 @@ class GroupServiceTest {
 		//Given
 		List<Group> groupList = new ArrayList<>();
 		groupList.add(group);
-		when(groupRepository.findAll()).thenReturn(groupList);
+		when(repository.findAll()).thenReturn(groupList);
 
 		//When
-		groupService.getAllGroups();
+		service.getAllGroups();
 
 		//Then
-		verify(groupRepository, times(1)).findAll();
+		verify(repository, times(1)).findAll();
 	}
 
 	@Test
 	void shouldReturnGroupWithGivenId() {
 		//Given
-		when(groupRepository.findById(anyLong())).thenReturn(Optional.of(group));
+		when(repository.findById(anyLong())).thenReturn(Optional.of(group));
 
 		//When
-		groupService.getGroup(1L);
+		service.getGroup(1L);
 
 		//Then
-		verify(groupRepository, times(1)).findById(1L);
+		verify(repository, times(1)).findById(1L);
 	}
 
 	@Test
 	void shouldDeleteGroupWithGivenId() {
 		//Given
-		when(groupRepository.findById(anyLong())).thenReturn(Optional.of(group));
+		when(repository.findById(anyLong())).thenReturn(Optional.of(group));
 
 		//When
-		groupService.deleteGroup(1L);
+		service.deleteGroup(1L);
 
 		//Then
-		verify(groupRepository, times(1)).deleteById(1L);
+		verify(repository, times(1)).deleteById(1L);
 	}
 
 	@Test
@@ -105,20 +91,23 @@ class GroupServiceTest {
 
 		//When
 		Assertions.assertThrows(ElementNotFoundException.class, () -> {
-			groupService.deleteGroup(123L);
+			service.deleteGroup(123L);
 		});
 
 		//Then
-		verify(groupRepository, times(0)).delete(any(Group.class));
+		verify(repository, times(0)).delete(any(Group.class));
 	}
 
 	@Test
 	void shouldUpdateGroup() {
 		//Given
+		when(repository.findById(anyLong())).thenReturn(Optional.of(group));
 
 		//When
+		service.updateGroup(group);
 
 		//Then
+		verify(repository, times(1)).save(any(Group.class));
 	}
 
 	@Test
@@ -127,10 +116,35 @@ class GroupServiceTest {
 
 		//When
 		Assertions.assertThrows(ElementNotFoundException.class, () -> {
-			groupService.updateGroup(group);
+			service.updateGroup(group);
 		});
 
 		//Then
-		verify(groupRepository, times(0)).save(any(Group.class));
+		verify(repository, times(0)).save(any(Group.class));
+	}
+
+	@Test
+	void shouldAddChildToGroup() {
+		//Given
+		when(repository.findById(anyLong())).thenReturn(Optional.of(group));
+
+		//When
+		service.addChildToGroup(1L, child);
+
+		//Then
+		verify(repository, times(1)).save(any(Group.class));
+	}
+
+	@Test
+	void shouldThrowExceptionIfGroupNotFound() {
+		//Given
+
+		//When
+		Assertions.assertThrows(ElementNotFoundException.class, () -> {
+			service.addChildToGroup(1L, child);
+		});
+
+		//Then
+		verify(repository, times(0)).save(any(Group.class));
 	}
 }
