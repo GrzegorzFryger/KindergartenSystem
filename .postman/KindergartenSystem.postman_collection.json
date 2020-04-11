@@ -1767,7 +1767,7 @@
 					"response": []
 				},
 				{
-					"name": "/transactions/input",
+					"name": "/transactions/import",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1801,6 +1801,47 @@
 								"{{RECEIVABLES}}",
 								"transactions",
 								"import"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/transactions/import/check",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "multipart/form-data"
+							},
+							{
+								"key": "Input-Encoding",
+								"type": "text",
+								"value": "UTF8"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "input",
+									"type": "file",
+									"src": "/C:/Repo/KindergartenSystem/.postman/input_files/test_transactions.csv"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/transactions/import/check",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"transactions",
+								"import",
+								"check"
 							]
 						}
 					},

@@ -79,6 +79,10 @@ public class ReceivablesFacade {
         return transactions;
     }
 
+    public List<Transaction> checkTransactionsReturnedInputFile(MultipartFile input, String charset) throws IOException {
+        return csvParsingService.parseTransactionsFromCsvFile(input, charset);
+    }
+
     public List<IncomingPaymentDto> getAllIncomingPaymentsByChildId(UUID childId) {
         return incomingPaymentsService.getAllPaymentsForChild(childId);
     }

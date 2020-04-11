@@ -74,4 +74,12 @@ public class ReceivablesController {
             throws IOException {
         return receivablesFacade.getTransactionListFromCsv(input, encoding);
     }
+
+    @PostMapping(value = "transactions/import/check", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PreAuthorize(HAS_ROLE_ADMIN)
+    public List<Transaction> checkTransactionsReturnedInputFile(@RequestBody MultipartFile input,
+                                                @RequestHeader(name = "Input-Encoding", required = false) String encoding)
+            throws IOException {
+        return receivablesFacade.checkTransactionsReturnedInputFile(input, encoding);
+    }
 }
