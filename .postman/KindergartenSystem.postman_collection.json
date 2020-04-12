@@ -1587,12 +1587,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"type": "text/javascript",
+								"id": "a24afae7-f6bc-4438-9fca-8b47c057f72a",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
-								]
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -1761,6 +1762,52 @@
 							"path": [
 								"{{RECEIVABLES}}",
 								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "transactions/assign/{childId}/{guardianId}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ced36ab9-db6f-40ef-87ae-8b7bdabea5fa",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"id\": 9,\r\n\t\"transactionDate\": \"2019-10-15\",\r\n\t\"bookingDate\": \"2019-10-15\",\r\n\t\"contractorDetails\": \"Andrzej Małysz\",\r\n\t\"title\": \"429630192312\",\r\n\t\"accountNumber\": \"61 1090 1014 0000 0712 1981 2874\",\r\n\t\"bankName\": \"ING Bank\",\r\n\t\"details\": \"Za dziecko XYZ\",\r\n\t\"transactionNumber\": \"201967193405359451\",\r\n\t\"transactionAmount\": \"555.50\",\r\n\t\"transactionCurrency\": \"PLN\"\r\n}"
+						},
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/transactions/assign/{{childId}}/{{guardianId}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"transactions",
+								"assign",
+								"{{childId}}",
+								"{{guardianId}}"
 							]
 						}
 					},

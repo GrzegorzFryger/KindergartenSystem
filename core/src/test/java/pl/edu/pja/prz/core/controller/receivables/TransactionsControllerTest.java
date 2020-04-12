@@ -13,6 +13,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pl.edu.pja.prz.receivables.facade.ReceivablesFacade;
 import pl.edu.pja.prz.receivables.model.Transaction;
 
+import java.util.UUID;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.only;
@@ -88,6 +90,22 @@ class TransactionsControllerTest {
 
         //Then
         verify(receivablesFacade, only()).create(any(Transaction.class));
+    }
+
+    @Test
+    public void Should_DelegateApiCallTo_assignTransactionToChild() throws Exception {
+        //Given
+        String json = convertToJson(new Transaction());
+
+        //When
+        mvc.perform(MockMvcRequestBuilders.post(API_RECEIVABLES + "transactions/assign/"
+                + UUID.randomUUID() + "/" + UUID.randomUUID())
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON).content(json))
+                .andExpect(status().isOk());
+
+        //Then
+        verify(receivablesFacade, only()).update(any(Transaction.class));
     }
 
     @Test
