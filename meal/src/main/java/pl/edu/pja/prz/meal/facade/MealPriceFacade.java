@@ -32,4 +32,7 @@ public class MealPriceFacade {
         mealPriceService.deleteMealPriceById(id);
     }
 
+    public MealPrice getById(long id) {
+        return mealPriceService.getById(id);
+    }
 }

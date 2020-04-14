@@ -14,4 +14,5 @@ public interface MealPriceService {
     List<MealPrice> getAllPrices();
     void deleteMealPriceById(long id);
     BigDecimal getPriceByMealType(MealType mealType);
+    MealPrice getById(long id);
 }

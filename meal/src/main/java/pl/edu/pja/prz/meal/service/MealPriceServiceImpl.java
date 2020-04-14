@@ -56,4 +56,14 @@ public class MealPriceServiceImpl implements MealPriceService {
         return BigDecimal.valueOf(mealPriceRepository.findMealPriceByMealType(mealType));
     }
 
+    @Override
+    public MealPrice getById(long id) {
+        Optional<MealPrice> optionalMealPrice = mealPriceRepository.findById(id);
+        if (optionalMealPrice.isPresent()) {
+            return optionalMealPrice.get();
+        }
+
+        throw new ElementNotFoundException(id);
+    }
+
 }

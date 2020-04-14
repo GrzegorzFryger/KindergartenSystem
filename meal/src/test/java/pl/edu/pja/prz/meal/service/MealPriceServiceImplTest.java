@@ -18,9 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -122,5 +122,17 @@ class MealPriceServiceImplTest {
 
         //then
         assertEquals(price, BigDecimal.valueOf(22.22));
+    }
+
+    @Test
+    void ShouldGetMealPriceById_When_InputArgumentIsCorrect() {
+        //given
+        when(mealPriceRepository.findById(anyLong())).thenReturn(Optional.of(new MealPrice()));
+
+        //when
+        MealPrice mealPrice = mealPriceService.getById(1L);
+
+        //then
+        assertNotNull(mealPrice);
     }
 }

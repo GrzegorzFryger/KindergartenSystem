@@ -24,26 +24,32 @@ public class MealPriceController {
 
     @PostMapping
     @PreAuthorize(HAS_ROLE_ADMIN)
-    public MealPrice creatMealPrice(@RequestBody  MealPrice mealPrice)  {
+    public MealPrice creatMealPrice(@RequestBody MealPrice mealPrice) {
         return mealPriceFacade.creatMealPrice(mealPrice);
     }
 
     @PutMapping
     @PreAuthorize(HAS_ROLE_ADMIN)
-    public MealPrice updateMealPrice(@RequestBody MealPrice mealPrice, @RequestParam("id") long id)  {
+    public MealPrice updateMealPrice(@RequestBody MealPrice mealPrice, @RequestParam("id") long id) {
         return mealPriceFacade.updateMealPrice(mealPrice, id);
     }
 
     @GetMapping
     @PreAuthorize(HAS_ROLE_ADMIN)
     public List<MealPrice> getAllPrices() {
-       return mealPriceFacade.getAllPrices();
+        return mealPriceFacade.getAllPrices();
     }
 
     @DeleteMapping
     @PreAuthorize(HAS_ROLE_ADMIN)
     public void deleteMealPriceById(@RequestParam("id") long id) {
         mealPriceFacade.deleteMealPriceById(id);
+    }
+
+    @GetMapping("{/id}")
+    @PreAuthorize(HAS_ROLE_ADMIN)
+    public MealPrice getMealPriceById(@PathVariable("id") long id) {
+        return mealPriceFacade.getById(id);
     }
 
 
