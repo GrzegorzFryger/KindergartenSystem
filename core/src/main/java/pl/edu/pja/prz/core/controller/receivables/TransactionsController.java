@@ -7,6 +7,7 @@ import pl.edu.pja.prz.receivables.facade.ReceivablesFacade;
 import pl.edu.pja.prz.receivables.model.Transaction;
 
 import java.util.List;
+import java.util.UUID;
 
 import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_ADMIN;
 import static pl.edu.pja.prz.core.controller.RequestMappings.API_RECEIVABLES;
@@ -43,6 +44,17 @@ public class TransactionsController {
     @PreAuthorize(HAS_ROLE_ADMIN)
     public void createTransaction(@RequestBody Transaction transaction) {
         receivablesFacade.create(transaction);
+    }
+
+    //TODO: Change to PUT after fixing CORS issues
+    @PostMapping("transactions/assign/{childId}/{guardianId}")
+    @PreAuthorize(HAS_ROLE_ADMIN)
+    public void assignTransactionToChild(@RequestBody Transaction transaction,
+                                         @PathVariable UUID childId,
+                                         @PathVariable UUID guardianId) {
+        transaction.setChildId(childId);
+        transaction.setGuardianId(guardianId);
+        receivablesFacade.update(transaction);
     }
 
     @PutMapping("transactions")
