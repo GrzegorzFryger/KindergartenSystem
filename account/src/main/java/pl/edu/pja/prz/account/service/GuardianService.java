@@ -112,4 +112,8 @@ public class GuardianService extends BasicAccountService<GuardianRepository, Gua
                 ), Guardian.class);
     }
 
+    public List<Guardian> findByChildId(UUID chidlId) {
+        return this.repository.findByChildId(chidlId);
+    }
+
 }

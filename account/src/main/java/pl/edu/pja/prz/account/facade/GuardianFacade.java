@@ -29,4 +29,6 @@ public interface GuardianFacade {
     List<GuardianDto> searchByFullName(FullName fullName);
 
     Long countGuardian();
+
+    List<GuardianDto> findByChildId(UUID childId);
 }

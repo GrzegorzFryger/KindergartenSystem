@@ -29,8 +29,8 @@ public class GuardianController {
 	}
 
 	@GetMapping("guardian/{id}")
-	public ResponseEntity<GuardianDto> findGuardianById(@PathVariable UUID id) {
-		return new ResponseEntity<>(guardianFacade.findGuardianById(id), HttpStatus.OK);
+	public ResponseEntity<List<GuardianDto>> findGuardianById(@PathVariable UUID id) {
+		return new ResponseEntity<List<GuardianDto>>(guardianFacade.findByChildId(id), HttpStatus.OK);
 	}
 
 	@GetMapping("guardians")
