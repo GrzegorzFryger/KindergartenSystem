@@ -102,4 +102,15 @@ class GuardianFacadeImplTest {
         //Then
         verify(guardianService, only()).findByFullNameOrAddressReadOnly(any(FullName.class), anyString());
     }
+
+    @Test
+    public void Should_SearchByFullName() {
+        //Given
+
+        //When
+        guardianFacade.searchByFullName(new FullName("Grzegorz", "Brzęczyszczykiewicz"));
+
+        //Then
+        verify(guardianService, only()).findByFullName(any(FullName.class));
+    }
 }

@@ -23,7 +23,8 @@ keytool -genkeypair -noprompt \
 -storetype PKCS12 \
 -keystore kindergartensystem.p12 \
 -storepass $random_password \
--validity 90
+-validity 360 \
+-ext san=dns:localhost
 
 # Replace old password from application-cert.properties with newly generated
 server_ssl_key_store_password="server.ssl.key-store-password=$random_password"

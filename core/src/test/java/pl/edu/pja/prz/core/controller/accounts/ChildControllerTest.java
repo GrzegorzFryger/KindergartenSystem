@@ -1,13 +1,5 @@
 package pl.edu.pja.prz.core.controller.accounts;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.only;
-import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static pl.edu.pja.prz.core.controller.RequestMappings.API_ACCOUNT;
-import static pl.edu.pja.prz.core.util.JsonUtil.convertToJson;
-
-import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,6 +12,16 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pl.edu.pja.prz.account.facade.ChildFacade;
 import pl.edu.pja.prz.account.model.dto.ChildDto;
+import pl.edu.pja.prz.commons.model.FullName;
+
+import java.util.UUID;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.only;
+import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static pl.edu.pja.prz.core.controller.RequestMappings.API_ACCOUNT;
+import static pl.edu.pja.prz.core.util.JsonUtil.convertToJson;
 
 @ExtendWith(MockitoExtension.class)
 class ChildControllerTest {
@@ -47,6 +49,21 @@ class ChildControllerTest {
 
     //Then
     verify(childFacade, only()).findChildById(any(UUID.class));
+  }
+
+  @Test
+  public void Should_DelegateApiCallTo_searchByFullName() throws Exception {
+    //Given
+
+    //When
+    mvc.perform(MockMvcRequestBuilders.get(API_ACCOUNT + "children/search/")
+            .param("name", "Grzegorz")
+            .param("surname", "Sykut-Jeżyna")
+            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk());
+
+    //Then
+    verify(childFacade, only()).searchByFullName(any(FullName.class));
   }
 
   @Test

@@ -30,13 +30,23 @@ public class FinancesFacadeImpl implements FinancesFacade {
     }
 
     @Override
+    public List<Balance> getBalancesForAllChildren(UUID guardianId) {
+        Set<ChildDto> childDtos = guardianFacade.findAllGuardianChildren(guardianId);
+        List<Balance> childBalances = new ArrayList<>();
+        for (ChildDto dto : childDtos) {
+            childBalances.add(getBalance(dto.getId()));
+        }
+        return childBalances;
+    }
+
+    @Override
     public Balance getBalanceForAllChildren(UUID guardianId) {
         Set<ChildDto> childDtos = guardianFacade.findAllGuardianChildren(guardianId);
         List<UUID> childIdList = new ArrayList<>();
         for (ChildDto dto : childDtos) {
             childIdList.add(dto.getId());
         }
-        return balanceService.getBalanceForAllChildren(childIdList);
+        return balanceService.getBalanceForAllChildren(childIdList, guardianId);
     }
 
     @Override

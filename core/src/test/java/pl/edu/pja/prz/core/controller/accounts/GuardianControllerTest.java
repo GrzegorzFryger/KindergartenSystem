@@ -15,7 +15,7 @@ import pl.edu.pja.prz.account.model.dto.AccountDto;
 import pl.edu.pja.prz.account.model.dto.ChildDto;
 import pl.edu.pja.prz.account.model.dto.GuardianChildAssociationDto;
 import pl.edu.pja.prz.account.model.dto.GuardianDto;
-import pl.edu.pja.prz.receivables.facade.ReceivablesFacade;
+import pl.edu.pja.prz.commons.model.FullName;
 
 import java.util.HashSet;
 import java.util.UUID;
@@ -78,6 +78,21 @@ class GuardianControllerTest {
 
     //Then
     verify(guardianFacade, only()).findAllGuardianChildren(any(UUID.class));
+  }
+
+  @Test
+  public void Should_DelegateApiCallTo_searchGuardianByFullName() throws Exception {
+    //Given
+
+    //When
+    mvc.perform(MockMvcRequestBuilders.get(API_ACCOUNT + "guardians/search")
+            .param("name", "Grzegorz")
+            .param("surname", "Sykut-Jeżyna")
+            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk());
+
+    //Then
+    verify(guardianFacade, only()).searchByFullName(any(FullName.class));
   }
 
   @Test

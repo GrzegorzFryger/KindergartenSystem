@@ -9,7 +9,7 @@ import pl.edu.pja.prz.meal.model.dto.MealCreateUpdateDTO;
 
 import java.util.List;
 
-import static pl.edu.pja.prz.commons.constants.Roles.HAS_ANY_ROLE;
+import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_USER;
 import static pl.edu.pja.prz.core.controller.RequestMappings.API_MEALS;
 
 @RestController
@@ -24,25 +24,25 @@ public class MealController {
     }
 
     @PostMapping
-    @PreAuthorize(HAS_ANY_ROLE)
+    @PreAuthorize(HAS_ROLE_USER)
     public Meal createMeal(@RequestBody MealCreateUpdateDTO dto) {
         return mealFacade.createMeal(dto);
     }
 
     @GetMapping
-    @PreAuthorize(HAS_ANY_ROLE)
+    @PreAuthorize(HAS_ROLE_USER)
     public List<Meal> getAllMeals() {
         return mealFacade.getAllMeals();
     }
 
     @GetMapping("{id}")
-    @PreAuthorize(HAS_ANY_ROLE)
+    @PreAuthorize(HAS_ROLE_USER)
     public Meal getMealByID(@PathVariable("id") Long id) {
         return mealFacade.getMealById(id);
     }
 
     @PutMapping("{id}")
-    @PreAuthorize(HAS_ANY_ROLE)
+    @PreAuthorize(HAS_ROLE_USER)
     public Meal updateMeal(@RequestBody MealCreateUpdateDTO meal, @PathVariable("id") Long mealToUpdateID) {
         return mealFacade.updateMeal(meal,mealToUpdateID);
     }

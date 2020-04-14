@@ -111,4 +111,15 @@ class ChildFacadeImplTest {
         //Then
         verify(childService, only()).findByFullNameOrAddressReadOnly(any(FullName.class), anyString());
     }
+
+    @Test
+    public void Should_SearchByFullName() {
+        //Given
+
+        //When
+        childFacade.searchByFullName(new FullName("Grzegorz", "Brzęczyszczykiewicz"));
+
+        //Then
+        verify(childService, only()).findByFullNameReadOnly(any(FullName.class));
+    }
 }

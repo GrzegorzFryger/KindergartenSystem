@@ -8,7 +8,7 @@ import pl.edu.pja.prz.meal.model.dto.NutritionalNotesDTO;
 
 import java.util.List;
 
-import static pl.edu.pja.prz.commons.constants.Roles.HAS_ANY_ROLE;
+import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_USER;
 import static pl.edu.pja.prz.core.controller.RequestMappings.API_NUTRITIONAL_NOTES;
 
 @RestController
@@ -23,22 +23,23 @@ public class MealNutritionalNotesController {
     }
 
     @GetMapping
-    @PreAuthorize(HAS_ANY_ROLE)
+    @PreAuthorize(HAS_ROLE_USER)
     public List<NutritionalNotes> getAllNutritionalNotes() {
         return mealNutritionalNotesFacade.getAllNutritionalNotes();
     }
 
     @PostMapping
-    @PreAuthorize(HAS_ANY_ROLE)
+    @PreAuthorize(HAS_ROLE_USER)
     List<NutritionalNotes> addNutritionalNotes(@RequestBody NutritionalNotesDTO nutritionalNotesDTO) {
         return mealNutritionalNotesFacade.addNutritionalNotes(nutritionalNotesDTO);
     }
 
     @GetMapping("{id}")
-    @PreAuthorize(HAS_ANY_ROLE)
+    @PreAuthorize(HAS_ROLE_USER)
     public NutritionalNotes getNutritionalNotesById(@PathVariable("id") Long id) {
         return mealNutritionalNotesFacade.getNutritionalNotesById(id);
     }
+
 
     @GetMapping("/delete")
     @PreAuthorize(HAS_ANY_ROLE)

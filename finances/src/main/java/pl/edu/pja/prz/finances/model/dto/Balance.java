@@ -1,6 +1,7 @@
 package pl.edu.pja.prz.finances.model.dto;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 import static pl.edu.pja.prz.commons.util.BigDecimalUtils.sum;
 
@@ -8,6 +9,8 @@ public class Balance {
     private BigDecimal balance = BigDecimal.ZERO;
     private BigDecimal receivables = BigDecimal.ZERO;
     private BigDecimal liabilities = BigDecimal.ZERO;
+    private UUID childId;
+    private UUID guardianId;
 
     public Balance() {
 
@@ -41,5 +44,21 @@ public class Balance {
 
     public void setLiabilities(BigDecimal liabilities) {
         this.liabilities = liabilities;
+    }
+
+    public UUID getChildId() {
+        return childId;
+    }
+
+    public void setChildId(UUID childId) {
+        this.childId = childId;
+    }
+
+    public UUID getGuardianId() {
+        return guardianId;
+    }
+
+    public void setGuardianId(UUID guardianId) {
+        this.guardianId = guardianId;
     }
 }
