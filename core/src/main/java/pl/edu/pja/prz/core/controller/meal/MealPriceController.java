@@ -13,6 +13,7 @@ import static pl.edu.pja.prz.core.controller.RequestMappings.API_MEALS_PRICE;
 
 @RestController
 @RequestMapping(API_MEALS_PRICE)
+@CrossOrigin("*")
 public class MealPriceController {
 
     private final MealPriceFacade mealPriceFacade;
@@ -46,7 +47,7 @@ public class MealPriceController {
         mealPriceFacade.deleteMealPriceById(id);
     }
 
-    @GetMapping("{/id}")
+    @GetMapping("/{id}")
     @PreAuthorize(HAS_ROLE_ADMIN)
     public MealPrice getMealPriceById(@PathVariable("id") long id) {
         return mealPriceFacade.getById(id);
