@@ -2,13 +2,14 @@ package pl.edu.pja.prz.account.facade;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.edu.pja.prz.account.mapper.EmployeeMapper;
 import pl.edu.pja.prz.account.model.dto.AccountDto;
 import pl.edu.pja.prz.account.model.dto.EmployeeDto;
-import pl.edu.pja.prz.account.mapper.AccountMapper;
-import pl.edu.pja.prz.account.mapper.EmployeeMapper;
 import pl.edu.pja.prz.account.service.EmployeeService;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeFacadeImpl implements EmployeeFacade {
@@ -46,5 +47,19 @@ public class EmployeeFacadeImpl implements EmployeeFacade {
 		return employeeMapper.fromEmployee(employeeService
 						.getById(id));
 	}
+
+	@Override
+	public List<EmployeeDto> findAll() {
+		return employeeService.getAll()
+				.stream()
+				.map(employeeMapper::fromEmployee)
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public Long countEmploye() {
+		return this.employeeService.count();
+	}
+
 
 }

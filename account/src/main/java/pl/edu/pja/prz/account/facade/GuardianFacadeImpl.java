@@ -81,4 +81,8 @@ public class GuardianFacadeImpl implements GuardianFacade {
 				.map(this.guardianMapper::fromGuardian
 				).collect(Collectors.toList());
 	}
+
+	public Long countGuardian() {
+		return this.guardianService.count();
+	}
 }

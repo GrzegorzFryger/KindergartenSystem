@@ -7,6 +7,7 @@ import pl.edu.pja.prz.account.facade.EmployeeFacade;
 import pl.edu.pja.prz.account.model.dto.AccountDto;
 import pl.edu.pja.prz.account.model.dto.EmployeeDto;
 
+import java.util.List;
 import java.util.UUID;
 
 import static pl.edu.pja.prz.core.controller.RequestMappings.API_ACCOUNT;
@@ -24,6 +25,16 @@ public class EmployeeController {
     @GetMapping("employee/{id}")
     public ResponseEntity<EmployeeDto> findEmployeeById(@PathVariable UUID id) {
         return new ResponseEntity<>(employeeFacade.findById(id), HttpStatus.OK);
+    }
+
+    @GetMapping("employees")
+    public ResponseEntity<List<EmployeeDto>> findAllEmployees() {
+        return new ResponseEntity<>(employeeFacade.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("employees/count")
+    public ResponseEntity<Long> countEmployee() {
+        return new ResponseEntity<>(employeeFacade.countEmploye(), HttpStatus.OK);
     }
 
     @PostMapping("employee")

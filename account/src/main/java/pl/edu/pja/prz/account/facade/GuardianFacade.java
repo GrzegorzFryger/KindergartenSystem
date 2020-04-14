@@ -27,4 +27,6 @@ public interface GuardianFacade {
     Optional<GuardianDto> findByFullNameOrAddress(String name, String surname, @Nullable String street) throws Exception;
 
     List<GuardianDto> searchByFullName(FullName fullName);
+
+    Long countGuardian();
 }
