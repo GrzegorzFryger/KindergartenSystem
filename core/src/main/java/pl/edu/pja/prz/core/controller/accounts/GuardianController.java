@@ -29,8 +29,8 @@ public class GuardianController {
 	}
 
 	@GetMapping("guardian/{id}")
-	public ResponseEntity<List<GuardianDto>> findGuardianById(@PathVariable UUID id) {
-		return new ResponseEntity<List<GuardianDto>>(guardianFacade.findByChildId(id), HttpStatus.OK);
+	public ResponseEntity<GuardianDto> findGuardianById(@PathVariable UUID id) {
+		return new ResponseEntity<>(guardianFacade.findGuardianById(id), HttpStatus.OK);
 	}
 
 	@GetMapping("guardians")
@@ -50,8 +50,13 @@ public class GuardianController {
 		return new ResponseEntity<>(guardianFacade.searchByFullName(new FullName(name, surname)), HttpStatus.OK);
 	}
 
+	@GetMapping("guardians/search/{childId}")
+	public ResponseEntity<List<GuardianDto>> findAllGuardians(@PathVariable UUID childId) {
+		return new ResponseEntity<>(guardianFacade.findByChildId(childId), HttpStatus.OK);
+	}
+
 	@GetMapping("guardians/count")
-	public ResponseEntity<Long> countGuardians() {
+	public ResponseEntity<Long> countEmployee() {
 		return new ResponseEntity<>(guardianFacade.countGuardian(), HttpStatus.OK);
 	}
 
