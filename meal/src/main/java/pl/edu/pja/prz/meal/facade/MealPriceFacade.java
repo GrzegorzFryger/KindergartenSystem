@@ -3,6 +3,7 @@ package pl.edu.pja.prz.meal.facade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.meal.model.MealPrice;
+import pl.edu.pja.prz.meal.model.enums.MealType;
 import pl.edu.pja.prz.meal.service.MealPriceServiceImpl;
 
 import java.util.List;
@@ -34,5 +35,9 @@ public class MealPriceFacade {
 
     public MealPrice getById(long id) {
         return mealPriceService.getById(id);
+    }
+
+    public List<MealType> getAllNotSetMealPrice() {
+        return mealPriceService.getAllNotSetMealPrice();
     }
 }

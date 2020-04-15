@@ -5,6 +5,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.pja.prz.meal.facade.MealPriceFacade;
 import pl.edu.pja.prz.meal.model.MealPrice;
+import pl.edu.pja.prz.meal.model.enums.MealType;
 
 import java.util.List;
 
@@ -53,5 +54,10 @@ public class MealPriceController {
         return mealPriceFacade.getById(id);
     }
 
+    @GetMapping("/notSet")
+    @PreAuthorize(HAS_ROLE_ADMIN)
+    public List<MealType> getAllNotSetMealPrice() {
+        return mealPriceFacade.getAllNotSetMealPrice();
+    }
 
 }
