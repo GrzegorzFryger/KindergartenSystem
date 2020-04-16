@@ -115,6 +115,18 @@ class BalanceServiceImplTest {
     }
 
     @Test
+    public void Should_NotIncreaseBalance_When_ChildIdIsNull() {
+        //Given
+
+        //When
+        balanceService.increaseBalance(null, new BigDecimal("50.00"), "PAYMENT");
+
+        //Then
+        verify(historyService, never())
+                .saveBalanceInHistory(any(UUID.class), any(BigDecimal.class), anyString(), any(OperationType.class));
+    }
+
+    @Test
     public void Should_ThrowException_When_AmountToIncreaseIsNegative() {
         //Given
 
@@ -139,6 +151,18 @@ class BalanceServiceImplTest {
     }
 
     @Test
+    public void Should_NotDecreaseBalance_When_ChildIdIsNull() {
+        //Given
+
+        //When
+        balanceService.decreaseBalance(null, new BigDecimal("-50.00"), "PAYMENT");
+
+        //Then
+        verify(historyService, never())
+                .saveBalanceInHistory(any(UUID.class), any(BigDecimal.class), anyString(), any(OperationType.class));
+    }
+
+    @Test
     public void Should_DecreaseBalance_When_AmountIsPositive() {
         //Given
 
@@ -159,6 +183,18 @@ class BalanceServiceImplTest {
 
         //Then
         verify(historyService, times(1))
+                .saveBalanceInHistory(any(UUID.class), any(BigDecimal.class), anyString(), any(OperationType.class));
+    }
+
+    @Test
+    public void Should_Not_ApplyBalanceCorrection_When_ChildIdIsNull() {
+        //Given
+
+        //When
+        balanceService.applyBalanceCorrection(null, new BigDecimal("50.00"), "PAYMENT");
+
+        //Then
+        verify(historyService, never())
                 .saveBalanceInHistory(any(UUID.class), any(BigDecimal.class), anyString(), any(OperationType.class));
     }
 

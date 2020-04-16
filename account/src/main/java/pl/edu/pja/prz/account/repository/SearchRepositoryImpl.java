@@ -12,7 +12,7 @@ import java.util.List;
 
 public class SearchRepositoryImpl<T> implements SearchRepository<T> {
 	@PersistenceContext(unitName = "accountModuleEntityManagerFactory")
-	private EntityManager entityManager;
+	protected EntityManager entityManager;
 
 	public SearchRepositoryImpl() {
 	}
@@ -28,6 +28,4 @@ public class SearchRepositoryImpl<T> implements SearchRepository<T> {
 		criteria.where(specification.toPredicate(root, criteria, builder));
 		return entityManager.createQuery(criteria).getResultList();
 	}
-
-
 }

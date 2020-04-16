@@ -3,6 +3,7 @@ package pl.edu.pja.prz.account.facade;
 import pl.edu.pja.prz.account.model.dto.AccountDto;
 import pl.edu.pja.prz.account.model.dto.EmployeeDto;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface EmployeeFacade {
@@ -12,4 +13,8 @@ public interface EmployeeFacade {
     EmployeeDto createAdministratorAccount(AccountDto accountDto);
 
 	EmployeeDto findById(UUID id);
+
+    List<EmployeeDto> findAll();
+
+    Long countEmploye();
 }

@@ -50,6 +50,16 @@ public class GuardianController {
 		return new ResponseEntity<>(guardianFacade.searchByFullName(new FullName(name, surname)), HttpStatus.OK);
 	}
 
+	@GetMapping("guardians/search/{childId}")
+	public ResponseEntity<List<GuardianDto>> findAllGuardians(@PathVariable UUID childId) {
+		return new ResponseEntity<>(guardianFacade.findByChildId(childId), HttpStatus.OK);
+	}
+
+	@GetMapping("guardians/count")
+	public ResponseEntity<Long> countEmployee() {
+		return new ResponseEntity<>(guardianFacade.countGuardian(), HttpStatus.OK);
+	}
+
 	@PostMapping("guardian")
 	public ResponseEntity<GuardianDto> createGuardian(@RequestBody AccountDto accountDto) {
 		GuardianDto guardianDto = guardianFacade.createGuardian(accountDto);

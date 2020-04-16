@@ -79,4 +79,12 @@ public class ChildFacadeImpl implements ChildFacade {
 				.map(childMapper::fromChild)
 				.collect(Collectors.toList());
 	}
+
+	public List<ChildDto> getAllChildren() {
+		return childService.getAll().stream().map(childMapper::fromChild).collect(Collectors.toList());
+	}
+
+	public Long countChildren() {
+		return this.childService.count();
+	}
 }

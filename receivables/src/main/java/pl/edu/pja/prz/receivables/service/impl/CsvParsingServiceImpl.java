@@ -49,7 +49,7 @@ public class CsvParsingServiceImpl implements CsvParsingService {
 
     @Override
     public List<Transaction> getTransactionListFromCsv(File file) throws IOException {
-        return getTransactionListFromCsv(file, "Cp1250");
+        return getTransactionListFromCsv(file, "UTF8");
     }
 
     @Override

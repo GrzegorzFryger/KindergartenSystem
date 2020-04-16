@@ -64,4 +64,8 @@ public class GenericService<T extends JpaRepository<E, ID>, E extends BaseEntity
 				});
 	}
 
+	public Long count() {
+		return this.repository.count();
+	}
+
 }
