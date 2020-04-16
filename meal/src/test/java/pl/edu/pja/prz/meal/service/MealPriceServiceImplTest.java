@@ -135,4 +135,19 @@ class MealPriceServiceImplTest {
         //then
         assertNotNull(mealPrice);
     }
+
+    @Test
+    void getAllNotSetMealPrice_When_InputArgumentIsCorrect() {
+        //given
+        when(mealPriceService.getAllPrices()).thenReturn(new ArrayList<>());
+
+
+        //when
+        List<MealType> mealTypes = mealPriceService.getAllNotSetMealPrice();
+
+        //then
+        assertNotNull(mealTypes);
+        assertEquals(3, mealTypes.size());
+
+    }
 }

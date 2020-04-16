@@ -71,13 +71,13 @@ public class MealPriceServiceImpl implements MealPriceService {
     @Override
     public List<MealType> getAllNotSetMealPrice() {
         List<MealPrice> allSetMealPrice = getAllPrices();
-        List<MealType> allAvaliable = new ArrayList<>(Arrays.asList(MealType.values()));
+        List<MealType> allAvailable = new ArrayList<>(Arrays.asList(MealType.values()));
 
         allSetMealPrice.forEach(u -> {
-            allAvaliable.remove(u.getMealType());
+            allAvailable.remove(u.getMealType());
         });
 
-        return allAvaliable;
+        return allAvailable;
     }
 
 }
