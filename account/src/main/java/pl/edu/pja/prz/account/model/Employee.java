@@ -1,9 +1,9 @@
 package pl.edu.pja.prz.account.model;
 
 import pl.edu.pja.prz.account.model.enums.EmployeeType;
+import pl.edu.pja.prz.account.model.value.Password;
 import pl.edu.pja.prz.commons.model.Address;
 import pl.edu.pja.prz.commons.model.FullName;
-import pl.edu.pja.prz.account.model.value.Password;
 import pl.edu.pja.prz.commons.model.Phone;
 
 import javax.persistence.*;
@@ -17,7 +17,7 @@ public class Employee extends Account {
 	@Enumerated(EnumType.STRING)
 	private EmployeeType employeeType;
 
-	Employee() {
+	public Employee() {
 	}
 
 	public Employee(Address address, FullName fullName, Phone phoneNumber, Password password, String email,

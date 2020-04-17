@@ -217,6 +217,25 @@ class ReceivablesFacadeTest {
     }
 
     @Test
+    public void Should_checkTransactionsReturnedInputFile() throws IOException {
+        //Given
+        MultipartFile input = new MockMultipartFile("input.csv", new byte[10]);
+        List<Transaction> transactionList = new ArrayList<>();
+        transactionList.add(transaction);
+
+        //When
+        when(csvParsingService.parseTransactionsFromCsvFile(any(MultipartFile.class), anyString())).thenReturn(transactionList);
+        List<Transaction> result = facade.checkTransactionsReturnedInputFile(input, "");
+
+        //Then
+        assertNotNull(result);
+        verify(csvParsingService, times(1)).parseTransactionsFromCsvFile(any(MultipartFile.class), anyString());
+        verify(transactionService, never()).save(any(Transaction.class));
+        verify(transactionMappingService, never()).mapTransaction(any(Transaction.class));
+        assertEquals(1, result.size());
+    }
+
+    @Test
     public void Should_GetAllIncomingPaymentsByChildId() {
         //Given
         List<IncomingPaymentDto> dtos = new ArrayList<>();
