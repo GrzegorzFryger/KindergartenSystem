@@ -16,5 +16,7 @@ public interface EmployeeFacade {
 
     List<EmployeeDto> findAll();
 
-    Long countEmploye();
+    Long countEmployee();
+
+    EmployeeDto updateEmployee(EmployeeDto employeeDto);
 }

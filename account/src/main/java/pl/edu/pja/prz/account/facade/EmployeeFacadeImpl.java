@@ -57,9 +57,16 @@ public class EmployeeFacadeImpl implements EmployeeFacade {
 	}
 
 	@Override
-	public Long countEmploye() {
+	public Long countEmployee() {
 		return this.employeeService.count();
 	}
 
+
+	@Override
+	public EmployeeDto updateEmployee(EmployeeDto employeeDto) {
+		return this.employeeMapper.fromEmployee(
+				this.employeeService.update(this.employeeMapper.toEmployee(employeeDto))
+		);
+	}
 
 }

@@ -31,4 +31,6 @@ public interface GuardianFacade {
     Long countGuardian();
 
     List<GuardianDto> findByChildId(UUID childId);
+
+    GuardianDto updateGuardian(GuardianDto guardianDto);
 }
