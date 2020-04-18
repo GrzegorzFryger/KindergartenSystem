@@ -22,7 +22,14 @@ public class SecurityBeanConfiguration {
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+		CorsConfiguration c = new CorsConfiguration();
+		c.addAllowedOrigin("*");
+		c.addAllowedMethod("OPTIONS");
+		c.addAllowedMethod("GET");
+		c.addAllowedMethod("POST");
+		c.addAllowedMethod("PUT");
+		c.addAllowedMethod("DELETE");
+		source.registerCorsConfiguration("/**", c.applyPermitDefaultValues());
 		return source;
 	}
 
@@ -38,4 +45,5 @@ public class SecurityBeanConfiguration {
 	public JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint() {
 		return new JwtAuthenticationEntryPoint();
 	}
+
 }

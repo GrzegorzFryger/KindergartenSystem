@@ -34,12 +34,17 @@ public class EmployeeController {
 
     @GetMapping("employees/count")
     public ResponseEntity<Long> countEmployee() {
-        return new ResponseEntity<>(employeeFacade.countEmploye(), HttpStatus.OK);
+        return new ResponseEntity<>(employeeFacade.countEmployee(), HttpStatus.OK);
     }
 
     @PostMapping("employee")
     public ResponseEntity<EmployeeDto> createEmployee(@RequestBody AccountDto accountDto) {
         return new ResponseEntity<>(employeeFacade.createEmployee(accountDto), HttpStatus.OK);
+    }
+
+    @PutMapping("employee")
+    public ResponseEntity<EmployeeDto> updateEmployee(@RequestBody EmployeeDto employeeDto) {
+        return new ResponseEntity<>(employeeFacade.updateEmployee(employeeDto), HttpStatus.OK);
     }
 
     @PostMapping("employeeAdmin")
