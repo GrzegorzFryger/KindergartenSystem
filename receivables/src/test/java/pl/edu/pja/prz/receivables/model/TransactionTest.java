@@ -78,6 +78,6 @@ class TransactionTest {
         String result = transaction.toString();
 
         //Then
-        assertEquals("Czesne [25.5 PLN]", result);
+        assertEquals("2020-01-01 Czesne [25.5 PLN]", result);
     }
 }
