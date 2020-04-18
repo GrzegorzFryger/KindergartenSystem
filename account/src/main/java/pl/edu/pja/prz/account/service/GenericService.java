@@ -13,59 +13,60 @@ import java.util.Optional;
 
 
 public class GenericService<T extends JpaRepository<E, ID>, E extends BaseEntity<ID>, ID> {
-	protected final Logger logger = LoggerFactory.logger(GenericService.class);
-	protected final T repository;
+    protected final Logger logger = LoggerFactory.logger(GenericService.class);
+    protected final T repository;
 
-	public GenericService(T repository) {
-		this.repository = repository;
-	}
+    public GenericService(T repository) {
+        this.repository = repository;
+    }
 
-	public E getById(ID id) {
-		return repository.findById(id).orElseThrow(() -> new ElementNotFoundException(id));
-	}
+    public E getById(ID id) {
+        return repository.findById(id).orElseThrow(() -> new ElementNotFoundException(id));
+    }
 
-	public List<E> getAll() {
-		return repository.findAll();
-	}
+    public List<E> getAll() {
+        return repository.findAll();
+    }
 
-	public E update(E updated) {
-		return repository.findById(updated.getId()).map(childToUpdate -> {
-					updateNotNullFields(childToUpdate, updated);
+    public E update(E updated) {
+        return repository.findById(updated.getId()).map(childToUpdate -> {
+                    updateNotNullFields(childToUpdate, updated);
 
-					return repository.save(childToUpdate);
-				}
-		).orElseThrow(() -> new ElementNotFoundException(updated.getId()));
+                    return repository.save(childToUpdate);
+                }
+        ).orElseThrow(() -> new ElementNotFoundException(updated.getId()));
 
-	}
+    }
 
-	public E save(E toSave) {
-		return repository.save(toSave);
-	}
+    public E save(E toSave) {
+        return repository.save(toSave);
+    }
 
-	private void updateNotNullFields(E toUpdate, E updated) {
-		Arrays.stream(updated.getClass()
-				.getDeclaredFields())
-				.forEach(field -> { field.setAccessible(true);
-					try {
-						Optional.ofNullable(field.get(updated))
-								.ifPresent(value -> {
-									try {
-										field.set(toUpdate, field.get(updated));
+    private void updateNotNullFields(E toUpdate, E updated) {
+        Arrays.stream(updated.getClass()
+                .getDeclaredFields())
+                .forEach(field -> {
+                    field.setAccessible(true);
 
-									} catch (IllegalAccessException e) {
-										logger.error("Fail set property - {}", field, e);
-										throw new BusinessException("Fail set property" + field.toString());
-									}
-								});
-					} catch (IllegalAccessException e) {
-						logger.error("Fail set property - {}", field, e);
-						throw new BusinessException("Fail set property" + field.toString());
-					}
-				});
-	}
+                    try {
+                        Optional.ofNullable(field.get(updated)).ifPresent(value -> {
+                            try {
+                                field.set(toUpdate, field.get(updated));
 
-	public Long count() {
-		return this.repository.count();
-	}
+                            } catch (IllegalAccessException e) {
+                                logger.error("Fail set property - {}", field, e);
+                                throw new BusinessException("Fail set property" + field.toString());
+                            }
+                        });
+                    } catch (IllegalAccessException e) {
+                        logger.error("Fail set property - {}", field, e);
+                        throw new BusinessException("Fail set property" + field.toString());
+                    }
+                });
+    }
+
+    public Long count() {
+        return this.repository.count();
+    }
 
 }

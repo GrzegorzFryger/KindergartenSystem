@@ -1,11 +1,12 @@
 package pl.edu.pja.prz.account.mapper;
 
+import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import pl.edu.pja.prz.account.model.dto.AccountDto;
-import pl.edu.pja.prz.account.model.dto.EmployeeDto;
 import pl.edu.pja.prz.account.model.Employee;
 import pl.edu.pja.prz.account.model.Person;
+import pl.edu.pja.prz.account.model.dto.AccountDto;
+import pl.edu.pja.prz.account.model.dto.EmployeeDto;
 
 @Mapper(componentModel = "spring", uses = RoleMapper.class)
 public interface EmployeeMapper {
@@ -17,6 +18,9 @@ public interface EmployeeMapper {
     @Mapping(source = "phoneNumber.phone", target = "phone")
     @Mapping(source = "accountStatus", target = "status")
     EmployeeDto fromEmployee(Employee employee);
+
+    @InheritInverseConfiguration
+    Employee toEmployee(EmployeeDto employeeDto);
 
     @Mapping(source = "phone", target = "phoneNumber.phone")
     @Mapping(source = "name", target = "fullName.name")
