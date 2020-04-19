@@ -53,6 +53,13 @@ public class AbsenceFacadeImpl implements AbsenceFacade {
 	}
 
 	@Override
+	public List<AbsenceDto> getAllAbsences() {
+		return absenceMapper.absenceListToDtoList(
+				absenceService.getAllAbsences()
+		);
+	}
+
+	@Override
 	public List<AbsenceDto> getAllAbsencesByDate(LocalDate date) {
 		return absenceMapper.absenceListToDtoList(
 				absenceService.getAllAbsencesByDate(date)
@@ -74,14 +81,21 @@ public class AbsenceFacadeImpl implements AbsenceFacade {
 	}
 
 	@Override
-    public List<AbsenceDto> createAbsencesForChildBetweenDates(AbsenceRangeDto absenceRangeDto) {
+	public List<AbsenceDto> getAllAbsencesBetweenDates(LocalDate startDate, LocalDate endDate) {
 		return absenceMapper.absenceListToDtoList(
-                 absenceService.createAbsencesForChildBetweenDates(
-                        absenceRangeDto.getChildId(),
-                        absenceRangeDto.getDateFrom(),
-                        absenceRangeDto.getDateTo(),
-                        absenceRangeDto.getReason()
-                )
+				absenceService.getAllAbsencesBetweenDates(startDate, endDate)
+		);
+	}
+
+	@Override
+	public List<AbsenceDto> createAbsencesForChildBetweenDates(AbsenceRangeDto absenceRangeDto) {
+		return absenceMapper.absenceListToDtoList(
+				absenceService.createAbsencesForChildBetweenDates(
+						absenceRangeDto.getChildId(),
+						absenceRangeDto.getDateFrom(),
+						absenceRangeDto.getDateTo(),
+						absenceRangeDto.getReason()
+				)
 		);
 	}
 }

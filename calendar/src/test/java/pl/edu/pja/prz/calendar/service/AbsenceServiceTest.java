@@ -108,6 +108,18 @@ public class AbsenceServiceTest {
 	}
 
 	@Test
+	public void ShouldGetAllAbsences() {
+		//Given
+		when(absenceRepository.findAll()).thenReturn(absenceList);
+
+		//When
+		service.getAllAbsences();
+
+		//Then
+		verify(absenceRepository, times(1)).findAll();
+	}
+
+	@Test
 	public void ShouldGetAllAbsencesByDate() {
 		//Given
 		when(absenceRepository.findAllByDate(any(LocalDate.class))).thenReturn(absenceList);
@@ -143,6 +155,19 @@ public class AbsenceServiceTest {
 		//Then
 		verify(absenceRepository, times(1)).findAllByChildIdBetweenDates(any(UUID.class),
 				any(LocalDate.class), any(LocalDate.class));
+	}
+
+	@Test
+	public void ShouldGetAllAbsencesBetweenDates() {
+		//Given
+		when(absenceRepository.findAllBetweenDates(any(LocalDate.class), any(LocalDate.class)))
+				.thenReturn(absenceList);
+
+		//When
+		service.getAllAbsencesBetweenDates(LocalDate.now(), LocalDate.now());
+
+		//Then
+		verify(absenceRepository, times(1)).findAllBetweenDates(any(LocalDate.class), any(LocalDate.class));
 	}
 
 	@Test
