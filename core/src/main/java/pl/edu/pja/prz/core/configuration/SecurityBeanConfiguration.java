@@ -45,4 +45,5 @@ public class SecurityBeanConfiguration {
 	public JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint() {
 		return new JwtAuthenticationEntryPoint();
 	}
+
 }

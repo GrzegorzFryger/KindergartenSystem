@@ -27,9 +27,19 @@ public class ChildController {
         return new ResponseEntity<>(childFacade.findChildById(id), HttpStatus.OK);
     }
 
+    @GetMapping("children")
+    public ResponseEntity<List<ChildDto>> findAllChildren() {
+        return new ResponseEntity<>(childFacade.getAllChildren(), HttpStatus.OK);
+    }
+
     @GetMapping("children/search")
     public ResponseEntity<List<ChildDto>> searchByFullName(@RequestParam String name, @RequestParam String surname) {
         return new ResponseEntity<List<ChildDto>>(childFacade.searchByFullName(new FullName(name, surname)), HttpStatus.OK);
+    }
+
+    @GetMapping("children/count")
+    public ResponseEntity<Long> countChildren() {
+        return new ResponseEntity<>(childFacade.countChildren(), HttpStatus.OK);
     }
 
     @PutMapping("child")
@@ -41,11 +51,7 @@ public class ChildController {
     public ResponseEntity<ChildDto> createChild(@RequestBody ChildDto childDto) {
         return new ResponseEntity<>(childFacade.createChild(childDto), HttpStatus.OK);
     }
-
-    @GetMapping("children")
-    public List<ChildDto> getAllChildren() {
-        return childFacade.getAllChildren();
-    }
+    
 
 
 }

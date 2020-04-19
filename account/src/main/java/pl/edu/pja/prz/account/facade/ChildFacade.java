@@ -22,4 +22,6 @@ public interface ChildFacade {
     List<ChildDto> searchByFullName(FullName fullName);
 
     List<ChildDto> getAllChildren();
+
+    Long countChildren();
 }

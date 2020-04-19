@@ -112,7 +112,6 @@
                 <configuration>
                     <excludes>
                         <exclude>**/pl/edu/pja/prz/core/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/core/exception/*</exclude>
                         <exclude>**/pl/edu/pja/prz/core/security/*</exclude>
                         <exclude>**/pl/edu/pja/prz/core/utilites/*</exclude>
                         <exclude>**/pl/edu/pja/prz/core/controller/payments/*</exclude>

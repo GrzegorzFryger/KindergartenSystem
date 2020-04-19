@@ -26,95 +26,98 @@ import java.util.UUID;
 
 @Service
 public class ChildService extends GenericService<ChildRepository, Child, UUID> {
-	private static final Logger logger = LoggerFactory.logger(ChildService.class);
+    private static final Logger logger = LoggerFactory.logger(ChildService.class);
 
-	private static final String CHILD_WITHOUT_PESEL = "NOT_SET";
-	private static final ChildStatus CHILDSTATUS = ChildStatus.NEW;
-	private final ChildRepository childRepository;
-	private final PeselService peselService;
+    private static final String CHILD_WITHOUT_PESEL = "NOT_SET";
+    private static final ChildStatus CHILDSTATUS = ChildStatus.NEW;
+    private final ChildRepository childRepository;
+    private final PeselService peselService;
 
-	public ChildService(ChildRepository repository, PeselService peselService) {
-		super(repository);
-		this.childRepository = repository;
-		this.peselService = peselService;
-	}
-
-
-	public Child createChild(Address address, FullName fullName, String pesel,
-	                         StudyPeriod studyPeriod) {
-		return createChildBasedOnPesel(address, fullName, pesel, studyPeriod);
-	}
+    public ChildService(ChildRepository repository, PeselService peselService) {
+        super(repository);
+        this.childRepository = repository;
+        this.peselService = peselService;
+    }
 
 
-	public Child createChild(Address address, Age age, FullName fullName, Gender gender,
-	                         StudyPeriod studyPeriod) {
-		//todo write condition for children without pesel number
-		return createChildWithAllData(address, age, fullName, gender, CHILD_WITHOUT_PESEL, studyPeriod);
-	}
+    public Child createChild(Address address, FullName fullName, String pesel,
+                             StudyPeriod studyPeriod) {
+        return createChildBasedOnPesel(address, fullName, pesel, studyPeriod);
+    }
 
 
-	public Optional<Child> findByFullNameOrAddressReadOnly(FullName fullName, @Nullable String street) throws MoreThanOneElement {
-		if (street == null) {
-			return childRepository.findReadOnly((root, query, cb) ->
-					cb.equal(root.get(Child_.fullName), fullName), Child.class)
-					.stream()
-					.reduce((u, v) -> {
-						Unchecked.throwChecked(new MoreThanOneElement(fullName));
-						return null;
-					});
-		} else {
-			return childRepository.findReadOnly((root, query, cb) ->
-							cb.and(
-									cb.equal(root.get(Child_.fullName), fullName),
-									cb.like(root.get(Child_.address).get(Address_.streetNumber), street)
-							)
-					, Child.class)
-					.stream()
-					.reduce((u, v) -> {
-						Unchecked.throwChecked(new MoreThanOneElement(fullName));
-						return null;
-					});
-		}
-	}
-
-	public List<Child> findByFullNameReadOnly(FullName fullName) {
-		return repository.findReadOnly((root, query, cb) ->
-				cb.and(
-						cb.like(root.get(Child_.FULL_NAME).get(FullName_.NAME), fullName.getName()),
-						cb.like(root.get(Child_.FULL_NAME).get(FullName_.SURNAME), fullName.getSurname())
-				), Child.class);
-	}
-
-	private Child createChildBasedOnPesel(Address address, FullName fullName, String pesel,
-	                                      StudyPeriod studyPeriod) {
-		var gender = peselService.extractGender(pesel);
-		var age = new Age(peselService.extractDateOfBirth(pesel));
-
-		return createChildWithAllData(address,
-				age,
-				fullName,
-				gender,
-				pesel,
-				studyPeriod
-		);
-	}
-
-	private Child createChildWithAllData(Address address, Age age, FullName fullName, Gender gender,
-	                                     String pesel, StudyPeriod studyPeriod) {
-		var child = ChildBuilder.aChild()
-				.withAddress(address)
-				.withAge(age)
-				.withFullName(fullName)
-				.withGender(gender)
-				.withChildStatuses(Set.of(CHILDSTATUS))
-				.withPeselNumber(pesel)
-				.withStudyPeriod(studyPeriod).build();
-
-		return childRepository.save(child);
-	}
+    public Child createChild(Address address, Age age, FullName fullName, Gender gender,
+                             StudyPeriod studyPeriod) {
+        //todo write condition for children without pesel number
+        return createChildWithAllData(address, age, fullName, gender, CHILD_WITHOUT_PESEL, studyPeriod);
+    }
 
 
-	public List<Child> getAllChildren() {
-		return childRepository.findAll();
-	}
+    public Optional<Child> findByFullNameOrAddressReadOnly(FullName fullName, @Nullable String street) throws MoreThanOneElement {
+        if (street == null) {
+            return childRepository.findReadOnly((root, query, cb) ->
+                    cb.equal(root.get(Child_.fullName), fullName), Child.class)
+                    .stream()
+                    .reduce((u, v) -> {
+                        Unchecked.throwChecked(new MoreThanOneElement(fullName));
+                        return null;
+                    });
+        } else {
+            return childRepository.findReadOnly((root, query, cb) ->
+                            cb.and(
+                                    cb.equal(root.get(Child_.fullName), fullName),
+                                    cb.like(root.get(Child_.address).get(Address_.streetNumber), street)
+                            )
+                    , Child.class)
+                    .stream()
+                    .reduce((u, v) -> {
+                        Unchecked.throwChecked(new MoreThanOneElement(fullName));
+                        return null;
+                    });
+        }
+    }
+
+    public List<Child> findByFullNameReadOnly(FullName fullName) {
+        return repository.findReadOnly((root, query, cb) ->
+        {
+            var nameString = "%" + fullName.getName() + "%";
+            var surnameString = "%" + fullName.getSurname() + "%";
+            return cb.and(
+                    cb.like(root.get(Child_.FULL_NAME).get(FullName_.NAME), nameString),
+                    cb.like(root.get(Child_.FULL_NAME).get(FullName_.SURNAME), surnameString)
+            );
+        }, Child.class);
+
+
+    }
+
+    private Child createChildBasedOnPesel(Address address, FullName fullName, String pesel,
+                                          StudyPeriod studyPeriod) {
+        var gender = peselService.extractGender(pesel);
+        var age = new Age(peselService.extractDateOfBirth(pesel));
+
+        return createChildWithAllData(address,
+                age,
+                fullName,
+                gender,
+                pesel,
+                studyPeriod
+        );
+    }
+
+    private Child createChildWithAllData(Address address, Age age, FullName fullName, Gender gender,
+                                         String pesel, StudyPeriod studyPeriod) {
+        var child = ChildBuilder.aChild()
+                .withAddress(address)
+                .withAge(age)
+                .withFullName(fullName)
+                .withGender(gender)
+                .withChildStatuses(Set.of(CHILDSTATUS))
+                .withPeselNumber(pesel)
+                .withStudyPeriod(studyPeriod).build();
+
+        return childRepository.save(child);
+    }
+
+
 }

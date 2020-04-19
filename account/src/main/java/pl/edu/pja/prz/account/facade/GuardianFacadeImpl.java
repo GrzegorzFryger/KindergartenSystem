@@ -20,65 +20,86 @@ import java.util.stream.Collectors;
 
 @Service
 public class GuardianFacadeImpl implements GuardianFacade {
-	private final GuardianMapper guardianMapper;
-	private final GuardianService guardianService;
-	private final ChildMapper childMapper;
+    private final GuardianMapper guardianMapper;
+    private final GuardianService guardianService;
+    private final ChildMapper childMapper;
 
-	public GuardianFacadeImpl(GuardianMapper guardianMapper, GuardianService guardianService,
-	                          ChildMapper childMapper) {
-		this.guardianMapper = guardianMapper;
-		this.guardianService = guardianService;
-		this.childMapper = childMapper;
-	}
+    public GuardianFacadeImpl(GuardianMapper guardianMapper, GuardianService guardianService,
+                              ChildMapper childMapper) {
+        this.guardianMapper = guardianMapper;
+        this.guardianService = guardianService;
+        this.childMapper = childMapper;
+    }
 
-	public GuardianDto createGuardian(AccountDto accountDto) {
-		return guardianMapper.fromGuardian(
-				guardianService.createGuardianAccount(
-						guardianMapper.toPerson(accountDto),
-						accountDto.getEmail()
-				)
-		);
-	}
+    public GuardianDto createGuardian(AccountDto accountDto) {
+        return guardianMapper.fromGuardian(
+                guardianService.createGuardianAccount(
+                        guardianMapper.toPerson(accountDto),
+                        accountDto.getEmail()
+                )
+        );
+    }
 
-	public GuardianDto findGuardianById(UUID id) {
-		return guardianMapper.fromGuardian(
-				guardianService.getById(id)
-		);
-	}
+    public GuardianDto findGuardianById(UUID id) {
+        return guardianMapper.fromGuardian(
+                guardianService.getById(id)
+        );
+    }
 
-	public List<GuardianDto> findAllGuardians() {
-		return guardianService.getAll()
-				.stream()
-				.map(guardianMapper::fromGuardian)
-				.collect(Collectors.toList());
-	}
+    public List<GuardianDto> findAllGuardians() {
+        return guardianService.getAll()
+                .stream()
+                .map(guardianMapper::fromGuardian)
+                .collect(Collectors.toList());
+    }
 
-	public Set<ChildDto> findAllGuardianChildren(UUID id) {
-		return guardianService.getAllChildren(id)
-				.stream()
-				.map(childMapper::fromChild)
-				.collect(Collectors.toSet());
-	}
+    public Set<ChildDto> findAllGuardianChildren(UUID id) {
+        return guardianService.getAllChildren(id)
+                .stream()
+                .map(childMapper::fromChild)
+                .collect(Collectors.toSet());
+    }
 
-	public GuardianDto appendGuardianToChild(GuardianChildAssociationDto associationDto) {
-		return this.guardianMapper.fromGuardian(
-				guardianService.appendChildrenToGuardian(associationDto.getChildId(), associationDto.getGuardianId())
-		);
+    public GuardianDto appendGuardianToChild(GuardianChildAssociationDto associationDto) {
+        return this.guardianMapper.fromGuardian(
+                guardianService.appendChildrenToGuardian(associationDto.getChildId(), associationDto.getGuardianId())
+        );
 
-	}
+    }
 
-	public Optional<GuardianDto> findByFullNameOrAddress(String name, String surname, @Nullable String street)
-			throws MoreThanOneElement {
-		return guardianService
-				.findByFullNameOrAddressReadOnly(new FullName(name.toLowerCase(), surname.toLowerCase()), street)
-				.map(guardianMapper::fromGuardian)
-				.or(Optional::empty);
-	}
+    public Optional<GuardianDto> findByFullNameOrAddress(String name, String surname, @Nullable String street)
+            throws MoreThanOneElement {
+        return guardianService
+                .findByFullNameOrAddressReadOnly(new FullName(name.toLowerCase(), surname.toLowerCase()), street)
+                .map(guardianMapper::fromGuardian)
+                .or(Optional::empty);
+    }
 
-	public List<GuardianDto> searchByFullName(FullName fullName) {
-		return this.guardianService.findByFullName(fullName)
-				.stream()
-				.map(this.guardianMapper::fromGuardian
-				).collect(Collectors.toList());
-	}
+    public List<GuardianDto> searchByFullName(FullName fullName) {
+        return this.guardianService.findByFullName(fullName)
+                .stream()
+                .map(this.guardianMapper::fromGuardian
+                ).collect(Collectors.toList());
+    }
+
+    public Long countGuardian() {
+        return this.guardianService.count();
+    }
+
+    public List<GuardianDto> findByChildId(UUID childId) {
+        return this.guardianService.findByChildId(childId)
+                .stream()
+                .map(guardianMapper::fromGuardian)
+                .collect(Collectors.toList());
+    }
+
+    public GuardianDto updateGuardian(GuardianDto guardianDto) {
+        return this.guardianMapper.fromGuardian(
+                this.guardianService.update(
+                        this.guardianMapper.toGuardian(guardianDto)
+                )
+        );
+    }
+
+
 }
