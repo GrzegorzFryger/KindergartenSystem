@@ -877,6 +877,39 @@
 					"response": []
 				},
 				{
+					"name": "/accountNumber/{childId}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dfa25d81-00dd-429c-ad43-5841159a1b51",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{FINCANCES}}/accountNumber/{{childId}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{FINCANCES}}",
+								"accountNumber",
+								"{{childId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "/balance/guardian/{guardianId}",
 					"event": [
 						{

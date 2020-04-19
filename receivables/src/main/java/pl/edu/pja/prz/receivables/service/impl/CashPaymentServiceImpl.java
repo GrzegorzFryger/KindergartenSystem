@@ -71,7 +71,7 @@ public class CashPaymentServiceImpl implements CashPaymentService {
         facade.decreaseBalance(cashPayment.getChildId(),
                 cashPayment.getTransactionAmount(),
                 "Removed cash payment" + cashPayment.getTitle());
-    }
+}
 
     @Override
     public void update(CashPayment cashPayment) {
