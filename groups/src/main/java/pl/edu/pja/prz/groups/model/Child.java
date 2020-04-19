@@ -1,7 +1,6 @@
 package pl.edu.pja.prz.groups.model;
 
 import org.hibernate.annotations.Type;
-import pl.edu.pja.prz.commons.model.BaseEntityUuid;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
