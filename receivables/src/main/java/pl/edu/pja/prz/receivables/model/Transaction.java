@@ -169,7 +169,7 @@ public class Transaction extends BaseEntityLong implements Serializable {
 
     @Override
     public String toString() {
-        return title + " [" + transactionAmount + " " + transactionCurrency + "]";
+        return transactionDate + " " + title + " [" + transactionAmount + " " + transactionCurrency + "]";
     }
 
     @PostPersist
