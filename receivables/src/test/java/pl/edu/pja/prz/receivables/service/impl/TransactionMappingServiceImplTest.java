@@ -99,6 +99,17 @@ class TransactionMappingServiceImplTest {
     }
 
     @Test
+    public void Should_GetAllTransactionMapping_ForGivenGuardian() {
+        //Given
+
+        //When
+        service.getAllByGuardianId(UUID.randomUUID());
+
+        //Then
+        verify(repository, only()).findAllByGuardianId(any(UUID.class));
+    }
+
+    @Test
     public void Should_ThrowException_When_TransactionMappingToUpdateDoesNotExist() {
         //Given
         when(repository.findByTitle(anyString())).thenReturn(null);

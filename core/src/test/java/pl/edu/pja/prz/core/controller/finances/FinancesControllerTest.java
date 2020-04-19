@@ -77,4 +77,18 @@ class FinancesControllerTest {
         verify(financesFacade, only()).getBalanceForAllChildren(any(UUID.class));
     }
 
+    @Test
+    public void Should_DelegateApiCallTo_getAccountNumberForChild() throws Exception {
+        //Given
+        String childId = UUID.randomUUID().toString();
+
+        //When
+        mvc.perform(MockMvcRequestBuilders.get(API_FINANCES + "accountNumber/" + childId)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        //Then
+        verify(financesFacade, only()).getAccountNumber(any(UUID.class));
+    }
+
 }

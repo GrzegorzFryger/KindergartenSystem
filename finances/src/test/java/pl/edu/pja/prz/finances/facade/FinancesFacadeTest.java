@@ -10,6 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pja.prz.account.facade.GuardianFacade;
 import pl.edu.pja.prz.account.model.dto.ChildDto;
 import pl.edu.pja.prz.finances.model.dto.Balance;
+import pl.edu.pja.prz.finances.service.AccountNumberService;
 import pl.edu.pja.prz.finances.service.BalanceService;
 
 import java.math.BigDecimal;
@@ -34,11 +35,14 @@ class FinancesFacadeTest {
     private BalanceService balanceService;
     @Mock
     private GuardianFacade guardianFacade;
+    @Mock
+    private AccountNumberService accountNumberService;
+
     private FinancesFacade facade;
 
     @BeforeEach
     public void setUp() {
-        facade = new FinancesFacadeImpl(balanceService, guardianFacade);
+        facade = new FinancesFacadeImpl(balanceService, guardianFacade, accountNumberService);
 
         balance = new Balance();
         balance.setBalance(new BigDecimal("50.00"));
@@ -137,5 +141,16 @@ class FinancesFacadeTest {
         //Then
         verify(balanceService, times(1))
                 .applyBalanceCorrection(any(UUID.class), any(BigDecimal.class), anyString());
+    }
+
+    @Test
+    public void Should_ReturnAccountNumber() {
+        //Given
+
+        //When
+        facade.getAccountNumber(UUID.randomUUID());
+
+        //Then
+        verify(accountNumberService, only()).getAccountNumber(any(UUID.class));
     }
 }

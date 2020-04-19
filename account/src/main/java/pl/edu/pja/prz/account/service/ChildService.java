@@ -26,7 +26,7 @@ import java.util.UUID;
 
 @Service
 public class ChildService extends GenericService<ChildRepository, Child, UUID> {
-    private static final Logger logger = LoggerFactory.logger(ChildService.class);
+    private static final Logger childServiceLogger = LoggerFactory.logger(ChildService.class);
 
     private static final String CHILD_WITHOUT_PESEL = "NOT_SET";
     private static final ChildStatus CHILDSTATUS = ChildStatus.NEW;

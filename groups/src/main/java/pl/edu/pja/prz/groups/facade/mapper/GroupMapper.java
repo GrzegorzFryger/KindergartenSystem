@@ -9,7 +9,6 @@ import pl.edu.pja.prz.groups.model.Child;
 import pl.edu.pja.prz.groups.model.Group;
 
 import java.util.List;
-import java.util.Set;
 
 @Mapper(componentModel = "spring")
 public interface GroupMapper {

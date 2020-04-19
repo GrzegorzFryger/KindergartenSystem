@@ -44,6 +44,7 @@ class CashPaymentServiceImplTest {
         payment.setTitle("Czesne #001");
         payment.setId(1L);
         payment.setChildId(UUID.randomUUID());
+        payment.setGuardianId(UUID.randomUUID());
     }
 
     @Test

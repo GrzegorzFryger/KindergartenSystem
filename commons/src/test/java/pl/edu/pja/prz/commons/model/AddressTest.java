@@ -12,16 +12,11 @@ class AddressTest {
     @BeforeEach
     public void setUp() {
         address = new Address();
-        address2 = new Address();
-
         address.setCity("City");
-        address2.setCity("City");
-
         address.setPostalCode("12-500");
-        address2.setPostalCode("12-500");
-
         address.setStreetNumber("Słoneczna 1000");
-        address2.setStreetNumber("Słoneczna 1000");
+
+        address2 = new Address("12-500", "City", "Słoneczna 1000");
     }
 
     @Test

@@ -12,10 +12,9 @@ class PhoneTest {
     @BeforeEach
     public void setUp() {
         phone = new Phone();
-        phone2 = new Phone();
 
         phone.setPhone("500600700");
-        phone2.setPhone("500600700");
+        phone2 = new Phone("500600700");
     }
 
     @Test
@@ -55,5 +54,17 @@ class PhoneTest {
         //Then
         assertTrue(firstEqualsToSecond);
         assertTrue(secondEqualsToFirst);
+    }
+
+    @Test
+    public void Should_ReturnCorrectString() {
+        //Given
+        String expectedResult = "Phone{phone='500600700'}";
+
+        //When
+        String result = phone.toString();
+
+        //Then
+        assertEquals(expectedResult, result);
     }
 }
