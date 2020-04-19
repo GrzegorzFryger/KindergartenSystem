@@ -122,4 +122,17 @@ class TransactionsControllerTest {
         //Then
         verify(receivablesFacade, only()).update(any(Transaction.class));
     }
+
+    @Test
+    public void Should_DelegateApiCallTo_getAllTransactionsForChild() throws Exception {
+        //Given
+
+        //When
+        mvc.perform(MockMvcRequestBuilders.get(API_RECEIVABLES + "transactions/child/" + UUID.randomUUID())
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        //Then
+        verify(receivablesFacade, only()).getAllTransactionsForChild(any(UUID.class));
+    }
 }

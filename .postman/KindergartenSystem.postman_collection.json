@@ -1715,6 +1715,40 @@
 					"response": []
 				},
 				{
+					"name": "/transactions/child/{childId}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "463adf28-b58a-4567-aa3b-aa2f1261de1b",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/transactions/child/{{childId}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"transactions",
+								"child",
+								"{{childId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "/transactions",
 					"event": [
 						{
@@ -2161,6 +2195,40 @@
 							"path": [
 								"{{RECEIVABLES}}",
 								"cash-payments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/cash-payments/child/{childId}",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "439902e7-0603-4100-be96-7365485aec2d",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/cash-payments/child/{{childId}}",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"cash-payments",
+								"child",
+								"{{childId}}"
 							]
 						}
 					},

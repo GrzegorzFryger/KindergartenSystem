@@ -7,6 +7,7 @@ import pl.edu.pja.prz.receivables.facade.ReceivablesFacade;
 import pl.edu.pja.prz.receivables.model.CashPayment;
 
 import java.util.List;
+import java.util.UUID;
 
 import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_ADMIN;
 import static pl.edu.pja.prz.core.controller.RequestMappings.API_RECEIVABLES;
@@ -25,6 +26,12 @@ public class CashPaymentController {
     @PreAuthorize(HAS_ROLE_ADMIN)
     public List<CashPayment> getAllCashPayments() {
         return receivablesFacade.getAllCashPayments();
+    }
+
+    @GetMapping("cash-payments/child/{childId}")
+    @PreAuthorize(HAS_ROLE_ADMIN)
+    public List<CashPayment> getAllCashPaymentsForChild(@PathVariable UUID childId) {
+        return receivablesFacade.getAllCashPaymentsForChild(childId);
     }
 
     @GetMapping("cash-payments/{id}")

@@ -13,6 +13,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pl.edu.pja.prz.receivables.facade.ReceivablesFacade;
 import pl.edu.pja.prz.receivables.model.CashPayment;
 
+import java.util.UUID;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.only;
@@ -103,6 +105,19 @@ class CashPaymentControllerTest {
 
         //Then
         verify(receivablesFacade, only()).update(any(CashPayment.class));
+    }
+
+    @Test
+    public void Should_DelegateApiCallTo_getAllCashPaymentsForChild() throws Exception {
+        //Given
+
+        //When
+        mvc.perform(MockMvcRequestBuilders.get(API_RECEIVABLES + "cash-payments/child/" + UUID.randomUUID())
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        //Then
+        verify(receivablesFacade, only()).getAllCashPaymentsForChild(any(UUID.class));
     }
 
 }

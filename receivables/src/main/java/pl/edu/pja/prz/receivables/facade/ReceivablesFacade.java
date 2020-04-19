@@ -44,8 +44,16 @@ public class ReceivablesFacade {
         return transactionService.getAllUnassignedTransactions();
     }
 
+    public List<Transaction> getAllTransactionsForChild(UUID childId) {
+        return transactionService.getAllTransactionsByChildId(childId);
+    }
+
     public List<CashPayment> getAllCashPayments() {
         return cashPaymentService.getAllCashPayments();
+    }
+
+    public List<CashPayment> getAllCashPaymentsForChild(UUID childId) {
+        return cashPaymentService.getAllCashPaymentsByChildId(childId);
     }
 
     public void deleteTransaction(Long id) {
