@@ -65,6 +65,11 @@ public class AbsenceServiceImpl implements AbsenceService {
 	}
 
 	@Override
+	public List<Absence> getAllAbsences() {
+		return absenceRepository.findAll();
+	}
+
+	@Override
 	public List<Absence> getAllAbsencesByDate(LocalDate date) {
 		return absenceRepository.findAllByDate(date);
 	}
@@ -77,6 +82,11 @@ public class AbsenceServiceImpl implements AbsenceService {
 	@Override
 	public List<Absence> getAllAbsencesForChildBetweenDates(UUID id, LocalDate startDate, LocalDate endDate) {
 		return absenceRepository.findAllByChildIdBetweenDates(id, startDate, endDate);
+	}
+
+	@Override
+	public List<Absence> getAllAbsencesBetweenDates(LocalDate startDate, LocalDate endDate) {
+		return absenceRepository.findAllBetweenDates(startDate, endDate);
 	}
 
 	@Override

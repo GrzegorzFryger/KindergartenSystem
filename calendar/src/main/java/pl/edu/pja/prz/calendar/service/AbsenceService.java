@@ -16,11 +16,15 @@ public interface AbsenceService {
 
 	Absence getAbsence(Long id);
 
+	List<Absence> getAllAbsences();
+
 	List<Absence> getAllAbsencesByDate(LocalDate date);
 
 	List<Absence> getAllAbsencesByChildId(UUID id);
 
 	List<Absence> getAllAbsencesForChildBetweenDates(UUID id, LocalDate startDate, LocalDate endDate);
+
+	List<Absence> getAllAbsencesBetweenDates(LocalDate startDate, LocalDate endDate);
 
 	List<Absence> createAbsencesForChildBetweenDates(UUID id, LocalDate startDate, LocalDate endDate, String reason);
 }
