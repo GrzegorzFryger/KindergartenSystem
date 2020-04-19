@@ -114,4 +114,7 @@ public class ChildService extends GenericService<ChildRepository, Child, UUID> {
 	}
 
 
+	public List<Child> getAllChildren() {
+		return childRepository.findAll();
+	}
 }

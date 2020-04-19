@@ -42,5 +42,10 @@ public class ChildController {
         return new ResponseEntity<>(childFacade.createChild(childDto), HttpStatus.OK);
     }
 
+    @GetMapping("children")
+    public List<ChildDto> getAllChildren() {
+        return childFacade.getAllChildren();
+    }
+
 
 }

@@ -20,4 +20,6 @@ public interface ChildFacade {
     Optional<ChildDto> findByFullNameOrAddress(String name, String surname, @Nullable String street) throws MoreThanOneElement;
 
     List<ChildDto> searchByFullName(FullName fullName);
+
+    List<ChildDto> getAllChildren();
 }
