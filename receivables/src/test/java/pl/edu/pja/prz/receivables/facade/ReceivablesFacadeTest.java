@@ -340,4 +340,26 @@ class ReceivablesFacadeTest {
         //Then
         verify(transactionMappingService, only()).create(any(UUID.class), any(UUID.class));
     }
+
+    @Test
+    public void Should_GetAllCashPaymentsByChildId() {
+        //Given
+
+        //When
+        facade.getAllCashPaymentsForChild(UUID.randomUUID());
+
+        //Then
+        verify(cashPaymentService, only()).getAllCashPaymentsByChildId(any(UUID.class));
+    }
+
+    @Test
+    public void Should_GetAllTransactionsByChildId() {
+        //Given
+
+        //When
+        facade.getAllTransactionsForChild(UUID.randomUUID());
+
+        //Then
+        verify(transactionService, only()).getAllTransactionsByChildId(any(UUID.class));
+    }
 }

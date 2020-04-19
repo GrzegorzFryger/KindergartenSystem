@@ -28,6 +28,12 @@ public class TransactionsController {
         return receivablesFacade.getAllUnassignedTransactions();
     }
 
+    @GetMapping("transactions/child/{childId}")
+    @PreAuthorize(HAS_ROLE_ADMIN)
+    public List<Transaction> getAllTransactionsForChild(@PathVariable UUID childId) {
+        return receivablesFacade.getAllTransactionsForChild(childId);
+    }
+
     @GetMapping("transactions/{id}")
     @PreAuthorize(HAS_ROLE_ADMIN)
     public Transaction getTransaction(@PathVariable Long id) {
