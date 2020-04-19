@@ -10,6 +10,7 @@ import pl.edu.pja.prz.finances.model.dto.AccountNumberDto;
 import pl.edu.pja.prz.finances.repository.AccountNumberRepository;
 import pl.edu.pja.prz.finances.service.AccountNumberService;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -37,11 +38,11 @@ class AccountNumberServiceImplTest {
         Long id = 1L;
 
         //When
-        when(accountRepository.getOne(anyLong())).thenReturn(accountNumber);
+        when(accountRepository.findById(anyLong())).thenReturn(Optional.of(accountNumber));
         AccountNumberDto result = service.getAccountNumber(UUID.randomUUID());
 
         //Then
-        verify(accountRepository, only()).getOne(id);
+        verify(accountRepository, only()).findById(id);
         assertNotNull(result);
         assertEquals("1234", result.getAccountNumber());
     }

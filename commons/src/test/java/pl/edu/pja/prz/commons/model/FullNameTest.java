@@ -12,13 +12,10 @@ class FullNameTest {
     @BeforeEach
     public void setUp() {
         fullName = new FullName();
-        fullName2 = new FullName();
-
         fullName.setName("Paweł");
-        fullName2.setName("Paweł");
-
         fullName.setSurname("Jumper");
-        fullName2.setSurname("Jumper");
+
+        fullName2 = new FullName("Paweł", "Jumper");
     }
 
     @Test
@@ -58,5 +55,17 @@ class FullNameTest {
         //Then
         assertTrue(firstEqualsToSecond);
         assertTrue(secondEqualsToFirst);
+    }
+
+    @Test
+    public void Should_ReturnCorrectString() {
+        //Given
+        String expectedResult = "FullName{name='Paweł', surname='Jumper'}";
+
+        //When
+        String result = fullName.toString();
+
+        //Then
+        assertEquals(expectedResult, result);
     }
 }
