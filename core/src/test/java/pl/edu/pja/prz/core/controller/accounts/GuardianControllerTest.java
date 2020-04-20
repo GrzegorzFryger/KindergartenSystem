@@ -18,6 +18,7 @@ import pl.edu.pja.prz.account.model.dto.GuardianDto;
 import pl.edu.pja.prz.commons.model.FullName;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -118,16 +119,16 @@ class GuardianControllerTest {
     UUID childId = UUID.randomUUID();
     UUID guardianId = UUID.randomUUID();
     GuardianChildAssociationDto dto = new GuardianChildAssociationDto();
-    dto.setChildId(childId);
-    dto.setGuardianId(guardianId);
+      dto.setChildId(List.of(childId));
+      dto.setGuardianId(List.of(guardianId));
 
     String json = convertToJson(dto);
 
-    GuardianDto guardianDto = new GuardianDto();
-    guardianDto.setChildren(new HashSet<>());
+      List<GuardianDto> guardianDto = List.of(new GuardianDto());
+      guardianDto.get(0).setChildren(new HashSet<>());
     ChildDto childDto = new ChildDto();
     childDto.setId(childId);
-    guardianDto.getChildren().add(childDto);
+      guardianDto.get(0).getChildren().add(childDto);
 
     //When
     when(guardianFacade.appendGuardianToChild(any(GuardianChildAssociationDto.class))).thenReturn(guardianDto);
@@ -146,16 +147,16 @@ class GuardianControllerTest {
     UUID childId = UUID.randomUUID();
     UUID guardianId = UUID.randomUUID();
     GuardianChildAssociationDto dto = new GuardianChildAssociationDto();
-    dto.setChildId(childId);
-    dto.setGuardianId(guardianId);
+      dto.setChildId(List.of(childId));
+      dto.setGuardianId(List.of(guardianId));
 
     String json = convertToJson(dto);
 
-    GuardianDto guardianDto = new GuardianDto();
-    guardianDto.setChildren(new HashSet<>());
+      List<GuardianDto> guardianDto = List.of(new GuardianDto());
+      guardianDto.get(0).setChildren(new HashSet<>());
     ChildDto childDto = new ChildDto();
     childDto.setId(UUID.randomUUID()); //Some new id - different from what is in childAssociationDto
-    guardianDto.getChildren().add(childDto);
+      guardianDto.get(0).getChildren().add(childDto);
 
     //When
     when(guardianFacade.appendGuardianToChild(any(GuardianChildAssociationDto.class))).thenReturn(guardianDto);

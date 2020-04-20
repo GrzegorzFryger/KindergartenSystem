@@ -19,7 +19,6 @@ import static pl.edu.pja.prz.core.controller.RequestMappings.API_ACCOUNT;
 
 @RestController
 @RequestMapping(API_ACCOUNT)
-@CrossOrigin(origins = "*")
 //TODO: ADD @PreAuthorize annotation with proper roles from Roles.java class
 public class GuardianController {
 	private final GuardianFacade guardianFacade;
@@ -74,13 +73,9 @@ public class GuardianController {
 	}
 
 	@PostMapping("guardian/append-child")
-	public ResponseEntity<GuardianDto> createGuardian(@RequestBody GuardianChildAssociationDto associationDto) {
+	public ResponseEntity<List<GuardianDto>> appendGuardian(@RequestBody GuardianChildAssociationDto associationDto) {
 		var guardian = this.guardianFacade.appendGuardianToChild(associationDto);
 
-		var success = guardian.getChildren()
-				.stream()
-				.anyMatch(childDto -> childDto.getId().equals(associationDto.getChildId()));
-
-		return success ? new ResponseEntity<>(guardian, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(guardian, HttpStatus.OK);
 	}
 }

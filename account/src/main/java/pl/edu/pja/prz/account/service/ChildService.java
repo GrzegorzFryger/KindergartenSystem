@@ -120,4 +120,7 @@ public class ChildService extends GenericService<ChildRepository, Child, UUID> {
     }
 
 
+    public List<Child> findAllByIds(List<UUID> childrenId) {
+        return repository.findAllById(childrenId);
+    }
 }
