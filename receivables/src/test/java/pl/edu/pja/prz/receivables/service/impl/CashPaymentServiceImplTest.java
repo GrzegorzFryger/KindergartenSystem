@@ -186,6 +186,25 @@ class CashPaymentServiceImplTest {
     }
 
     @Test
+    public void Should_GetAllCashPaymentsFromPastMonth() {
+        //Given
+        LocalDate start = LocalDate.now();
+        LocalDate end = LocalDate.now();
+        List<CashPayment> cashPayments = new ArrayList<>();
+        cashPayments.add(payment);
+
+        //When
+        when(repository.findAllCashPaymentsForPastMonth(any(LocalDate.class), any(LocalDate.class)))
+                .thenReturn(cashPayments);
+        List<CashPayment> result = service.getAllCashPaymentsFromPastMonth(start, end);
+
+        //Then
+        assertEquals(1, result.size());
+        verify(repository, times(1))
+                .findAllCashPaymentsForPastMonth( any(LocalDate.class), any(LocalDate.class));
+    }
+
+    @Test
     public void Should_DeleteCashPayment() {
         //Given
 

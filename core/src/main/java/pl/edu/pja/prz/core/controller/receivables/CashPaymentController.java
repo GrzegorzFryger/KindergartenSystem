@@ -3,9 +3,11 @@ package pl.edu.pja.prz.core.controller.receivables;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import pl.edu.pja.prz.commons.util.DateUtils;
 import pl.edu.pja.prz.receivables.facade.ReceivablesFacade;
 import pl.edu.pja.prz.receivables.model.CashPayment;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,6 +34,14 @@ public class CashPaymentController {
     @PreAuthorize(HAS_ROLE_ADMIN)
     public List<CashPayment> getAllCashPaymentsForChild(@PathVariable UUID childId) {
         return receivablesFacade.getAllCashPaymentsForChild(childId);
+    }
+
+    @GetMapping("cash-payments/past-month")
+    @PreAuthorize(HAS_ROLE_ADMIN)
+    public List<CashPayment> getAllCashPaymentsForLastMonth() {
+        LocalDate toDate = LocalDate.now();
+        LocalDate fromDate = DateUtils.getDateOneMonthBehind(toDate);
+        return receivablesFacade.getAllCashPaymentsForPastMonth(fromDate, toDate);
     }
 
     @GetMapping("cash-payments/{id}")

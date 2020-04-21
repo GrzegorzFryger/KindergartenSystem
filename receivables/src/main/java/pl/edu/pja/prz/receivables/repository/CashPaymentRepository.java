@@ -29,4 +29,9 @@ public interface CashPaymentRepository extends JpaRepository<CashPayment, Long> 
     List<CashPayment> findAllByChildIdBetweenDates(@Param("childId") UUID childId,
                                                    @Param("start") LocalDate start,
                                                    @Param("end") LocalDate end);
+
+    @Query("select c from CashPayment c where c.transactionDate >= :start " +
+            "and c.transactionDate <= :end")
+    List<CashPayment> findAllCashPaymentsForPastMonth(@Param("start") LocalDate start,
+                                                      @Param("end") LocalDate end);
 }

@@ -362,4 +362,27 @@ class ReceivablesFacadeTest {
         //Then
         verify(transactionService, only()).getAllTransactionsByChildId(any(UUID.class));
     }
+
+    @Test
+    public void Should_GetAllTransactionsForPathMonth() {
+        //Given
+
+        //When
+        facade.getAllTransactionsForPastMonth(LocalDate.now(), LocalDate.now());
+
+        //Then
+        verify(transactionService, only()).getAllTransactionsFromPastMonth(any(LocalDate.class), any(LocalDate.class));
+    }
+
+
+    @Test
+    public void Should_GetAllCashPaymentsForPathMonth() {
+        //Given
+
+        //When
+        facade.getAllCashPaymentsForPastMonth(LocalDate.now(), LocalDate.now());
+
+        //Then
+        verify(cashPaymentService, only()).getAllCashPaymentsFromPastMonth(any(LocalDate.class), any(LocalDate.class));
+    }
 }
