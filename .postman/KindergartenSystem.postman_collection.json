@@ -1715,6 +1715,39 @@
 					"response": []
 				},
 				{
+					"name": "/transactions/past-month",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dfa25d81-00dd-429c-ad43-5841159a1b51",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/transactions/past-month",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"transactions",
+								"past-month"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "/transactions/child/{childId}",
 					"event": [
 						{
@@ -2195,6 +2228,39 @@
 							"path": [
 								"{{RECEIVABLES}}",
 								"cash-payments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/cash-payments/past-month",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "439902e7-0603-4100-be96-7365485aec2d",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST}}/{{RECEIVABLES}}/cash-payments/past-month",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"{{RECEIVABLES}}",
+								"cash-payments",
+								"past-month"
 							]
 						}
 					},

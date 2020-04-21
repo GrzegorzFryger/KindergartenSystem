@@ -64,6 +64,11 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
+    public List<Transaction> getAllTransactionsFromPastMonth(LocalDate start, LocalDate end) {
+        return repository.findAllTransactionsForPastMonth(start, end);
+    }
+
+    @Override
     public void delete(Long id) {
         if (repository.findById(id).isEmpty()) {
             throw new ElementNotFoundException(TRANSACTION, id);

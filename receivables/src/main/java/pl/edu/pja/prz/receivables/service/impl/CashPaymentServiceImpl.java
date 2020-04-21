@@ -59,6 +59,11 @@ public class CashPaymentServiceImpl implements CashPaymentService {
     }
 
     @Override
+    public List<CashPayment> getAllCashPaymentsFromPastMonth(LocalDate start, LocalDate end) {
+        return repository.findAllCashPaymentsForPastMonth(start, end);
+    }
+
+    @Override
     public void delete(Long id) {
         if (repository.findById(id).isEmpty()) {
             throw new ElementNotFoundException(CASH_PAYMENT, id);
