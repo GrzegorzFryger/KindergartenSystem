@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pl.edu.pja.prz.receivables.facade.ReceivablesFacade;
 import pl.edu.pja.prz.receivables.model.CashPayment;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -118,6 +119,19 @@ class CashPaymentControllerTest {
 
         //Then
         verify(receivablesFacade, only()).getAllCashPaymentsForChild(any(UUID.class));
+    }
+
+    @Test
+    public void Should_DelegateApiCallTo_getAllCashPaymentsForLastMonth() throws Exception {
+        //Given
+
+        //When
+        mvc.perform(MockMvcRequestBuilders.get(API_RECEIVABLES + "cash-payments/past-month")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        //Then
+        verify(receivablesFacade, only()).getAllCashPaymentsForPastMonth(any(LocalDate.class), any(LocalDate.class));
     }
 
 }

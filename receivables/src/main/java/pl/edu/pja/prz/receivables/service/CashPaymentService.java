@@ -19,6 +19,8 @@ public interface CashPaymentService {
 
     List<CashPayment> getAllCashPaymentsByGuardianId(UUID guardianId, LocalDate start, LocalDate end);
 
+    List<CashPayment> getAllCashPaymentsFromPastMonth(LocalDate start, LocalDate end);
+
     void delete(Long id);
 
     void update(CashPayment cashPayment);

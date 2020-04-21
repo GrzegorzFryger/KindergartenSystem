@@ -222,6 +222,24 @@ class TransactionServiceImplTest {
     }
 
     @Test
+    public void Should_GetAllTransactionsFromPastMonth() {
+        //Given
+        LocalDate start = LocalDate.now();
+        LocalDate end = LocalDate.now();
+        List<Transaction> transactions = new ArrayList<>();
+        transactions.add(transaction);
+        when(repository.findAllTransactionsForPastMonth(any(LocalDate.class), any(LocalDate.class)))
+                .thenReturn(transactions);
+
+        //When
+        List<Transaction> result = service.getAllTransactionsFromPastMonth(start, end);
+
+        //Then
+        verify(repository, times(1))
+                .findAllTransactionsForPastMonth(any(LocalDate.class), any(LocalDate.class));
+    }
+
+    @Test
     public void Should_GetAllTransactionsByGuardianIdBetweenDates() {
         //Given
         LocalDate start = LocalDate.now();
