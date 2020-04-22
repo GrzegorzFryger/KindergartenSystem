@@ -13,7 +13,6 @@ import static pl.edu.pja.prz.core.controller.RequestMappings.API_NUTRITIONAL_NOT
 
 @RestController
 @RequestMapping(API_NUTRITIONAL_NOTES)
-@CrossOrigin(origins = "http://localhost:4200")
 public class MealNutritionalNotesController {
 
     private final MealNutritionalNotesFacade mealNutritionalNotesFacade;
