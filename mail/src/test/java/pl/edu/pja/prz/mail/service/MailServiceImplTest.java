@@ -181,6 +181,7 @@ class MailServiceImplTest {
         service.sendEmail(baseMail, email, password);
 
         //Then
+        verify(factory, only()).getSender(anyString(), anyString());
     }
 
     @Test
@@ -194,6 +195,7 @@ class MailServiceImplTest {
         service.sendEmail(baseMail);
 
         //Then
+        verify(factory, only()).getSender();
     }
 
 

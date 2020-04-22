@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 public class QuartzSchedulerService implements SchedulerService {
 	private static final Logger logger = LoggerFactory.logger(QuartzSchedulerService.class);
 	private static final String SCHEDULER_ERROR = "Can not get instance of QuartzScheduler" + " from application context in method: ";
+	private static final String CAN_NOT_GET_TRIGGER = "Can not get Trigger";
 	private final SchedulerFactoryBean schedulerFactory;
 	private final QuartzFactory quartzFactory;
 	private final JobService jobService;
@@ -67,7 +68,7 @@ public class QuartzSchedulerService implements SchedulerService {
 						return scheduler.getTrigger(triggerKey);
 					} catch (SchedulerException e) {
 						logger.error("Failed get trigger with key - {}", triggerKey, e);
-						throw new IllegalArgumentException("Can not get Trigger");
+						throw new IllegalArgumentException(CAN_NOT_GET_TRIGGER);
 					}
 				}).map(trigger -> {
 					JobDetail jobFromTrigger;
@@ -103,7 +104,7 @@ public class QuartzSchedulerService implements SchedulerService {
 				.orElseThrow(() -> new IllegalArgumentException("Can not get JobInfo"));
 
 		var trigger = quartzFactory.createCronTrigger(triggerDescription, cronExpression, groupName)
-				.orElseThrow(() -> new IllegalArgumentException("Can not get Trigger"));
+				.orElseThrow(() -> new IllegalArgumentException(CAN_NOT_GET_TRIGGER));
 
 		var jobDetails = quartzFactory.createJobDetail(jobInfo.getClassType(), jobInfo.getDescription(), durability,
 				groupName, dataToJob).orElseThrow(() -> new IllegalArgumentException("Can not get JobDetails"));
@@ -132,7 +133,7 @@ public class QuartzSchedulerService implements SchedulerService {
 				.orElseThrow(() -> new IllegalArgumentException("Can not get JobInfo"));
 
 		var trigger = quartzFactory.createSimpleTrigger(triggerDescription, startDate, repeatCount, groupName)
-				.orElseThrow(() -> new IllegalArgumentException("Can not get Trigger"));
+				.orElseThrow(() -> new IllegalArgumentException(CAN_NOT_GET_TRIGGER));
 
 		var jobDetails = quartzFactory.createJobDetail(jobInfo.getClassType(), jobInfo.getDescription(), false,
 				groupName, dataToJob).orElseThrow(() -> new IllegalArgumentException("Can not get JobDetails"));

@@ -25,7 +25,7 @@ import static pl.edu.pja.prz.core.utilites.JwtFilterUtils.addErrorToResponse;
 import static pl.edu.pja.prz.core.utilites.JwtFilterUtils.getAuthDto;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-    private static Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
+    private static Logger jwtAuthenticationFilterLogger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
 
     private final JwtTokenProvider jwtTokenProvider;
 
@@ -76,7 +76,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .put(TOKEN, tokenString)
                 .toString();
         } catch (JSONException e) {
-            logger.error("Failed to build token", e);
+            jwtAuthenticationFilterLogger.error("Failed to build token", e);
         }
         return token;
     }

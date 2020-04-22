@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.edu.pja.prz.finances.facade.FinancesFacade;
+import pl.edu.pja.prz.finances.model.dto.AccountNumberDto;
 import pl.edu.pja.prz.finances.model.dto.Balance;
 
 import java.util.List;
@@ -39,5 +40,11 @@ public class FinancesController {
     @PreAuthorize(HAS_ROLE_USER)
     public Balance getSumOfBalancesForAllChildren(@PathVariable UUID guardianId) {
         return facade.getBalanceForAllChildren(guardianId);
+    }
+
+    @GetMapping("accountNumber/{childId}")
+    @PreAuthorize(HAS_ROLE_USER)
+    public AccountNumberDto getAccountNumberForChild(@PathVariable UUID childId) {
+        return facade.getAccountNumber(childId);
     }
 }

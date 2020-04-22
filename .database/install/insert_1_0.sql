@@ -87,6 +87,10 @@ VALUES
 (0, 390.50, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2019-11-23', 'INCREASE', '20200314753452'),
 (0, 200.50, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', '2019-12-12', 'INCREASE', '20200314645723');
 
+INSERT INTO finances.accountNumber(`version`, `accountNumber`)
+VALUES
+(0, '27105020040000300201355387');
+
 -- GROUPS MODULE --
 INSERT INTO classrooms.classroom(`id`, `version`, `groupName`, `groupDescription`)
 VALUES (1, 0, 'Klasa A', 'Opis klasy A');

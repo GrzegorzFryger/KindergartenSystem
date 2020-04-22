@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pl.edu.pja.prz.receivables.facade.ReceivablesFacade;
 import pl.edu.pja.prz.receivables.model.Transaction;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -121,5 +122,31 @@ class TransactionsControllerTest {
 
         //Then
         verify(receivablesFacade, only()).update(any(Transaction.class));
+    }
+
+    @Test
+    public void Should_DelegateApiCallTo_getAllTransactionsForChild() throws Exception {
+        //Given
+
+        //When
+        mvc.perform(MockMvcRequestBuilders.get(API_RECEIVABLES + "transactions/child/" + UUID.randomUUID())
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        //Then
+        verify(receivablesFacade, only()).getAllTransactionsForChild(any(UUID.class));
+    }
+
+    @Test
+    public void Should_DelegateApiCallTo_getAllIncomingPaymentsForLastMonth() throws Exception {
+        //Given
+
+        //When
+        mvc.perform(MockMvcRequestBuilders.get(API_RECEIVABLES + "transactions/past-month")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        //Then
+        verify(receivablesFacade, only()).getAllTransactionsForPastMonth(any(LocalDate.class), any(LocalDate.class));
     }
 }

@@ -31,4 +31,9 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
     List<Transaction> findAllByChildIdBetweenDates(@Param("childId") UUID childId,
                                                    @Param("start") LocalDate start,
                                                    @Param("end") LocalDate end);
+
+    @Query("select t from Transaction t where t.transactionDate >= :start " +
+            "and t.transactionDate <= :end")
+    List<Transaction> findAllTransactionsForPastMonth(@Param("start") LocalDate start,
+                                                      @Param("end") LocalDate end);
 }

@@ -26,7 +26,7 @@ class CashPaymentTest {
         payment.setTransactionCurrency("PLN");
         payment2.setTransactionCurrency("PLN");
 
-        LocalDate date = LocalDate.now();
+        LocalDate date = LocalDate.of(2020, 1, 1);
         payment.setTransactionDate(date);
         payment2.setTransactionDate(date);
 
@@ -81,6 +81,6 @@ class CashPaymentTest {
         String result = payment.toString();
 
         //Then
-        assertEquals("Czesne #001 [20.00 PLN]", result);
+        assertEquals("2020-01-01 Czesne #001 [20.00 PLN]", result);
     }
 }

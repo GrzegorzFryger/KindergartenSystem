@@ -16,11 +16,15 @@ public interface AbsenceFacade {
 
 	AbsenceDto getAbsence(Long id);
 
+	List<AbsenceDto> getAllAbsences();
+
 	List<AbsenceDto> getAllAbsencesByDate(LocalDate date);
 
 	List<AbsenceDto> getAllAbsencesByChildId(UUID id);
 
 	List<AbsenceDto> getAllAbsencesForChildBetweenDates(UUID id, LocalDate startDate, LocalDate endDate);
 
-    List<AbsenceDto> createAbsencesForChildBetweenDates(AbsenceRangeDto absenceRangeDto);
+	List<AbsenceDto> getAllAbsencesBetweenDates(LocalDate startDate, LocalDate endDate);
+
+	List<AbsenceDto> createAbsencesForChildBetweenDates(AbsenceRangeDto absenceRangeDto);
 }

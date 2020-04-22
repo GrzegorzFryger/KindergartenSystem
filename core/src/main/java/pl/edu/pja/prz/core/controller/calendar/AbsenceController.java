@@ -13,8 +13,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
-import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_TEACHER;
-import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_USER;
+import static pl.edu.pja.prz.commons.constants.Roles.*;
 import static pl.edu.pja.prz.core.controller.RequestMappings.API_CALENDAR;
 
 @RestController
@@ -32,6 +31,13 @@ public class AbsenceController {
 	public ResponseEntity<AbsenceDto> findAbsence(@PathVariable Long id) {
 		return new ResponseEntity<>(absenceFacade.getAbsence(id), HttpStatus.OK);
 	}
+
+	@PreAuthorize(HAS_ROLE_ADMIN)
+	@GetMapping("absences")
+	public ResponseEntity<List<AbsenceDto>> findAllAbsences() {
+		return new ResponseEntity<>(absenceFacade.getAllAbsences(), HttpStatus.OK);
+	}
+
 
 	@PreAuthorize(HAS_ROLE_TEACHER)
 	@PostMapping("absence")
@@ -65,6 +71,14 @@ public class AbsenceController {
 		return new ResponseEntity<>(absenceFacade.getAllAbsencesByDate(dateToCheck), HttpStatus.OK);
 	}
 
+	@PreAuthorize(HAS_ROLE_ADMIN)
+	@GetMapping("absence/betweenDates/{startDate}/{endDate}")
+	public ResponseEntity<List<AbsenceDto>> getAllAbsencesBetweenDates(@PathVariable String startDate, @PathVariable String endDate) {
+		LocalDate dateFrom = LocalDate.parse(startDate);
+		LocalDate dateTo = LocalDate.parse(endDate);
+		return new ResponseEntity<>(absenceFacade.getAllAbsencesBetweenDates(dateFrom, dateTo), HttpStatus.OK);
+	}
+
 	@PreAuthorize(HAS_ROLE_USER)
 	@GetMapping("absence/child/{childId}/{startDate}/{endDate}")
 	public ResponseEntity<List<AbsenceDto>> getAllAbsencesForChildBetweenDates(@PathVariable UUID childId, @PathVariable String startDate, @PathVariable String endDate) {
@@ -74,10 +88,10 @@ public class AbsenceController {
 	}
 
 	@PreAuthorize(HAS_ROLE_USER)
-    @PostMapping("absences")
-    public ResponseEntity<List<AbsenceDto>> createAbsencesForChildBetweenDates(@RequestBody AbsenceRangeDto absenceRangeDto) {
+	@PostMapping("absences")
+	public ResponseEntity<List<AbsenceDto>> createAbsencesForChildBetweenDates(@RequestBody AbsenceRangeDto absenceRangeDto) {
 
-        return new ResponseEntity<>(absenceFacade.createAbsencesForChildBetweenDates(absenceRangeDto), HttpStatus.OK);
+		return new ResponseEntity<>(absenceFacade.createAbsencesForChildBetweenDates(absenceRangeDto), HttpStatus.OK);
 	}
 
 }

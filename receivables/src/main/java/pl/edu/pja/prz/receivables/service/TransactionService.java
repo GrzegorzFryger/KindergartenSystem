@@ -19,6 +19,8 @@ public interface TransactionService {
 
     List<Transaction> getAllTransactionsByGuardianId(UUID guardianId, LocalDate start, LocalDate end);
 
+    List<Transaction> getAllTransactionsFromPastMonth(LocalDate start, LocalDate end);
+
     void delete(Long id);
 
     void update(Transaction transaction);

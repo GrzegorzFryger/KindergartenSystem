@@ -340,4 +340,49 @@ class ReceivablesFacadeTest {
         //Then
         verify(transactionMappingService, only()).create(any(UUID.class), any(UUID.class));
     }
+
+    @Test
+    public void Should_GetAllCashPaymentsByChildId() {
+        //Given
+
+        //When
+        facade.getAllCashPaymentsForChild(UUID.randomUUID());
+
+        //Then
+        verify(cashPaymentService, only()).getAllCashPaymentsByChildId(any(UUID.class));
+    }
+
+    @Test
+    public void Should_GetAllTransactionsByChildId() {
+        //Given
+
+        //When
+        facade.getAllTransactionsForChild(UUID.randomUUID());
+
+        //Then
+        verify(transactionService, only()).getAllTransactionsByChildId(any(UUID.class));
+    }
+
+    @Test
+    public void Should_GetAllTransactionsForPathMonth() {
+        //Given
+
+        //When
+        facade.getAllTransactionsForPastMonth(LocalDate.now(), LocalDate.now());
+
+        //Then
+        verify(transactionService, only()).getAllTransactionsFromPastMonth(any(LocalDate.class), any(LocalDate.class));
+    }
+
+
+    @Test
+    public void Should_GetAllCashPaymentsForPathMonth() {
+        //Given
+
+        //When
+        facade.getAllCashPaymentsForPastMonth(LocalDate.now(), LocalDate.now());
+
+        //Then
+        verify(cashPaymentService, only()).getAllCashPaymentsFromPastMonth(any(LocalDate.class), any(LocalDate.class));
+    }
 }

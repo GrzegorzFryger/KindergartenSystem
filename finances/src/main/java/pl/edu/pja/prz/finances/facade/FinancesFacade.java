@@ -1,5 +1,7 @@
 package pl.edu.pja.prz.finances.facade;
 
+import pl.edu.pja.prz.finances.model.AccountNumber;
+import pl.edu.pja.prz.finances.model.dto.AccountNumberDto;
 import pl.edu.pja.prz.finances.model.dto.Balance;
 
 import java.math.BigDecimal;
@@ -18,4 +20,6 @@ public interface FinancesFacade {
     void decreaseBalance(UUID childId, BigDecimal amount, String title);
 
     void applyBalanceCorrection(UUID childId, BigDecimal amount, String title);
+
+    AccountNumberDto getAccountNumber(UUID childId);
 }
