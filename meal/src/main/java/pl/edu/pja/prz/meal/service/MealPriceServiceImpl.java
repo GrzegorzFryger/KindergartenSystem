@@ -9,6 +9,8 @@ import pl.edu.pja.prz.meal.model.enums.MealType;
 import pl.edu.pja.prz.meal.repository.MealPriceRepository;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,6 +56,28 @@ public class MealPriceServiceImpl implements MealPriceService {
 
     public BigDecimal getPriceByMealType(MealType mealType) {
         return BigDecimal.valueOf(mealPriceRepository.findMealPriceByMealType(mealType));
+    }
+
+    @Override
+    public MealPrice getById(long id) {
+        Optional<MealPrice> optionalMealPrice = mealPriceRepository.findById(id);
+        if (optionalMealPrice.isPresent()) {
+            return optionalMealPrice.get();
+        }
+
+        throw new ElementNotFoundException(id);
+    }
+
+    @Override
+    public List<MealType> getAllNotSetMealPrice() {
+        List<MealPrice> allSetMealPrice = getAllPrices();
+        List<MealType> allAvailable = new ArrayList<>(Arrays.asList(MealType.values()));
+
+        allSetMealPrice.forEach(u -> {
+            allAvailable.remove(u.getMealType());
+        });
+
+        return allAvailable;
     }
 
 }
