@@ -46,34 +46,34 @@ public class MealServiceImpl implements MealService {
     }
 
     @Override
-    public Meal createMeal(MealCreateUpdateDTO meal)  {
+    public Meal createMeal(MealCreateUpdateDTO meal) {
         if (mealRepository.findMealByChildIDAndMealStatusAndMealType(meal.getChildID(), MealStatus.ACTIVE, meal.getMealType()).isEmpty()) {
             meal.setMealPrice(mealPriceListService.getPriceByMealType(meal.getMealType()));
             return mealRepository.save(MealCreateUpdateDTO.createMealFactory(meal));
         } else
-            throw new BusinessException ("There is already meal with status ACTIVE and type " +
+            throw new BusinessException("There is already meal with status ACTIVE and type " +
                     meal.getMealType() + " for child with ID: " + meal.getChildID());
     }
 
     @Override
     public Meal getMealByID(Long id) {
-        return mealRepository.findById(id).orElseThrow(() -> new ElementNotFoundException (id));
+        return mealRepository.findById(id).orElseThrow(() -> new ElementNotFoundException(id));
     }
 
     @Override
     public void deleteMealByID(Long id) {
         if (isMealPresentByID(id)) {
             mealRepository.deleteById(id);
-        } else throw new ElementNotFoundException (id);
+        } else throw new ElementNotFoundException(id);
     }
 
     @Override
     public Meal updateMeal(MealCreateUpdateDTO meal, Long mealToUpdateID) {
         if (!isMealPresentByID(mealToUpdateID)) {
-            throw new ElementNotFoundException (mealToUpdateID);
+            throw new ElementNotFoundException(mealToUpdateID);
         }
         if (mealRepository.findMealByIdAndMealStatus(mealToUpdateID, MealStatus.INACTIVE).isPresent()) {
-            throw new BusinessException ("Meal with ID: " + mealToUpdateID + " is not ACTIVE");
+            throw new BusinessException("Meal with ID: " + mealToUpdateID + " is not ACTIVE");
         }
 
         Meal mealToUpdate = getMealByID(mealToUpdateID);
@@ -92,17 +92,17 @@ public class MealServiceImpl implements MealService {
     }
 
     public Meal markMealAsInactiveOnDemand(Long mealToMarkAsInactiveId) {
-        if (!isMealPresentByID(mealToMarkAsInactiveId)) {
-            throw new ElementNotFoundException (mealToMarkAsInactiveId);
+
+        if (mealRepository.findMealByIdAndMealStatus(mealToMarkAsInactiveId, MealStatus.ACTIVE).isEmpty()) {
+            throw new BusinessException("Meal with ID: " + mealToMarkAsInactiveId + " is not ACTIVE");
         }
 
-        if (mealRepository.findMealByIdAndMealStatus(mealToMarkAsInactiveId, MealStatus.ACTIVE).isPresent()) {
-            throw new BusinessException ("Meal with ID: " + mealToMarkAsInactiveId + " is not ACTIVE");
-        }
+        return mealRepository.findById(mealToMarkAsInactiveId).map(mealToMarkAsInactive -> {
+            mealToMarkAsInactive.setMealStatus(MealStatus.INACTIVE);
 
-        Meal mealToMarkAsInactive = getMealByID(mealToMarkAsInactiveId);
-        mealToMarkAsInactive.setMealStatus(MealStatus.INACTIVE);
-        return mealRepository.save(mealToMarkAsInactive);
+            return mealRepository.save(mealToMarkAsInactive);
+        }).orElseThrow(() -> new BusinessException("Meal with ID: " + mealToMarkAsInactiveId + " is not ACTIVE"));
+
 
     }
 
@@ -135,8 +135,8 @@ public class MealServiceImpl implements MealService {
         Map<String, Integer> mealsCount = new HashMap<>();
 
         activeMeals.forEach(u -> {
-            String mealToOrder = u.getMealType() + " (" + u.getDietType()+")";
-            if(!mealsCount.containsKey(mealToOrder)){
+            String mealToOrder = u.getMealType() + " (" + u.getDietType() + ")";
+            if (!mealsCount.containsKey(mealToOrder)) {
                 mealsCount.put(mealToOrder, 0);
             }
             mealsCount.put(mealToOrder, mealsCount.get(mealToOrder) + 1);
@@ -159,11 +159,11 @@ public class MealServiceImpl implements MealService {
         List<Meal> activeMeals = getAllActiveMeals();
 
         activeMeals.forEach(u -> {
-            financesFacade.decreaseBalance(u.getChildID(), u.getMealPrice(), u.getMealType() + "w dniu " + LocalDate.now() );
+            financesFacade.decreaseBalance(u.getChildID(), u.getMealPrice(), u.getMealType() + "w dniu " + LocalDate.now());
         });
     }
 
-    public Meal updateMealNutritionalNotes(Long mealId, List<NutritionalNotes> nutritionalNotes){
+    public Meal updateMealNutritionalNotes(Long mealId, List<NutritionalNotes> nutritionalNotes) {
         Meal mealToUpdate = getMealByID(mealId);
         mealToUpdate.setNutritionalNotesList(nutritionalNotes);
         return mealRepository.save(mealToUpdate);
@@ -177,7 +177,6 @@ public class MealServiceImpl implements MealService {
     public List<NutritionalNotes> getNutritionalNotesByMealId(Long mealId) {
         return getMealByID(mealId).getNutritionalNotesList();
     }
-
 
 
 }
