@@ -33,4 +33,8 @@ public class MealFacade {
     public Meal updateMeal(MealCreateUpdateDTO meal, Long mealToUpdateID) {
         return mealService.updateMeal(meal, mealToUpdateID);
     }
+
+    public Meal markMealAsInactiveOnDemand(Long mealToMarkAsInactiveId) {
+        return mealService.markMealAsInactiveOnDemand(mealToMarkAsInactiveId);
+    }
 }

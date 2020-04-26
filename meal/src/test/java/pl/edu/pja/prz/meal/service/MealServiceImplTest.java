@@ -179,11 +179,11 @@ public class MealServiceImplTest {
     @Test
     public void ShouldMarkMealAsInactiveOnDemand_When_InputArgumentIsCorrect(){
         //given
-        when(mealRepository.existsById(1L)).thenReturn(true);
-        when(mealRepository.findMealByIdAndMealStatus(any(), any())).thenReturn(Optional.empty());
-        Meal meal = new Meal(BigDecimal.ONE, LocalDateTime.MIN, LocalDateTime.MAX, DietType.VEGAN, MealStatus.ACTIVE, MealType.BREAKFAST, UUID.randomUUID(), new ArrayList<>() );
+        Meal meal = new Meal(BigDecimal.ONE, LocalDateTime.MIN, LocalDateTime.MAX, DietType.VEGAN,
+                MealStatus.ACTIVE, MealType.BREAKFAST, UUID.randomUUID(), new ArrayList<>() );
 
-        when(mealRepository.findById(1L)).thenReturn(Optional.of(meal));
+        when(mealRepository.findMealByIdAndMealStatus(any(), any())).thenReturn(Optional.of(meal));
+        when(mealRepository.findById(any())).thenReturn(Optional.of(meal));
 
         //when
         mealService.markMealAsInactiveOnDemand(1L);
@@ -195,7 +195,7 @@ public class MealServiceImplTest {
     @Test
     public void ShouldReturnNotFoundException_When_TriedToMarkMealAsInactiveOnDemandWithNotExist() {
         //when
-        assertThrows(ElementNotFoundException.class, () -> {
+        assertThrows(BusinessException.class, () -> {
             mealService.markMealAsInactiveOnDemand(111L);
         });
     }
@@ -203,13 +203,12 @@ public class MealServiceImplTest {
     @Test
     public void ShouldReturnMealActivityStatusException_When_TriedToMarkMealAsInactiveOnDemandWithIsNotActive() {
         //given
-        when(mealRepository.existsById(111L)).thenReturn(true);
         Meal meal = new Meal(BigDecimal.ONE, LocalDateTime.MIN, LocalDateTime.MAX, DietType.VEGAN, MealStatus.ACTIVE, MealType.BREAKFAST, UUID.randomUUID(), new ArrayList<>() );
         when(mealRepository.findMealByIdAndMealStatus(any(), any())).thenReturn(Optional.of(meal));
 
 
         //then
-        assertThrows(BusinessException.class, () -> {
+        assertThrows(ElementNotFoundException.class, () -> {
             mealService.markMealAsInactiveOnDemand(111L);
         });
     }

@@ -46,4 +46,10 @@ public class MealController {
     public Meal updateMeal(@RequestBody MealCreateUpdateDTO meal, @PathVariable("id") Long mealToUpdateID) {
         return mealFacade.updateMeal(meal,mealToUpdateID);
     }
+
+    @PutMapping("{id}/invoke")
+    @PreAuthorize(HAS_ROLE_USER)
+    public Meal markMealAsInactiveOnDemand(@PathVariable("id") Long mealToMarkAsInactiveOnDemand) {
+        return mealFacade.markMealAsInactiveOnDemand(mealToMarkAsInactiveOnDemand);
+    }
 }
