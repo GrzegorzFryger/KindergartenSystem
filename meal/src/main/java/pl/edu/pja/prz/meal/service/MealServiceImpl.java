@@ -22,6 +22,7 @@ import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -97,14 +98,19 @@ public class MealServiceImpl implements MealService {
             throw new BusinessException("Meal with ID: " + mealToMarkAsInactiveId + " is not ACTIVE");
         }
 
-        return mealRepository.findById(mealToMarkAsInactiveId).map(mealToMarkAsInactive -> {
-            mealToMarkAsInactive.setMealStatus(MealStatus.INACTIVE);
+        Optional<Meal> optionalMeal = mealRepository.findById(mealToMarkAsInactiveId);
 
-            return mealRepository.save(mealToMarkAsInactive);
-        }).orElseThrow(() -> new BusinessException("Meal with ID: " + mealToMarkAsInactiveId + " is not ACTIVE"));
+        if (optionalMeal.isPresent()) {
+            Meal meal = optionalMeal.get();
+            meal.setMealStatus(MealStatus.INACTIVE);
+            return mealRepository.save(meal);
+
+        } else throw new ElementNotFoundException(mealToMarkAsInactiveId);
 
 
     }
+
+
 
     @Override
     public List<Meal> getAllMeals() {
