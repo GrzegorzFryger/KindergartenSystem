@@ -19,10 +19,7 @@ import pl.edu.pja.prz.meal.repository.MealRepository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -185,4 +182,8 @@ public class MealServiceImpl implements MealService {
     }
 
 
+    @Override
+    public List<Meal> getAllMealsByChildId(UUID id) {
+        return mealRepository.findAllByChildID(id);
+    }
 }
