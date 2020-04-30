@@ -6,27 +6,37 @@ import pl.edu.pja.prz.account.model.value.Password;
 import pl.edu.pja.prz.account.repository.BasicAccountRepository;
 import pl.edu.pja.prz.account.utilites.AccountFactory;
 import pl.edu.pja.prz.account.utilites.PasswordManager;
+import pl.edu.pja.prz.commons.exception.BusinessException;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.commons.model.Address;
 import pl.edu.pja.prz.commons.model.BaseEntity;
 import pl.edu.pja.prz.commons.model.FullName;
 import pl.edu.pja.prz.commons.model.Phone;
+import pl.edu.pja.prz.mail.facade.MailFacade;
+import pl.edu.pja.prz.mail.model.BaseMail;
 
+import java.util.Optional;
 import java.util.UUID;
 
 
 public abstract class BasicAccountService<T extends BasicAccountRepository<E, UUID>, E extends Account & BaseEntity<UUID>>
         extends GenericService<T, E, UUID> {
+    private static final String CLIENT_HTTP_ADDRESS_PROPERTIES = "https://localhost:4200/auth/activate/";
+    private static final String ACCOUNT_CREATE_EMAIL_SUBJECT = "Aktywacja konta";
     protected final AccountFactory accountFactory;
     protected final PasswordManager passwordManager;
     protected final RoleService roleService;
+    protected final MailFacade mailFacade;
+    protected final ActivateTokenService activateTokenService;
 
     public BasicAccountService(T repository, AccountFactory accountFactory, PasswordManager passwordManager,
-                               RoleService roleService) {
+                               RoleService roleService, MailFacade mailFacade, ActivateTokenService activateTokenService) {
         super(repository);
         this.accountFactory = accountFactory;
         this.passwordManager = passwordManager;
         this.roleService = roleService;
+        this.mailFacade = mailFacade;
+        this.activateTokenService = activateTokenService;
     }
 
     protected E persistStandardAccount(Address address, FullName fullName, Phone phone,
@@ -44,6 +54,9 @@ public abstract class BasicAccountService<T extends BasicAccountRepository<E, UU
                 )
         );
         roleService.persistRoleFromUser(result);
+
+        this.mailFacade.sendEmail(prepareRegisterEmail(result.getEmail(),result.getPassword().getPassword()));
+
         return result;
     }
 
@@ -68,6 +81,18 @@ public abstract class BasicAccountService<T extends BasicAccountRepository<E, UU
                     return repository.save(account);
                 }
         ).orElseThrow(() -> new ElementNotFoundException(updated.getId()));
+    }
 
+    private BaseMail prepareRegisterEmail(String email, String password) {
+        return Optional.ofNullable(this.activateTokenService.generateToken(email, password)).map(token -> {
+            String content = CLIENT_HTTP_ADDRESS_PROPERTIES + token;
+            BaseMail baseMail = new BaseMail();
+            baseMail.setTo(email);
+            baseMail.setSubject(ACCOUNT_CREATE_EMAIL_SUBJECT);
+            baseMail.setContent(content);
+            return baseMail;
+        }).orElseThrow(() -> {
+            throw new BusinessException("Cant prepare activate token");
+        });
     }
 }

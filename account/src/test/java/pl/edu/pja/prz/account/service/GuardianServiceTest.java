@@ -25,6 +25,7 @@ import pl.edu.pja.prz.commons.model.Address;
 import pl.edu.pja.prz.commons.model.FullName;
 import pl.edu.pja.prz.commons.model.GuardianChildDependency;
 import pl.edu.pja.prz.commons.model.Phone;
+import pl.edu.pja.prz.mail.facade.MailFacade;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -50,6 +51,10 @@ class GuardianServiceTest {
     private ChildService childService;
     @Mock
     private AccountEventPublisher accountEventPublisher;
+    @Mock
+    MailFacade mailFacade;
+    @Mock
+    ActivateTokenService activateTokenService;
 
     // data
     private Address address;
@@ -69,7 +74,9 @@ class GuardianServiceTest {
                 passwordManager,
                 roleService,
                 childService,
-                accountEventPublisher
+                accountEventPublisher,
+                mailFacade,
+                activateTokenService
         );
 
         address = new Address("70-700", "City", "Street 256");
