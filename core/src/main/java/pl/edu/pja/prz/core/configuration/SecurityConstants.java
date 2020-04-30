@@ -2,6 +2,7 @@ package pl.edu.pja.prz.core.configuration;
 
 public class SecurityConstants {
     public static final String AUTH_LOGIN_URL = "/api/authenticate";
+    public static final String ACTIVATE_ACCOUNT_URL = "/api/account/activate";
 
     // Signing key for HS512 algorithm
     // You can use the page http://www.allkeysgenerator.com/ to generate all kinds of keys

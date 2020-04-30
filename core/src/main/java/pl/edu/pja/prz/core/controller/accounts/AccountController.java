@@ -19,6 +19,7 @@ public class AccountController {
 	private final AccountCredentialFacade accountCredentialFacade;
 
 	@Autowired
+
 	public AccountController(AccountFacade accountFacade,
 							 AccountCredentialFacade accountCredentialFacade) {
 		this.accountFacade = accountFacade;
@@ -26,18 +27,19 @@ public class AccountController {
 	}
 
 	@GetMapping("user")
-	public ResponseEntity<AccountDto> findBorough(@RequestParam String email, Authentication authentication ) {
+	public ResponseEntity<AccountDto> findAccountByEmail(@RequestParam String email, Authentication authentication ) {
 		var account = accountFacade.findAccountByEmail(email);
 
 		if(account.getEmail().equals(authentication.getName())){
 			return new ResponseEntity<>(account, HttpStatus.OK);
 		} else
 			return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
-
 	}
 
 	@PostMapping("activate")
-	public ResponseEntity<Boolean> activeAccount(@RequestBody AccountActivateDto accountActivateDto) {
-		return ResponseEntity.ok(accountCredentialFacade.activateAccount(accountActivateDto));
+    public ResponseEntity<Boolean> activateAccount(@RequestBody AccountActivateDto accountActivateDto) {
+		return new ResponseEntity<>(this.accountCredentialFacade.activateAccount(accountActivateDto), HttpStatus.OK );
 	}
+
+
 }
