@@ -36,7 +36,7 @@ public class AccountController {
 
 	}
 
-	@PostMapping
+	@PostMapping("activate")
 	public ResponseEntity<Boolean> activeAccount(@RequestBody AccountActivateDto accountActivateDto) {
 		return ResponseEntity.ok(accountCredentialFacade.activateAccount(accountActivateDto));
 	}
