@@ -21,7 +21,7 @@ import java.util.UUID;
 
 public abstract class BasicAccountService<T extends BasicAccountRepository<E, UUID>, E extends Account & BaseEntity<UUID>>
         extends GenericService<T, E, UUID> {
-    private static final String CLIENT_HTTP_ADDRESS_PROPERTIES = "https://localhost:4200/auth/activate/";
+    private static final String CLIENT_HTTP_ADDRESS_PROPERTIES = "https://localhost:4200/auth/authenticate?token=";
     private static final String ACCOUNT_CREATE_EMAIL_SUBJECT = "Aktywacja konta";
     protected final AccountFactory accountFactory;
     protected final PasswordManager passwordManager;
