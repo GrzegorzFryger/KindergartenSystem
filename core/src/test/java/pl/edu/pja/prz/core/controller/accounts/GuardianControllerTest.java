@@ -160,10 +160,12 @@ class GuardianControllerTest {
 
     //When
     when(guardianFacade.appendGuardianToChild(any(GuardianChildAssociationDto.class))).thenReturn(guardianDto);
+
     mvc.perform(MockMvcRequestBuilders.post(API_ACCOUNT + "guardian/append-child")
             .accept(MediaType.APPLICATION_JSON)
-            .contentType(MediaType.APPLICATION_JSON).content(json))
-            .andExpect(status().isNotFound());
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(json))
+            .andExpect(status().isOk());
 
     //Then
     verify(guardianFacade, only()).appendGuardianToChild(any(GuardianChildAssociationDto.class));
