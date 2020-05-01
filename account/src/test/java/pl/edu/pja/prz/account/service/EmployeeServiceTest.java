@@ -16,6 +16,7 @@ import pl.edu.pja.prz.account.utilites.PasswordManager;
 import pl.edu.pja.prz.commons.model.Address;
 import pl.edu.pja.prz.commons.model.FullName;
 import pl.edu.pja.prz.commons.model.Phone;
+import pl.edu.pja.prz.mail.facade.MailFacade;
 
 import java.util.Optional;
 import java.util.Set;
@@ -44,6 +45,10 @@ class EmployeeServiceTest {
     private AccountFactory accountFactory;
     @Mock
     private RoleService roleService;
+    @Mock
+    MailFacade mailFacade;
+    @Mock
+    ActivateTokenService activateTokenService;
 
     private EmployeeService employeeService;
 
@@ -55,7 +60,8 @@ class EmployeeServiceTest {
         password = new Password("newPassword");
         email = "test@test.com";
 
-        employeeService = new EmployeeService(employeeRepository, accountFactory, passwordManager, roleService);
+        employeeService = new EmployeeService(employeeRepository, accountFactory, passwordManager, roleService,
+                mailFacade,activateTokenService);
         this.employee = new AccountFactoryImpl().createTeacher(new Person(address, fullName, phone), password, email);
         this.person = new Person(address, fullName, phone);
     }
@@ -77,6 +83,8 @@ class EmployeeServiceTest {
         )).thenReturn(employee);
         when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
         doNothing().when(roleService).persistRoleFromUser(any(Employee.class));
+        when(activateTokenService.generateToken(any(), any())).thenReturn("token");
+        doNothing().when(mailFacade).sendEmail(any());
 
         var createdGuardian = employeeService.createEmployeeAccount(person, email);
 

@@ -78,6 +78,7 @@ public class AccountCredentialService {
 			if (isEquals(authentication, account.getPassword())) {
 				var hashPassword = createHashPassword(newPassword);
 				account.setPassword(hashPassword);
+                account.setAccountStatus(AccountStatus.ACTIVE);
 				return accountRepository.save(account);
 			} else {
 				logger.warn("Hash password form token not match : {}", authentication.getHasPassword());
