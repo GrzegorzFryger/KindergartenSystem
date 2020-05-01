@@ -101,7 +101,7 @@ public class DayOffWorkServiceImpl implements DayOffWorkService {
 
 		while ((next = next.plusDays(1)).isBefore(endDate.plusDays(1))) {
 			if (next.getDayOfWeek() == DayOfWeek.SATURDAY || next.getDayOfWeek() == DayOfWeek.SUNDAY) {
-				weekendList.add(next.plusDays(1));
+				weekendList.add(next);
 			}
 		}
 		return weekendList;
