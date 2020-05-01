@@ -39,7 +39,8 @@ public class MealNutritionalNotesController {
         return mealNutritionalNotesFacade.getNutritionalNotesById(id);
     }
 
-    @DeleteMapping
+
+    @GetMapping("/delete")
     @PreAuthorize(HAS_ROLE_USER)
     public List<NutritionalNotes> deleteNutritionalNotesById(@RequestParam("nnId") Long nnId, @RequestParam("mealId") Long mealId ) {
        return mealNutritionalNotesFacade.deleteNutritionalNotesById(nnId, mealId);

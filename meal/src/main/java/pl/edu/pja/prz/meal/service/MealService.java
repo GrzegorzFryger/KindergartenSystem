@@ -17,6 +17,7 @@ public interface MealService {
     Meal updateMealNutritionalNotes(Long mealId, List<NutritionalNotes> nutritionalNotes);
     boolean isNoteByIdPresentInMeal(Long nnId, Long mealId);
     List<NutritionalNotes> getNutritionalNotesByMealId(Long mealId);
+    Meal markMealAsInactiveOnDemand(Long mealToMarkAsInactiveId);
 
 
 }

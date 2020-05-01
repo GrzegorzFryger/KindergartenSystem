@@ -15,9 +15,9 @@ public class RoleService {
 	}
 
 	public void persistRoleFromUser(Account account) {
-		account.getRoles().forEach(x ->
-				roleRepository.findByName(x.getName())
-						.ifPresentOrElse(roleRepository::save, () -> roleRepository.save(x))
+        account.getRoles().forEach(x -> {
+                    roleRepository.save(x);
+                }
 		);
 	}
 }

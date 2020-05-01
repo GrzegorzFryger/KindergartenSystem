@@ -1,7 +1,6 @@
 package pl.edu.pja.prz.meal.model;
 
 import org.hibernate.annotations.Type;
-import pl.edu.pja.prz.commons.model.BaseEntityLong;
 import pl.edu.pja.prz.meal.model.enums.DietType;
 import pl.edu.pja.prz.meal.model.enums.MealStatus;
 import pl.edu.pja.prz.meal.model.enums.MealType;
@@ -14,8 +13,11 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-public class Meal extends BaseEntityLong {
+public class Meal {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     private BigDecimal mealPrice;
     private LocalDateTime mealFromDate;
     private LocalDateTime mealToDate;
@@ -114,6 +116,14 @@ public class Meal extends BaseEntityLong {
 
     public void setNutritionalNotesList(List<NutritionalNotes> nutritionalNotesList) {
         this.nutritionalNotesList = nutritionalNotesList;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     @Override

@@ -17,6 +17,7 @@ import pl.edu.pja.prz.commons.model.Address_;
 import pl.edu.pja.prz.commons.model.FullName;
 import pl.edu.pja.prz.commons.model.FullName_;
 import pl.edu.pja.prz.commons.model.GuardianChildDependency;
+import pl.edu.pja.prz.mail.facade.MailFacade;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,8 +32,9 @@ public class GuardianService extends BasicAccountService<GuardianRepository, Gua
     private final AccountEventPublisher accountEventPublisher;
 
     public GuardianService(GuardianRepository repository, AccountFactory accountFactory, PasswordManager passwordManager,
-                           RoleService roleService, ChildService childService, AccountEventPublisher accountEventPublisher) {
-        super(repository, accountFactory, passwordManager, roleService);
+                           RoleService roleService, ChildService childService, AccountEventPublisher accountEventPublisher,
+                           MailFacade mailFacade, ActivateTokenService activateTokenService) {
+        super(repository, accountFactory, passwordManager, roleService, mailFacade, activateTokenService);
         this.childService = childService;
         this.accountEventPublisher = accountEventPublisher;
     }

@@ -15,6 +15,7 @@ import pl.edu.pja.prz.core.security.JwtAuthorizationFilter;
 import pl.edu.pja.prz.core.security.JwtTokenProvider;
 
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
+import static pl.edu.pja.prz.core.configuration.SecurityConstants.ACTIVATE_ACCOUNT_URL;
 import static pl.edu.pja.prz.core.configuration.SecurityConstants.AUTH_LOGIN_URL;
 
 @Configuration
@@ -56,6 +57,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(AUTH_LOGIN_URL).permitAll()
+                .antMatchers(ACTIVATE_ACCOUNT_URL).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .requiresChannel().anyRequest().requiresSecure()

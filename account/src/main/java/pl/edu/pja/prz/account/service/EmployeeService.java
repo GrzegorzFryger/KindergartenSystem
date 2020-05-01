@@ -12,6 +12,7 @@ import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.commons.model.Address;
 import pl.edu.pja.prz.commons.model.FullName;
 import pl.edu.pja.prz.commons.model.Phone;
+import pl.edu.pja.prz.mail.facade.MailFacade;
 
 import java.util.Set;
 import java.util.UUID;
@@ -20,8 +21,8 @@ import java.util.UUID;
 public class EmployeeService extends BasicAccountService<EmployeeRepository, Employee> {
 
 	public EmployeeService(EmployeeRepository repository, AccountFactory accountFactory, PasswordManager passwordManager,
-	                       RoleService roleService) {
-		super(repository, accountFactory, passwordManager, roleService);
+						   RoleService roleService, MailFacade mailFacade, ActivateTokenService activateTokenService) {
+		super(repository, accountFactory, passwordManager, roleService, mailFacade, activateTokenService);
 
 	}
 
