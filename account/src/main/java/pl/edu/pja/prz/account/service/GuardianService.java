@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Component
 public class GuardianService extends BasicAccountService<GuardianRepository, Guardian> {
@@ -48,6 +49,7 @@ public class GuardianService extends BasicAccountService<GuardianRepository, Gua
         );
     }
 
+    @Deprecated
     public Guardian appendChildrenToGuardian(UUID childId, UUID guardianId) {
         var child = childService.getById(childId);
 
@@ -65,6 +67,32 @@ public class GuardianService extends BasicAccountService<GuardianRepository, Gua
                 .orElseThrow(() -> {
                     throw new ElementNotFoundException(guardianId);
                 });
+    }
+
+    public List<Guardian> appendChildrenToGuardian(List<UUID> childrenId, List<UUID> guardiansId) {
+        return this.repository.findAllById(guardiansId)
+                .stream()
+                .peek(guard -> {
+                    List<Child> appendedChildren = this.childService.findAllByIds(childrenId)
+                            .stream()
+                            .filter(child -> !guard.getChildren().contains(child))
+                            .peek(guard::addChild).collect(Collectors.toList());
+
+
+                    Optional.ofNullable(this.repository.save(guard)).map(guardian -> {
+                        guardian.getChildren()
+                                .stream()
+                                .filter(child -> appendedChildren.contains(child))
+                                .forEach(child -> this.accountEventPublisher.appendChildToGuardianEvent(
+                                        new GuardianChildDependency(
+                                                guardian.getId(),
+                                                child.getId(),
+                                                child.getFullName())
+                                        )
+                                );
+                        return guard;
+                    }).orElseThrow(() -> new ElementNotFoundException(guardiansId));
+                }).collect(Collectors.toList());
     }
 
     public Set<Child> getAllChildren(UUID guardianId) {
