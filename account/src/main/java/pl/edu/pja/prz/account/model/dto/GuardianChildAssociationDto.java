@@ -4,25 +4,25 @@ import java.util.List;
 import java.util.UUID;
 
 public class GuardianChildAssociationDto {
-	private List<UUID> childId;
-	private List<UUID> guardianId;
+    private List<UUID> children;
+    private List<UUID> guardians;
 
 	public GuardianChildAssociationDto() {
 	}
 
-	public List<UUID> getChildId() {
-		return childId;
-	}
+    public List<UUID> getChildren() {
+        return children;
+    }
 
-	public void setChildId(List<UUID> childId) {
-		this.childId = childId;
-	}
+    public void setChildren(List<UUID> children) {
+        this.children = children;
+    }
 
-	public List<UUID> getGuardianId() {
-		return guardianId;
-	}
+    public List<UUID> getGuardians() {
+        return guardians;
+    }
 
-	public void setGuardianId(List<UUID> guardianId) {
-		this.guardianId = guardianId;
+    public void setGuardians(List<UUID> guardians) {
+        this.guardians = guardians;
 	}
 }

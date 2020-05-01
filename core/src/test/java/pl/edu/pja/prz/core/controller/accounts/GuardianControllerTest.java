@@ -119,8 +119,8 @@ class GuardianControllerTest {
     UUID childId = UUID.randomUUID();
     UUID guardianId = UUID.randomUUID();
     GuardianChildAssociationDto dto = new GuardianChildAssociationDto();
-      dto.setChildId(List.of(childId));
-      dto.setGuardianId(List.of(guardianId));
+      dto.setChildren(List.of(childId));
+      dto.setGuardians(List.of(guardianId));
 
     String json = convertToJson(dto);
 
@@ -147,8 +147,8 @@ class GuardianControllerTest {
     UUID childId = UUID.randomUUID();
     UUID guardianId = UUID.randomUUID();
     GuardianChildAssociationDto dto = new GuardianChildAssociationDto();
-      dto.setChildId(List.of(childId));
-      dto.setGuardianId(List.of(guardianId));
+      dto.setChildren(List.of(childId));
+      dto.setGuardians(List.of(guardianId));
 
     String json = convertToJson(dto);
 
