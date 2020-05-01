@@ -53,9 +53,14 @@ public abstract class BasicAccountService<T extends BasicAccountRepository<E, UU
                         tClass
                 )
         );
+
         roleService.persistRoleFromUser(result);
 
-        this.mailFacade.sendEmail(prepareRegisterEmail(result.getEmail(),result.getPassword().getPassword()));
+        this.mailFacade.sendEmail(
+                prepareRegisterEmail(
+                        result.getEmail(),
+                        result.getPassword().getPassword())
+        );
 
         return result;
     }

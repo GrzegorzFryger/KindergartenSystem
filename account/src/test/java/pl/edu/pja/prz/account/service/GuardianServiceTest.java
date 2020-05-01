@@ -106,6 +106,8 @@ class GuardianServiceTest {
         guardian.setPhoneNumber(phone);
         guardian.setEmail(email);
         guardian.setAccountStatus(status);
+        guardian.setPassword(new Password());
+
 
         Person person = guardian;
 
@@ -117,6 +119,9 @@ class GuardianServiceTest {
         when(guardianRepository.save(any(Guardian.class)))
                 .thenReturn(guardian);
         doNothing().when(roleService).persistRoleFromUser(guardian);
+        when(activateTokenService.generateToken(any(), any())).thenReturn("test token");
+        doNothing().when(mailFacade).sendEmail(any());
+
 
         guardianService.createGuardianAccount(person, guardian.getEmail());
 
