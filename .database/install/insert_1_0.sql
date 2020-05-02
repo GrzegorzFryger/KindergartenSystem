@@ -1,22 +1,22 @@
 -- ACCOUNT MODULE --
 INSERT INTO account.account (id, version, city, postalCode, streetNumber, name, surname, phone, accountStatus, email, createDate, password)
 VALUES
-('2a5c0cad-4de6-45a0-aebe-2a71cf06232b', 0, 'Gdańsk', '80-261', 'street Number 1', 'Mariola', 'Andrzejkiewicz', '123132132', 'ACTIVE', 'user1@test.com', '2020-02-06', '$2a$10$xQFh0JV0fMDfX5Wf.IrGtusNlUCGfMc8YVsR1WY8/etwG4eQuNTqC'),
-('8a186e67-b796-406f-8e6a-3dc483143121', 0, 'Gdańsk', '80-264', 'street Number 2', 'Paweł', 'Zajączkowski', '123132132', 'ACTIVE', 'user2@test.com', '2020-01-20', '$2a$10$TTIwcLEOgdWvZWG6JQD2bOLWnfumPZXGH78m8tQD0hGS01iu4lQsu'),
-('c4029244-e8ff-4328-8658-28964dda3c4e', 0, 'Gdańsk', '80-265', 'street Number 3', 'Antoni', 'Michalkiewicz', '123132132', 'ACTIVE', 'user3@test.com', '2020-02-06', '$2a$10$fZdOhq3nXydUt3toHjquz.IxsZYhzLQsJhi1UxJFu2jZDwvMTYjfq');
+('2a5c0cad-4de6-45a0-aebe-2a71cf06232b', 0, 'Gdańsk', '80-855', 'Rajska 25', 'Mariola', 'Andrzejkiewicz', '506924212', 'ACTIVE', 'user1@test.com', '2018-09-02', '$2a$10$xQFh0JV0fMDfX5Wf.IrGtusNlUCGfMc8YVsR1WY8/etwG4eQuNTqC'),
+('8a186e67-b796-406f-8e6a-3dc483143121', 0, 'Gdańsk', '80-394', 'Kołobrzeska 41C', 'Paweł', 'Zajączkowski', '391521444', 'ACTIVE', 'user2@test.com', '2018-09-02', '$2a$10$TTIwcLEOgdWvZWG6JQD2bOLWnfumPZXGH78m8tQD0hGS01iu4lQsu'),
+('c4029244-e8ff-4328-8658-28964dda3c4e', 0, 'Gdańsk', '80-179', 'Ostrzycka 15', 'Antoni', 'Michalkiewicz', '529174232', 'ACTIVE', 'user3@test.com', '2018-09-02', '$2a$10$fZdOhq3nXydUt3toHjquz.IxsZYhzLQsJhi1UxJFu2jZDwvMTYjfq');
 
 INSERT INTO account.borough (id, version, city, postalCode, streetNumber, email, name, nipNumber, phone)
 VALUES (1, 1, 'test', '80-164', 'Test Street', 'brak@wp.pl', 'New ', '957010564', '123123123');
 
 INSERT INTO account.child (id, version, city, postalCode, streetNumber, dateOfBirth, name, surname, gender, peselNumber, additionDate, endingDate, borough_id)
 VALUES
-('0560d77d-e0db-4914-ae4a-4f39690ecb2d', 0, 'Gdańsk', '80-174', 'Street 174', '2016-12-22', 'Adam', 'Michalkiewicz', 'MALE', '16322215477', '2007-12-02', '2007-12-02', null),
-('067b5db4-de4e-401e-9cac-7f6289e96c19', 0, 'Gdańsk', '80-174', 'Street 174', '2015-04-24', 'Paweł', 'Michalkiewicz', 'MALE', '15242444891', '2007-12-02', '2007-12-02', null),
-('15ad869b-14c4-4be1-8456-d7f5fea6b557', 0, 'Gdańsk', '80-174', 'Street 174', '2015-02-23', 'Julia', 'surname4', 'FEMALE', '15222363729', '2007-12-01', '2007-12-01', null),
-('1c7fe144-f71a-4599-b8bf-04aa92d7ab6d', 0, 'Gdańsk', '80-174', 'Street 174', '2016-07-10', 'Michał', 'surname4', 'MALE', '16271043831', '2007-12-01', '2007-12-01', null),
-('1cb1e3fc-e0c9-45f4-861d-24884a4f64ad', 0, 'Gdańsk', '80-174', 'Street 174', '2015-02-12', 'Agnieszka', 'surname4', 'FEMALE', '15221227381', '2007-12-01', '2007-12-01', null),
-('45034cab-c252-4b2b-9887-59b7ad7431cd', 0, 'Gdańsk', '80-174', 'Street 174', '2016-11-10', 'Zuzanna', 'surname4', 'FEMALE', '16311049421', '2007-12-02', '2007-12-02', null),
-('fec1b907-c9ce-4327-8bc6-abe353a76ba2', 0, 'Gdańsk', '80-174', 'Street 174', '2015-04-23', 'Monika', 'surname4', 'FEMALE', '15242312244', '2007-12-02', '2007-12-02', null);
+('45034cab-c252-4b2b-9887-59b7ad7431cd', 0, 'Gdańsk', '80-855', 'Rajska 25', '2016-11-10', 'Zuzanna', 'Andrzejkiewicz', 'FEMALE', '16311049421', '2019-09-02', '2021-08-30', null),
+('fec1b907-c9ce-4327-8bc6-abe353a76ba2', 0, 'Gdańsk', '80-855', 'Rajska 25', '2015-04-23', 'Monika', 'Andrzejkiewicz', 'FEMALE', '15242312244', '2018-09-02', '2020-08-30', null),
+('1c7fe144-f71a-4599-b8bf-04aa92d7ab6d', 0, 'Gdańsk', '80-394', 'Kołobrzeska 41C', '2016-07-10', 'Michał', 'Zajączkowski', 'MALE', '16271043831', '2019-09-01', '2021-08-30', null),
+('1cb1e3fc-e0c9-45f4-861d-24884a4f64ad', 0, 'Gdańsk', '80-394', 'Kołobrzeska 41C', '2015-02-12', 'Agnieszka', 'Zajączkowska', 'FEMALE', '15221227381', '2018-09-01', '2020-08-30', null),
+('0560d77d-e0db-4914-ae4a-4f39690ecb2d', 0, 'Gdańsk', '80-179', 'Ostrzycka 15', '2016-12-22', 'Adam', 'Michalkiewicz', 'MALE', '16322215477', '2019-09-02', '2021-08-30', null),
+('067b5db4-de4e-401e-9cac-7f6289e96c19', 0, 'Gdańsk', '80-179', 'Ostrzycka 15', '2015-04-24', 'Paweł', 'Michalkiewicz', 'MALE', '15242444891', '2018-09-02', '2020-08-30', null),
+('15ad869b-14c4-4be1-8456-d7f5fea6b557', 0, 'Gdańsk', '80-179', 'Ostrzycka 15', '2015-02-23', 'Julia', 'Michalkiewicz', 'FEMALE', '15222363729', '2018-09-01', '2020-08-30', null);
 
 INSERT INTO account.child_childstatuses (Child_id, childStatuses)
 VALUES
@@ -34,12 +34,19 @@ VALUES
 
 INSERT INTO account.guardian (id)
 VALUES
-('c4029244-e8ff-4328-8658-28964dda3c4e');
+('c4029244-e8ff-4328-8658-28964dda3c4e'),
+('8a186e67-b796-406f-8e6a-3dc483143121'),
+('2a5c0cad-4de6-45a0-aebe-2a71cf06232b');
 
 INSERT INTO account.guardian_child (fk_guardian, fk_child)
 VALUES
+('2a5c0cad-4de6-45a0-aebe-2a71cf06232b', '45034cab-c252-4b2b-9887-59b7ad7431cd'),
+('2a5c0cad-4de6-45a0-aebe-2a71cf06232b', 'fec1b907-c9ce-4327-8bc6-abe353a76ba2'),
+('8a186e67-b796-406f-8e6a-3dc483143121', '1c7fe144-f71a-4599-b8bf-04aa92d7ab6d'),
+('8a186e67-b796-406f-8e6a-3dc483143121', '1cb1e3fc-e0c9-45f4-861d-24884a4f64ad'),
 ('c4029244-e8ff-4328-8658-28964dda3c4e', '0560d77d-e0db-4914-ae4a-4f39690ecb2d'),
-('c4029244-e8ff-4328-8658-28964dda3c4e', '067b5db4-de4e-401e-9cac-7f6289e96c19');
+('c4029244-e8ff-4328-8658-28964dda3c4e', '067b5db4-de4e-401e-9cac-7f6289e96c19'),
+('c4029244-e8ff-4328-8658-28964dda3c4e', '15ad869b-14c4-4be1-8456-d7f5fea6b557');
 
 INSERT INTO account.role (id, version, name)
 VALUES
@@ -92,13 +99,13 @@ VALUES
 -- FINANCES MODULE --
 INSERT INTO finances.balancehistory(`version`, `amountOfChange`, `childId`, `date`, `operationType`, `title`)
 VALUES
-(0, 390.50, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', '2019-10-14', 'INCREASE', '20200314645723'),
-(0, 412.30, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', '2019-11-17', 'INCREASE', '20200314645723'),
-(0, 312.70, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2019-10-12', 'INCREASE', '20200314753452'),
-(0, 366.70, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2019-11-12', 'INCREASE', '20200314753452'),
-(0, 623.70, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2019-12-12', 'INCREASE', '20200314753452'),
-(0, 390.50, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2019-11-23', 'INCREASE', '20200314753452'),
-(0, 200.50, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', '2019-12-12', 'INCREASE', '20200314645723');
+(0, 390.50, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', '2019-10-14', 'INCREASE', '20180902634522'),
+(0, 412.30, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', '2019-11-17', 'INCREASE', '20180902634522'),
+(0, 312.70, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2019-10-12', 'INCREASE', '20190902442123'),
+(0, 366.70, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2019-11-12', 'INCREASE', '20190902442123'),
+(0, 623.70, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2019-12-12', 'INCREASE', '20190902442123'),
+(0, 390.50, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2019-11-23', 'INCREASE', '20190902442123'),
+(0, 200.50, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', '2019-12-12', 'INCREASE', '20180902634522');
 
 INSERT INTO finances.accountNumber(`version`, `accountNumber`)
 VALUES
@@ -153,22 +160,27 @@ VALUES
 -- RECEIVABLES MODULE --
 INSERT INTO receivables.transaction (`version`, `accountNumber`, `bankName`, `bookingDate`, `childId`, `contractorDetails`, `details`, `guardianId`, `title`, `transactionAmount`, `transactionCurrency`, `transactionDate`, `transactionNumber`)
 VALUES
-(0, '61109010140000071219812874', 'ING Bank', '2019-10-14', '0560d77d-e0db-4914-ae4a-4f39690ecb2d', 'Antoni Żebrowski', 'Za dziecko XYZ', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20200314645723', 390.50, 'PLN', '2019-10-14', '201967193405359451'),
-(0, '61109010140000071219812874', 'ING Bank', '2019-11-17', '0560d77d-e0db-4914-ae4a-4f39690ecb2d', 'Antoni Żebrowski', 'Za dziecko XYZ', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20200314645723', 412.30, 'PLN', '2019-11-17', '201967174335322451'),
-(0, '56570065000000446723541423', 'Bank Millennium', '2019-10-12', '067b5db4-de4e-401e-9cac-7f6289e96c19', 'Antoni Michalkiewicz', 'Za dziecko XYZ', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20200314753452', 312.70, 'PLN', '2019-10-12', '201967174335322451'),
-(0, '56570065000000446723541423', 'Bank Millennium', '2019-11-12', '067b5db4-de4e-401e-9cac-7f6289e96c19', 'Antoni Michalkiewicz', 'Za dziecko XYZ', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20200314753452', 366.70, 'PLN', '2019-11-12', '201967122332622451'),
-(0, '56570065000000446723541423', 'Bank Millennium', '2019-12-12', '067b5db4-de4e-401e-9cac-7f6289e96c19', 'Antoni Michalkiewicz', 'Za dziecko XYZ', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20200314753452', 623.70, 'PLN', '2019-12-12', '201963374373423451'),
-(0, '61109010140000071219812874', 'ING Bank', '2019-11-23', '067b5db4-de4e-401e-9cac-7f6289e96c19', 'Antoni Żebrowski', 'Za dziecko XYZ', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20200314753452', 390.50, 'PLN', '2019-10-14', '201967193405359451');
+(0, '61109010140000071219812874', 'ING Bank', '2019-10-14', '0560d77d-e0db-4914-ae4a-4f39690ecb2d', 'Antoni Michalkiewicz', 'Za dziecko XYZ', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20180902634522', 390.50, 'PLN', '2019-10-14', '201967193405359451'),
+(0, '61109010140000071219812874', 'ING Bank', '2019-11-17', '0560d77d-e0db-4914-ae4a-4f39690ecb2d', 'Antoni Michalkiewicz', 'Za dziecko XYZ', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20180902634522', 412.30, 'PLN', '2019-11-17', '201967174335322451'),
+(0, '56570065000000446723541423', 'ING Bank', '2019-10-12', '067b5db4-de4e-401e-9cac-7f6289e96c19', 'Antoni Michalkiewicz', 'Za dziecko XYZ', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20190902442123', 312.70, 'PLN', '2019-10-12', '201967174335322451'),
+(0, '56570065000000446723541423', 'ING Bank', '2019-11-12', '067b5db4-de4e-401e-9cac-7f6289e96c19', 'Antoni Michalkiewicz', 'Za dziecko XYZ', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20190902442123', 366.70, 'PLN', '2019-11-12', '201967122332622451'),
+(0, '56570065000000446723541423', 'ING Bank', '2019-12-12', '067b5db4-de4e-401e-9cac-7f6289e96c19', 'Antoni Michalkiewicz', 'Za dziecko XYZ', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20190902442123', 623.70, 'PLN', '2019-12-12', '201963374373423451'),
+(0, '61109010140000071219812874', 'ING Bank', '2019-11-23', '067b5db4-de4e-401e-9cac-7f6289e96c19', 'Antoni Michalkiewicz', 'Za dziecko XYZ', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20190902442123', 390.50, 'PLN', '2019-10-14', '201967193405359451');
 
 INSERT INTO receivables.transactionmapping (`version`, `childId`, `guardianId`, `title`)
 VALUES
-(0, '067b5db4-de4e-401e-9cac-7f6289e96c19', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20200314753452'),
-(0, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20200314645723');
+(0, '45034cab-c252-4b2b-9887-59b7ad7431cd', '2a5c0cad-4de6-45a0-aebe-2a71cf06232b', '20190902241253'),
+(0, 'fec1b907-c9ce-4327-8bc6-abe353a76ba2', '2a5c0cad-4de6-45a0-aebe-2a71cf06232b', '20180902646734'),
+(0, '1c7fe144-f71a-4599-b8bf-04aa92d7ab6d', '8a186e67-b796-406f-8e6a-3dc483143121', '20190902613423'),
+(0, '1cb1e3fc-e0c9-45f4-861d-24884a4f64ad', '8a186e67-b796-406f-8e6a-3dc483143121', '20180902724421'),
+(0, '067b5db4-de4e-401e-9cac-7f6289e96c19', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20190902442123'),
+(0, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20180902634522'),
+(0, '15ad869b-14c4-4be1-8456-d7f5fea6b557', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20180902745634');
 
 INSERT INTO receivables.cashpayment (`version`, `childId`, `contractorDetails`, `guardianId`, `title`, `transactionAmount`, `transactionCurrency`, `transactionDate`)
 VALUES
-(0, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', 'Antoni Żebrowski', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20200314645723', 200.50, 'PLN', '2019-12-12'),
-(0, '067b5db4-de4e-401e-9cac-7f6289e96c19', 'Antoni Żebrowski', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20200314645723', 310.30, 'PLN', '2020-03-01');
+(0, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', 'Antoni Michalkiewicz', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20180902634522', 200.50, 'PLN', '2019-12-12'),
+(0, '067b5db4-de4e-401e-9cac-7f6289e96c19', 'Antoni Michalkiewicz', 'c4029244-e8ff-4328-8658-28964dda3c4e', '20190902442123', 310.30, 'PLN', '2020-03-01');
 
 -- FINAL COMMIT FOR ALL CHANGES
 COMMIT;
