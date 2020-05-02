@@ -107,9 +107,9 @@ VALUES
 (0, 390.50, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2019-11-23', 'INCREASE', '20190902442123'),
 (0, 200.50, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', '2019-12-12', 'INCREASE', '20180902634522');
 
-INSERT INTO finances.accountNumber(`version`, `accountNumber`)
+INSERT INTO finances.accountNumber(`version`, `accountNumber`, `street`, `city`, `postalCode`)
 VALUES
-(0, '27105020040000300201355387');
+(0, '27105020040000300201355387', 'Olsztyńska 15', 'Gdańsk', '80-041');
 
 -- GROUPS MODULE --
 INSERT INTO classrooms.classroom(`id`, `version`, `groupName`, `groupDescription`)

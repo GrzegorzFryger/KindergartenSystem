@@ -20,6 +20,15 @@ class AccountNumberTest {
 
         accountNumber.setAccountNumber("1234");
         accountNumber2.setAccountNumber("1234");
+
+        accountNumber.setStreet("Street");
+        accountNumber2.setStreet("Street");
+
+        accountNumber.setCity("City");
+        accountNumber2.setCity("City");
+
+        accountNumber.setPostalCode("10-500");
+        accountNumber2.setPostalCode("10-500");
     }
 
 
