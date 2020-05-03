@@ -18,6 +18,9 @@ public class AccountNumber extends BaseEntityLong implements Serializable {
     @NotNull
     @Column(length = 26)
     private String accountNumber;
+    private String street;
+    private String city;
+    private String postalCode;
 
     public String getAccountNumber() {
         return accountNumber;
@@ -25,6 +28,30 @@ public class AccountNumber extends BaseEntityLong implements Serializable {
 
     public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
     }
 
     @Override
