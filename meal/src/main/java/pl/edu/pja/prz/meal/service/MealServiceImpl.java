@@ -31,16 +31,18 @@ public class MealServiceImpl implements MealService {
     private final MailFacade mailFacade;
     private final FinancesFacade financesFacade;
     private final MealConfigurationRepository mealConfigurationRepository;
-
+    private final MealOrderService mealOrderService;
 
     @Autowired
     public MealServiceImpl(MealRepository mealRepository, MealPriceServiceImpl mealPriceListService,
-                           MailFacade mailFacade, FinancesFacade financesFacade, MealConfigurationRepository mealConfigurationRepository) {
+                           MailFacade mailFacade, FinancesFacade financesFacade, MealConfigurationRepository mealConfigurationRepository,
+                           MealOrderService mealOrderService) {
         this.mealRepository = mealRepository;
         this.mealPriceListService = mealPriceListService;
         this.mailFacade = mailFacade;
         this.financesFacade = financesFacade;
         this.mealConfigurationRepository = mealConfigurationRepository;
+        this.mealOrderService = mealOrderService;
     }
 
     @Override
@@ -108,7 +110,6 @@ public class MealServiceImpl implements MealService {
     }
 
 
-
     @Override
     public List<Meal> getAllMeals() {
         return mealRepository.findAll();
@@ -153,8 +154,10 @@ public class MealServiceImpl implements MealService {
         BaseMail baseMail = new BaseMail();
         baseMail.setTo(config.getEmailToSendMealOrder());
         baseMail.setSubject("Zamówienie na dzień " + LocalDate.now());
-        String content = prepareDataToSendViaMail().stream().map(u -> u + '\n').collect(Collectors.joining());
+        List<String> orderList = prepareDataToSendViaMail();
+        String content = orderList.stream().map(u -> u + '\n').collect(Collectors.joining());
         baseMail.setContent(content);
+        mealOrderService.saveMealOrder(orderList);
         mailFacade.sendEmail(baseMail);
     }
 
