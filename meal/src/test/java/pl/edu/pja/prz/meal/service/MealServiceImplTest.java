@@ -45,13 +45,14 @@ public class MealServiceImplTest {
     private MailFacade mailFacade;
     private FinancesFacade financesFacade;
     private MealConfigurationRepository mealConfigurationRepository;
+    private MealOrderService mealOrderService;
 
     private MealCreateUpdateDTO mealCreateUpdateDTO;
 
 
     @BeforeEach
     public void setup() {
-        mealService = new MealServiceImpl(mealRepository, new MealPriceServiceImpl(mealPriceListRepository), mailFacade, financesFacade, mealConfigurationRepository);
+        mealService = new MealServiceImpl(mealRepository, new MealPriceServiceImpl(mealPriceListRepository), mailFacade, financesFacade, mealConfigurationRepository, mealOrderService);
 
         mealCreateUpdateDTO =
                 new MealCreateUpdateDTO(new BigDecimal(1), MealType.BREAKFAST, DietType.VEGAN, UUID.randomUUID(), LocalDate.MIN, LocalDate.MAX, new ArrayList<>());

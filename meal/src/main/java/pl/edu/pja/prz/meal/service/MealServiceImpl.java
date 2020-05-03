@@ -165,7 +165,7 @@ public class MealServiceImpl implements MealService {
         List<Meal> activeMeals = getAllActiveMeals();
 
         activeMeals.forEach(u -> {
-            financesFacade.decreaseBalance(u.getChildID(), u.getMealPrice(), u.getMealType() + "w dniu " + LocalDate.now());
+            financesFacade.decreaseBalance(u.getChildID(), u.getMealPrice(), u.getMealType() + " w dniu " + LocalDate.now());
         });
     }
 

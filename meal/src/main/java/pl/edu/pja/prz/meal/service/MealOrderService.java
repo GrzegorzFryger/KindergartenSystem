@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class MealOrderService {
 
-    private MealOrderRepository mealOrderRepository;
+    private final MealOrderRepository mealOrderRepository;
 
     @Autowired
     public MealOrderService(MealOrderRepository mealOrderRepository) {
@@ -31,6 +31,6 @@ public class MealOrderService {
     }
 
     public List<MealOrder> getAllMealOrderByDate(LocalDate orderDate) {
-        return getAllMealOrderByDate(orderDate);
+        return mealOrderRepository.findAllByOrderDate(orderDate);
     }
 }

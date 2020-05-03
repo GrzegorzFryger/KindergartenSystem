@@ -44,13 +44,14 @@ class MealNutritionalNotesServiceImplTest {
     private MailFacade mailFacade;
     private FinancesFacade financesFacade;
     private MealConfigurationRepository mealConfigurationRepository;
+    private MealOrderService mealOrderService;
 
     private MealNutritionalNotesService mealNutritionalNotesService;
     List<NutritionalNotes> nutritionalNotes = new ArrayList<>();
 
     @BeforeEach
     void setUp() {
-        mealService = new MealServiceImpl(mealRepository, new MealPriceServiceImpl(mealPriceListRepository), mailFacade, financesFacade, mealConfigurationRepository);
+        mealService = new MealServiceImpl(mealRepository, new MealPriceServiceImpl(mealPriceListRepository), mailFacade, financesFacade, mealConfigurationRepository, mealOrderService);
         mealNutritionalNotesService = new MealNutritionalNotesServiceImpl(mealNutritionalNotesRepository, mealService);
     }
 

@@ -2,13 +2,18 @@ package pl.edu.pja.prz.meal.model;
 
 import pl.edu.pja.prz.commons.model.BaseEntityLong;
 
+import javax.persistence.Entity;
 import java.time.LocalDate;
 
+@Entity
 public class MealOrder extends BaseEntityLong {
 
     private LocalDate orderDate;
     private String mealType;
     private String mealCount;
+
+    public MealOrder() {
+    }
 
     public MealOrder(LocalDate orderDate, String mealType, String mealCount) {
         this.orderDate = orderDate;
