@@ -75,7 +75,14 @@ INSERT INTO calendar.absence (`version`, `childId`, `date`, `reason`)
 VALUES
 (0, 'bd73f070-cac9-48db-8037-7c1d34596584', '2019-11-12', 'Choroba'),
 (0, 'bd73f070-cac9-48db-8037-7c1d34596584', '2019-10-25', 'Wyjazd'),
-(0, 'cb34b97c-bbe9-4719-9091-0e0939804426', '2018-10-25', 'Choroba');
+(0, 'cb34b97c-bbe9-4719-9091-0e0939804426', '2018-10-25', 'Choroba'),
+(0, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', '2020-05-11', 'Choroba'),
+(0, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', '2020-05-12', 'Choroba'),
+(0, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', '2020-05-13', 'Choroba'),
+(0, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2020-05-18', 'Choroba'),
+(0, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2020-05-19', 'Choroba'),
+(0, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2020-05-20', 'Choroba');
+
 
 INSERT INTO calendar.dayoffwork (`version`, `date`, `eventType`, `name`)
 VALUES
@@ -107,9 +114,9 @@ VALUES
 (0, 390.50, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2019-11-23', 'INCREASE', '20190902442123'),
 (0, 200.50, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', '2019-12-12', 'INCREASE', '20180902634522');
 
-INSERT INTO finances.accountNumber(`version`, `accountNumber`, `street`, `city`, `postalCode`)
+INSERT INTO finances.accountNumber(`version`, `accountNumber`, `name`, `street`, `city`, `postalCode`)
 VALUES
-(0, '27105020040000300201355387', 'Olsztyńska 15', 'Gdańsk', '80-041');
+(0, '27105020040000300201355387', 'Przedszkole nr 4', 'Olsztyńska 15', 'Gdańsk', '80-041');
 
 -- GROUPS MODULE --
 INSERT INTO classrooms.classroom(`id`, `version`, `groupName`, `groupDescription`)

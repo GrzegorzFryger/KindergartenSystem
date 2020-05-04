@@ -2,6 +2,7 @@ package pl.edu.pja.prz.finances.model.dto;
 
 public class AccountNumberDto {
     private String accountNumber;
+    private String name;
     private String city;
     private String postalCode;
     private String street;
@@ -12,6 +13,14 @@ public class AccountNumberDto {
 
     public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCity() {

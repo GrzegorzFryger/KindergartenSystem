@@ -31,6 +31,7 @@ public class AccountNumberServiceImpl implements AccountNumberService {
             dto.setCity(number.getCity());
             dto.setPostalCode(number.getPostalCode());
             dto.setStreet(number.getStreet());
+            dto.setName(number.getName());
         });
         return dto;
     }
