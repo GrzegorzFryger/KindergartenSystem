@@ -57,4 +57,16 @@ class AddressTest {
         assertTrue(firstEqualsToSecond);
         assertTrue(secondEqualsToFirst);
     }
+
+    @Test
+    public void Should_ReturnCorrectString() {
+        //Given
+        String expected = "Address{postalCode='12-500', city='City', streetNumber='Słoneczna 1000'}";
+
+        //When
+        String result = address.toString();
+
+        //Then
+        assertEquals(expected, result);
+    }
 }
