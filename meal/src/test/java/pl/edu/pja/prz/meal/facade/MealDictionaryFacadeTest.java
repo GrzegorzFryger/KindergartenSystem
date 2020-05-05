@@ -32,4 +32,14 @@ class MealDictionaryFacadeTest {
         //then
         verify(mealDictionaryServiceImpl, times(1)).getAllMealTypes();
     }
+
+    @Test
+    void Should_GetAllDietTypes() {
+
+        //when
+        mealDictionaryFacade.getAllDietType();
+
+        //then
+        verify(mealDictionaryServiceImpl, times(1)).getAllDietTypes();
+    }
 }

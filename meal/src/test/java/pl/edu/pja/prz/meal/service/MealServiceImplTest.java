@@ -10,7 +10,6 @@ import pl.edu.pja.prz.commons.exception.BusinessException;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.finances.facade.FinancesFacade;
 import pl.edu.pja.prz.mail.facade.MailFacade;
-import pl.edu.pja.prz.meal.exception.NotFoundException;
 import pl.edu.pja.prz.meal.model.Meal;
 import pl.edu.pja.prz.meal.model.dto.MealCreateUpdateDTO;
 import pl.edu.pja.prz.meal.model.enums.DietType;
@@ -116,7 +115,7 @@ public class MealServiceImplTest {
     }
 
     @Test
-    public void shouldDeleteMealByID_When_MealExists() throws NotFoundException {
+    public void shouldDeleteMealByID_When_MealExists() {
         //given
         when(mealRepository.existsById(anyLong())).thenReturn(true);
 

@@ -36,7 +36,6 @@
                     <excludes>
                         <exclude>**/pl/edu/pja/prz/commons/*</exclude>
                         <exclude>**/pl/edu/pja/prz/commons/constants/*</exclude>
-                        <exclude>**/pl/edu/pja/prz/commons/event/*</exclude>
                     </excludes>
                 </configuration>
             </plugin>

@@ -9,14 +9,12 @@ import pl.edu.pja.prz.scheduler.annotation.QuartzJob;
 @QuartzJob(name = "meals", description = "send mail with meals order")
 public class SendMailWithOrdersJob extends MealJob{
 
-    private DayOffWorkService dayOffWorkService;
-
     public SendMailWithOrdersJob(MealServiceImpl mealService, DayOffWorkService dayOffWorkService) {
         super(mealService, dayOffWorkService);
     }
 
     @Override
-    public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+    public void execute(JobExecutionContext jobExecutionContext) {
         if(!dayOffWorkService.isTodayDayOff()) {
             mealService.markMealsAsInactiveIfNeeded();
             mealService.sendEmailWithOrder();

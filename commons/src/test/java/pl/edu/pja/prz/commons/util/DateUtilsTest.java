@@ -2,13 +2,19 @@ package pl.edu.pja.prz.commons.util;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static pl.edu.pja.prz.commons.util.DateUtils.convertToDate;
+import static pl.edu.pja.prz.commons.util.DateUtils.convertToLocalDateTime;
 
 class DateUtilsTest {
 
@@ -41,6 +47,31 @@ class DateUtilsTest {
         for (TestData data : testDataList) {
             testMethodResult(data);
         }
+    }
+
+    @Test
+    public void Should_ConvertLocalDate_To_Date() {
+        //Given
+        //2020-10-10 10:10:10
+        LocalDateTime localDateTime = LocalDateTime.of(2020, 10, 10, 10, 10, 10);
+
+        //When
+        Date result = convertToDate(localDateTime);
+
+        //Then
+        assertNotNull(result);
+    }
+
+    @Test
+    public void Should_ConvertDate_To_LocalDate() {
+        //Given
+        Date date = Date.from(Instant.now());
+
+        //When
+        LocalDateTime result = convertToLocalDateTime(date);
+
+        //Then
+        assertNotNull(result);
     }
 
     private TestData build(int expectedYear, int expectedMonth, int expectedDay,
