@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pl.edu.pja.prz.meal.exception.MealActivityStatusException;
 import pl.edu.pja.prz.meal.model.dto.MealCreateUpdateDTO;
 import pl.edu.pja.prz.meal.service.MealServiceImpl;
 
@@ -27,7 +26,7 @@ class MealFacadeTest {
     }
 
     @Test
-    void createMeal() throws MealActivityStatusException {
+    void createMeal() {
         //when
         mealFacade.createMeal(mealCreateUpdateDTO);
         //then

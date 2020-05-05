@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pl.edu.pja.prz.meal.exception.MealPriceListAlreadyExistException;
-import pl.edu.pja.prz.meal.exception.NotFoundException;
 import pl.edu.pja.prz.meal.model.MealPrice;
 import pl.edu.pja.prz.meal.model.enums.MealType;
 import pl.edu.pja.prz.meal.service.MealPriceServiceImpl;
@@ -32,7 +30,7 @@ public class MealPriceFacadeTest {
     }
 
     @Test
-    public void Should_CreatMealPriceFacade() throws MealPriceListAlreadyExistException {
+    public void Should_CreatMealPriceFacade() {
 
         //when
         mealPriceFacade.creatMealPrice(mealPrice);
@@ -41,7 +39,7 @@ public class MealPriceFacadeTest {
     }
 
     @Test
-    public void Should_UpdateMealPriceFacade() throws NotFoundException {
+    public void Should_UpdateMealPriceFacade() {
 
         //when
         mealPriceFacade.updateMealPrice(mealPrice, 1);
@@ -58,7 +56,7 @@ public class MealPriceFacadeTest {
     }
 
     @Test
-    public void Should_DeleteMealPriceByIdFacade() throws NotFoundException {
+    public void Should_DeleteMealPriceByIdFacade() {
         //when
         mealPriceFacade.deleteMealPriceById(1);
         //then
