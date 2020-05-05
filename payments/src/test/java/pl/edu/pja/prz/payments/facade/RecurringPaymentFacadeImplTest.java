@@ -9,7 +9,12 @@ import pl.edu.pja.prz.payments.facade.dto.RecurringPaymentDto;
 import pl.edu.pja.prz.payments.facade.mapper.RecurringMapper;
 import pl.edu.pja.prz.payments.facade.mapper.RecurringMapperImpl;
 import pl.edu.pja.prz.payments.model.RecurringPayment;
+import pl.edu.pja.prz.payments.model.enums.TypeRecurringPayment;
 import pl.edu.pja.prz.payments.service.RecurringPaymentService;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -24,18 +29,28 @@ class RecurringPaymentFacadeImplTest {
     private RecurringMapper recurringMapper;
 
     private RecurringPaymentFacade recurringPaymentFacade;
+    private RecurringPaymentDto dto;
 
     @BeforeEach
     public void setUp() {
         recurringMapper = new RecurringMapperImpl();
 
         recurringPaymentFacade = new RecurringPaymentFacadeImpl(recurringPaymentService, recurringMapper);
+
+        dto = new RecurringPaymentDto();
+        dto.setAmount(new BigDecimal(1));
+        dto.setChild(UUID.randomUUID());
+        dto.setDescription("Some description");
+        dto.setEndDate(LocalDate.now());
+        dto.setGuardian(UUID.randomUUID());
+        dto.setId(1L);
+        dto.setStartDate(LocalDate.now());
+        dto.setType(TypeRecurringPayment.OTHER);
     }
 
     @Test
     public void Should_CreateTuition() {
         //Given
-        RecurringPaymentDto dto = new RecurringPaymentDto();
 
         //When
         recurringPaymentFacade.createTuition(dto);
@@ -47,7 +62,6 @@ class RecurringPaymentFacadeImplTest {
     @Test
     public void Should_CreateOtherPayment() {
         //Given
-        RecurringPaymentDto dto = new RecurringPaymentDto();
 
         //When
         recurringPaymentFacade.createOtherPayment(dto);
@@ -81,7 +95,6 @@ class RecurringPaymentFacadeImplTest {
     @Test
     public void Should_UpdatePayment() {
         //Given
-        RecurringPaymentDto dto = new RecurringPaymentDto();
 
         //When
         recurringPaymentFacade.updatePayment(dto);
