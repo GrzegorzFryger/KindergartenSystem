@@ -11,7 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pl.edu.pja.prz.payments.facade.RecurringPaymentFacade;
-import pl.edu.pja.prz.payments.facade.dto.RecurringPaymentDto;
+import pl.edu.pja.prz.payments.model.dto.RecurringPaymentDto;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;

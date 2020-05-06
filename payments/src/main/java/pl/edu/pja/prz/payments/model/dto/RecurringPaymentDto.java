@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.payments.facade.dto;
+package pl.edu.pja.prz.payments.model.dto;
 
 import pl.edu.pja.prz.payments.model.enums.TypeRecurringPayment;
 

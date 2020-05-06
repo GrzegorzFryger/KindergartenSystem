@@ -1,6 +1,6 @@
 package pl.edu.pja.prz.payments.facade;
 
-import pl.edu.pja.prz.payments.facade.dto.RecurringPaymentDto;
+import pl.edu.pja.prz.payments.model.dto.RecurringPaymentDto;
 
 import java.util.List;
 

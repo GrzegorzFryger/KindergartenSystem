@@ -2,9 +2,10 @@ package pl.edu.pja.prz.payments.model;
 
 import pl.edu.pja.prz.commons.model.BaseEntityLong;
 
+import javax.persistence.MappedSuperclass;
 import java.math.BigDecimal;
 
-
+@MappedSuperclass
 public class Payment extends BaseEntityLong {
 	private BigDecimal baseAmount;
 	private String description;

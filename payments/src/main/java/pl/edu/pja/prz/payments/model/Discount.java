@@ -3,10 +3,7 @@ package pl.edu.pja.prz.payments.model;
 import pl.edu.pja.prz.commons.model.BaseEntityLong;
 import pl.edu.pja.prz.payments.model.enums.TypeDiscount;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,7 +13,7 @@ public class Discount extends BaseEntityLong {
 	private String description;
 	private BigDecimal value;
 	private TypeDiscount typeDiscount;
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "discount_recurringPayment",
 			joinColumns = { @JoinColumn(name = "fk_discount ") },
 			inverseJoinColumns = { @JoinColumn(name = "fk_recurringPayment") })

@@ -1,8 +1,8 @@
 package pl.edu.pja.prz.payments.facade;
 
 import org.springframework.stereotype.Component;
-import pl.edu.pja.prz.payments.facade.dto.RecurringPaymentDto;
 import pl.edu.pja.prz.payments.facade.mapper.RecurringMapper;
+import pl.edu.pja.prz.payments.model.dto.RecurringPaymentDto;
 import pl.edu.pja.prz.payments.service.RecurringPaymentService;
 
 import java.util.List;
