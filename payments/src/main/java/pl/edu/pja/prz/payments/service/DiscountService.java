@@ -7,9 +7,13 @@ import java.util.List;
 public interface DiscountService {
 	Discount createDiscount(Discount discount);
 
-	Discount updateDiscount(Long id, Discount discount);
+	Discount updateDiscount(Discount discount);
 
 	void deleteDiscount(Discount discount);
 
 	List<Discount> getAllDiscount();
+
+	Discount getById(Long id);
+
+	List<Discount> getByName(String name);
 }

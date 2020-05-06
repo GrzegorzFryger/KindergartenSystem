@@ -10,6 +10,7 @@ import java.util.Set;
 
 @Entity
 public class Discount extends BaseEntityLong {
+	private String name;
 	private String description;
 	private BigDecimal value;
 	private TypeDiscount typeDiscount;
@@ -19,7 +20,7 @@ public class Discount extends BaseEntityLong {
 			inverseJoinColumns = { @JoinColumn(name = "fk_recurringPayment") })
 	private Set<RecurringPayment> recurringPayments = new HashSet<>();
 
-	Discount() {
+	public Discount() {
 		super();
 	}
 
@@ -28,6 +29,14 @@ public class Discount extends BaseEntityLong {
 		this.description = description;
 		this.value = value;
 		this.typeDiscount = typeDiscount;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getDescription() {
