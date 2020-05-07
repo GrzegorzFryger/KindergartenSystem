@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.com/GrzegorzFryger/KindergartenSystem.svg?token=A8Ubwyy4DyMdGiKbN6WU&branch=develop)](https://travis-ci.com/GrzegorzFryger/KindergartenSystem)
 
+[![CodeFactor](https://www.codefactor.io/repository/github/grzegorzfryger/kindergartensystem/badge?s=043349d4c2f39571807d34741268318a323ecb25)](https://www.codefactor.io/repository/github/grzegorzfryger/kindergartensystem)
+
 # KindergartenSystem
 ## Getting started
 ### 1. Initialize database
