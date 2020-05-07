@@ -42,7 +42,7 @@ class PaymentsControllerTest {
         //Given
 
         //When
-        mvc.perform(MockMvcRequestBuilders.get(API_PAYMENTS)
+        mvc.perform(MockMvcRequestBuilders.get(API_PAYMENTS + "recurring-payments")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
@@ -55,7 +55,7 @@ class PaymentsControllerTest {
         //Given
 
         //When
-        mvc.perform(MockMvcRequestBuilders.get(API_PAYMENTS + "/1")
+        mvc.perform(MockMvcRequestBuilders.get(API_PAYMENTS + "recurring-payment/1")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
@@ -69,7 +69,7 @@ class PaymentsControllerTest {
         String json = convertToJson(new RecurringPaymentDto());
 
         //When
-        mvc.perform(MockMvcRequestBuilders.post(API_PAYMENTS + "tuition")
+        mvc.perform(MockMvcRequestBuilders.post(API_PAYMENTS + "recurring-payments/tuition")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON).content(json))
                 .andExpect(status().isOk());
@@ -84,7 +84,7 @@ class PaymentsControllerTest {
         String json = convertToJson(new RecurringPaymentDto());
 
         //When
-        mvc.perform(MockMvcRequestBuilders.post(API_PAYMENTS + "other")
+        mvc.perform(MockMvcRequestBuilders.post(API_PAYMENTS + "recurring-payments/other")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON).content(json))
                 .andExpect(status().isOk());
@@ -99,7 +99,7 @@ class PaymentsControllerTest {
         String json = convertToJson(new RecurringPaymentDto());
 
         //When
-        mvc.perform(MockMvcRequestBuilders.put(API_PAYMENTS)
+        mvc.perform(MockMvcRequestBuilders.put(API_PAYMENTS + "recurring-payments")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON).content(json))
                 .andExpect(status().isOk());
@@ -113,7 +113,7 @@ class PaymentsControllerTest {
         //Given
 
         //When
-        mvc.perform(MockMvcRequestBuilders.delete(API_PAYMENTS + "/1")
+        mvc.perform(MockMvcRequestBuilders.delete(API_PAYMENTS + "recurring-payments/1")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
@@ -124,12 +124,11 @@ class PaymentsControllerTest {
     @Test
     public void Should_DelegateApiCallTo_markAsCancelPaymentMethod() throws Exception {
         //Given
-        String json = convertToJson(1);
 
         //When
-        mvc.perform(MockMvcRequestBuilders.put(API_PAYMENTS + "cancel")
+        mvc.perform(MockMvcRequestBuilders.put(API_PAYMENTS + "recurring-payments/cancel/1")
                 .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON).content(json))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
         //Then
