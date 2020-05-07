@@ -9,6 +9,7 @@ import org.quartz.CronTrigger;
 import org.quartz.impl.triggers.CronTriggerImpl;
 import org.springframework.scheduling.quartz.DelegatingJob;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
+import pl.edu.pja.prz.scheduler.factory.QuartzFactory;
 import pl.edu.pja.prz.scheduler.model.JobInfo;
 
 import java.util.HashMap;

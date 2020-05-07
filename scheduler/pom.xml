@@ -38,6 +38,7 @@
                     <excludes>
                         <exclude>**/pl/edu/pja/prz/scheduler/*</exclude>
                         <exclude>**/pl/edu/pja/prz/scheduler/configuration/*</exclude>
+                        <exclude>**/pl/edu/pja/prz/scheduler/factory/*</exclude>
                         <exclude>**/pl/edu/pja/prz/scheduler/service/*</exclude>
                     </excludes>
                 </configuration>
