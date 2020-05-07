@@ -77,9 +77,10 @@ public class TransactionServiceImpl implements TransactionService {
 
         repository.deleteById(id);
 
-        facade.decreaseBalance(transaction.getChildId(),
-                transaction.getTransactionAmount(),
-                "Removed transaction: " + transaction.getTitle());
+        String title = "Anulowano " + transaction.getTitle();
+        BigDecimal transactionAmount = transaction.getTransactionAmount().negate();
+
+        facade.applyBalanceCorrection(transaction.getChildId(), transactionAmount, title);
     }
 
     @Override

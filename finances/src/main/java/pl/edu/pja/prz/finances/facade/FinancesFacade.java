@@ -1,6 +1,5 @@
 package pl.edu.pja.prz.finances.facade;
 
-import pl.edu.pja.prz.finances.model.AccountNumber;
 import pl.edu.pja.prz.finances.model.dto.AccountNumberDto;
 import pl.edu.pja.prz.finances.model.dto.Balance;
 

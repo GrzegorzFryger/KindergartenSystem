@@ -79,10 +79,21 @@ public class BalanceServiceImpl implements BalanceService {
         BigDecimal liabilites = BigDecimal.ZERO;
 
         for (BalanceHistory balanceHistory : balanceHistories) {
-            if (isNegative(balanceHistory.getAmountOfChange())) {
-                liabilites = sum(liabilites, balanceHistory.getAmountOfChange());
+            if (CORRECTION.equals(balanceHistory.getOperationType())) {
+                // For corrections we must reverse operation
+                // For instance - when removing cash payment - amount is negative
+                // so you don't add it to liabilities, instead you subtract receivables
+                if (isNegative(balanceHistory.getAmountOfChange())) {
+                    receivables = sum(receivables, balanceHistory.getAmountOfChange());
+                } else {
+                    liabilites = sum(liabilites, balanceHistory.getAmountOfChange());
+                }
             } else {
-                receivables = sum(receivables, balanceHistory.getAmountOfChange());
+                if (isNegative(balanceHistory.getAmountOfChange())) {
+                    liabilites = sum(liabilites, balanceHistory.getAmountOfChange());
+                } else {
+                    receivables = sum(receivables, balanceHistory.getAmountOfChange());
+                }
             }
         }
         return new Balance(receivables, liabilites);

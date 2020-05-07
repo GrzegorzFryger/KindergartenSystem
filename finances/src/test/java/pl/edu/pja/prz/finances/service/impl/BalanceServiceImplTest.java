@@ -251,6 +251,35 @@ class BalanceServiceImplTest {
         assertEquals(new BigDecimal("-60.00"), result.getLiabilities());
     }
 
+    @Test
+    public void Should_CalculateBalance_When_ThereAreBalanceCorrections() {
+        //Given
+        BalanceHistory correction = new BalanceHistory();
+        correction.setOperationType(OperationType.CORRECTION);
+        correction.setAmountOfChange(new BigDecimal("-20.00"));
+
+        BalanceHistory correction2 = new BalanceHistory();
+        correction2.setOperationType(OperationType.CORRECTION);
+        correction2.setAmountOfChange(new BigDecimal("10.00"));
+
+        List<BalanceHistory> balanceHistories = Arrays.asList(
+                buildBalanceHistory("50.00"),
+                buildBalanceHistory("20.00"),
+                buildBalanceHistory("-50.00"),
+                buildBalanceHistory("-10.00"),
+                correction,
+                correction2
+        );
+
+        //When
+        Balance result = balanceService.calculateBalance(balanceHistories);
+
+        assertNotNull(result);
+        assertEquals(new BigDecimal("0.00"), result.getBalance());
+        assertEquals(new BigDecimal("50.00"), result.getReceivables());
+        assertEquals(new BigDecimal("-50.00"), result.getLiabilities());
+    }
+
     private BalanceHistory buildBalanceHistory(String amount) {
         BalanceHistory balanceHistory = new BalanceHistory();
         balanceHistory.setAmountOfChange(new BigDecimal(amount));
