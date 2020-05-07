@@ -67,9 +67,16 @@ public class BalanceServiceImpl implements BalanceService {
     }
 
     @Override
-    public void applyBalanceCorrection(UUID childId, BigDecimal amount, String title) {
+    public void applyReceivablesCorrection(UUID childId, BigDecimal amount, String title) {
         if (childId != null) {
-            historyService.saveBalanceInHistory(childId, amount, title, CORRECTION);
+            historyService.saveBalanceInHistory(childId, amount, title, CORRECTION_RECEIVABLES);
+        }
+    }
+
+    @Override
+    public void applyLiabilitiesCorrection(UUID childId, BigDecimal amount, String title) {
+        if (childId != null) {
+            historyService.saveBalanceInHistory(childId, amount, title, CORRECTION_LIABILITIES);
         }
     }
 
@@ -79,16 +86,12 @@ public class BalanceServiceImpl implements BalanceService {
         BigDecimal liabilites = BigDecimal.ZERO;
 
         for (BalanceHistory balanceHistory : balanceHistories) {
-            if (CORRECTION.equals(balanceHistory.getOperationType())) {
-                // For corrections we must reverse operation
-                // For instance - when removing cash payment - amount is negative
-                // so you don't add it to liabilities, instead you subtract receivables
-                if (isNegative(balanceHistory.getAmountOfChange())) {
-                    receivables = sum(receivables, balanceHistory.getAmountOfChange());
-                } else {
-                    liabilites = sum(liabilites, balanceHistory.getAmountOfChange());
-                }
-            } else {
+            if (CORRECTION_RECEIVABLES.equals(balanceHistory.getOperationType())) {
+                receivables = sum(receivables, balanceHistory.getAmountOfChange());
+            } else if (CORRECTION_LIABILITIES.equals(balanceHistory.getOperationType())) {
+                liabilites = sum(liabilites, balanceHistory.getAmountOfChange());
+            }
+            else {
                 if (isNegative(balanceHistory.getAmountOfChange())) {
                     liabilites = sum(liabilites, balanceHistory.getAmountOfChange());
                 } else {

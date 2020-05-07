@@ -76,7 +76,7 @@ public class CashPaymentServiceImpl implements CashPaymentService {
         String title = "Anulowano " + cashPayment.getTitle();
         BigDecimal transactionAmount = cashPayment.getTransactionAmount().negate();
 
-        facade.applyBalanceCorrection(cashPayment.getChildId(), transactionAmount, title);
+        facade.applyReceivablesBalanceCorrection(cashPayment.getChildId(), transactionAmount, title);
 }
 
     @Override
@@ -133,9 +133,9 @@ public class CashPaymentServiceImpl implements CashPaymentService {
 
     private void applyBalanceCorrections(BigDecimal balanceToUpdate, CashPayment cashPayment) {
         if (!balanceToUpdate.equals(BigDecimal.ZERO)) {
-            facade.applyBalanceCorrection(cashPayment.getChildId(),
-                    cashPayment.getTransactionAmount(),
-                    cashPayment.getTitle());
+            facade.applyReceivablesBalanceCorrection(cashPayment.getChildId(),
+                    balanceToUpdate,
+                    "Zaktualizowano " + cashPayment.getTitle());
         }
     }
 }

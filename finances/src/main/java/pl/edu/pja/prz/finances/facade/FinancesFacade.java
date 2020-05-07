@@ -18,7 +18,9 @@ public interface FinancesFacade {
 
     void decreaseBalance(UUID childId, BigDecimal amount, String title);
 
-    void applyBalanceCorrection(UUID childId, BigDecimal amount, String title);
+    void applyReceivablesBalanceCorrection(UUID childId, BigDecimal amount, String title);
+
+    void applyLiabilitiesBalanceCorrection(UUID childId, BigDecimal amount, String title);
 
     AccountNumberDto getAccountNumber(UUID childId);
 }

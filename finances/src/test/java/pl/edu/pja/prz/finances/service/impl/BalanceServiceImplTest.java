@@ -7,7 +7,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pja.prz.commons.exception.BusinessException;
-import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.finances.model.BalanceHistory;
 import pl.edu.pja.prz.finances.model.builder.BalanceHistoryBuilder;
 import pl.edu.pja.prz.finances.model.dto.Balance;
@@ -175,11 +174,11 @@ class BalanceServiceImplTest {
     }
 
     @Test
-    public void Should_ApplyBalanceCorrection() {
+    public void Should_ApplyReceivablesBalanceCorrection() {
         //Given
 
         //When
-        balanceService.applyBalanceCorrection(UUID.randomUUID(), new BigDecimal("50.00"), "PAYMENT");
+        balanceService.applyReceivablesCorrection(UUID.randomUUID(), new BigDecimal("50.00"), "PAYMENT");
 
         //Then
         verify(historyService, times(1))
@@ -187,11 +186,35 @@ class BalanceServiceImplTest {
     }
 
     @Test
-    public void Should_Not_ApplyBalanceCorrection_When_ChildIdIsNull() {
+    public void Should_Not_ApplyReceivablesBalanceCorrection_When_ChildIdIsNull() {
         //Given
 
         //When
-        balanceService.applyBalanceCorrection(null, new BigDecimal("50.00"), "PAYMENT");
+        balanceService.applyReceivablesCorrection(null, new BigDecimal("50.00"), "PAYMENT");
+
+        //Then
+        verify(historyService, never())
+                .saveBalanceInHistory(any(UUID.class), any(BigDecimal.class), anyString(), any(OperationType.class));
+    }
+
+    @Test
+    public void Should_ApplyLiabilitiesBalanceCorrection() {
+        //Given
+
+        //When
+        balanceService.applyLiabilitiesCorrection(UUID.randomUUID(), new BigDecimal("50.00"), "PAYMENT");
+
+        //Then
+        verify(historyService, times(1))
+                .saveBalanceInHistory(any(UUID.class), any(BigDecimal.class), anyString(), any(OperationType.class));
+    }
+
+    @Test
+    public void Should_Not_ApplyLiabilitiesBalanceCorrection_When_ChildIdIsNull() {
+        //Given
+
+        //When
+        balanceService.applyLiabilitiesCorrection(null, new BigDecimal("50.00"), "PAYMENT");
 
         //Then
         verify(historyService, never())
@@ -252,14 +275,14 @@ class BalanceServiceImplTest {
     }
 
     @Test
-    public void Should_CalculateBalance_When_ThereAreBalanceCorrections() {
+    public void Should_CalculateBalance_When_ThereAreReceivablesCorrections() {
         //Given
         BalanceHistory correction = new BalanceHistory();
-        correction.setOperationType(OperationType.CORRECTION);
+        correction.setOperationType(OperationType.CORRECTION_RECEIVABLES);
         correction.setAmountOfChange(new BigDecimal("-20.00"));
 
         BalanceHistory correction2 = new BalanceHistory();
-        correction2.setOperationType(OperationType.CORRECTION);
+        correction2.setOperationType(OperationType.CORRECTION_RECEIVABLES);
         correction2.setAmountOfChange(new BigDecimal("10.00"));
 
         List<BalanceHistory> balanceHistories = Arrays.asList(
@@ -276,8 +299,37 @@ class BalanceServiceImplTest {
 
         assertNotNull(result);
         assertEquals(new BigDecimal("0.00"), result.getBalance());
-        assertEquals(new BigDecimal("50.00"), result.getReceivables());
-        assertEquals(new BigDecimal("-50.00"), result.getLiabilities());
+        assertEquals(new BigDecimal("60.00"), result.getReceivables());
+        assertEquals(new BigDecimal("-60.00"), result.getLiabilities());
+    }
+
+    @Test
+    public void Should_CalculateBalance_When_ThereAreLiabilitiesCorrections() {
+        //Given
+        BalanceHistory correction = new BalanceHistory();
+        correction.setOperationType(OperationType.CORRECTION_LIABILITIES);
+        correction.setAmountOfChange(new BigDecimal("-20.00"));
+
+        BalanceHistory correction2 = new BalanceHistory();
+        correction2.setOperationType(OperationType.CORRECTION_LIABILITIES);
+        correction2.setAmountOfChange(new BigDecimal("10.00"));
+
+        List<BalanceHistory> balanceHistories = Arrays.asList(
+                buildBalanceHistory("50.00"),
+                buildBalanceHistory("20.00"),
+                buildBalanceHistory("-50.00"),
+                buildBalanceHistory("-10.00"),
+                correction,
+                correction2
+        );
+
+        //When
+        Balance result = balanceService.calculateBalance(balanceHistories);
+
+        assertNotNull(result);
+        assertEquals(new BigDecimal("0.00"), result.getBalance());
+        assertEquals(new BigDecimal("70.00"), result.getReceivables());
+        assertEquals(new BigDecimal("-70.00"), result.getLiabilities());
     }
 
     private BalanceHistory buildBalanceHistory(String amount) {

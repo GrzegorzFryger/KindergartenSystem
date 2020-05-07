@@ -80,7 +80,7 @@ public class TransactionServiceImpl implements TransactionService {
         String title = "Anulowano " + transaction.getTitle();
         BigDecimal transactionAmount = transaction.getTransactionAmount().negate();
 
-        facade.applyBalanceCorrection(transaction.getChildId(), transactionAmount, title);
+        facade.applyReceivablesBalanceCorrection(transaction.getChildId(), transactionAmount, title);
     }
 
     @Override
@@ -152,7 +152,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     private void applyBalanceCorrections(BigDecimal balanceToUpdate, Transaction transaction) {
         if (!balanceToUpdate.equals(BigDecimal.ZERO)) {
-            facade.applyBalanceCorrection(transaction.getChildId(),
+            facade.applyReceivablesBalanceCorrection(transaction.getChildId(),
                     transaction.getTransactionAmount(),
                     transaction.getTitle());
         }
