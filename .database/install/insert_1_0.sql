@@ -73,12 +73,12 @@ VALUES
 -- CALENDAR MODULE --
 INSERT INTO calendar.absence (`version`, `childId`, `date`, `reason`)
 VALUES
-(0, 'bd73f070-cac9-48db-8037-7c1d34596584', '2019-11-12', 'Choroba'),
-(0, 'bd73f070-cac9-48db-8037-7c1d34596584', '2019-10-25', 'Wyjazd'),
-(0, 'cb34b97c-bbe9-4719-9091-0e0939804426', '2018-10-25', 'Choroba'),
-(0, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', '2020-05-11', 'Choroba'),
-(0, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', '2020-05-12', 'Choroba'),
-(0, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', '2020-05-13', 'Choroba'),
+(0, '1c7fe144-f71a-4599-b8bf-04aa92d7ab6d', '2019-11-12', 'Choroba'),
+(0, '1c7fe144-f71a-4599-b8bf-04aa92d7ab6d', '2019-10-25', 'Wyjazd'),
+(0, '1c7fe144-f71a-4599-b8bf-04aa92d7ab6d', '2018-10-25', 'Choroba'),
+(0, '45034cab-c252-4b2b-9887-59b7ad7431cd', '2020-05-11', 'Choroba'),
+(0, '45034cab-c252-4b2b-9887-59b7ad7431cd', '2020-05-12', 'Choroba'),
+(0, '45034cab-c252-4b2b-9887-59b7ad7431cd', '2020-05-13', 'Choroba'),
 (0, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2020-05-18', 'Choroba'),
 (0, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2020-05-19', 'Choroba'),
 (0, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2020-05-20', 'Choroba');

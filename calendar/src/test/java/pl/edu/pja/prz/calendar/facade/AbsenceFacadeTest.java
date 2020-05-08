@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pl.edu.pja.prz.account.facade.ChildFacade;
 import pl.edu.pja.prz.calendar.facade.mapper.AbsenceMapper;
 import pl.edu.pja.prz.calendar.model.dto.AbsenceDto;
 import pl.edu.pja.prz.calendar.model.dto.AbsenceRangeDto;
@@ -27,11 +28,13 @@ public class AbsenceFacadeTest {
 
 	private AbsenceFacade absenceFacade;
 
+	private ChildFacade childFacade;
+
 	private AbsenceDto absenceDto;
 
 	@BeforeEach
 	public void setUp() {
-		absenceFacade = new AbsenceFacadeImpl(absenceService, absenceMapper);
+		absenceFacade = new AbsenceFacadeImpl(absenceService, absenceMapper, childFacade);
 
 		absenceDto = new AbsenceDto();
 	}
