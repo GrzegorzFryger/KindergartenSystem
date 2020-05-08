@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.finances.facade.FinancesFacade;
+import pl.edu.pja.prz.finances.model.enums.OperationType;
 import pl.edu.pja.prz.payments.model.PaymentHistory;
 import pl.edu.pja.prz.payments.model.RecurringPayment;
 import pl.edu.pja.prz.payments.model.enums.Status;
@@ -34,8 +35,17 @@ public class PaymentDebitService {
                 .stream()
                 .filter(this::filterActivePayments)
                 .peek(this::decreaseBalance)
-                .peek(this::savePaymentsHistory)
+                .peek(recurringPayment -> savePaymentsHistory(recurringPayment, OperationType.DECREASE))
                 .collect(Collectors.toList());
+    }
+
+    public void applyBalanceCorrectionForPayment(PaymentHistory paymentHistory) {
+        this.financesFacade.applyBalanceCorrection(
+                paymentHistory.getChildId(),
+                paymentHistory.getAmount(),
+                paymentHistory.getDescription()
+        );
+
     }
 
     private boolean filterActivePayments(RecurringPayment recurringPayment) {
@@ -61,14 +71,19 @@ public class PaymentDebitService {
         );
     }
 
-    private void savePaymentsHistory(RecurringPayment recurringPayment) {
+    private void savePaymentsHistory(RecurringPayment recurringPayment, OperationType operationType) {
         var paymentHistory = new PaymentHistory();
+        var amount = recurringPayment.calculateAmountWithDiscount();
+
         paymentHistory.setChildId(recurringPayment.getChild().getChildId());
         paymentHistory.setGuardianId(recurringPayment.getChild().getGuardianId());
         paymentHistory.setDescription(recurringPayment.getDescription());
+
+        paymentHistory.setAmount(operationType == OperationType.DECREASE ? amount.negate() : amount);
+
         paymentHistory.setDate(LocalDateTime.now());
         paymentHistory.setTypeRecurringPayment(recurringPayment.getTypeRecurringPayment());
-
+        paymentHistory.setOperationType(operationType);
         paymentHistoryRepository.save(
                 paymentHistory
         );

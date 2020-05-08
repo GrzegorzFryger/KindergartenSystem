@@ -2,10 +2,7 @@ package pl.edu.pja.prz.core.controller.payments;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.edu.pja.prz.payments.facade.PaymentHistoryFacade;
 import pl.edu.pja.prz.payments.model.dto.PaymentHistoryDto;
 
@@ -26,5 +23,11 @@ public class PaymentHistoryController {
     @GetMapping("payment-history/{childId}")
     public ResponseEntity<List<PaymentHistoryDto>> getById(@PathVariable UUID childId) {
         return new ResponseEntity<>(this.paymentHistoryFacade.getAllHistoryOfChild(childId), HttpStatus.OK);
+    }
+
+    @PostMapping("payment-history")
+    public ResponseEntity applyBalanceCorrectionForPayment(@RequestBody PaymentHistoryDto paymentHistoryDto) {
+        this.paymentHistoryFacade.applyBalanceCorrectionForPayment(paymentHistoryDto);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }
