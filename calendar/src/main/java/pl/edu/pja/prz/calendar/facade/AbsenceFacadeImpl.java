@@ -2,6 +2,8 @@ package pl.edu.pja.prz.calendar.facade;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.edu.pja.prz.account.facade.ChildFacade;
+import pl.edu.pja.prz.account.model.dto.ChildDto;
 import pl.edu.pja.prz.calendar.facade.mapper.AbsenceMapper;
 import pl.edu.pja.prz.calendar.model.dto.AbsenceDto;
 import pl.edu.pja.prz.calendar.model.dto.AbsenceRangeDto;
@@ -15,11 +17,13 @@ import java.util.UUID;
 public class AbsenceFacadeImpl implements AbsenceFacade {
 	private final AbsenceService absenceService;
 	private final AbsenceMapper absenceMapper;
+	private final ChildFacade childFacade;
 
 	@Autowired
-	public AbsenceFacadeImpl(AbsenceService absenceService, AbsenceMapper absenceMapper) {
+	public AbsenceFacadeImpl(AbsenceService absenceService, AbsenceMapper absenceMapper, ChildFacade childFacade) {
 		this.absenceService = absenceService;
 		this.absenceMapper = absenceMapper;
+		this.childFacade = childFacade;
 	}
 
 	@Override
@@ -82,9 +86,15 @@ public class AbsenceFacadeImpl implements AbsenceFacade {
 
 	@Override
 	public List<AbsenceDto> getAllAbsencesBetweenDates(LocalDate startDate, LocalDate endDate) {
-		return absenceMapper.absenceListToDtoList(
-				absenceService.getAllAbsencesBetweenDates(startDate, endDate)
-		);
+		List<AbsenceDto> absenceDtoList;
+		absenceDtoList = absenceMapper.absenceListToDtoList(
+				absenceService.getAllAbsencesBetweenDates(startDate, endDate));
+		for (AbsenceDto absenceDto : absenceDtoList) {
+			ChildDto childDto = childFacade.findChildById(absenceDto.getChildId());
+			absenceDto.setChildName(childDto.getName());
+			absenceDto.setChildSurname(childDto.getSurname());
+		}
+		return absenceDtoList;
 	}
 
 	@Override
