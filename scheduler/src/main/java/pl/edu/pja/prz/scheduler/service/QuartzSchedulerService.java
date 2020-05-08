@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Service;
+import pl.edu.pja.prz.scheduler.factory.QuartzFactory;
 import pl.edu.pja.prz.scheduler.model.JobInfo;
 import pl.edu.pja.prz.scheduler.model.ScheduleJobInfo;
 

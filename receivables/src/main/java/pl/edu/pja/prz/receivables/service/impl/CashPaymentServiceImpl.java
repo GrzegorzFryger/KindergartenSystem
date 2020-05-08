@@ -73,9 +73,10 @@ public class CashPaymentServiceImpl implements CashPaymentService {
 
         repository.deleteById(id);
 
-        facade.decreaseBalance(cashPayment.getChildId(),
-                cashPayment.getTransactionAmount(),
-                "Removed cash payment" + cashPayment.getTitle());
+        String title = "Anulowano " + cashPayment.getTitle();
+        BigDecimal transactionAmount = cashPayment.getTransactionAmount().negate();
+
+        facade.applyReceivablesBalanceCorrection(cashPayment.getChildId(), transactionAmount, title);
 }
 
     @Override
@@ -132,9 +133,9 @@ public class CashPaymentServiceImpl implements CashPaymentService {
 
     private void applyBalanceCorrections(BigDecimal balanceToUpdate, CashPayment cashPayment) {
         if (!balanceToUpdate.equals(BigDecimal.ZERO)) {
-            facade.applyBalanceCorrection(cashPayment.getChildId(),
-                    cashPayment.getTransactionAmount(),
-                    cashPayment.getTitle());
+            facade.applyReceivablesBalanceCorrection(cashPayment.getChildId(),
+                    balanceToUpdate,
+                    "Zaktualizowano " + cashPayment.getTitle());
         }
     }
 }

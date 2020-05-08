@@ -67,9 +67,16 @@ public class BalanceServiceImpl implements BalanceService {
     }
 
     @Override
-    public void applyBalanceCorrection(UUID childId, BigDecimal amount, String title) {
+    public void applyReceivablesCorrection(UUID childId, BigDecimal amount, String title) {
         if (childId != null) {
-            historyService.saveBalanceInHistory(childId, amount, title, CORRECTION);
+            historyService.saveBalanceInHistory(childId, amount, title, CORRECTION_RECEIVABLES);
+        }
+    }
+
+    @Override
+    public void applyLiabilitiesCorrection(UUID childId, BigDecimal amount, String title) {
+        if (childId != null) {
+            historyService.saveBalanceInHistory(childId, amount, title, CORRECTION_LIABILITIES);
         }
     }
 
@@ -79,10 +86,17 @@ public class BalanceServiceImpl implements BalanceService {
         BigDecimal liabilites = BigDecimal.ZERO;
 
         for (BalanceHistory balanceHistory : balanceHistories) {
-            if (isNegative(balanceHistory.getAmountOfChange())) {
-                liabilites = sum(liabilites, balanceHistory.getAmountOfChange());
-            } else {
+            if (CORRECTION_RECEIVABLES.equals(balanceHistory.getOperationType())) {
                 receivables = sum(receivables, balanceHistory.getAmountOfChange());
+            } else if (CORRECTION_LIABILITIES.equals(balanceHistory.getOperationType())) {
+                liabilites = sum(liabilites, balanceHistory.getAmountOfChange());
+            }
+            else {
+                if (isNegative(balanceHistory.getAmountOfChange())) {
+                    liabilites = sum(liabilites, balanceHistory.getAmountOfChange());
+                } else {
+                    receivables = sum(receivables, balanceHistory.getAmountOfChange());
+                }
             }
         }
         return new Balance(receivables, liabilites);
