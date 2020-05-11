@@ -16,7 +16,9 @@ public interface BalanceService {
 
     void decreaseBalance(UUID childId, BigDecimal amount, String title);
 
-    void applyBalanceCorrection(UUID childId, BigDecimal amount, String title);
+    void applyReceivablesCorrection(UUID childId, BigDecimal amount, String title);
+
+    void applyLiabilitiesCorrection(UUID childId, BigDecimal amount, String title);
 
     Balance calculateBalance(List<BalanceHistory> balanceHistories);
 }

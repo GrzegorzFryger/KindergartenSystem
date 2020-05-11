@@ -1,9 +1,11 @@
-package pl.edu.pja.prz.scheduler.service;
+package pl.edu.pja.prz.scheduler.factory;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pl.edu.pja.prz.scheduler.factory.IdentifyGenerator;
+import pl.edu.pja.prz.scheduler.factory.IdentifyGeneratorImpl;
 
 
 class IdentifyGeneratorImplTest {
