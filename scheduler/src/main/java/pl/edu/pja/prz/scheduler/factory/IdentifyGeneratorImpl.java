@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.scheduler.service;
+package pl.edu.pja.prz.scheduler.factory;
 
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.scheduler.service;
+package pl.edu.pja.prz.scheduler.factory;
 
 import org.quartz.CronTrigger;
 import org.quartz.Job;
@@ -16,8 +16,6 @@ import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
 
