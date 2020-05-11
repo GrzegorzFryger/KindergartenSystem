@@ -58,9 +58,15 @@ public class AbsenceFacadeImpl implements AbsenceFacade {
 
 	@Override
 	public List<AbsenceDto> getAllAbsences() {
-		return absenceMapper.absenceListToDtoList(
-				absenceService.getAllAbsences()
-		);
+		List<AbsenceDto> absenceDtoList;
+		absenceDtoList = absenceMapper.absenceListToDtoList(
+				absenceService.getAllAbsences());
+		for (AbsenceDto absenceDto : absenceDtoList) {
+			ChildDto childDto = childFacade.findChildById(absenceDto.getChildId());
+			absenceDto.setChildName(childDto.getName());
+			absenceDto.setChildSurname(childDto.getSurname());
+		}
+		return absenceDtoList;
 	}
 
 	@Override

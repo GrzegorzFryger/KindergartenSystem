@@ -94,7 +94,7 @@ VALUES
 (0, '2020-05-03', 'HOLIDAY', 'Święto Konstytucji 3 Maja'),
 (0, '2020-05-31', 'HOLIDAY', 'Zesłanie Ducha Świętego'),
 (0, '2020-06-11', 'HOLIDAY', 'Boże Ciało'),
-(0, '2020-08-15', 'HOLIDAY', 'Wniebowziecie Najswietszej Maryi Panny'),
+(0, '2020-08-15', 'HOLIDAY', 'Wniebowzięcie Najświętszej Maryi Panny'),
 (0, '2020-11-01', 'HOLIDAY', 'Wszystkich Świętych'),
 (0, '2020-11-11', 'HOLIDAY', 'Święto Niepodległości'),
 (0, '2020-12-25', 'HOLIDAY', 'Boże Narodzenie (pierwszy dzień)'),
