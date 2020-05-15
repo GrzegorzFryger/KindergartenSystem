@@ -2,17 +2,14 @@ package pl.edu.pja.prz.payments.model;
 
 import pl.edu.pja.prz.payments.model.enums.Status;
 import pl.edu.pja.prz.payments.model.enums.TypeRecurringPayment;
-import pl.edu.pja.prz.payments.model.value.Child;
 import pl.edu.pja.prz.payments.model.value.PeriodValidity;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 public class RecurringPayment extends Payment implements DiscountCalculator {
-	private Child child;
 	private PeriodValidity periodValidity;
 	@ManyToMany(mappedBy = "recurringPayments", fetch = FetchType.EAGER)
 	private Set<Discount> discounts = new HashSet<>();
@@ -21,31 +18,10 @@ public class RecurringPayment extends Payment implements DiscountCalculator {
 	@Enumerated(EnumType.STRING)
 	private TypeRecurringPayment typeRecurringPayment;
 
-	public RecurringPayment(Child child, Payment payment, PeriodValidity periodValidity,
-	                        TypeRecurringPayment typeRecurringPayment, Status status) {
-		this(payment.getBaseAmount(), payment.getDescription(), child, periodValidity, typeRecurringPayment, status);
-	}
-
-	public RecurringPayment(BigDecimal amount, String description, Child child, PeriodValidity periodValidity,
-	                        TypeRecurringPayment typeRecurringPayment, Status status) {
-		super(amount, description);
-		this.child = child;
-		this.periodValidity = periodValidity;
-		this.typeRecurringPayment = typeRecurringPayment;
-		this.status = status;
-	}
-
 	public RecurringPayment() {
 		super();
 	}
 
-	public Child getChild() {
-		return child;
-	}
-
-	public void setChild(Child child) {
-		this.child = child;
-	}
 
 	public PeriodValidity getPeriodValidity() {
 		return periodValidity;
@@ -102,10 +78,10 @@ public class RecurringPayment extends Payment implements DiscountCalculator {
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (!(o instanceof RecurringPayment)) return false;
+		if (!super.equals(o)) return false;
 
 		RecurringPayment that = (RecurringPayment) o;
 
-		if (getChild() != null ? !getChild().equals(that.getChild()) : that.getChild() != null) return false;
 		if (getPeriodValidity() != null ? !getPeriodValidity().equals(that.getPeriodValidity()) : that.getPeriodValidity() != null)
 			return false;
 		if (getDiscounts() != null ? !getDiscounts().equals(that.getDiscounts()) : that.getDiscounts() != null)
@@ -116,22 +92,11 @@ public class RecurringPayment extends Payment implements DiscountCalculator {
 
 	@Override
 	public int hashCode() {
-		int result = getChild() != null ? getChild().hashCode() : 0;
+		int result = super.hashCode();
 		result = 31 * result + (getPeriodValidity() != null ? getPeriodValidity().hashCode() : 0);
 		result = 31 * result + (getDiscounts() != null ? getDiscounts().hashCode() : 0);
 		result = 31 * result + (getStatus() != null ? getStatus().hashCode() : 0);
 		result = 31 * result + (getTypeRecurringPayment() != null ? getTypeRecurringPayment().hashCode() : 0);
 		return result;
-	}
-
-	@Override
-	public String toString() {
-		return "RecurringPayment{" +
-				"child=" + child +
-				", periodValidity=" + periodValidity +
-				", discounts=" + discounts +
-				", status=" + status +
-				", typeRecurringPayment=" + typeRecurringPayment +
-				'}';
 	}
 }

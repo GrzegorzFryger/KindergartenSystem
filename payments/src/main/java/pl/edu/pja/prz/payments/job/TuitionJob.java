@@ -19,7 +19,7 @@ public class TuitionJob extends RecurringPaymentJob {
         this.paymentDebitService.chargeTuitionFee()
                 .forEach(recurringPayment -> {
                     logger.infof("TuitionJob: charge child account with id - {}",
-                            recurringPayment.getChild().getChildId().toString());
+                            recurringPayment.getChildId().toString());
                 });
     }
 }

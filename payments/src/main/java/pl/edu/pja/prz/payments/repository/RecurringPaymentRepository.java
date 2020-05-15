@@ -16,5 +16,7 @@ public interface RecurringPaymentRepository extends JpaRepository<RecurringPayme
 	Optional<RecurringPayment> findActiveByChildId(UUID childId);
 
 	List<RecurringPayment> findAllByStatus(Status status);
+
+	List<RecurringPayment> findAllByChildId(UUID childId);
 }
 

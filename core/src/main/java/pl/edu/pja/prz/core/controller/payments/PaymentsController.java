@@ -7,6 +7,7 @@ import pl.edu.pja.prz.payments.facade.RecurringPaymentFacade;
 import pl.edu.pja.prz.payments.model.dto.RecurringPaymentDto;
 
 import java.util.List;
+import java.util.UUID;
 
 import static pl.edu.pja.prz.core.controller.RequestMappings.API_PAYMENTS;
 
@@ -23,6 +24,11 @@ public class PaymentsController {
     public ResponseEntity<List<RecurringPaymentDto>> findAllRecurringPayments() {
 		return new ResponseEntity<>(paymentFacade.findAllPayments(), HttpStatus.OK);
 	}
+
+    @GetMapping("recurring-payments/{childId}")
+    public ResponseEntity<List<RecurringPaymentDto>> findAllRecurringPaymentsByChildId(@PathVariable UUID childId) {
+        return new ResponseEntity<>(paymentFacade.findAllByChild(childId), HttpStatus.OK);
+    }
 
     @GetMapping("recurring-payment/{id}")
 	public ResponseEntity<RecurringPaymentDto> findPaymentById(@PathVariable Long id) {

@@ -50,10 +50,12 @@ class RecurringPaymentServiceImplTest {
 	@Test
 	void should_createOtherPayment() {
 		//given
-		var otherRecurringPayment = PaymentFactory.createOtherRecurringPayment(child, payment, periodValidity);
+		var childId = UUID.randomUUID();
+		var guardianId = UUID.randomUUID();
+		var otherRecurringPayment = PaymentFactory.createOtherRecurringPayment(childId, guardianId, payment, periodValidity);
 		//when
 		when(recurringPaymentRepository.save(any(RecurringPayment.class))).thenReturn(otherRecurringPayment);
-		var returnedTuition = recurringPaymentService.createOtherPayment(child, payment, periodValidity);
+		var returnedTuition = recurringPaymentService.createOtherPayment(childId, guardianId, payment, periodValidity);
 		//then
 		verify(recurringPaymentRepository, times(1)).save(otherRecurringPayment);
 		assertEquals(otherRecurringPayment, returnedTuition);
@@ -62,10 +64,12 @@ class RecurringPaymentServiceImplTest {
 	@Test
 	void should_createTuition() {
 		//given
-		var tuition = PaymentFactory.createTuitionPayment(child, payment, periodValidity);
+		var childId = UUID.randomUUID();
+		var guardianId = UUID.randomUUID();
+		var tuition = PaymentFactory.createTuitionPayment(childId, guardianId, payment, periodValidity);
 		//when
 		when(recurringPaymentRepository.save(any(RecurringPayment.class))).thenReturn(tuition);
-		var returnedTuition = recurringPaymentService.createTuition(child, payment, periodValidity);
+		var returnedTuition = recurringPaymentService.createTuition(childId, guardianId, payment, periodValidity);
 		//then
 		verify(recurringPaymentRepository, times(1)).save(tuition);
 		assertEquals(tuition, returnedTuition);

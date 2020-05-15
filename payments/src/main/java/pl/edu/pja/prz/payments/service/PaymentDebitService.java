@@ -56,7 +56,7 @@ public class PaymentDebitService {
 
     private void decreaseBalance(RecurringPayment recurringPayment) {
         this.financesFacade.decreaseBalance(
-                recurringPayment.getChild().getChildId(),
+                recurringPayment.getChildId(),
                 recurringPayment.calculateAmountWithDiscount(),
                 createTuitionPaymentTitle(recurringPayment)
         );
@@ -65,7 +65,7 @@ public class PaymentDebitService {
     private String createTuitionPaymentTitle(RecurringPayment recurringPayment) {
         return String.format(
                 TITLE_TEMPLATE,
-                recurringPayment.getChild().getChildId(),
+                recurringPayment.getChildId(),
                 recurringPayment.getDescription(),
                 recurringPayment.calculateAmountWithDiscount()
         );
@@ -75,8 +75,8 @@ public class PaymentDebitService {
         var paymentHistory = new PaymentHistory();
         var amount = recurringPayment.calculateAmountWithDiscount();
 
-        paymentHistory.setChildId(recurringPayment.getChild().getChildId());
-        paymentHistory.setGuardianId(recurringPayment.getChild().getGuardianId());
+        paymentHistory.setChildId(recurringPayment.getChildId());
+        paymentHistory.setGuardianId(recurringPayment.getGuardianId());
         paymentHistory.setDescription(recurringPayment.getDescription());
 
         paymentHistory.setAmount(operationType == OperationType.DECREASE ? amount.negate() : amount);
