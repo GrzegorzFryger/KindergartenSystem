@@ -40,7 +40,9 @@ public class PaymentDebitService {
     }
 
     public void applyBalanceCorrectionForPayment(PaymentHistory paymentHistory) {
-        this.financesFacade.applyBalanceCorrection(
+        //TODO: Here you need to provide difference between original value and new value instead of only new value
+        //      This method was intended for updating balances during delete / update method calling
+        this.financesFacade.applyLiabilitiesBalanceCorrection(
                 paymentHistory.getChildId(),
                 paymentHistory.getAmount(),
                 paymentHistory.getDescription()

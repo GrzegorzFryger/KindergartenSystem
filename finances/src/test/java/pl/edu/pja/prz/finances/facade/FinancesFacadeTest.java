@@ -132,15 +132,27 @@ class FinancesFacadeTest {
     }
 
     @Test
-    public void Should_ApplyBalanceCorrection() {
+    public void Should_ApplyReceivablesBalanceCorrection() {
         //Given
 
         //When
-        facade.applyBalanceCorrection(UUID.randomUUID(), new BigDecimal("-50.00"), "Some title");
+        facade.applyReceivablesBalanceCorrection(UUID.randomUUID(), new BigDecimal("-50.00"), "Some title");
 
         //Then
         verify(balanceService, times(1))
-                .applyBalanceCorrection(any(UUID.class), any(BigDecimal.class), anyString());
+                .applyReceivablesCorrection(any(UUID.class), any(BigDecimal.class), anyString());
+    }
+
+    @Test
+    public void Should_ApplyLiabilitiesBalanceCorrection() {
+        //Given
+
+        //When
+        facade.applyLiabilitiesBalanceCorrection(UUID.randomUUID(), new BigDecimal("-50.00"), "Some title");
+
+        //Then
+        verify(balanceService, times(1))
+                .applyLiabilitiesCorrection(any(UUID.class), any(BigDecimal.class), anyString());
     }
 
     @Test
