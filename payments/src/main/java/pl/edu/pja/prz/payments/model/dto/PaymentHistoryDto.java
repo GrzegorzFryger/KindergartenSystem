@@ -1,5 +1,6 @@
 package pl.edu.pja.prz.payments.model.dto;
 
+import pl.edu.pja.prz.finances.model.enums.OperationType;
 import pl.edu.pja.prz.payments.model.enums.TypeRecurringPayment;
 
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ public class PaymentHistoryDto {
     private UUID childId;
     private UUID guardianId;
     private TypeRecurringPayment typeRecurringPayment;
+    private OperationType operationType;
 
     public PaymentHistoryDto() {
     }
@@ -55,5 +57,11 @@ public class PaymentHistoryDto {
         this.typeRecurringPayment = typeRecurringPayment;
     }
 
+    public OperationType getOperationType() {
+        return operationType;
+    }
 
+    public void setOperationType(OperationType operationType) {
+        this.operationType = operationType;
+    }
 }
