@@ -83,6 +83,8 @@ class EmployeeServiceTest {
         )).thenReturn(employee);
         when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
         doNothing().when(roleService).persistRoleFromUser(any(Employee.class));
+        when(activateTokenService.generateToken(any(), any())).thenReturn("token");
+        doNothing().when(mailFacade).sendEmail(any());
 
         var createdGuardian = employeeService.createEmployeeAccount(person, email);
 

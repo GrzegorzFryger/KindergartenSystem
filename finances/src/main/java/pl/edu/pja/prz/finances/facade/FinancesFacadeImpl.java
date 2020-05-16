@@ -65,8 +65,13 @@ public class FinancesFacadeImpl implements FinancesFacade {
     }
 
     @Override
-    public void applyBalanceCorrection(UUID childId, BigDecimal amount, String title) {
-        balanceService.applyBalanceCorrection(childId, amount, title);
+    public void applyReceivablesBalanceCorrection(UUID childId, BigDecimal amount, String title) {
+        balanceService.applyReceivablesCorrection(childId, amount, title);
+    }
+
+    @Override
+    public void applyLiabilitiesBalanceCorrection(UUID childId, BigDecimal amount, String title) {
+        balanceService.applyLiabilitiesCorrection(childId, amount, title);
     }
 
     @Override

@@ -22,7 +22,7 @@ public interface GuardianFacade {
 
     Set<ChildDto> findAllGuardianChildren(UUID id);
 
-    GuardianDto appendGuardianToChild(GuardianChildAssociationDto associationDto);
+    List<GuardianDto> appendGuardianToChild(GuardianChildAssociationDto associationDto);
 
     Optional<GuardianDto> findByFullNameOrAddress(String name, String surname, @Nullable String street) throws Exception;
 

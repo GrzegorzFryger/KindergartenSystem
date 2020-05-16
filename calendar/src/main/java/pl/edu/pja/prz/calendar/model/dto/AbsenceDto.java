@@ -6,6 +6,8 @@ import java.util.UUID;
 public class AbsenceDto {
 	private Long id;
 	private UUID childId;
+	private String childName;
+	private String childSurname;
 	private LocalDate date;
 	private String reason;
 
@@ -23,6 +25,22 @@ public class AbsenceDto {
 
 	public void setChildId(UUID childId) {
 		this.childId = childId;
+	}
+
+	public String getChildName() {
+		return childName;
+	}
+
+	public void setChildName(String childName) {
+		this.childName = childName;
+	}
+
+	public String getChildSurname() {
+		return childSurname;
+	}
+
+	public void setChildSurname(String childSurname) {
+		this.childSurname = childSurname;
 	}
 
 	public LocalDate getDate() {

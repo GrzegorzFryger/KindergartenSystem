@@ -7,7 +7,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.quartz.CronTrigger;
 import org.quartz.impl.triggers.CronTriggerImpl;
+import org.springframework.scheduling.quartz.DelegatingJob;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
+import pl.edu.pja.prz.scheduler.factory.QuartzFactory;
 import pl.edu.pja.prz.scheduler.model.JobInfo;
 
 import java.util.HashMap;
@@ -111,9 +113,8 @@ class QuartzSchedulerServiceTest {
     @Test
     public void Should_ThrowException_When_JobDetail_For_ScheduleCronJob_DoesNotExist() {
         //Given
-        JobInfo jobInfo = new JobInfo();
-        jobInfo.setClassType(Object.class);
-        jobInfo.setDescription("Some description");
+        JobInfo jobInfo = new JobInfo("Some Job name", "Some description",
+                "Object", DelegatingJob.class);
         CronTrigger cronTrigger = new CronTriggerImpl();
 
         //When

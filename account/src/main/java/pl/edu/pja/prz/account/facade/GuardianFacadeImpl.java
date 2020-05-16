@@ -60,10 +60,11 @@ public class GuardianFacadeImpl implements GuardianFacade {
                 .collect(Collectors.toSet());
     }
 
-    public GuardianDto appendGuardianToChild(GuardianChildAssociationDto associationDto) {
-        return this.guardianMapper.fromGuardian(
-                guardianService.appendChildrenToGuardian(associationDto.getChildId(), associationDto.getGuardianId())
-        );
+    public List<GuardianDto> appendGuardianToChild(GuardianChildAssociationDto associationDto) {
+        return this.guardianService.appendChildrenToGuardian(associationDto.getChildren(), associationDto.getGuardians())
+                .stream()
+                .map(guardianMapper::fromGuardian)
+                .collect(Collectors.toList());
 
     }
 

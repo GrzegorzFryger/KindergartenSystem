@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.scheduler.service;
+package pl.edu.pja.prz.scheduler.factory;
 
 import org.quartz.CronTrigger;
 import org.quartz.Job;
@@ -16,10 +16,10 @@ import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
+
+import static pl.edu.pja.prz.commons.util.DateUtils.convertToDate;
 
 @Component
 public class QuartzFactory {
@@ -121,17 +121,6 @@ public class QuartzFactory {
 		}
 
 		return Optional.ofNullable(simpleTriggerFactoryBean.getObject());
-	}
-
-	private LocalDateTime convertToLocalDateTime(Date dateToConvert) {
-		return LocalDateTime.ofInstant(
-				dateToConvert.toInstant(), ZoneId.systemDefault());
-	}
-
-	private Date convertToDate(LocalDateTime dateToConvert) {
-		return java.util.Date
-				.from(dateToConvert.atZone(ZoneId.systemDefault())
-						.toInstant());
 	}
 
 }

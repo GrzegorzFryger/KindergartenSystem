@@ -7,8 +7,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pja.prz.commons.exception.BusinessException;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
-import pl.edu.pja.prz.meal.exception.MealPriceListAlreadyExistException;
-import pl.edu.pja.prz.meal.exception.NotFoundException;
 import pl.edu.pja.prz.meal.model.MealPrice;
 import pl.edu.pja.prz.meal.model.enums.MealType;
 import pl.edu.pja.prz.meal.repository.MealPriceRepository;
@@ -37,7 +35,7 @@ class MealPriceServiceImplTest {
 
 
     @Test
-    void ShouldCreatMealPrice_When_InputArgumentIsCorrect() throws MealPriceListAlreadyExistException {
+    void ShouldCreatMealPrice_When_InputArgumentIsCorrect() {
         //given
         MealPrice mealPrice = new MealPrice(MealType.BREAKFAST, BigDecimal.ONE );
         when(mealPriceRepository.save(any())).thenReturn(mealPrice);
@@ -49,7 +47,7 @@ class MealPriceServiceImplTest {
     }
 
     @Test
-    void ShouldReturnMealPriceListAlreadyExistException_When_TriedToAddMealPriceButMealPriceListAlreadyExist() throws MealPriceListAlreadyExistException {
+    void ShouldReturnMealPriceListAlreadyExistException_When_TriedToAddMealPriceButMealPriceListAlreadyExist() {
         //given
         MealPrice mealPrice = new MealPrice(MealType.BREAKFAST, BigDecimal.ONE );
         when(mealPriceRepository.findByMealType(MealType.BREAKFAST)).thenReturn(Optional.of(mealPrice));
@@ -62,7 +60,7 @@ class MealPriceServiceImplTest {
     }
 
     @Test
-    void ShouldUpdateMealPrice_When_InputArgumentIsCorrect() throws NotFoundException {
+    void ShouldUpdateMealPrice_When_InputArgumentIsCorrect() {
         //given
         MealPrice updatedMealPrice = new MealPrice(MealType.BREAKFAST, BigDecimal.TEN );
         MealPrice mealPrice = new MealPrice(MealType.BREAKFAST, BigDecimal.ONE );

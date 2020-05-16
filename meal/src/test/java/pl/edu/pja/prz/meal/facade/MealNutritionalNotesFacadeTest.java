@@ -8,6 +8,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pja.prz.meal.model.dto.NutritionalNotesDTO;
 import pl.edu.pja.prz.meal.service.MealNutritionalNotesService;
 
+import java.time.LocalDateTime;
+
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -37,10 +40,17 @@ class MealNutritionalNotesFacadeTest {
 
     @Test
     void ShouldAddNutritionalNotes_When_CorrectCall() {
+        //given
+        NutritionalNotesDTO dto = new NutritionalNotesDTO();
+        dto.setCreatedTime(LocalDateTime.now());
+        dto.setMealId(1L);
+        dto.setNutritionalNotesValue("Some Nutritional Notes Value");
+
         //when
-        mealNutritionalNotesFacade.addNutritionalNotes(new NutritionalNotesDTO());
+        mealNutritionalNotesFacade.addNutritionalNotes(dto);
         //then
-        verify(mealNutritionalNotesService, times(1)).addNutritionalNotes(new NutritionalNotesDTO());
+        verify(mealNutritionalNotesService, times(1))
+                .addNutritionalNotes(any(NutritionalNotesDTO.class));
     }
 
     @Test

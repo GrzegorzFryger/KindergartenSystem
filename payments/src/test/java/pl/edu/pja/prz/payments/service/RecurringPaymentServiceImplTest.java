@@ -18,12 +18,9 @@ import pl.edu.pja.prz.payments.repository.RecurringPaymentRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -190,6 +187,62 @@ class RecurringPaymentServiceImplTest {
 		verify(mockPayment, times(1)).getDiscounts();
 		verify(mockPayment, times(1)).removeDiscount(any());
 		verify(discountRepository, times(1)).findById(1L);
+	}
+
+	@Test
+	public void shouldGetRecurringPaymentById() {
+		//Given
+		RecurringPayment recurringPayment = new RecurringPayment();
+
+		//When
+		when(recurringPaymentRepository.findById(anyLong())).thenReturn(Optional.of(recurringPayment));
+		RecurringPayment result = recurringPaymentService.getPaymentById(1L);
+
+		//Then
+		assertNotNull(result);
+		verify(recurringPaymentRepository, only()).findById(anyLong());
+	}
+
+	@Test
+	public void shouldThrowErrorWhenRecurringPaymentByIdNotFound() {
+		//Given
+
+		//When
+		when(recurringPaymentRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+		assertThrows(IllegalArgumentException.class, () -> {
+			RecurringPayment result = recurringPaymentService.getPaymentById(1L);
+		});
+
+		//Then
+		verify(recurringPaymentRepository, only()).findById(anyLong());
+	}
+
+	@Test
+	public void shouldGetAllRecurringPayments() {
+		//Given
+		List<RecurringPayment> recurringPaymentList = new ArrayList();
+		recurringPaymentList.add(new RecurringPayment());
+
+		//When
+		when(recurringPaymentRepository.findAll()).thenReturn(recurringPaymentList);
+		List<RecurringPayment> result = recurringPaymentService.getAllPayments();
+
+		//Then
+		assertNotNull(result);
+		assertEquals(1, result.size());
+		verify(recurringPaymentRepository, only()).findAll();
+	}
+
+	@Test
+	public void shouldDeleteRecurringPayment() {
+		//Given
+
+		//When
+		recurringPaymentService.deletePayment(1L);
+
+		//Then
+		verify(recurringPaymentRepository, only()).deleteById(anyLong());
 	}
 
 }

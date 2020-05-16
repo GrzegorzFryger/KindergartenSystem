@@ -26,7 +26,13 @@ public class AccountNumberServiceImpl implements AccountNumberService {
     public AccountNumberDto getAccountNumber(UUID childId) {
         AccountNumberDto dto = new AccountNumberDto();
         Optional<AccountNumber> accountNumber = accountNumberRepository.findById(ACCOUNT_ID);
-        accountNumber.ifPresent(number -> dto.setAccountNumber(number.getAccountNumber()));
+        accountNumber.ifPresent(number -> {
+            dto.setAccountNumber(number.getAccountNumber());
+            dto.setCity(number.getCity());
+            dto.setPostalCode(number.getPostalCode());
+            dto.setStreet(number.getStreet());
+            dto.setName(number.getName());
+        });
         return dto;
     }
 }

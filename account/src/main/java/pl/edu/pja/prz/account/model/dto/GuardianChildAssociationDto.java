@@ -1,27 +1,28 @@
 package pl.edu.pja.prz.account.model.dto;
 
+import java.util.List;
 import java.util.UUID;
 
 public class GuardianChildAssociationDto {
-	private UUID childId;
-	private UUID guardianId;
+    private List<UUID> children;
+    private List<UUID> guardians;
 
 	public GuardianChildAssociationDto() {
 	}
 
-	public UUID getChildId() {
-		return childId;
-	}
+    public List<UUID> getChildren() {
+        return children;
+    }
 
-	public void setChildId(UUID childId) {
-		this.childId = childId;
-	}
+    public void setChildren(List<UUID> children) {
+        this.children = children;
+    }
 
-	public UUID getGuardianId() {
-		return guardianId;
-	}
+    public List<UUID> getGuardians() {
+        return guardians;
+    }
 
-	public void setGuardianId(UUID guardianId) {
-		this.guardianId = guardianId;
+    public void setGuardians(List<UUID> guardians) {
+        this.guardians = guardians;
 	}
 }
