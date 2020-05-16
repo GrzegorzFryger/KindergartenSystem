@@ -10,12 +10,12 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
 public class PaymentHistory extends BaseEntityLong {
-    private LocalDateTime date;
+    private LocalDate date;
     private String description;
     private BigDecimal amount;
     @Type(type = "uuid-char")
@@ -31,11 +31,11 @@ public class PaymentHistory extends BaseEntityLong {
     public PaymentHistory() {
     }
 
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

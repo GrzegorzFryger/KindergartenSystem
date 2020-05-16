@@ -39,9 +39,9 @@ public class DiscountController {
         return new ResponseEntity<>(this.discountFacade.updateDiscount(discountDto), HttpStatus.OK);
     }
 
-    @DeleteMapping("discount")
-    public ResponseEntity deleteDiscount(@RequestBody DiscountDto discountDto) {
-        this.discountFacade.deleteDiscount(discountDto);
+    @DeleteMapping("discount/{id}")
+    public ResponseEntity deleteDiscount(@PathVariable Long id) {
+        this.discountFacade.deleteDiscount(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

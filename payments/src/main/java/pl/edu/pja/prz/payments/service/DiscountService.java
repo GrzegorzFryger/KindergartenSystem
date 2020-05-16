@@ -11,6 +11,8 @@ public interface DiscountService {
 
 	void deleteDiscount(Discount discount);
 
+    void deleteDiscount(Long id);
+
 	List<Discount> getAllDiscount();
 
 	Discount getById(Long id);

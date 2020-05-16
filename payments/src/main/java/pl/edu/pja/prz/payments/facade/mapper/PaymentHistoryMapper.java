@@ -8,7 +8,6 @@ import pl.edu.pja.prz.payments.model.dto.PaymentHistoryDto;
 @Mapper(componentModel = "spring")
 public interface PaymentHistoryMapper {
 
-
     PaymentHistory toPaymentHistory(PaymentHistoryDto paymentHistoryDto);
 
     @InheritInverseConfiguration

@@ -15,5 +15,7 @@ public interface DiscountFacade {
 
     void deleteDiscount(DiscountDto discountDto);
 
+    void deleteDiscount(Long id);
+
     List<DiscountDto> getAllDiscounts();
 }

@@ -5,12 +5,21 @@ import pl.edu.pja.prz.payments.model.enums.TypeDiscount;
 import java.math.BigDecimal;
 
 public class DiscountDto {
+    private Long id;
     private String name;
     private String description;
     private BigDecimal value;
     private TypeDiscount typeDiscount;
 
     public DiscountDto() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

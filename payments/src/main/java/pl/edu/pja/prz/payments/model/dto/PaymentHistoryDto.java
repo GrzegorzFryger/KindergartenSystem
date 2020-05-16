@@ -3,11 +3,12 @@ package pl.edu.pja.prz.payments.model.dto;
 import pl.edu.pja.prz.finances.model.enums.OperationType;
 import pl.edu.pja.prz.payments.model.enums.TypeRecurringPayment;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class PaymentHistoryDto {
-    private LocalDateTime date;
+    private Long id;
+    private LocalDate date;
     private String description;
     private UUID childId;
     private UUID guardianId;
@@ -17,11 +18,19 @@ public class PaymentHistoryDto {
     public PaymentHistoryDto() {
     }
 
-    public LocalDateTime getDate() {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

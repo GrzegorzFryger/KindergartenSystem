@@ -53,6 +53,11 @@ public class DiscountFacadeImpl implements DiscountFacade {
     }
 
     @Override
+    public void deleteDiscount(Long id) {
+        this.discountService.deleteDiscount(id);
+    }
+
+    @Override
     public List<DiscountDto> getAllDiscounts() {
         return this.discountService.getAllDiscount()
                 .stream()

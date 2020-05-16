@@ -12,7 +12,6 @@ import pl.edu.pja.prz.payments.repository.PaymentHistoryRepository;
 import pl.edu.pja.prz.payments.repository.RecurringPaymentRepository;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -83,7 +82,7 @@ public class PaymentDebitService {
 
         paymentHistory.setAmount(operationType == OperationType.DECREASE ? amount.negate() : amount);
 
-        paymentHistory.setDate(LocalDateTime.now());
+        paymentHistory.setDate(LocalDate.now());
         paymentHistory.setTypeRecurringPayment(recurringPayment.getTypeRecurringPayment());
         paymentHistory.setOperationType(operationType);
         paymentHistoryRepository.save(
