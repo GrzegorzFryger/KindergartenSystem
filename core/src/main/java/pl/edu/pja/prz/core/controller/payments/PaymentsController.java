@@ -35,7 +35,7 @@ public class PaymentsController {
 		return new ResponseEntity<>(paymentFacade.findById(id), HttpStatus.OK);
 	}
 
-    @PostMapping("recurring-payments/tuition")
+	@PostMapping("recurring-payment/tuition")
 	public ResponseEntity<RecurringPaymentDto> createTuition(@RequestBody RecurringPaymentDto recurringPaymentDto) {
 		return new ResponseEntity<>(paymentFacade.createTuition(recurringPaymentDto), HttpStatus.OK);
 	}

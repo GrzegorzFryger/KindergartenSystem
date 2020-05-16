@@ -13,6 +13,7 @@ public class Discount extends BaseEntityLong {
 	private String name;
 	private String description;
 	private BigDecimal value;
+	@Enumerated(EnumType.STRING)
 	private TypeDiscount typeDiscount;
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "discount_recurringPayment",

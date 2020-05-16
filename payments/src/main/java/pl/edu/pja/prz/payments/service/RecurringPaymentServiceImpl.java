@@ -29,23 +29,29 @@ public class RecurringPaymentServiceImpl implements RecurringPaymentService {
 
     @Override
     public RecurringPayment createOtherPayment(RecurringPayment recurringPayment) {
-        return this.createOtherPayment(recurringPayment.getChildId(), recurringPayment.getGuardianId(), recurringPayment, recurringPayment.getPeriodValidity());
+        return this.createOtherPayment(recurringPayment.getChildId(), recurringPayment.getGuardianId(), recurringPayment,
+                recurringPayment.getPeriodValidity());
     }
 
     @Override
-    public RecurringPayment createOtherPayment(UUID childId, UUID guardianId, Payment payment, PeriodValidity periodValidity) {
+    public RecurringPayment createOtherPayment(UUID childId, UUID guardianId, Payment payment,
+                                               PeriodValidity periodValidity) {
         return recurringPaymentRepository
                 .save(PaymentFactory.createOtherRecurringPayment(childId, guardianId, payment, periodValidity));
     }
 
     @Override
     public RecurringPayment createTuition(RecurringPayment recurringPayment) {
-        return this.createTuition(recurringPayment.getChildId(), recurringPayment.getGuardianId(), recurringPayment, recurringPayment.getPeriodValidity());
+        return this.createTuition(recurringPayment.getChildId(), recurringPayment.getGuardianId(), recurringPayment,
+                recurringPayment.getPeriodValidity());
     }
 
     @Override
-    public RecurringPayment createTuition(UUID childId, UUID guardianId, Payment payment, PeriodValidity periodValidity) {
-        return recurringPaymentRepository.save(PaymentFactory.createTuitionPayment(childId, guardianId, payment, periodValidity));
+    public RecurringPayment createTuition(UUID childId, UUID guardianId, Payment payment,
+                                          PeriodValidity periodValidity) {
+        return recurringPaymentRepository.save(
+                PaymentFactory.createTuitionPayment(childId, guardianId, payment, periodValidity)
+        );
     }
 
     @Override
