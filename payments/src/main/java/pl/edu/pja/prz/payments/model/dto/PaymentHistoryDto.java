@@ -3,6 +3,7 @@ package pl.edu.pja.prz.payments.model.dto;
 import pl.edu.pja.prz.finances.model.enums.OperationType;
 import pl.edu.pja.prz.payments.model.enums.TypeRecurringPayment;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -14,6 +15,7 @@ public class PaymentHistoryDto {
     private UUID guardianId;
     private TypeRecurringPayment typeRecurringPayment;
     private OperationType operationType;
+    private BigDecimal amount;
 
     public PaymentHistoryDto() {
     }
@@ -72,5 +74,13 @@ public class PaymentHistoryDto {
 
     public void setOperationType(OperationType operationType) {
         this.operationType = operationType;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 }

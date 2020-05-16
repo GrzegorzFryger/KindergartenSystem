@@ -60,6 +60,18 @@ public class Discount extends BaseEntityLong {
 		this.recurringPayments = recurringPayments;
 	}
 
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setValue(BigDecimal value) {
+		this.value = value;
+	}
+
+	public void setTypeDiscount(TypeDiscount typeDiscount) {
+		this.typeDiscount = typeDiscount;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
