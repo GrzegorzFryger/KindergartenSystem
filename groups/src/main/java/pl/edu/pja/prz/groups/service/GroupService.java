@@ -20,7 +20,7 @@ public interface GroupService {
 
 	Group addChildToGroup(Long groupId, Child child);
 
-	void removeChildFromGroup(Long groupId, Child child);
+	void removeChildFromGroup(Long groupId, UUID childId);
 
 	List<UUID> findIdOfAllChildrenInGroup(Long groupId);
 
