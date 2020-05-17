@@ -135,7 +135,7 @@ public class GroupFacadeTest {
 		facade.removeChildFromGroup(1L, childId);
 
 		//Then
-		verify(groupService, times(1)).removeChildFromGroup(anyLong(), any(Child.class));
+		verify(groupService, times(1)).removeChildFromGroup(anyLong(), any(UUID.class));
 	}
 
 	@Test
