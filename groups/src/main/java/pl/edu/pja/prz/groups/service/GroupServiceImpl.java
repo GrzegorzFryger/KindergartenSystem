@@ -73,10 +73,20 @@ public class GroupServiceImpl implements GroupService {
 	}
 
 	@Override
-	public void removeChildFromGroup(Long groupId, Child child) {
+	public void removeChildFromGroup(Long groupId, UUID childId) {
 		Group groupToRemoveChild = groupRepository.findById(groupId).orElseThrow(
 				() -> new ElementNotFoundException(GROUP, groupId));
-		groupToRemoveChild.removeChild(child);
+
+		Child childToRemove = null;
+
+		for (Child child : groupToRemoveChild.getChildren()) {
+			if (child.getId().equals(childId)) {
+				childToRemove = child;
+			}
+		}
+		if (childToRemove != null) {
+			groupToRemoveChild.removeChild(childToRemove);
+		}
 		groupRepository.save(groupToRemoveChild);
 	}
 
