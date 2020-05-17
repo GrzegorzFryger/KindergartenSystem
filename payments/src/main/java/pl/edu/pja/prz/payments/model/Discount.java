@@ -12,6 +12,7 @@ import java.util.Set;
 public class Discount extends BaseEntityLong {
 	private String name;
 	private String description;
+	@Column(columnDefinition = "Decimal(10,2) default '0.00'")
 	private BigDecimal value;
 	@Enumerated(EnumType.STRING)
 	private TypeDiscount typeDiscount;

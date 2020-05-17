@@ -24,7 +24,7 @@ public class PaymentHistoryFacade {
     }
 
     public List<PaymentHistoryDto> getAllHistoryOfChild(UUID childId) {
-        return this.paymentHistoryService.getAllHistoryOfChild(childId)
+        return this.paymentHistoryService.getAllActiveHistoryOfChild(childId)
                 .stream()
                 .map(this.paymentHistoryMapper::fromPaymentHistory)
                 .collect(Collectors.toList());

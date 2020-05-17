@@ -9,7 +9,7 @@ import pl.edu.pja.prz.payments.model.Discount;
 import pl.edu.pja.prz.payments.model.Payment;
 import pl.edu.pja.prz.payments.model.PaymentFactory;
 import pl.edu.pja.prz.payments.model.RecurringPayment;
-import pl.edu.pja.prz.payments.model.enums.Status;
+import pl.edu.pja.prz.payments.model.enums.StatusPayment;
 import pl.edu.pja.prz.payments.model.enums.TypeDiscount;
 import pl.edu.pja.prz.payments.model.value.Child;
 import pl.edu.pja.prz.payments.model.value.PeriodValidity;
@@ -80,7 +80,7 @@ class RecurringPaymentServiceImplTest {
 		//given
 		var payment = new RecurringPayment();
 		payment.setId(1L);
-		payment.setStatus(Status.ACTIVE);
+        payment.setStatusPayment(StatusPayment.ACTIVE);
 		payment.setBaseAmount(new BigDecimal("50.0"));
 		payment.setDescription( "Test payment");
 		payment.setPeriodValidity(periodValidity);
@@ -97,7 +97,7 @@ class RecurringPaymentServiceImplTest {
 		//given
 		var payment = new RecurringPayment();
 		payment.setId(1L);
-		payment.setStatus(Status.ACTIVE);
+        payment.setStatusPayment(StatusPayment.ACTIVE);
 		payment.setBaseAmount(new BigDecimal("50.0"));
 		payment.setDescription( "Test payment");
 		payment.setPeriodValidity(periodValidity);
@@ -114,7 +114,7 @@ class RecurringPaymentServiceImplTest {
 		verify(mockPayment, times(1)).setBaseAmount(any());
 		verify(mockPayment, times(1)).setDescription(any());
 		verify(mockPayment, times(1)).setPeriodValidity(any());
-		verify(mockPayment, times(1)).setStatus(any());
+        verify(mockPayment, times(1)).setStatusPayment(any());
 	}
 
 	@Test
@@ -132,7 +132,7 @@ class RecurringPaymentServiceImplTest {
 		recurringPaymentService.markAsCancelPayment(1L);
 
 		//then
-		assertEquals(Status.CANCELED, payment.getStatus());
+        assertEquals(StatusPayment.CANCELED, payment.getStatusPayment());
 		verify(recurringPaymentRepository, times(1)).save(any());
 		verify(recurringPaymentRepository, times(1)).findById(1L);
 

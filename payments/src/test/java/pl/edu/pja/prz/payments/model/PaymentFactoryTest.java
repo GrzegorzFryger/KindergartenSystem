@@ -2,7 +2,7 @@ package pl.edu.pja.prz.payments.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pl.edu.pja.prz.payments.model.enums.Status;
+import pl.edu.pja.prz.payments.model.enums.StatusPayment;
 import pl.edu.pja.prz.payments.model.enums.TypeRecurringPayment;
 import pl.edu.pja.prz.payments.model.value.Child;
 import pl.edu.pja.prz.payments.model.value.PeriodValidity;
@@ -39,7 +39,7 @@ class PaymentFactoryTest {
 		tuition.setBaseAmount(payment.getBaseAmount());
 		tuition.setPeriodValidity(periodValidity);
 		tuition.setTypeRecurringPayment(TypeRecurringPayment.TUITION);
-		tuition.setStatus(Status.NONACTIVE);
+        tuition.setStatusPayment(StatusPayment.NONACTIVE);
 
 		//when
 		var createdTuition = PaymentFactory.createTuitionPayment(childId, guardianId, payment, periodValidity);
@@ -60,7 +60,7 @@ class PaymentFactoryTest {
 		tuition.setBaseAmount(payment.getBaseAmount());
 		tuition.setPeriodValidity(periodValidity);
 		tuition.setTypeRecurringPayment(TypeRecurringPayment.OTHER);
-		tuition.setStatus(Status.NONACTIVE);
+        tuition.setStatusPayment(StatusPayment.NONACTIVE);
 		//when
 		var createdTuition = PaymentFactory.createOtherRecurringPayment(childId, guardianId, payment, periodValidity);
 		//then

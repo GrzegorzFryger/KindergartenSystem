@@ -2,6 +2,7 @@ package pl.edu.pja.prz.payments.service;
 
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.payments.model.PaymentHistory;
+import pl.edu.pja.prz.payments.model.enums.StatusHistoryPayment;
 import pl.edu.pja.prz.payments.repository.PaymentHistoryRepository;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class PaymentHistoryService {
         this.paymentHistoryRepository = paymentHistoryRepository;
     }
 
-    public List<PaymentHistory> getAllHistoryOfChild(UUID childId) {
-        return this.paymentHistoryRepository.findAllByChildId(childId);
+    public List<PaymentHistory> getAllActiveHistoryOfChild(UUID childId) {
+        return this.paymentHistoryRepository.findAllByChildIdAndStatus(childId, StatusHistoryPayment.ACTIVE);
     }
 }

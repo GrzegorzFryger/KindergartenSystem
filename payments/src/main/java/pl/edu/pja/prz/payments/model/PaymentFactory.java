@@ -1,13 +1,13 @@
 package pl.edu.pja.prz.payments.model;
 
-import pl.edu.pja.prz.payments.model.enums.Status;
+import pl.edu.pja.prz.payments.model.enums.StatusPayment;
 import pl.edu.pja.prz.payments.model.enums.TypeRecurringPayment;
 import pl.edu.pja.prz.payments.model.value.PeriodValidity;
 
 import java.util.UUID;
 
 public class PaymentFactory {
-    private static final Status STATUS = Status.NONACTIVE;
+    private static final StatusPayment STATUS_PAYMENT = StatusPayment.NONACTIVE;
 
     private PaymentFactory() {
     }
@@ -20,7 +20,7 @@ public class PaymentFactory {
         tuition.setBaseAmount(payment.getBaseAmount());
         tuition.setPeriodValidity(periodValidity);
         tuition.setTypeRecurringPayment(TypeRecurringPayment.TUITION);
-        tuition.setStatus(STATUS);
+        tuition.setStatusPayment(STATUS_PAYMENT);
         return tuition;
     }
 
@@ -32,7 +32,7 @@ public class PaymentFactory {
         tuition.setBaseAmount(payment.getBaseAmount());
         tuition.setPeriodValidity(periodValidity);
         tuition.setTypeRecurringPayment(TypeRecurringPayment.OTHER);
-        tuition.setStatus(STATUS);
+        tuition.setStatusPayment(STATUS_PAYMENT);
         return tuition;
     }
 

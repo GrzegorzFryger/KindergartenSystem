@@ -3,11 +3,13 @@ package pl.edu.pja.prz.payments.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.finances.facade.FinancesFacade;
 import pl.edu.pja.prz.finances.model.enums.OperationType;
 import pl.edu.pja.prz.payments.model.PaymentHistory;
 import pl.edu.pja.prz.payments.model.RecurringPayment;
-import pl.edu.pja.prz.payments.model.enums.Status;
+import pl.edu.pja.prz.payments.model.enums.StatusHistoryPayment;
+import pl.edu.pja.prz.payments.model.enums.StatusPayment;
 import pl.edu.pja.prz.payments.repository.PaymentHistoryRepository;
 import pl.edu.pja.prz.payments.repository.RecurringPaymentRepository;
 
@@ -30,7 +32,7 @@ public class PaymentDebitService {
     }
 
     public List<RecurringPayment> chargeTuitionFee() {
-        return this.recurringPaymentRepository.findAllByStatus(Status.ACTIVE)
+        return this.recurringPaymentRepository.findAllByStatusPayment(StatusPayment.ACTIVE)
                 .stream()
                 .filter(this::filterActivePayments)
                 .peek(this::decreaseBalance)
@@ -46,6 +48,21 @@ public class PaymentDebitService {
                 paymentHistory.getAmount(),
                 paymentHistory.getDescription()
         );
+
+        paymentHistoryRepository.findById(paymentHistory.getId()).ifPresentOrElse(history -> {
+            this.financesFacade.applyLiabilitiesBalanceCorrection(
+                    paymentHistory.getChildId(),
+                    paymentHistory.getAmount(),
+                    paymentHistory.getDescription()
+            );
+
+            history.setStatus(StatusHistoryPayment.DELETED);
+
+            this.paymentHistoryRepository.save(history);
+
+        }, () -> {
+            throw new ElementNotFoundException("Employee", "Not found with id" + paymentHistory.getChildId());
+        });
 
     }
 
@@ -85,6 +102,7 @@ public class PaymentDebitService {
         paymentHistory.setDate(LocalDate.now());
         paymentHistory.setTypeRecurringPayment(recurringPayment.getTypeRecurringPayment());
         paymentHistory.setOperationType(operationType);
+        paymentHistory.setStatus(StatusHistoryPayment.ACTIVE);
         paymentHistoryRepository.save(
                 paymentHistory
         );

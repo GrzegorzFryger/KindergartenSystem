@@ -6,7 +6,7 @@ import pl.edu.pja.prz.payments.model.Discount;
 import pl.edu.pja.prz.payments.model.Payment;
 import pl.edu.pja.prz.payments.model.PaymentFactory;
 import pl.edu.pja.prz.payments.model.RecurringPayment;
-import pl.edu.pja.prz.payments.model.enums.Status;
+import pl.edu.pja.prz.payments.model.enums.StatusPayment;
 import pl.edu.pja.prz.payments.model.value.PeriodValidity;
 import pl.edu.pja.prz.payments.repository.DiscountRepository;
 import pl.edu.pja.prz.payments.repository.RecurringPaymentRepository;
@@ -78,8 +78,8 @@ public class RecurringPaymentServiceImpl implements RecurringPaymentService {
             if (recurringPayment.getPeriodValidity() != null) {
                 payment.setPeriodValidity(recurringPayment.getPeriodValidity());
             }
-            if (recurringPayment.getStatus() != null) {
-                payment.setStatus(recurringPayment.getStatus());
+            if (recurringPayment.getStatusPayment() != null) {
+                payment.setStatusPayment(recurringPayment.getStatusPayment());
             }
             return recurringPaymentRepository.save(payment);
         }).orElseThrow(() -> new IllegalArgumentException("Not found payment with id " + recurringPayment.getId()));
@@ -88,7 +88,7 @@ public class RecurringPaymentServiceImpl implements RecurringPaymentService {
     @Override
     public RecurringPayment markAsCancelPayment(Long paymentId) {
         return recurringPaymentRepository.findById(paymentId).map(payment -> {
-            payment.setStatus(Status.CANCELED);
+            payment.setStatusPayment(StatusPayment.CANCELED);
             return recurringPaymentRepository.save(payment);
         }).orElseThrow(() -> {
             throw new IllegalArgumentException("Not found payment with id " + paymentId);

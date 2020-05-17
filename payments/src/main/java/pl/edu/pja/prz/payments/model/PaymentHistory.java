@@ -3,6 +3,7 @@ package pl.edu.pja.prz.payments.model;
 import org.hibernate.annotations.Type;
 import pl.edu.pja.prz.commons.model.BaseEntityLong;
 import pl.edu.pja.prz.finances.model.enums.OperationType;
+import pl.edu.pja.prz.payments.model.enums.StatusHistoryPayment;
 import pl.edu.pja.prz.payments.model.enums.TypeRecurringPayment;
 
 import javax.persistence.Column;
@@ -26,7 +27,10 @@ public class PaymentHistory extends BaseEntityLong {
     private UUID guardianId;
     @Enumerated(EnumType.STRING)
     private TypeRecurringPayment typeRecurringPayment;
+    @Enumerated(EnumType.STRING)
     private OperationType operationType;
+    @Enumerated(EnumType.STRING)
+    private StatusHistoryPayment status;
 
     public PaymentHistory() {
     }
@@ -87,6 +91,14 @@ public class PaymentHistory extends BaseEntityLong {
         this.operationType = operationType;
     }
 
+    public StatusHistoryPayment getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusHistoryPayment status) {
+        this.status = status;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -103,7 +115,8 @@ public class PaymentHistory extends BaseEntityLong {
         if (getGuardianId() != null ? !getGuardianId().equals(that.getGuardianId()) : that.getGuardianId() != null)
             return false;
         if (getTypeRecurringPayment() != that.getTypeRecurringPayment()) return false;
-        return getOperationType() == that.getOperationType();
+        if (getOperationType() != that.getOperationType()) return false;
+        return getStatus() == that.getStatus();
     }
 
     @Override
@@ -116,6 +129,7 @@ public class PaymentHistory extends BaseEntityLong {
         result = 31 * result + (getGuardianId() != null ? getGuardianId().hashCode() : 0);
         result = 31 * result + (getTypeRecurringPayment() != null ? getTypeRecurringPayment().hashCode() : 0);
         result = 31 * result + (getOperationType() != null ? getOperationType().hashCode() : 0);
+        result = 31 * result + (getStatus() != null ? getStatus().hashCode() : 0);
         return result;
     }
 }

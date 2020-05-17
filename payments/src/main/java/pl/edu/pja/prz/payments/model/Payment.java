@@ -16,7 +16,7 @@ public class Payment extends BaseEntityLong {
 	@Type(type = "uuid-char")
 	@Column(length = 36)
 	private UUID guardianId;
-
+    @Column(columnDefinition = "Decimal(10,2) default '0.00'")
 	private BigDecimal baseAmount;
 	private String description;
 

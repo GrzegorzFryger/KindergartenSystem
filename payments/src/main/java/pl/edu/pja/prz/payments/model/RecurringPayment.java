@@ -1,6 +1,6 @@
 package pl.edu.pja.prz.payments.model;
 
-import pl.edu.pja.prz.payments.model.enums.Status;
+import pl.edu.pja.prz.payments.model.enums.StatusPayment;
 import pl.edu.pja.prz.payments.model.enums.TypeRecurringPayment;
 import pl.edu.pja.prz.payments.model.value.PeriodValidity;
 
@@ -14,7 +14,7 @@ public class RecurringPayment extends Payment implements DiscountCalculator {
 	@ManyToMany(mappedBy = "recurringPayments", fetch = FetchType.EAGER)
 	private Set<Discount> discounts = new HashSet<>();
 	@Enumerated(EnumType.STRING)
-	private Status status;
+	private StatusPayment statusPayment;
 	@Enumerated(EnumType.STRING)
 	private TypeRecurringPayment typeRecurringPayment;
 
@@ -40,12 +40,12 @@ public class RecurringPayment extends Payment implements DiscountCalculator {
 		this.discounts = discounts;
 	}
 
-	public Status getStatus() {
-		return status;
+	public StatusPayment getStatusPayment() {
+		return statusPayment;
 	}
 
-	public void setStatus(Status status) {
-		this.status = status;
+	public void setStatusPayment(StatusPayment statusPayment) {
+		this.statusPayment = statusPayment;
 	}
 
 	public TypeRecurringPayment getTypeRecurringPayment() {
@@ -86,7 +86,7 @@ public class RecurringPayment extends Payment implements DiscountCalculator {
 			return false;
 		if (getDiscounts() != null ? !getDiscounts().equals(that.getDiscounts()) : that.getDiscounts() != null)
 			return false;
-		if (getStatus() != that.getStatus()) return false;
+		if (getStatusPayment() != that.getStatusPayment()) return false;
 		return getTypeRecurringPayment() == that.getTypeRecurringPayment();
 	}
 
@@ -95,7 +95,7 @@ public class RecurringPayment extends Payment implements DiscountCalculator {
 		int result = super.hashCode();
 		result = 31 * result + (getPeriodValidity() != null ? getPeriodValidity().hashCode() : 0);
 		result = 31 * result + (getDiscounts() != null ? getDiscounts().hashCode() : 0);
-		result = 31 * result + (getStatus() != null ? getStatus().hashCode() : 0);
+		result = 31 * result + (getStatusPayment() != null ? getStatusPayment().hashCode() : 0);
 		result = 31 * result + (getTypeRecurringPayment() != null ? getTypeRecurringPayment().hashCode() : 0);
 		return result;
 	}
