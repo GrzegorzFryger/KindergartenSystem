@@ -76,9 +76,7 @@ public class GroupFacadeImpl implements GroupFacade {
 
 	@Override
 	public void removeChildFromGroup(Long groupId, UUID childId) {
-		Child childToRemove = groupMapper.toChild(
-				childFacade.findChildById(childId));
-		groupService.removeChildFromGroup(groupId, childToRemove);
+		groupService.removeChildFromGroup(groupId, childId);
 	}
 
 	@Override

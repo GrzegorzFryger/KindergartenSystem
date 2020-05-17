@@ -129,13 +129,12 @@ public class GroupFacadeTest {
 	public void shouldRemoveChildFromGroup() {
 		//Given
 		UUID childId = UUID.randomUUID();
-		when(childFacade.findChildById(any(UUID.class))).thenReturn(childDto);
 
 		//When
 		facade.removeChildFromGroup(1L, childId);
 
 		//Then
-		verify(groupService, times(1)).removeChildFromGroup(anyLong(), any(Child.class));
+		verify(groupService, times(1)).removeChildFromGroup(anyLong(), any(UUID.class));
 	}
 
 	@Test
