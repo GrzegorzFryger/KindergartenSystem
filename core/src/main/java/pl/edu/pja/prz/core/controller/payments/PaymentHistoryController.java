@@ -25,6 +25,11 @@ public class PaymentHistoryController {
         return new ResponseEntity<>(this.paymentHistoryFacade.getAllHistoryOfChild(childId), HttpStatus.OK);
     }
 
+    @GetMapping("payments-history/month")
+    public ResponseEntity<List<PaymentHistoryDto>> getAllPaymentsHistoryFromMonth() {
+        return new ResponseEntity<>(this.paymentHistoryFacade.getAllPaymentsHistoryFromMonth(), HttpStatus.OK);
+    }
+
     @PostMapping("payment-history/balance-correction")
     public ResponseEntity applyBalanceCorrectionForPayment(@RequestBody PaymentHistoryDto paymentHistoryDto) {
         this.paymentHistoryFacade.applyBalanceCorrectionForPayment(paymentHistoryDto);

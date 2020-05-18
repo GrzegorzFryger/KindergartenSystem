@@ -36,4 +36,10 @@ public class PaymentHistoryFacade {
         );
     }
 
+    public List<PaymentHistoryDto> getAllPaymentsHistoryFromMonth() {
+        return this.paymentHistoryService.getAllPaymentsHistoryLastMonth()
+                .stream()
+                .map(this.paymentHistoryMapper::fromPaymentHistory)
+                .collect(Collectors.toList());
+    }
 }

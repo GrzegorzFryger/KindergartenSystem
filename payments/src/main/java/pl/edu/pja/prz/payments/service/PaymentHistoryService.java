@@ -5,6 +5,7 @@ import pl.edu.pja.prz.payments.model.PaymentHistory;
 import pl.edu.pja.prz.payments.model.enums.StatusHistoryPayment;
 import pl.edu.pja.prz.payments.repository.PaymentHistoryRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,5 +19,10 @@ public class PaymentHistoryService {
 
     public List<PaymentHistory> getAllActiveHistoryOfChild(UUID childId) {
         return this.paymentHistoryRepository.findAllByChildIdAndStatus(childId, StatusHistoryPayment.ACTIVE);
+    }
+
+    public List<PaymentHistory> getAllPaymentsHistoryLastMonth() {
+        var today = LocalDate.now();
+        return this.paymentHistoryRepository.findAllByDateBetween(today.minusDays(30), today);
     }
 }
