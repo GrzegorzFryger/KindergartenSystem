@@ -26,7 +26,12 @@ public class DiscountServiceImpl implements DiscountService {
 	public Discount updateDiscount(Discount discount) {
 		return discountRepository.findById(discount.getId())
 				.map(discount1 -> {
-					discount1 = discount;
+
+					discount1.setDescription(discount.getDescription());
+					discount1.setName(discount.getName());
+					discount1.setValue(discount.getValue());
+					discount1.setTypeDiscount(discount.getTypeDiscount());
+
 					return discountRepository.save(discount1);
 				}).orElseThrow(() -> new ElementNotFoundException(discount.getId()));
 	}
