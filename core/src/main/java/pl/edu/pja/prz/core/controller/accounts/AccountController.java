@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.pja.prz.account.facade.AccountCredentialFacade;
 import pl.edu.pja.prz.account.facade.AccountFacade;
+import pl.edu.pja.prz.account.model.Person;
 import pl.edu.pja.prz.account.model.dto.AccountActivateDto;
 import pl.edu.pja.prz.account.model.dto.AccountDto;
 
@@ -40,6 +41,14 @@ public class AccountController {
     public ResponseEntity<Boolean> activateAccount(@RequestBody AccountActivateDto accountActivateDto) {
 		return new ResponseEntity<>(this.accountCredentialFacade.activateAccount(accountActivateDto), HttpStatus.OK );
 	}
+
+	@PutMapping()
+	public ResponseEntity<Person> updatePersonalData(@RequestBody Person person) {
+		return new ResponseEntity<>(accountFacade.updatePersonalData(person), HttpStatus.OK );
+	}
+
+
+
 
 
 }
