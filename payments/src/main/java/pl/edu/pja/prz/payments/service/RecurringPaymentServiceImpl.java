@@ -69,7 +69,7 @@ public class RecurringPaymentServiceImpl implements RecurringPaymentService {
     @Override
     public RecurringPayment updatePayment(RecurringPayment recurringPayment) {
         return recurringPaymentRepository.findById(recurringPayment.getId()).map(payment -> {
-            if (recurringPayment.getDiscounts() != null) {
+            if (recurringPayment.getBaseAmount() != null) {
                 payment.setBaseAmount(recurringPayment.getBaseAmount());
             }
             if (recurringPayment.getDescription() != null) {
@@ -106,12 +106,12 @@ public class RecurringPaymentServiceImpl implements RecurringPaymentService {
     }
 
     @Override
-    public Set<Discount> addDiscountsToPayment(UUID childId, Long discountId) {
+    public Discount addDiscountToPayment(UUID childId, Long discountId) {
         return menageRecurringPaymentDiscounts(childId, discountId, false);
     }
 
     @Override
-    public Set<Discount> removeDiscountsFromPayment(UUID childId, Long discountId) {
+    public Discount removeDiscountsFromPayment(UUID childId, Long discountId) {
         return menageRecurringPaymentDiscounts(childId, discountId, true);
     }
 
@@ -120,17 +120,17 @@ public class RecurringPaymentServiceImpl implements RecurringPaymentService {
         return this.recurringPaymentRepository.findAllByChildId(childId);
     }
 
-    private Set<Discount> menageRecurringPaymentDiscounts(UUID childId, Long discountId, boolean remove) {
+    private Discount menageRecurringPaymentDiscounts(UUID childId, Long discountId, boolean remove) {
         return discountRepository.findById(discountId).map(discount ->
                 recurringPaymentRepository.findActiveByChildId(childId).map(
                         payment -> {
                             if (remove) {
-                                payment.removeDiscount(discount);
+                                payment.setDiscount(null);
                             } else {
-                                payment.addDiscount(discount);
+                                payment.setDiscount(discount);
                             }
                             recurringPaymentRepository.save(payment);
-                            return payment.getDiscounts();
+                            return payment.getDiscount();
                         }
                 ).orElseThrow(() -> new IllegalArgumentException("Not found payment with child id " + childId))
         ).orElseThrow(() -> new IllegalArgumentException("Not found discount with id " + discountId));

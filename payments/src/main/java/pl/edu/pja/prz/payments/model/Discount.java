@@ -16,10 +16,7 @@ public class Discount extends BaseEntityLong {
 	private BigDecimal value;
 	@Enumerated(EnumType.STRING)
 	private TypeDiscount typeDiscount;
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "discount_recurringPayment",
-			joinColumns = { @JoinColumn(name = "fk_discount ") },
-			inverseJoinColumns = { @JoinColumn(name = "fk_recurringPayment") })
+	@OneToMany(cascade = CascadeType.ALL)
 	private Set<RecurringPayment> recurringPayments = new HashSet<>();
 
 	public Discount() {

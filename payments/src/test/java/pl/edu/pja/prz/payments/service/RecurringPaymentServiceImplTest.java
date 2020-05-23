@@ -156,17 +156,17 @@ class RecurringPaymentServiceImplTest {
 		when(discountRepository.findById(1L)).thenReturn(Optional.of(discount));
 		when(recurringPaymentRepository.findActiveByChildId(any())).thenReturn(Optional.of(mockPayment));
 		when(recurringPaymentRepository.save(any())).thenReturn(mockPayment);
-		when(mockPayment.getDiscounts()).thenReturn(Set.of(discount));
+		when(mockPayment.getDiscount()).thenReturn(discount);
 
-		var discounts = recurringPaymentService
-				.addDiscountsToPayment(new UUID(1L, 2L), 1L);
+		var result = recurringPaymentService
+				.addDiscountToPayment(new UUID(1L, 2L), 1L);
 
 		//then
-		assertEquals(Set.of(discount), discounts);
+		assertEquals(discount, result);
 		verify(recurringPaymentRepository, times(1)).save(mockPayment);
 		verify(recurringPaymentRepository, times(1)).findActiveByChildId(any());
-		verify(mockPayment, times(1)).getDiscounts();
-		verify(mockPayment, times(1)).addDiscount(any());
+		verify(mockPayment, times(1)).getDiscount();
+		verify(mockPayment, times(1)).setDiscount(any());
 		verify(discountRepository, times(1)).findById(1L);
 	}
 
@@ -179,17 +179,17 @@ class RecurringPaymentServiceImplTest {
 		when(discountRepository.findById(1L)).thenReturn(Optional.of(discount));
 		when(recurringPaymentRepository.findActiveByChildId(any())).thenReturn(Optional.of(mockPayment));
 		when(recurringPaymentRepository.save(any())).thenReturn(mockPayment);
-		when(mockPayment.getDiscounts()).thenReturn(Set.of(discount));
+		when(mockPayment.getDiscount()).thenReturn(discount);
 
-		var discounts = recurringPaymentService
+		var result = recurringPaymentService
 				.removeDiscountsFromPayment(new UUID(1L, 2L), 1L);
 
 		//then
-		assertEquals(Set.of(discount), discounts);
+		assertEquals(discount, result);
 		verify(recurringPaymentRepository, times(1)).save(mockPayment);
 		verify(recurringPaymentRepository, times(1)).findActiveByChildId(any());
-		verify(mockPayment, times(1)).getDiscounts();
-		verify(mockPayment, times(1)).removeDiscount(any());
+		verify(mockPayment, times(1)).getDiscount();
+		verify(mockPayment, times(1)).setDiscount(any());
 		verify(discountRepository, times(1)).findById(1L);
 	}
 

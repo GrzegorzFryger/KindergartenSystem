@@ -32,9 +32,9 @@ public interface RecurringPaymentService {
 
 	void deletePayment(Long id);
 
-	Set<Discount> addDiscountsToPayment(UUID childId, Long discountId);
+	Discount addDiscountToPayment(UUID childId, Long discountId);
 
-	Set<Discount> removeDiscountsFromPayment(UUID childId, Long discountId);
+	Discount removeDiscountsFromPayment(UUID childId, Long discountId);
 
 	List<RecurringPayment> findAllByChildren(UUID childId);
 }
