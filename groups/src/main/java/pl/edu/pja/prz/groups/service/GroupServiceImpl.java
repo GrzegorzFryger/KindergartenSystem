@@ -1,7 +1,5 @@
 package pl.edu.pja.prz.groups.service;
 
-import org.hibernate.Session;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
@@ -9,6 +7,7 @@ import pl.edu.pja.prz.groups.model.Child;
 import pl.edu.pja.prz.groups.model.Group;
 import pl.edu.pja.prz.groups.repository.GroupRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -17,8 +16,8 @@ import java.util.stream.Collectors;
 @Service
 public class GroupServiceImpl implements GroupService {
 	private static final String GROUP = "Group";
+
 	private final GroupRepository groupRepository;
-	private Session session;
 
 	@Autowired
 	public GroupServiceImpl(GroupRepository groupRepository) {
@@ -103,11 +102,6 @@ public class GroupServiceImpl implements GroupService {
 
 	@Override
 	public List<Group> getGroupsForChild(UUID childId) {
-		Query query = session.createNamedQuery("Group_getGroupsForChild");
-		query.setParameter("id", childId.toString());
-		List<Group> groups;
-		groups = query.getResultList();
-
-		return groups;
+		return new ArrayList<>();
 	}
 }
