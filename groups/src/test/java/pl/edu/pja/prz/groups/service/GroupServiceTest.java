@@ -10,7 +10,6 @@ import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.groups.model.Child;
 import pl.edu.pja.prz.groups.model.Group;
 import pl.edu.pja.prz.groups.model.GroupBuilder;
-import pl.edu.pja.prz.groups.repository.GroupChildrenRepository;
 import pl.edu.pja.prz.groups.repository.GroupRepository;
 
 import java.util.*;
@@ -22,14 +21,12 @@ class GroupServiceTest {
 	private Group group;
 	@Mock
 	private GroupRepository repository;
-	@Mock
-	private GroupChildrenRepository groupChildrenRepository;
 	private GroupServiceImpl service;
 	private Child child;
 
 	@BeforeEach
 	void setUp() {
-		service = new GroupServiceImpl(repository, groupChildrenRepository);
+		service = new GroupServiceImpl(repository);
 		group = new GroupBuilder()
 				.withGroupName("Group name")
 				.withGroupDescription("Group Description")

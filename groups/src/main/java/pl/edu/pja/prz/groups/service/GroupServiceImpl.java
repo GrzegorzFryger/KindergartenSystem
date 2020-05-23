@@ -1,11 +1,12 @@
 package pl.edu.pja.prz.groups.service;
 
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.groups.model.Child;
 import pl.edu.pja.prz.groups.model.Group;
-import pl.edu.pja.prz.groups.repository.GroupChildrenRepository;
 import pl.edu.pja.prz.groups.repository.GroupRepository;
 
 import java.util.List;
@@ -16,15 +17,12 @@ import java.util.stream.Collectors;
 @Service
 public class GroupServiceImpl implements GroupService {
 	private static final String GROUP = "Group";
-	private static final String CHILD = "Child";
-
 	private final GroupRepository groupRepository;
-	private final GroupChildrenRepository groupChildrenRepository;
+	private Session session;
 
 	@Autowired
-	public GroupServiceImpl(GroupRepository groupRepository, GroupChildrenRepository groupChildrenRepository) {
+	public GroupServiceImpl(GroupRepository groupRepository) {
 		this.groupRepository = groupRepository;
-		this.groupChildrenRepository = groupChildrenRepository;
 	}
 
 	@Override
@@ -105,9 +103,11 @@ public class GroupServiceImpl implements GroupService {
 
 	@Override
 	public List<Group> getGroupsForChild(UUID childId) {
-		Child childToGetGroups = this.groupChildrenRepository.findById(childId).orElseThrow(
-				() -> new ElementNotFoundException(CHILD, childId));
-		List<Group> groups = childToGetGroups.getGroups();
+		Query query = session.createNamedQuery("Group_getGroupsForChild");
+		query.setParameter("id", childId.toString());
+		List<Group> groups;
+		groups = query.getResultList();
+
 		return groups;
 	}
 }

@@ -7,6 +7,16 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+@org.hibernate.annotations.NamedNativeQueries(
+		@org.hibernate.annotations.NamedNativeQuery(name = "Group_getGroupsForChild",
+				query = "SELECT g.id, g.groupDescription, g.groupName\n" +
+						"FROM classrooms.classroom as g\n" +
+						"INNER JOIN classrooms.classroom_child as gc\n" +
+						"\tON g.id = gc.group_id\n" +
+						"INNER JOIN classrooms.child as c\n" +
+						"\tON gc.child_id = c.id\n" +
+						"WHERE c.id = :id", resultClass = Group.class)
+)
 @Entity
 @Table(name = "classroom", schema = "classrooms")
 public class Group extends BaseEntityLong {
