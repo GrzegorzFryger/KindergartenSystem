@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.groups.model.Child;
 import pl.edu.pja.prz.groups.model.Group;
-import pl.edu.pja.prz.groups.repository.ChildRepository;
+import pl.edu.pja.prz.groups.repository.GroupChildrenRepository;
 import pl.edu.pja.prz.groups.repository.GroupRepository;
 
 import java.util.List;
@@ -19,12 +19,12 @@ public class GroupServiceImpl implements GroupService {
 	private static final String CHILD = "Child";
 
 	private final GroupRepository groupRepository;
-	private final ChildRepository childRepository;
+	private final GroupChildrenRepository groupChildrenRepository;
 
 	@Autowired
-	public GroupServiceImpl(GroupRepository groupRepository, ChildRepository childRepository) {
+	public GroupServiceImpl(GroupRepository groupRepository, GroupChildrenRepository groupChildrenRepository) {
 		this.groupRepository = groupRepository;
-		this.childRepository = childRepository;
+		this.groupChildrenRepository = groupChildrenRepository;
 	}
 
 	@Override
@@ -105,7 +105,7 @@ public class GroupServiceImpl implements GroupService {
 
 	@Override
 	public List<Group> getGroupsForChild(UUID childId) {
-		Child childToGetGroups = this.childRepository.findById(childId).orElseThrow(
+		Child childToGetGroups = this.groupChildrenRepository.findById(childId).orElseThrow(
 				() -> new ElementNotFoundException(CHILD, childId));
 		List<Group> groups = childToGetGroups.getGroups();
 		return groups;

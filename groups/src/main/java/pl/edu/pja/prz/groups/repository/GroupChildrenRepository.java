@@ -7,6 +7,6 @@ import pl.edu.pja.prz.groups.model.Child;
 import java.util.UUID;
 
 @Repository
-public interface ChildRepository extends JpaRepository<Child, UUID> {
+public interface GroupChildrenRepository extends JpaRepository<Child, UUID> {
 
 }
