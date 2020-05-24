@@ -81,6 +81,9 @@ public class RecurringPaymentServiceImpl implements RecurringPaymentService {
             if (recurringPayment.getStatusPayment() != null) {
                 payment.setStatusPayment(recurringPayment.getStatusPayment());
             }
+            if (recurringPayment.getDiscount() != null) {
+                payment.setDiscount(recurringPayment.getDiscount());
+            }
             return recurringPaymentRepository.save(payment);
         }).orElseThrow(() -> new IllegalArgumentException("Not found payment with id " + recurringPayment.getId()));
     }
