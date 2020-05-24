@@ -89,4 +89,11 @@ public class GroupFacadeImpl implements GroupFacade {
 		}
 		return result;
 	}
+
+	@Override
+	public List<GroupDto> getAllGroupsForChild(UUID childId) {
+		return groupMapper.groupListToDtoList(
+				groupService.getGroupsForChild(childId)
+		);
+	}
 }
