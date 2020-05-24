@@ -25,4 +25,6 @@ public interface GroupFacade {
 
 	Set<ChildDto> findAllChildrenInGroup(Long groupId);
 
+	List<GroupDto> getAllGroupsForChild(UUID childId);
+
 }

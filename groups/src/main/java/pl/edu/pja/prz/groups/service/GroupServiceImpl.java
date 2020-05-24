@@ -7,6 +7,7 @@ import pl.edu.pja.prz.groups.model.Child;
 import pl.edu.pja.prz.groups.model.Group;
 import pl.edu.pja.prz.groups.repository.GroupRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -97,5 +98,10 @@ public class GroupServiceImpl implements GroupService {
 		Set<Child> children = groupToRead.getChildren();
 		List<UUID> childrenIds = children.stream().map(Child::getId).collect(Collectors.toList());
 		return childrenIds;
+	}
+
+	@Override
+	public List<Group> getGroupsForChild(UUID childId) {
+		return groupRepository.getAllGroupsAssignedToChild(childId.toString());
 	}
 }
