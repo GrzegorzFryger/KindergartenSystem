@@ -17,7 +17,8 @@ import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.only;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static pl.edu.pja.prz.core.controller.RequestMappings.API_GROUPS;
 import static pl.edu.pja.prz.core.util.JsonUtil.convertToJson;
@@ -145,5 +146,18 @@ public class GroupsControllerTest {
 
 		//Then
 		verify(groupFacade, only()).findAllChildrenInGroup(anyLong());
+	}
+
+	@Test
+	public void shouldDelegateApiCallTo_getAllGroupsForChild() throws Exception {
+		//Given
+
+		//When
+		mvc.perform(MockMvcRequestBuilders.get(API_GROUPS + "groupList/" + UUID.randomUUID())
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk());
+
+		//Then
+		verify(groupFacade, only()).getAllGroupsForChild(any(UUID.class));
 	}
 }

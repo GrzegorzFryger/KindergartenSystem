@@ -13,8 +13,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_ADMIN;
-import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_TEACHER;
+import static pl.edu.pja.prz.commons.constants.Roles.*;
 import static pl.edu.pja.prz.core.controller.RequestMappings.API_GROUPS;
 
 @RestController
@@ -74,8 +73,14 @@ public class GroupsController {
 	@PreAuthorize(HAS_ROLE_ADMIN)
 	@PutMapping("remove/{groupId}/{childId}")
 	public ResponseEntity<?> removeChildFromGroup(@PathVariable Long groupId,
-													@PathVariable UUID childId) {
+												  @PathVariable UUID childId) {
 		groupFacade.removeChildFromGroup(groupId, childId);
 		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	@PreAuthorize(HAS_ROLE_USER)
+	@GetMapping("groupList/{childId}")
+	public ResponseEntity<List<GroupDto>> getAllGroupsForChild(@PathVariable UUID childId) {
+		return new ResponseEntity<>(groupFacade.getAllGroupsForChild(childId), HttpStatus.OK);
 	}
 }
