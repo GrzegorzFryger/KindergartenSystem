@@ -147,4 +147,15 @@ class GroupServiceTest {
 		//Then
 		verify(repository, times(0)).save(any(Group.class));
 	}
+
+	@Test
+	void shouldGetAllGroupsForChild() {
+		//Given
+
+		//When
+		service.getGroupsForChild(UUID.randomUUID());
+
+		//Then
+		verify(repository, only()).getAllGroupsAssignedToChild(anyString());
+	}
 }
