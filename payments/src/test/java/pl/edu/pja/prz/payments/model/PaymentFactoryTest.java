@@ -2,7 +2,7 @@ package pl.edu.pja.prz.payments.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pl.edu.pja.prz.payments.model.enums.Status;
+import pl.edu.pja.prz.payments.model.enums.StatusPayment;
 import pl.edu.pja.prz.payments.model.enums.TypeRecurringPayment;
 import pl.edu.pja.prz.payments.model.value.Child;
 import pl.edu.pja.prz.payments.model.value.PeriodValidity;
@@ -29,14 +29,20 @@ class PaymentFactoryTest {
 	@Test
 	void should_createTuitionPayment() {
 		//given
-		var tuition = new RecurringPayment(child,
-				payment,
-				periodValidity,
-				TypeRecurringPayment.TUITION,
-				Status.NONACTIVE
-		);
+		var childId = UUID.randomUUID();
+		var guardianId = UUID.randomUUID();
+
+		var tuition = new RecurringPayment();
+		tuition.setChildId(childId);
+		tuition.setGuardianId(guardianId);
+		tuition.setDescription(payment.getDescription());
+		tuition.setBaseAmount(payment.getBaseAmount());
+		tuition.setPeriodValidity(periodValidity);
+		tuition.setTypeRecurringPayment(TypeRecurringPayment.TUITION);
+        tuition.setStatusPayment(StatusPayment.NONACTIVE);
+
 		//when
-		var createdTuition = PaymentFactory.createTuitionPayment(child, payment, periodValidity);
+		var createdTuition = PaymentFactory.createTuitionPayment(childId, guardianId, payment, periodValidity);
 		//then
 		assertEquals(tuition, createdTuition);
 	}
@@ -44,14 +50,19 @@ class PaymentFactoryTest {
 	@Test
 	void should_createOtherRecurringPayment() {
 		//given
-		var tuition = new RecurringPayment(child,
-				payment,
-				periodValidity,
-				TypeRecurringPayment.OTHER,
-				Status.NONACTIVE
-		);
+		var childId = UUID.randomUUID();
+		var guardianId = UUID.randomUUID();
+
+		var tuition = new RecurringPayment();
+		tuition.setChildId(childId);
+		tuition.setGuardianId(guardianId);
+		tuition.setDescription(payment.getDescription());
+		tuition.setBaseAmount(payment.getBaseAmount());
+		tuition.setPeriodValidity(periodValidity);
+		tuition.setTypeRecurringPayment(TypeRecurringPayment.OTHER);
+        tuition.setStatusPayment(StatusPayment.NONACTIVE);
 		//when
-		var createdTuition = PaymentFactory.createOtherRecurringPayment(child, payment, periodValidity);
+		var createdTuition = PaymentFactory.createOtherRecurringPayment(childId, guardianId, payment, periodValidity);
 		//then
 		assertEquals(tuition, createdTuition);
 	}

@@ -4,32 +4,26 @@ import pl.edu.pja.prz.payments.model.enums.TypeDiscount;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Set;
 
 public interface DiscountCalculator {
-	BigDecimal getBaseAmount();
+    BigDecimal getBaseAmount();
 
-	Set<Discount> getDiscounts();
+    Discount getDiscount();
 
-	default BigDecimal calculateAmountWithDiscount() {
-		if (getDiscounts().isEmpty()) {
-			return getBaseAmount();
-		} else {
-			return getDiscounts()
-					.stream()
-					.map(discount -> {
-						BigDecimal valueOfDiscount;
-						if (TypeDiscount.PERCENTAGE == discount.getTypeDiscount()) {
-							valueOfDiscount = getBaseAmount().multiply(
-									discount.getValue().divide(BigDecimal.valueOf(100))
-							).setScale(2, RoundingMode.CEILING);
-						} else {
-							valueOfDiscount = discount.getValue()
-									.setScale(2, RoundingMode.CEILING);
-						}
-						return valueOfDiscount;
-					})
-					.reduce(getBaseAmount(), BigDecimal::subtract);
-		}
-	}
+    default BigDecimal calculateAmountWithDiscount() {
+        BigDecimal result = getBaseAmount();
+        if (getDiscount() == null) {
+            // Do nothing - since discount is not found
+        } else {
+            if (TypeDiscount.PERCENTAGE == getDiscount().getTypeDiscount()) {
+                BigDecimal multiplier = getDiscount().getValue().divide(BigDecimal.valueOf(100));
+                result = result.subtract(result.multiply(multiplier).setScale(2, RoundingMode.CEILING));
+            } else {
+                result = result.subtract(getDiscount().getValue()
+                        .setScale(2, RoundingMode.CEILING));
+            }
+        }
+        return result;
+    }
 }
+

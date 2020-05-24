@@ -30,9 +30,11 @@ class DiscountServiceImplTest {
 	void setUp() {
 		discountService = new DiscountServiceImpl(discountRepository);
 		discount = new Discount("Test Discount",
-				new BigDecimal(String.valueOf("50.0")),
+                new BigDecimal("50.0"),
 				TypeDiscount.PERCENTAGE
 		);
+
+        discount.setId(1L);
 	}
 
 	@Test
@@ -50,7 +52,7 @@ class DiscountServiceImplTest {
 		//when
 		when(discountRepository.findById(1L)).thenReturn(Optional.of(discount));
 		when(discountRepository.save(any(Discount.class))).thenReturn(discount);
-		var createdDiscount = discountService.updateDiscount(1L, discount);
+        var createdDiscount = discountService.updateDiscount(discount);
 
 		//then
 		verify(discountRepository, times(1)).save(any(Discount.class));

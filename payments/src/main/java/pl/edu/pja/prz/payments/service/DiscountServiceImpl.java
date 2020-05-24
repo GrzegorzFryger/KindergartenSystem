@@ -2,6 +2,7 @@ package pl.edu.pja.prz.payments.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.payments.model.Discount;
 import pl.edu.pja.prz.payments.repository.DiscountRepository;
 
@@ -22,12 +23,17 @@ public class DiscountServiceImpl implements DiscountService {
 	}
 
 	@Override
-	public Discount updateDiscount(Long id, Discount discount) {
-		return discountRepository.findById(id)
+	public Discount updateDiscount(Discount discount) {
+		return discountRepository.findById(discount.getId())
 				.map(discount1 -> {
-					discount1 = discount;
+
+					discount1.setDescription(discount.getDescription());
+					discount1.setName(discount.getName());
+					discount1.setValue(discount.getValue());
+					discount1.setTypeDiscount(discount.getTypeDiscount());
+
 					return discountRepository.save(discount1);
-				}).orElseThrow(() -> new IllegalArgumentException("Discount not found"));
+				}).orElseThrow(() -> new ElementNotFoundException(discount.getId()));
 	}
 
 	@Override
@@ -35,9 +41,24 @@ public class DiscountServiceImpl implements DiscountService {
 		discountRepository.delete(discount);
 	}
 
+    @Override
+    public void deleteDiscount(Long id) {
+        discountRepository.deleteById(id);
+    }
+
 	@Override
 	public List<Discount> getAllDiscount() {
 		return discountRepository.findAll();
+	}
+
+	@Override
+	public Discount getById(Long id) {
+		return this.discountRepository.findById(id).orElseThrow(() -> new ElementNotFoundException(id));
+	}
+
+	@Override
+	public List<Discount> getByName(String name) {
+		return this.discountRepository.findAllByName(name);
 	}
 
 }
