@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 public class RecurringPayment extends Payment implements DiscountCalculator {
     private PeriodValidity periodValidity;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Discount discount;
     @Enumerated(EnumType.STRING)
     private StatusPayment statusPayment;
