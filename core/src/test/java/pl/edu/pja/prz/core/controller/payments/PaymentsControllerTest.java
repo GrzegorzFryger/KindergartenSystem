@@ -11,7 +11,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pl.edu.pja.prz.payments.facade.RecurringPaymentFacade;
-import pl.edu.pja.prz.payments.facade.dto.RecurringPaymentDto;
+import pl.edu.pja.prz.payments.model.dto.RecurringPaymentDto;
+
+import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -42,7 +44,7 @@ class PaymentsControllerTest {
         //Given
 
         //When
-        mvc.perform(MockMvcRequestBuilders.get(API_PAYMENTS)
+        mvc.perform(MockMvcRequestBuilders.get(API_PAYMENTS + "recurring-payments")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
@@ -55,7 +57,7 @@ class PaymentsControllerTest {
         //Given
 
         //When
-        mvc.perform(MockMvcRequestBuilders.get(API_PAYMENTS + "/1")
+        mvc.perform(MockMvcRequestBuilders.get(API_PAYMENTS + "recurring-payment/1")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
@@ -69,7 +71,7 @@ class PaymentsControllerTest {
         String json = convertToJson(new RecurringPaymentDto());
 
         //When
-        mvc.perform(MockMvcRequestBuilders.post(API_PAYMENTS + "tuition")
+        mvc.perform(MockMvcRequestBuilders.post(API_PAYMENTS + "recurring-payment/tuition")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON).content(json))
                 .andExpect(status().isOk());
@@ -84,7 +86,7 @@ class PaymentsControllerTest {
         String json = convertToJson(new RecurringPaymentDto());
 
         //When
-        mvc.perform(MockMvcRequestBuilders.post(API_PAYMENTS + "other")
+        mvc.perform(MockMvcRequestBuilders.post(API_PAYMENTS + "recurring-payments/other")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON).content(json))
                 .andExpect(status().isOk());
@@ -99,7 +101,7 @@ class PaymentsControllerTest {
         String json = convertToJson(new RecurringPaymentDto());
 
         //When
-        mvc.perform(MockMvcRequestBuilders.put(API_PAYMENTS)
+        mvc.perform(MockMvcRequestBuilders.put(API_PAYMENTS + "recurring-payments")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON).content(json))
                 .andExpect(status().isOk());
@@ -113,7 +115,7 @@ class PaymentsControllerTest {
         //Given
 
         //When
-        mvc.perform(MockMvcRequestBuilders.delete(API_PAYMENTS + "/1")
+        mvc.perform(MockMvcRequestBuilders.delete(API_PAYMENTS + "recurring-payments/1")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
@@ -124,15 +126,27 @@ class PaymentsControllerTest {
     @Test
     public void Should_DelegateApiCallTo_markAsCancelPaymentMethod() throws Exception {
         //Given
-        String json = convertToJson(1);
 
         //When
-        mvc.perform(MockMvcRequestBuilders.put(API_PAYMENTS + "cancel")
+        mvc.perform(MockMvcRequestBuilders.put(API_PAYMENTS + "recurring-payments/cancel/1")
                 .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON).content(json))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
         //Then
         verify(recurringPaymentFacade, only()).markAsCancelPayment(anyLong());
+    }
+
+    @Test
+    public void Should_DelegateApiCallTo_findAllRecurringPaymentsByChildIdMethod() throws Exception {
+        //Given
+
+        //When
+        mvc.perform(MockMvcRequestBuilders.get(API_PAYMENTS + "recurring-payments/" + UUID.randomUUID())
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        //Then
+        verify(recurringPaymentFacade, only()).findAllByChild(any(UUID.class));
     }
 }

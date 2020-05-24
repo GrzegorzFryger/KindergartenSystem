@@ -534,6 +534,33 @@
 							]
 						}
 					},
+                  "response": []
+                },
+              {
+                "name": "/activate",
+                "request": {
+                  "method": "POST",
+                  "header": [],
+                  "body": {
+                    "mode": "raw",
+                    "raw": "{\n\t\"token\": \"eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJpc3MiOiJzZWN1cmUtYXBpIiwiYXVkIjoic2VjdXJlLWFwcCIsInN1YiI6ImZyeWdlckBvdXRsb29rLmNvbSIsImV4cCI6MTU5MDcwMjkzMCwicGFzc3dvcmQtdG9rZW4iOiIkMmEkMTAkT0h3MExENXlGL05xLnh4WlFLZkVET0JSRzVRcWVEaGFpcGNBNXpzczkubFhJWjhkaXRKa3UifQ.lUdLg9FcyG3K0HklTbOYkjZd81P8VqMyiW0Hpc11hVMoY8hNZISKYsom0axLqInWgc7RMyvffE3UvfLSWt3njQ\",\n\t\"rawPassword\": \"new-password\",\n\t\"repeatRawPassword\": \"new-password\"\n}",
+                    "options": {
+                      "raw": {
+                        "language": "json"
+                      }
+                    }
+                  },
+                  "url": {
+                    "raw": "{{HOST}}/{{ACCOUNT}}/activate",
+                    "host": [
+                      "{{HOST}}"
+                    ],
+                    "path": [
+                      "{{ACCOUNT}}",
+                      "activate"
+                    ]
+                  }
+                },
 					"response": []
 				}
 			],

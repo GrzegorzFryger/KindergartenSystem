@@ -5,10 +5,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import pl.edu.pja.prz.payments.facade.dto.RecurringPaymentDto;
 import pl.edu.pja.prz.payments.facade.mapper.RecurringMapper;
 import pl.edu.pja.prz.payments.facade.mapper.RecurringMapperImpl;
 import pl.edu.pja.prz.payments.model.RecurringPayment;
+import pl.edu.pja.prz.payments.model.dto.RecurringPaymentDto;
 import pl.edu.pja.prz.payments.model.enums.TypeRecurringPayment;
 import pl.edu.pja.prz.payments.service.RecurringPaymentService;
 

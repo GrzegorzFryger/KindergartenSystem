@@ -1,5 +1,5 @@
 package pl.edu.pja.prz.payments.model.enums;
 
-public enum Status {
+public enum StatusPayment {
 	ACTIVE, SUSPENDED, NONACTIVE, CANCELED
 }

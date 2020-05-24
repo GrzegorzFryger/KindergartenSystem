@@ -23,7 +23,7 @@ public class ActivateTokenService {
 	public static final String TOKEN_TYPE = "JWT";
 	public static final String TOKEN_ISSUER = "secure-api";
 	public static final String TOKEN_AUDIENCE = "secure-app";
-    public static final Integer TOKEN_EXPIRATION_TIME = 604800000; // week
+    public static final Integer TOKEN_EXPIRATION_TIME = 151200000; // month
 
 	private static final String HEADER_PARAM_NAME = "type";
 	private static final String CLAIM_PARAM_NAME = "password-token";

@@ -27,25 +27,21 @@ class RecurringPaymentTest {
 		//given
 		var rebate1 = new Discount("Test Discount", BigDecimal.valueOf(50), TypeDiscount.AMOUNT);
 		rebate1.setId(1L);
-		var rebate2 = new Discount("Test Discount", BigDecimal.valueOf(10), TypeDiscount.AMOUNT);
-		rebate2.setId(2L);
-		recurringPayment.setDiscounts(Set.of(rebate1,rebate2));
+		recurringPayment.setDiscount(rebate1);
 		//when
 		var result = recurringPayment.calculateAmountWithDiscount();
 		//then
-		assertEquals(BigDecimal.valueOf(40).setScale(2, RoundingMode.CEILING), result);
+		assertEquals(BigDecimal.valueOf(50).setScale(2, RoundingMode.CEILING), result);
 	}
 	@Test
 	void shouldSubtractPercentageAmountOfDiscount_When_DiscountIsSet() {
 		//given
 		var rebate1 = new Discount("Test Discount", BigDecimal.valueOf(10), TypeDiscount.PERCENTAGE);
 		rebate1.setId(1L);
-		var rebate2 = new Discount("Test Discount", BigDecimal.valueOf(10), TypeDiscount.PERCENTAGE);
-		rebate2.setId(2L);
-		recurringPayment.setDiscounts(Set.of(rebate1,rebate2));
+		recurringPayment.setDiscount(rebate1);
 		//when
 		var result = recurringPayment.calculateAmountWithDiscount();
 		//then
-		assertEquals(BigDecimal.valueOf(80).setScale(2, RoundingMode.CEILING), result);
+		assertEquals(BigDecimal.valueOf(90).setScale(2, RoundingMode.CEILING), result);
 	}
 }
