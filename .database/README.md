@@ -25,11 +25,15 @@ This script will create database schemas and users.
 * run `insert_quartz_1_0.sql` script  
 This script will initialize all objects, which are required by scheduler in order to work properly
 
-## 2.3 Tables
+## 2.3 Scheduler jobs
+* run `insert_scheduler_jobs_1_0.sql` script
+This script will add scheduled jobs
+
+## 2.4 Tables
 * run `mvn clean install`  
 Hibernate will create all necessary tables.  
 
-## 2.4 Test data
+## 2.5 Test data
 * run `insert_1_0.sql` script  
 This script will insert some test data.   
 
