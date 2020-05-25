@@ -15,4 +15,5 @@ public interface MealRepository extends JpaRepository<Meal, Long> {
 	Optional<Meal> findMealByChildIDAndMealStatusAndMealType(UUID id, MealStatus status, MealType mealType);
 	Optional<Meal> findMealByIdAndMealStatus(Long id, MealStatus status);
 	List<Meal> findAllByMealStatus(MealStatus mealStatus);
+	List<Meal> findAllByChildID(UUID id);
 }

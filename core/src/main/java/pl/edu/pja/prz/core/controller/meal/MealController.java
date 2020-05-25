@@ -8,6 +8,7 @@ import pl.edu.pja.prz.meal.model.Meal;
 import pl.edu.pja.prz.meal.model.dto.MealCreateUpdateDTO;
 
 import java.util.List;
+import java.util.UUID;
 
 import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_USER;
 import static pl.edu.pja.prz.core.controller.RequestMappings.API_MEALS;
@@ -51,5 +52,11 @@ public class MealController {
     @PreAuthorize(HAS_ROLE_USER)
     public Meal markMealAsInactiveOnDemand(@PathVariable("id") Long mealToMarkAsInactiveOnDemand) {
         return mealFacade.markMealAsInactiveOnDemand(mealToMarkAsInactiveOnDemand);
+    }
+
+    @GetMapping("{id}/child")
+    @PreAuthorize(HAS_ROLE_USER)
+    public List<Meal> getAllMealsByChildId(@PathVariable("id") UUID id){
+        return mealFacade.getAllMealsByChildId(id);
     }
 }
