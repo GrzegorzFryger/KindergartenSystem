@@ -13,7 +13,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_ADMIN;
-import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_USER;
 import static pl.edu.pja.prz.core.controller.RequestMappings.API_MEAL_ORDER;
 
 @RestController
