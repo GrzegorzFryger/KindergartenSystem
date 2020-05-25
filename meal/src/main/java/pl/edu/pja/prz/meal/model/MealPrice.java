@@ -2,10 +2,7 @@ package pl.edu.pja.prz.meal.model;
 
 import pl.edu.pja.prz.meal.model.enums.MealType;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -13,6 +10,7 @@ import java.util.Objects;
 public class MealPrice {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Enumerated(EnumType.STRING)
     private MealType mealType;
