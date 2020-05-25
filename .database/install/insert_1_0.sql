@@ -124,25 +124,41 @@ VALUES
 (1, 0, 'Klasa A', 'Opis klasy A'),
 (2, 0, 'Klasa B', 'Opis klasy B'),
 (3, 0, 'Klasa C', 'Opis klasy C'),
-(4, 0, 'Klasa D', 'Opis klasy D');
+(4, 0, 'Klasa D', 'Opis klasy D'),
+(5, 0, 'Plastyka', 'Warsztaty plastyczne'),
+(6, 0, 'Zumba', 'Zajęcia taneczne'),
+(7, 0, 'Angielski', 'Kurs języka angielskiego'),
+(8, 0, 'Muzyka', 'Warsztaty muzyczne'),
+(9, 0, 'Gimnastyka', 'Zajęcia wychowania fizycznego');
 
 INSERT INTO classrooms.child(`id`)
 VALUES
+('45034cab-c252-4b2b-9887-59b7ad7431cd'),
 ('0560d77d-e0db-4914-ae4a-4f39690ecb2d'),
 ('067b5db4-de4e-401e-9cac-7f6289e96c19'),
+('fec1b907-c9ce-4327-8bc6-abe353a76ba2'),
 ('15ad869b-14c4-4be1-8456-d7f5fea6b557'),
 ('1cb1e3fc-e0c9-45f4-861d-24884a4f64ad'),
-('45034cab-c252-4b2b-9887-59b7ad7431cd'),
-('fec1b907-c9ce-4327-8bc6-abe353a76ba2');
+('1c7fe144-f71a-4599-b8bf-04aa92d7ab6d');
 
 INSERT INTO classrooms.classroom_child(`group_id`, `child_id`)
 VALUES
+('1', '45034cab-c252-4b2b-9887-59b7ad7431cd'),
 ('1', '0560d77d-e0db-4914-ae4a-4f39690ecb2d'),
-('1', '067b5db4-de4e-401e-9cac-7f6289e96c19'),
-('2', '15ad869b-14c4-4be1-8456-d7f5fea6b557'),
-('3', '1cb1e3fc-e0c9-45f4-861d-24884a4f64ad'),
-('3', '45034cab-c252-4b2b-9887-59b7ad7431cd'),
-('4', 'fec1b907-c9ce-4327-8bc6-abe353a76ba2');
+('2', '067b5db4-de4e-401e-9cac-7f6289e96c19'),
+('3', 'fec1b907-c9ce-4327-8bc6-abe353a76ba2'),
+('3', '15ad869b-14c4-4be1-8456-d7f5fea6b557'),
+('4', '1cb1e3fc-e0c9-45f4-861d-24884a4f64ad'),
+('4', '1c7fe144-f71a-4599-b8bf-04aa92d7ab6d'),
+('5', '45034cab-c252-4b2b-9887-59b7ad7431cd'),
+('7', '45034cab-c252-4b2b-9887-59b7ad7431cd'),
+('6', '0560d77d-e0db-4914-ae4a-4f39690ecb2d'),
+('8', '0560d77d-e0db-4914-ae4a-4f39690ecb2d'),
+('7', '067b5db4-de4e-401e-9cac-7f6289e96c19'),
+('8', 'fec1b907-c9ce-4327-8bc6-abe353a76ba2'),
+('9', '15ad869b-14c4-4be1-8456-d7f5fea6b557'),
+('6', '1cb1e3fc-e0c9-45f4-861d-24884a4f64ad'),
+('7', '1c7fe144-f71a-4599-b8bf-04aa92d7ab6d');
 
 
 -- MEAL MODULE --

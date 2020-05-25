@@ -1,4 +1,4 @@
-package pl.edu.pja.prz.payments.facade.dto;
+package pl.edu.pja.prz.payments.model.dto;
 
 import pl.edu.pja.prz.payments.model.enums.TypeRecurringPayment;
 
@@ -15,6 +15,7 @@ public class RecurringPaymentDto {
 	private LocalDate startDate;
 	private LocalDate endDate;
 	private TypeRecurringPayment type;
+	private DiscountDto discount;
 
 	public RecurringPaymentDto() {
 	}
@@ -81,5 +82,13 @@ public class RecurringPaymentDto {
 
 	public void setType(TypeRecurringPayment type) {
 		this.type = type;
+	}
+
+	public DiscountDto getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(DiscountDto discount) {
+		this.discount = discount;
 	}
 }

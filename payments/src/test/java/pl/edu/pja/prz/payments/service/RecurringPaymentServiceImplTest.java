@@ -9,7 +9,7 @@ import pl.edu.pja.prz.payments.model.Discount;
 import pl.edu.pja.prz.payments.model.Payment;
 import pl.edu.pja.prz.payments.model.PaymentFactory;
 import pl.edu.pja.prz.payments.model.RecurringPayment;
-import pl.edu.pja.prz.payments.model.enums.Status;
+import pl.edu.pja.prz.payments.model.enums.StatusPayment;
 import pl.edu.pja.prz.payments.model.enums.TypeDiscount;
 import pl.edu.pja.prz.payments.model.value.Child;
 import pl.edu.pja.prz.payments.model.value.PeriodValidity;
@@ -50,10 +50,12 @@ class RecurringPaymentServiceImplTest {
 	@Test
 	void should_createOtherPayment() {
 		//given
-		var otherRecurringPayment = PaymentFactory.createOtherRecurringPayment(child, payment, periodValidity);
+		var childId = UUID.randomUUID();
+		var guardianId = UUID.randomUUID();
+		var otherRecurringPayment = PaymentFactory.createOtherRecurringPayment(childId, guardianId, payment, periodValidity);
 		//when
 		when(recurringPaymentRepository.save(any(RecurringPayment.class))).thenReturn(otherRecurringPayment);
-		var returnedTuition = recurringPaymentService.createOtherPayment(child, payment, periodValidity);
+		var returnedTuition = recurringPaymentService.createOtherPayment(childId, guardianId, payment, periodValidity);
 		//then
 		verify(recurringPaymentRepository, times(1)).save(otherRecurringPayment);
 		assertEquals(otherRecurringPayment, returnedTuition);
@@ -62,10 +64,12 @@ class RecurringPaymentServiceImplTest {
 	@Test
 	void should_createTuition() {
 		//given
-		var tuition = PaymentFactory.createTuitionPayment(child, payment, periodValidity);
+		var childId = UUID.randomUUID();
+		var guardianId = UUID.randomUUID();
+		var tuition = PaymentFactory.createTuitionPayment(childId, guardianId, payment, periodValidity);
 		//when
 		when(recurringPaymentRepository.save(any(RecurringPayment.class))).thenReturn(tuition);
-		var returnedTuition = recurringPaymentService.createTuition(child, payment, periodValidity);
+		var returnedTuition = recurringPaymentService.createTuition(childId, guardianId, payment, periodValidity);
 		//then
 		verify(recurringPaymentRepository, times(1)).save(tuition);
 		assertEquals(tuition, returnedTuition);
@@ -76,7 +80,7 @@ class RecurringPaymentServiceImplTest {
 		//given
 		var payment = new RecurringPayment();
 		payment.setId(1L);
-		payment.setStatus(Status.ACTIVE);
+        payment.setStatusPayment(StatusPayment.ACTIVE);
 		payment.setBaseAmount(new BigDecimal("50.0"));
 		payment.setDescription( "Test payment");
 		payment.setPeriodValidity(periodValidity);
@@ -93,10 +97,11 @@ class RecurringPaymentServiceImplTest {
 		//given
 		var payment = new RecurringPayment();
 		payment.setId(1L);
-		payment.setStatus(Status.ACTIVE);
+        payment.setStatusPayment(StatusPayment.ACTIVE);
 		payment.setBaseAmount(new BigDecimal("50.0"));
 		payment.setDescription( "Test payment");
 		payment.setPeriodValidity(periodValidity);
+		payment.setDiscount(new Discount());
 
 		//when
 		when(recurringPaymentRepository.findById(1L)).thenReturn(Optional.of(mockPayment));
@@ -110,7 +115,8 @@ class RecurringPaymentServiceImplTest {
 		verify(mockPayment, times(1)).setBaseAmount(any());
 		verify(mockPayment, times(1)).setDescription(any());
 		verify(mockPayment, times(1)).setPeriodValidity(any());
-		verify(mockPayment, times(1)).setStatus(any());
+        verify(mockPayment, times(1)).setStatusPayment(any());
+        verify(mockPayment, times(1)).setDiscount(any(Discount.class));
 	}
 
 	@Test
@@ -128,7 +134,7 @@ class RecurringPaymentServiceImplTest {
 		recurringPaymentService.markAsCancelPayment(1L);
 
 		//then
-		assertEquals(Status.CANCELED, payment.getStatus());
+        assertEquals(StatusPayment.CANCELED, payment.getStatusPayment());
 		verify(recurringPaymentRepository, times(1)).save(any());
 		verify(recurringPaymentRepository, times(1)).findById(1L);
 
@@ -152,17 +158,17 @@ class RecurringPaymentServiceImplTest {
 		when(discountRepository.findById(1L)).thenReturn(Optional.of(discount));
 		when(recurringPaymentRepository.findActiveByChildId(any())).thenReturn(Optional.of(mockPayment));
 		when(recurringPaymentRepository.save(any())).thenReturn(mockPayment);
-		when(mockPayment.getDiscounts()).thenReturn(Set.of(discount));
+		when(mockPayment.getDiscount()).thenReturn(discount);
 
-		var discounts = recurringPaymentService
-				.addDiscountsToPayment(new UUID(1L, 2L), 1L);
+		var result = recurringPaymentService
+				.addDiscountToPayment(new UUID(1L, 2L), 1L);
 
 		//then
-		assertEquals(Set.of(discount), discounts);
+		assertEquals(discount, result);
 		verify(recurringPaymentRepository, times(1)).save(mockPayment);
 		verify(recurringPaymentRepository, times(1)).findActiveByChildId(any());
-		verify(mockPayment, times(1)).getDiscounts();
-		verify(mockPayment, times(1)).addDiscount(any());
+		verify(mockPayment, times(1)).getDiscount();
+		verify(mockPayment, times(1)).setDiscount(any());
 		verify(discountRepository, times(1)).findById(1L);
 	}
 
@@ -175,17 +181,17 @@ class RecurringPaymentServiceImplTest {
 		when(discountRepository.findById(1L)).thenReturn(Optional.of(discount));
 		when(recurringPaymentRepository.findActiveByChildId(any())).thenReturn(Optional.of(mockPayment));
 		when(recurringPaymentRepository.save(any())).thenReturn(mockPayment);
-		when(mockPayment.getDiscounts()).thenReturn(Set.of(discount));
+		when(mockPayment.getDiscount()).thenReturn(discount);
 
-		var discounts = recurringPaymentService
+		var result = recurringPaymentService
 				.removeDiscountsFromPayment(new UUID(1L, 2L), 1L);
 
 		//then
-		assertEquals(Set.of(discount), discounts);
+		assertEquals(discount, result);
 		verify(recurringPaymentRepository, times(1)).save(mockPayment);
 		verify(recurringPaymentRepository, times(1)).findActiveByChildId(any());
-		verify(mockPayment, times(1)).getDiscounts();
-		verify(mockPayment, times(1)).removeDiscount(any());
+		verify(mockPayment, times(1)).getDiscount();
+		verify(mockPayment, times(1)).setDiscount(any());
 		verify(discountRepository, times(1)).findById(1L);
 	}
 

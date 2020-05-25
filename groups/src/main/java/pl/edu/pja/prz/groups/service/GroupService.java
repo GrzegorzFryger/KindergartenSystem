@@ -24,4 +24,6 @@ public interface GroupService {
 
 	List<UUID> findIdOfAllChildrenInGroup(Long groupId);
 
+	List<Group> getGroupsForChild(UUID childId);
+
 }
