@@ -101,6 +101,7 @@ class RecurringPaymentServiceImplTest {
 		payment.setBaseAmount(new BigDecimal("50.0"));
 		payment.setDescription( "Test payment");
 		payment.setPeriodValidity(periodValidity);
+		payment.setDiscount(new Discount());
 
 		//when
 		when(recurringPaymentRepository.findById(1L)).thenReturn(Optional.of(mockPayment));
@@ -115,6 +116,7 @@ class RecurringPaymentServiceImplTest {
 		verify(mockPayment, times(1)).setDescription(any());
 		verify(mockPayment, times(1)).setPeriodValidity(any());
         verify(mockPayment, times(1)).setStatusPayment(any());
+        verify(mockPayment, times(1)).setDiscount(any(Discount.class));
 	}
 
 	@Test
