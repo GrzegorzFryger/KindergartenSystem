@@ -5,6 +5,7 @@ import pl.edu.pja.prz.meal.model.NutritionalNotes;
 import pl.edu.pja.prz.meal.model.dto.MealCreateUpdateDTO;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface MealService {
 
@@ -18,6 +19,5 @@ public interface MealService {
     boolean isNoteByIdPresentInMeal(Long nnId, Long mealId);
     List<NutritionalNotes> getNutritionalNotesByMealId(Long mealId);
     Meal markMealAsInactiveOnDemand(Long mealToMarkAsInactiveId);
-
-
+    List<Meal> getAllMealsByChildId(UUID id);
 }

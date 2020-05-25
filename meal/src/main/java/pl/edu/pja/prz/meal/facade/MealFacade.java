@@ -7,6 +7,7 @@ import pl.edu.pja.prz.meal.model.dto.MealCreateUpdateDTO;
 import pl.edu.pja.prz.meal.service.MealService;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class MealFacade {
@@ -36,5 +37,9 @@ public class MealFacade {
 
     public Meal markMealAsInactiveOnDemand(Long mealToMarkAsInactiveId) {
         return mealService.markMealAsInactiveOnDemand(mealToMarkAsInactiveId);
+    }
+
+    public List<Meal> getAllMealsByChildId(UUID id) {
+        return mealService.getAllMealsByChildId(id);
     }
 }
