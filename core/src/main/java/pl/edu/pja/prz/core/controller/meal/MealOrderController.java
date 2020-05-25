@@ -12,6 +12,7 @@ import pl.edu.pja.prz.meal.model.MealOrder;
 import java.time.LocalDate;
 import java.util.List;
 
+import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_ADMIN;
 import static pl.edu.pja.prz.commons.constants.Roles.HAS_ROLE_USER;
 import static pl.edu.pja.prz.core.controller.RequestMappings.API_MEAL_ORDER;
 
@@ -27,13 +28,13 @@ public class MealOrderController {
     }
 
     @GetMapping
-    @PreAuthorize(HAS_ROLE_USER)
+    @PreAuthorize(HAS_ROLE_ADMIN)
     public List<MealOrder> getAllMealOrder() {
         return mealOrderFacade.getAllMealOrder();
     }
 
     @GetMapping("/{date}")
-    @PreAuthorize(HAS_ROLE_USER)
+    @PreAuthorize(HAS_ROLE_ADMIN)
     public List<MealOrder> getAllMealOrderByDate(@PathVariable("date") String orderDate) {
         return mealOrderFacade.getAllMealOrderByDate(LocalDate.parse(orderDate));
     }
