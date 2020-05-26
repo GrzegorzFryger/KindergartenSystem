@@ -68,19 +68,22 @@ public class Role extends BaseEntityLong {
 		return (privileges.length > 0) && this.privileges.containsAll(Arrays.asList(privileges));
 	}
 
-	@Override public boolean equals(Object o) {
+    @Override
+    public boolean equals(Object o) {
 		if (this == o) return true;
 		if (!(o instanceof Role)) return false;
+        if (!super.equals(o)) return false;
 
 		Role role = (Role) o;
 
-		if (getName() != null ? !getName().equals(role.getName()) : role.getName() != null)
-			return false;
+        if (getName() != null ? !getName().equals(role.getName()) : role.getName() != null) return false;
 		return getPrivileges() != null ? getPrivileges().equals(role.getPrivileges()) : role.getPrivileges() == null;
 	}
 
-	@Override public int hashCode() {
-		int result = getName() != null ? getName().hashCode() : 0;
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
 		result = 31 * result + (getPrivileges() != null ? getPrivileges().hashCode() : 0);
 		return result;
 	}

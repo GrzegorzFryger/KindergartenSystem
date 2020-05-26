@@ -133,12 +133,8 @@ class AccountServiceTest {
 
 		verify(accountRepository).save(argument.capture());
 		assertEquals(updatedAccount.getAddress(), argument.getValue().getAddress());
-		assertEquals(updatedAccount.getFullName(), argument.getValue().getFullName());
-		assertEquals(updatedAccount.getAddress(), argument.getValue().getAddress());
 		assertEquals(updatedAccount.getPhoneNumber(), argument.getValue().getPhoneNumber());
 
-		assertEquals(account.getEmail(), argument.getValue().getEmail());
-		assertEquals(account.getPassword(), argument.getValue().getPassword());
 	}
 
 	@Test
@@ -148,13 +144,13 @@ class AccountServiceTest {
 		var personUpdated = new Person();
 
 		personUpdated.setAddress(new Address("80-80", "CityUpdated", "StreetUpdated"));
-		personUpdated.setFullName(new FullName("TestNameUpdated", "TestSurnameUpdated"));
 		personUpdated.setPhoneNumber(new Phone("723456478"));
-		personUpdated.setId(account.getId());
+
 
 		this.accountService.updateNotEmptyPersonField(person, personUpdated);
 
-		assertEquals(personUpdated, person);
+        assertEquals(personUpdated.getAddress(), person.getAddress());
+        assertEquals(personUpdated.getPhoneNumber(), person.getPhoneNumber());
 	}
 
 	@Test
