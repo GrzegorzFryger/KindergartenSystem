@@ -44,9 +44,6 @@ public class AccountService {
 		if (newPerson.getAddress() != null) {
 			oldPerson.setAddress(newPerson.getAddress());
 		}
-		if (newPerson.getFullName() != null) {
-			oldPerson.setFullName(newPerson.getFullName());
-		}
 		if (newPerson.getPhoneNumber() != null) {
 			oldPerson.setPhoneNumber(newPerson.getPhoneNumber());
 		}
