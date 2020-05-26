@@ -49,20 +49,19 @@ public class MealPrice {
     }
 
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
         MealPrice mealPrice1 = (MealPrice) o;
-        return mealType == mealPrice1.mealType &&
+        return Objects.equals(id, mealPrice1.id) &&
+                mealType == mealPrice1.mealType &&
                 Objects.equals(mealPrice, mealPrice1.mealPrice);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), mealType, mealPrice);
+        return Objects.hash(id, mealType, mealPrice);
     }
 
     @Override
