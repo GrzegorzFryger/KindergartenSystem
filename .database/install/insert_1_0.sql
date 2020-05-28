@@ -112,7 +112,14 @@ VALUES
 (0, 366.70, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2019-11-12', 'INCREASE', '20190902442123'),
 (0, 623.70, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2019-12-12', 'INCREASE', '20190902442123'),
 (0, 390.50, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2019-11-23', 'INCREASE', '20190902442123'),
-(0, 200.50, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', '2019-12-12', 'INCREASE', '20180902634522');
+(0, 200.50, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', '2019-12-12', 'INCREASE', '20180902634522'),
+(0, -400.00, '45034cab-c252-4b2b-9887-59b7ad7431cd', '2019-05-01', 'DECREASE', 'Czesne - maj 2020'),
+(0, -400.00, 'fec1b907-c9ce-4327-8bc6-abe353a76ba2', '2019-05-01', 'DECREASE', 'Czesne - maj 2020'),
+(0, -400.00, '1c7fe144-f71a-4599-b8bf-04aa92d7ab6d', '2019-05-01', 'DECREASE', 'Czesne - maj 2020'),
+(0, -400.00, '1cb1e3fc-e0c9-45f4-861d-24884a4f64ad', '2019-05-01', 'DECREASE', 'Czesne - maj 2020'),
+(0, -400.00, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', '2019-05-01', 'DECREASE', 'Czesne - maj 2020'),
+(0, -400.00, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2019-05-01', 'DECREASE', 'Czesne - maj 2020'),
+(0, -400.00, '15ad869b-14c4-4be1-8456-d7f5fea6b557', '2019-05-01', 'DECREASE', 'Czesne - maj 2020');
 
 INSERT INTO finances.accountNumber(`version`, `accountNumber`, `name`, `street`, `city`, `postalCode`)
 VALUES
