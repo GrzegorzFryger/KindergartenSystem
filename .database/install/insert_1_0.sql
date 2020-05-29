@@ -171,12 +171,75 @@ VALUES
 
 INSERT INTO `meal`.`mealprice` (`mealPrice`, `mealType`)
 VALUES
-('56.44','DINER'),
+('18.44','DINER'),
 ('15.50','BREAKFAST');
+('15.50','SOUP');
 
 INSERT INTO `meal`.`mealconfiguration` (`id`, `version`, `emailToSendMealOrder`)
 VALUES
-('1', '0', 'patyk@int.pl');
+('1', '0', 'kindergartensystem.gda@gmail.com');
+
+INSERT INTO `meal`.`mealorder`
+(`id`,`version`,`mealCount`,`mealType`,`orderDate`)
+VALUES
+(12, 0, 4, 'Zupa (Dla Diabetyków)', '2020-05-27'),
+(13, 0, 4, 'Obiad (Dla Diabetyków)', '2020-05-27'),
+(14, 0, 1, 'Obiad (Bez nabiału)', '2020-05-27'),
+(15, 0, 8, 'Śniadanie (Bez nabiału)', '2020-05-27'),
+(16, 0, 3, 'Zupa (Podstawowa)', '2020-05-26'),
+(17, 0, 4, 'Zupa (Dla Diabetyków)', '2020-05-26'),
+(18, 0, 4, 'Obiad (Dla Diabetyków)', '2020-05-26'),
+(19, 0, 1, 'Obiad (Bez nabiału)', '2020-05-26'),
+(20, 0, 8, 'Śniadanie (Bez nabiału)', '2020-05-26'),
+(21, 0, 3, 'Zupa (Podstawowa)', '2020-05-25'),
+(22, 0, 4, 'Zupa (Dla Diabetyków)', '2020-05-25'),
+(23, 0, 4, 'Obiad (Dla Diabetyków)', '2020-05-25'),
+(24, 0, 1, 'Obiad (Bez nabiału)', '2020-05-25'),
+(25, 0, 8, 'Śniadanie (Bez nabiału)', '2020-05-25'),
+(26, 0, 3, 'Zupa (Podstawowa)', '2020-05-24'),
+(27, 0, 4, 'Zupa (Dla Diabetyków)', '2020-05-24'),
+(28, 0, 4, 'Obiad (Dla Diabetyków)', '2020-05-24'),
+(29, 0, 1, 'Obiad (Bez nabiału)', '2020-05-24'),
+(30, 0, 8, 'Śniadanie (Bez nabiału)', '2020-05-24'),
+(31, 0, 3, 'Zupa (Podstawowa)', '2020-05-23'),
+(32, 0, 4, 'Zupa (Dla Diabetyków)', '2020-05-23'),
+(33, 0, 4, 'Obiad (Dla Diabetyków)', '2020-05-23'),
+(34, 0, 1, 'Obiad (Bez nabiału)', '2020-05-23'),
+(35, 0, 8, 'Śniadanie (Bez nabiału)', '2020-05-23'),
+(36, 0, 3, 'Zupa (Podstawowa)', '2020-05-28'),
+(37, 0, 4, 'Zupa (Dla Diabetyków)', '2020-05-28'),
+(38, 0, 4, 'Obiad (Dla Diabetyków)', '2020-05-28'),
+(39, 0, 1, 'Obiad (Bez nabiału)', '2020-05-28'),
+(40, 0, 8, 'Śniadanie (Bez nabiału)', '2020-05-28'),
+(41, 0, 3, 'Zupa (Podstawowa)', '2020-05-27');
+
+INSERT INTO `finances`.`balancehistory`
+(`id`,`version`,`amountOfChange`,`childId`,`date`,`operationType`,`title`)
+VALUES
+(30, 0,'-15.50','0560d77d-e0db-4914-ae4a-4f39690ecb2d','2020-05-29','DECREASE','Śniadanie w dniu 2020-05-29'),
+(31, 0,'-56.44','0560d77d-e0db-4914-ae4a-4f39690ecb2d','2020-05-29','DECREASE','Obiad w dniu 2020-05-29'),
+(32, 0,'-12.24','15ad869b-14c4-4be1-8456-d7f5fea6b557','2020-05-29','DECREASE','Zupa w dniu 2020-05-29'),
+(33, 0,'-44.00','15ad869b-14c4-4be1-8456-d7f5fea6b557','2020-05-29','DECREASE','Śniadanie w dniu 2020-05-29'),
+(34, 0,'-12.24','0560d77d-e0db-4914-ae4a-4f39690ecb2d','2020-05-29','DECREASE','Zupa w dniu 2020-05-29'),
+(35, 0,'-15.50','0560d77d-e0db-4914-ae4a-4f39690ecb2d','2020-05-29','DECREASE','Śniadanie w dniu 2020-05-29'),
+(36, 0,'-56.44','0560d77d-e0db-4914-ae4a-4f39690ecb2d','2020-05-29','DECREASE','Obiad w dniu 2020-05-29'),
+(37, 0,'-56.44','0560d77d-e0db-4914-ae4a-4f39690ecb2d','2020-05-29','DECREASE','Obiad w dniu 2020-05-29'),
+(38, 0,'-15.50','0560d77d-e0db-4914-ae4a-4f39690ecb2d','2020-05-28','DECREASE','Śniadanie w dniu 2020-05-28'),
+(39, 0,'-56.44','0560d77d-e0db-4914-ae4a-4f39690ecb2d','2020-05-28','DECREASE','Obiad w dniu 2020-05-28'),
+(40, 0,'-12.24','15ad869b-14c4-4be1-8456-d7f5fea6b557','2020-05-28','DECREASE','Zupa w dniu 2020-05-28'),
+(41, 0,'-44.00','15ad869b-14c4-4be1-8456-d7f5fea6b557','2020-05-28','DECREASE','Śniadanie w dniu 2020-05-28'),
+(42, 0,'-12.24','0560d77d-e0db-4914-ae4a-4f39690ecb2d','2020-05-28','DECREASE','Zupa w dniu 2020-05-28'),
+(43, 0,'-15.50','0560d77d-e0db-4914-ae4a-4f39690ecb2d','2020-05-28','DECREASE','Śniadanie w dniu 2020-05-28'),
+(44, 0,'-56.44','0560d77d-e0db-4914-ae4a-4f39690ecb2d','2020-05-28','DECREASE','Obiad w dniu 2020-05-28'),
+(45, 0,'-56.44','0560d77d-e0db-4914-ae4a-4f39690ecb2d','2020-05-28','DECREASE','Obiad w dniu 2020-05-28'),
+(46, 0,'-15.50','0560d77d-e0db-4914-ae4a-4f39690ecb2d','2020-05-27','DECREASE','Śniadanie w dniu 2020-05-27'),
+(47, 0,'-56.44','0560d77d-e0db-4914-ae4a-4f39690ecb2d','2020-05-27','DECREASE','Obiad w dniu 2020-05-27'),
+(48, 0,'-12.24','15ad869b-14c4-4be1-8456-d7f5fea6b557','2020-05-27','DECREASE','Zupa w dniu 2020-05-27'),
+(49, 0,'-44.00','15ad869b-14c4-4be1-8456-d7f5fea6b557','2020-05-27','DECREASE','Śniadanie w dniu 2020-05-27'),
+(50, 0,'-12.24','0560d77d-e0db-4914-ae4a-4f39690ecb2d','2020-05-27','DECREASE','Zupa w dniu 2020-05-27'),
+(51, 0,'-15.50','0560d77d-e0db-4914-ae4a-4f39690ecb2d','2020-05-27','DECREASE','Śniadanie w dniu 2020-05-27'),
+(52, 0,'-56.44','0560d77d-e0db-4914-ae4a-4f39690ecb2d','2020-05-27','DECREASE','Obiad w dniu 2020-05-27'),
+(53, 0,'-56.44','0560d77d-e0db-4914-ae4a-4f39690ecb2d','2020-05-27','DECREASE','Obiad w dniu 2020-05-27');
 
 
 -- PAYMENTS MODULE --
