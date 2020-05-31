@@ -1,5 +1,6 @@
 package pl.edu.pja.prz.finances.model;
 
+import org.hibernate.annotations.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.edu.pja.prz.commons.model.BaseEntityLong;
@@ -10,6 +11,7 @@ import javax.persistence.PostPersist;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 public class AccountNumber extends BaseEntityLong implements Serializable {
@@ -22,6 +24,9 @@ public class AccountNumber extends BaseEntityLong implements Serializable {
     private String street;
     private String city;
     private String postalCode;
+    @Type(type = "uuid-char")
+    @Column(length = 36)
+    private UUID childId;
 
     public String getAccountNumber() {
         return accountNumber;
@@ -61,6 +66,14 @@ public class AccountNumber extends BaseEntityLong implements Serializable {
 
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
+    }
+
+    public UUID getChildId() {
+        return childId;
+    }
+
+    public void setChildId(UUID childId) {
+        this.childId = childId;
     }
 
     @Override
