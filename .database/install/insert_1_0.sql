@@ -187,7 +187,7 @@ VALUES
 INSERT INTO `meal`.`mealprice` (`mealPrice`, `mealType`)
 VALUES
 ('18.44','DINER'),
-('15.50','BREAKFAST');
+('15.50','BREAKFAST'),
 ('15.50','SOUP');
 
 INSERT INTO `meal`.`mealconfiguration` (`id`, `version`, `emailToSendMealOrder`)
@@ -227,6 +227,20 @@ VALUES
 (39, 0, 1, 'Obiad (Bez nabiału)', '2020-05-28'),
 (40, 0, 8, 'Śniadanie (Bez nabiału)', '2020-05-28'),
 (41, 0, 3, 'Zupa (Podstawowa)', '2020-05-27');
+
+INSERT INTO `meal`.`nutritionalnotes`
+(`id`,`version`,`createdTime`,`nutritionalNotesValue`)
+VALUES
+(1,0,'2020-05-31 11:13:06.830887','Proszę mniej marchewki dla Julki'),
+(2,0,'2020-05-31 11:14:37.068125','Posiłki bardzo smakują Pawłowi');
+
+
+INSERT INTO `meal`.`meal_nutritionalnotes`
+(`Meal_id`, `nutritionalNotesList_id`)
+VALUES
+(3,2),
+(4,1);
+
 
 INSERT INTO `finances`.`balancehistory`
 (`id`,`version`,`amountOfChange`,`childId`,`date`,`operationType`,`title`)
