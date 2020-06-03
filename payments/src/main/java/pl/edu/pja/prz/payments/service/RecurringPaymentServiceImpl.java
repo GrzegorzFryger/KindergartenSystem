@@ -2,6 +2,7 @@ package pl.edu.pja.prz.payments.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.payments.model.Discount;
 import pl.edu.pja.prz.payments.model.Payment;
 import pl.edu.pja.prz.payments.model.PaymentFactory;
@@ -12,7 +13,6 @@ import pl.edu.pja.prz.payments.repository.DiscountRepository;
 import pl.edu.pja.prz.payments.repository.RecurringPaymentRepository;
 
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -57,7 +57,7 @@ public class RecurringPaymentServiceImpl implements RecurringPaymentService {
     @Override
     public RecurringPayment getPaymentById(Long id) {
         return recurringPaymentRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Not found payment with id " + id));
+                .orElseThrow(() -> new ElementNotFoundException("Not found payment with id " + id));
     }
 
     @Override
@@ -82,10 +82,17 @@ public class RecurringPaymentServiceImpl implements RecurringPaymentService {
                 payment.setStatusPayment(recurringPayment.getStatusPayment());
             }
             if (recurringPayment.getDiscount() != null) {
-                payment.setDiscount(recurringPayment.getDiscount());
+                discountRepository.findById(recurringPayment.getDiscount().getId())
+                        .ifPresentOrElse(
+                                payment::setDiscount,
+                                () -> {
+                                    throw new ElementNotFoundException("Discount", "Not found with id" +
+                                            recurringPayment.getDiscount().getId());
+                                });
+
             }
             return recurringPaymentRepository.save(payment);
-        }).orElseThrow(() -> new IllegalArgumentException("Not found payment with id " + recurringPayment.getId()));
+        }).orElseThrow(() -> new ElementNotFoundException("Not found payment with id " + recurringPayment.getId()));
     }
 
     @Override
@@ -94,7 +101,7 @@ public class RecurringPaymentServiceImpl implements RecurringPaymentService {
             payment.setStatusPayment(StatusPayment.CANCELED);
             return recurringPaymentRepository.save(payment);
         }).orElseThrow(() -> {
-            throw new IllegalArgumentException("Not found payment with id " + paymentId);
+            throw new ElementNotFoundException("Not found payment with id " + paymentId);
         });
     }
 
@@ -135,7 +142,7 @@ public class RecurringPaymentServiceImpl implements RecurringPaymentService {
                             recurringPaymentRepository.save(payment);
                             return payment.getDiscount();
                         }
-                ).orElseThrow(() -> new IllegalArgumentException("Not found payment with child id " + childId))
-        ).orElseThrow(() -> new IllegalArgumentException("Not found discount with id " + discountId));
+                ).orElseThrow(() -> new ElementNotFoundException("Not found payment with child id " + childId))
+        ).orElseThrow(() -> new ElementNotFoundException("Not found discount with id " + discountId));
     }
 }

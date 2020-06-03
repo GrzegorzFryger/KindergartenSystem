@@ -17,6 +17,7 @@ public interface RecurringMapper {
 	@Mapping(source = "startDate", target = "periodValidity.startDate")
 	@Mapping(source = "endDate", target = "periodValidity.endDate")
 	@Mapping(source = "type", target = "typeRecurringPayment")
+	@Mapping(source = "discount", target = "discount")
 	RecurringPayment toRecurringPayment(RecurringPaymentDto recurringPaymentDto);
 
 	@InheritInverseConfiguration
