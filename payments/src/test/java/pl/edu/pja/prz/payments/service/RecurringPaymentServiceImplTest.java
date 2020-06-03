@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pl.edu.pja.prz.commons.exception.ElementNotFoundException;
 import pl.edu.pja.prz.payments.model.Discount;
 import pl.edu.pja.prz.payments.model.Payment;
 import pl.edu.pja.prz.payments.model.PaymentFactory;
@@ -18,7 +19,10 @@ import pl.edu.pja.prz.payments.repository.RecurringPaymentRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -88,7 +92,7 @@ class RecurringPaymentServiceImplTest {
 		//when
 		when(recurringPaymentRepository.findById(1L)).thenReturn(Optional.empty());
 		//then
-		assertThrows(IllegalArgumentException.class,
+		assertThrows(ElementNotFoundException.class,
 				() -> recurringPaymentService.updatePayment(payment));
 	}
 
@@ -101,7 +105,7 @@ class RecurringPaymentServiceImplTest {
 		payment.setBaseAmount(new BigDecimal("50.0"));
 		payment.setDescription( "Test payment");
 		payment.setPeriodValidity(periodValidity);
-		payment.setDiscount(new Discount());
+
 
 		//when
 		when(recurringPaymentRepository.findById(1L)).thenReturn(Optional.of(mockPayment));
@@ -116,7 +120,7 @@ class RecurringPaymentServiceImplTest {
 		verify(mockPayment, times(1)).setDescription(any());
 		verify(mockPayment, times(1)).setPeriodValidity(any());
         verify(mockPayment, times(1)).setStatusPayment(any());
-        verify(mockPayment, times(1)).setDiscount(any(Discount.class));
+
 	}
 
 	@Test
@@ -216,7 +220,7 @@ class RecurringPaymentServiceImplTest {
 		//When
 		when(recurringPaymentRepository.findById(anyLong())).thenReturn(Optional.empty());
 
-		assertThrows(IllegalArgumentException.class, () -> {
+		assertThrows(ElementNotFoundException.class, () -> {
 			RecurringPayment result = recurringPaymentService.getPaymentById(1L);
 		});
 
