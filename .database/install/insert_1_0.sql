@@ -272,6 +272,45 @@ VALUES
 
 
 -- PAYMENTS MODULE --
+
+INSERT INTO payments.discount (id, version, description, name, typeDiscount, value) VALUES (1, 1, 'Rabat na 2 dziecko 20%', 'Drugie dziecko', 'PERCENTAGE', 20.00);
+INSERT INTO payments.discount (id, version, description, name, typeDiscount, value) VALUES (2, 1, 'Rabat na 3 dziecko 30%', 'Drugie dziecko', 'PERCENTAGE', 30.00);
+INSERT INTO payments.discount (id, version, description, name, typeDiscount, value) VALUES (3, 1, 'Rabat 100 złotych', 'Drugie dziecko', 'AMOUNT', 100.00);
+
+INSERT INTO payments.recurringpayment (id, version, baseAmount, childId, description, guardianId, endDate, startDate, statusPayment, typeRecurringPayment, discount_id)
+VALUES (1, 1, 700.00, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', 'Czesne', 'c4029244-e8ff-4328-8658-28964dda3c4e', '2022-06-03', '2018-06-03', 'ACTIVE', 'TUITION', null);
+INSERT INTO payments.recurringpayment (id, version, baseAmount, childId, description, guardianId, endDate, startDate, statusPayment, typeRecurringPayment, discount_id)
+VALUES (2, 1, 700.00, '067b5db4-de4e-401e-9cac-7f6289e96c19', 'Czesne', 'c4029244-e8ff-4328-8658-28964dda3c4e', '2022-06-03', '2018-06-03', 'ACTIVE', 'TUITION', 1);
+INSERT INTO payments.recurringpayment (id, version, baseAmount, childId, description, guardianId, endDate, startDate, statusPayment, typeRecurringPayment, discount_id)
+VALUES (3, 1, 700.00, '15ad869b-14c4-4be1-8456-d7f5fea6b557', 'Czesne', 'c4029244-e8ff-4328-8658-28964dda3c4e', '2022-06-03', '2018-06-03', 'ACTIVE', 'TUITION', 2);
+INSERT INTO payments.recurringpayment (id, version, baseAmount, childId, description, guardianId, endDate, startDate, statusPayment, typeRecurringPayment, discount_id)
+ VALUES (4, 1, 700.00, '1c7fe144-f71a-4599-b8bf-04aa92d7ab6d', 'Czesne', '8a186e67-b796-406f-8e6a-3dc483143121', '2022-06-03', '2018-06-03', 'ACTIVE', 'TUITION', null);
+INSERT INTO payments.recurringpayment (id, version, baseAmount, childId, description, guardianId, endDate, startDate, statusPayment, typeRecurringPayment, discount_id)
+ VALUES (5, 1, 700.00, '1cb1e3fc-e0c9-45f4-861d-24884a4f64ad', 'Czesne', '8a186e67-b796-406f-8e6a-3dc483143121', '2022-06-03', '2018-06-03', 'ACTIVE', 'TUITION', 1);
+INSERT INTO payments.recurringpayment (id, version, baseAmount, childId, description, guardianId, endDate, startDate, statusPayment, typeRecurringPayment, discount_id)
+VALUES (6, 1, 700.00, '45034cab-c252-4b2b-9887-59b7ad7431cd', 'Czesne', '2a5c0cad-4de6-45a0-aebe-2a71cf06232b', '2022-06-03', '2018-06-03', 'ACTIVE', 'TUITION', null);
+INSERT INTO payments.recurringpayment (id, version, baseAmount, childId, description, guardianId, endDate, startDate, statusPayment, typeRecurringPayment, discount_id)
+VALUES (7, 1, 700.00, 'fec1b907-c9ce-4327-8bc6-abe353a76ba2', 'Czesne', '2a5c0cad-4de6-45a0-aebe-2a71cf06232b', '2022-06-03', '2018-06-03', 'ACTIVE', 'TUITION', null);
+
+INSERT INTO payments.paymenthistory (id, version, amount, childId, date, description, guardianId, operationType, status, typeRecurringPayment)
+VALUES (1, null, 700.00, '0560d77d-e0db-4914-ae4a-4f39690ecb2d', '2020-06-03', 'Płatność czesne', 'c4029244-e8ff-4328-8658-28964dda3c4e', 'DECREASE', 'ACTIVE', 'TUITION');
+INSERT INTO payments.paymenthistory (id, version, amount, childId, date, description, guardianId, operationType, status, typeRecurringPayment)
+VALUES (2, null, 700.00, '067b5db4-de4e-401e-9cac-7f6289e96c19', '2020-06-03', 'Płatność czesne', 'c4029244-e8ff-4328-8658-28964dda3c4e', 'DECREASE', 'ACTIVE', 'TUITION');
+INSERT INTO payments.paymenthistory (id, version, amount, childId, date, description, guardianId, operationType, status, typeRecurringPayment)
+VALUES (3, null, 700.00, '15ad869b-14c4-4be1-8456-d7f5fea6b557', '2020-06-03', 'Płatność czesne', 'c4029244-e8ff-4328-8658-28964dda3c4e', 'DECREASE', 'ACTIVE', 'TUITION');
+INSERT INTO payments.paymenthistory (id, version, amount, childId, date, description, guardianId, operationType, status, typeRecurringPayment)
+VALUES (4, null, 700.00, '1c7fe144-f71a-4599-b8bf-04aa92d7ab6d', '2020-06-03', 'Płatność czesne', '8a186e67-b796-406f-8e6a-3dc483143121', 'DECREASE', 'ACTIVE', 'TUITION');
+INSERT INTO payments.paymenthistory (id, version, amount, childId, date, description, guardianId, operationType, status, typeRecurringPayment)
+VALUES (5, null, 700.00, '1cb1e3fc-e0c9-45f4-861d-24884a4f64ad', '2020-06-03', 'Płatność czesne', '8a186e67-b796-406f-8e6a-3dc483143121', 'DECREASE', 'ACTIVE', 'TUITION');
+INSERT INTO payments.paymenthistory (id, version, amount, childId, date, description, guardianId, operationType, status, typeRecurringPayment)
+VALUES (7, null, 700.00, '45034cab-c252-4b2b-9887-59b7ad7431cd', '2020-06-03', 'Płatność czesne', '2a5c0cad-4de6-45a0-aebe-2a71cf06232b', 'DECREASE', 'ACTIVE', 'TUITION');
+INSERT INTO payments.paymenthistory (id, version, amount, childId, date, description, guardianId, operationType, status, typeRecurringPayment)
+VALUES (8, null, 700.00, '45034cab-c252-4b2b-9887-59b7ad7431cd', '2020-05-03', 'Płatność czesne', '2a5c0cad-4de6-45a0-aebe-2a71cf06232b', 'DECREASE', 'ACTIVE', 'TUITION');
+INSERT INTO payments.paymenthistory (id, version, amount, childId, date, description, guardianId, operationType, status, typeRecurringPayment)
+VALUES (9, null, 700.00, '45034cab-c252-4b2b-9887-59b7ad7431cd', '2020-04-03', 'Płatność czesne', '2a5c0cad-4de6-45a0-aebe-2a71cf06232b', 'DECREASE', 'ACTIVE', 'TUITION');
+INSERT INTO payments.paymenthistory (id, version, amount, childId, date, description, guardianId, operationType, status, typeRecurringPayment)
+VALUES (10, null, 700.00, '45034cab-c252-4b2b-9887-59b7ad7431cd', '2020-03-03', 'Płatność czesne', '2a5c0cad-4de6-45a0-aebe-2a71cf06232b', 'DECREASE', 'ACTIVE', 'TUITION');
+
 -- RECEIVABLES MODULE --
 INSERT INTO receivables.transaction (`version`, `accountNumber`, `bankName`, `bookingDate`, `childId`, `contractorDetails`, `details`, `guardianId`, `title`, `transactionAmount`, `transactionCurrency`, `transactionDate`, `transactionNumber`)
 VALUES
