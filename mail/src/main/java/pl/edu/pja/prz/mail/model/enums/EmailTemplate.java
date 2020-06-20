@@ -1,7 +1,8 @@
 package pl.edu.pja.prz.mail.model.enums;
 
 public enum EmailTemplate {
-    BASE_TEMPLATE("base-email");
+    BASE_TEMPLATE("base-email"),
+    ACTIVATE_TEMPLATE("activate-email");
 
     private final String name;
 

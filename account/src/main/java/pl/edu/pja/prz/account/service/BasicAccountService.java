@@ -14,6 +14,7 @@ import pl.edu.pja.prz.commons.model.FullName;
 import pl.edu.pja.prz.commons.model.Phone;
 import pl.edu.pja.prz.mail.facade.MailFacade;
 import pl.edu.pja.prz.mail.model.BaseMail;
+import pl.edu.pja.prz.mail.model.enums.EmailTemplate;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -92,6 +93,7 @@ public abstract class BasicAccountService<T extends BasicAccountRepository<E, UU
         return Optional.ofNullable(this.activateTokenService.generateToken(email, password)).map(token -> {
             String content = CLIENT_HTTP_ADDRESS_PROPERTIES + token;
             BaseMail baseMail = new BaseMail();
+            baseMail.setEmailTemplate(EmailTemplate.ACTIVATE_TEMPLATE);
             baseMail.setTo(email);
             baseMail.setSubject(ACCOUNT_CREATE_EMAIL_SUBJECT);
             baseMail.setContent(content);
